@@ -6,6 +6,7 @@
     v-model="model"
     :model-value="val"
     :options="options"
+    :model-value="val"
     @update:model-value="(val) => itemSelected(pylonNum, val)"
     emit-value
     @filter="filterFn"
