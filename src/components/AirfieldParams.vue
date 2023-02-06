@@ -150,7 +150,7 @@ import { QNH_Unit } from './models';
 import { computed } from 'vue';
 
 /// Calculators
-import { TakeoffIndex } from 'src/service/calculators/TakeOffIndex';
+import { TakeoffIndexCalculator } from 'src/service/calculators/TakeOffIndex';
 import { GroundRun } from 'src/service/calculators/GroundRun';
 import { TakeoffSpeed } from 'src/service/calculators/takeOffSpeed';
 import { PTFS } from 'src/service/calculators/PTFS';
@@ -179,6 +179,10 @@ const ground = computed(() => {
   if (typeof temp == 'undefined') temp = 0;
   return temp;
 });
+
+const TOICalculator = new TakeoffIndexCalculator();
+const TakeoffIndex = (temp: number, pressureAltitude: number) =>
+  TOICalculator.Calc(pressureAltitude, temp);
 
 const colorPercent = computed(() => (percentRun.value > 1 ? 'red' : 'green'));
 </script>

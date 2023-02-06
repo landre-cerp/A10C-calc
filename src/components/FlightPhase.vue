@@ -145,6 +145,7 @@ TakeOffPhase.startWeight = Math.ceil(aircraft.TotalWeight);
 // At component init, set params and recalc
 const ClimbPhase = phases.value[1];
 ClimbPhase.startWeight = TakeOffPhase.startWeight - TakeOffPhase.FuelUsed;
+
 Recalc();
 
 function Recalc() {
@@ -165,6 +166,22 @@ function Recalc() {
     ClimbPhase.startWeight,
     airport.DeltaTemp,
     aircraft.Drag
+  );
+
+  ClimbPhase.Distance = ClimbDistanceNeeded(
+    airport.AirportPressureAltitude,
+    flight.CruisePressureAlt,
+    ClimbPhase.startWeight,
+    airport.DeltaTemp,
+    aircraft.Drag
+  );
+
+  CruisePhase.FuelUsed = CruiseFuelUsed(
+    flight.CruisePressureAlt,
+    CruisePhase.startWeight,
+    airport.DeltaTemp,
+    aircraft.Drag,
+    CruisePhase.Distance
   );
 
   ClimbPhase.Distance = ClimbDistanceNeeded(

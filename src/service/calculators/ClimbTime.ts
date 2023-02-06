@@ -1,204 +1,122 @@
-import { ApplyDeltaTempTCorrection } from '../conversionTool';
+import {
+  TempCorrectionTable,
+  CorrectionTable,
+  CorrectionVector,
+  DragCorrectionTable,
+} from './CorrectionTable';
 
 export const ClimbTimeNeeded = (
   startingAlt: number,
-  TartgetAlt: number,
+  tartgetAlt: number,
   startingWeight: number,
   deltaTemp: number,
   drag: number
 ): number => {
   // Select equation vectors for the Aircraft Drag
 
-  const [vDrag, vnextDrag] = selectTimeVectorsForDrag(drag);
+  const [v, vnext, step, startDrag] = climbTimeDragTable.getInterval(drag);
+  console.log('v', v, vnext, step, startDrag);
+  let target_timeNeeded = v.GetLinear(startingWeight, tartgetAlt);
+  let start_timeNeeded = v.GetLinear(startingWeight, startingAlt);
+  console.log('target_timeNeeded', target_timeNeeded);
+  console.log('start_timeNeeded', start_timeNeeded);
 
-  let timeNeeded = CalcTimeNeededFor(
-    vDrag,
-    startingAlt,
-    TartgetAlt,
-    startingWeight
-  );
+  start_timeNeeded = start_timeNeeded < 0 ? 0 : start_timeNeeded;
 
-  if (vnextDrag != vDrag) {
-    const nextTimeNeeded = CalcTimeNeededFor(
-      vnextDrag,
-      startingAlt,
-      TartgetAlt,
-      startingWeight
-    );
+  if (step != 0) {
+    const target_nexttimeNeeded = vnext.GetLinear(startingWeight, tartgetAlt);
+    const start_nexttimeNeeded = vnext.GetLinear(startingWeight, startingAlt);
 
-    const increment = (nextTimeNeeded - timeNeeded) / 4; // delta drag from table is 4
+    const target_increment = (target_nexttimeNeeded - target_timeNeeded) / step;
+    const start_increment = (start_nexttimeNeeded - start_timeNeeded) / step;
 
-    const deltaDrag = drag >= 4 ? drag - 4 : drag;
-    timeNeeded = timeNeeded + (increment > 0 ? increment * deltaDrag : 0);
+    target_timeNeeded =
+      target_timeNeeded +
+      (target_increment > 0 ? target_increment * (drag - startDrag) : 0);
+    start_timeNeeded =
+      start_timeNeeded +
+      (start_increment > 0 ? start_increment * (drag - startDrag) : 0);
   }
+  let timeNeeded = target_timeNeeded - start_timeNeeded;
 
   if (deltaTemp > 0) {
-    const step = 5;
-    for (let rangeStart = 5; rangeStart < 35; rangeStart += step) {
-      if (timeNeeded >= rangeStart && timeNeeded < rangeStart + step) {
-        timeNeeded = ApplyDeltaTempTCorrection(
-          selectVectorsForDeltaTemp,
-          timeNeeded,
-          deltaTemp,
-          rangeStart,
-          step
-        );
-      }
-    }
+    timeNeeded = tempCorrectionTable.GetLinear(timeNeeded, deltaTemp);
   }
 
   return timeNeeded < 0 ? 0 : Math.ceil(timeNeeded);
 };
 
-const CalcTimeNeededFor = (
-  v: Map<number, number[]>,
-  startingAlt: number,
-  tartgetAlt: number,
-  startingWeight: number
-): number => {
-  let timeNeeded = 0;
+const v_climb_time_drag0 = new CorrectionTable(
+  'Climb time for Drag 0',
+  new Map([
+    [25000, new CorrectionVector([0.0714, 2.19e-4, -6.23e-9, 2.83e-13])],
+    [30000, new CorrectionVector([-0.557, 3.76e-4, -1.73e-8, 5.47e-13])],
+    [35000, new CorrectionVector([0.0857, 5.38e-4, -3.56e-8, 1.07e-12])],
+    [40000, new CorrectionVector([-0.933, 7.9e-4, -4.67e-8, 1.36e-12])],
+    [45000, new CorrectionVector([-2.33, 1.16e-3, -7.17e-8, 2.07e-12])],
+    [50000, new CorrectionVector([-1.16, 7.94e-4, -4.11e-8, 1.6e-12])],
+  ])
+);
 
-  const step = 5000;
+const v_climb_time_drag4 = new CorrectionTable(
+  'Climb time for drage 4',
+  new Map([
+    [25000, new CorrectionVector([-1.16, 7.94e-4, -4.11e-8, 1.6e-12])],
+    [30000, new CorrectionVector([-1.29, 5.79e-4, -3.26e-8, 9.09e-13])],
+    [35000, new CorrectionVector([-0.914, 7.94e-4, -5.37e-8, 1.51e-12])],
+    [40000, new CorrectionVector([-1.67, 1.03e-3, -7.02e-8, 2.04e-12])],
+    [45000, new CorrectionVector([-4.67, 1.81e-3, -1.2e-7, 3.26e-12])],
+    [50000, new CorrectionVector([-1.44, 9.13e-4, -5.74e-8, 2.4e-12])],
+  ])
+);
 
-  for (
-    let weightRangeStart = 35000;
-    weightRangeStart < 50000;
-    weightRangeStart += step
-  ) {
-    if (
-      startingWeight >= weightRangeStart &&
-      startingWeight < weightRangeStart + step
-    ) {
-      timeNeeded = TimeNeededFor(
-        v,
-        startingAlt,
-        tartgetAlt,
-        startingWeight,
-        weightRangeStart,
-        step
-      );
-    }
-  }
+const v_climb_time_drag8 = new CorrectionTable(
+  'Climb time for drage 8',
+  new Map([
+    [25000, new CorrectionVector([-4.14, 1.3e-3, -7.87e-8, 1.68e-12])],
+    [30000, new CorrectionVector([-3.04, 1.03e-3, -6.15e-8, 1.49e-12])],
+    [35000, new CorrectionVector([-1.03, 7.2e-4, -4.6e-8, 1.41e-12])],
+    [40000, new CorrectionVector([-4.13, 1.67e-3, -1.22e-7, 3.41e-12])],
+    [45000, new CorrectionVector([-1.72, 9.3e-4, -5.9e-8, 2.2e-12])],
+    [50000, new CorrectionVector([-9.2, 3.5e-3, -2.95e-7, 8.93e-12])],
+  ])
+);
 
-  return timeNeeded;
-};
+const climbTimeDragTable = new DragCorrectionTable(
+  'Drag correction table for climb time',
+  new Map([
+    [0, v_climb_time_drag0],
+    [4, v_climb_time_drag4],
+    [8, v_climb_time_drag8],
+  ])
+);
 
-/* CLIMB tools */
-
-const selectTimeVectorsForDrag = (
-  drag: number
-): [Map<number, number[]>, Map<number, number[]>] => {
-  if (drag >= 8) return [v_climb_time_drag8, v_climb_time_drag8];
-  if (drag >= 4 && drag < 8) {
-    return [v_climb_time_drag4, v_climb_time_drag8];
-  }
-  return [v_climb_time_drag0, v_climb_time_drag4];
-};
-
-const selectVectorsForDeltaTemp = (deltaTemp: number) => {
-  return deltaTemp > 0
-    ? time_vectors_climb_deltaT_positive
-    : time_vectors_climb_deltaT_negative;
-};
-
-const CLB_Time = (coeff: number[] | undefined, pressureAlt: number) => {
-  if (typeof coeff == 'undefined') return 0;
-  const TimeNeeded = Math.ceil(
-    coeff[0] +
-      coeff[1] * pressureAlt +
-      coeff[2] * pressureAlt * pressureAlt +
-      coeff[3] * pressureAlt * pressureAlt * pressureAlt +
-      coeff[4] * pressureAlt * pressureAlt * pressureAlt * pressureAlt
-  );
-
-  return TimeNeeded >= 0 ? TimeNeeded : 0;
-};
-
-/**
- *
- * @param v Correction Map
- * @param startingAlt Altitude the aircraft Starts
- * @param TartgetAlt Cruise Altitude
- * @param weightRangeStart
- * @param step
- * @returns
- */
-const TimeNeededFor = (
-  v: Map<number, number[]>,
-  startingAlt: number,
-  TartgetAlt: number,
-  startingWeight: number,
-  weightRangeStart: number,
-  step: number
-) => {
-  // 1st calculation is made for "low drag chart"
-  // get number for low weight Range,
-  // get number for high weight Range ,
-  // Linear from low to High given the "Step"
-
-  const lowStartTime = CLB_Time(v.get(weightRangeStart), startingAlt / 1000);
-  const lowEndTime = CLB_Time(v.get(weightRangeStart), TartgetAlt / 1000);
-  const lowTime = lowEndTime - lowStartTime;
-
-  const highStartTime = CLB_Time(
-    v.get(weightRangeStart + step),
-    startingAlt / 1000
-  );
-  const highEndTime = CLB_Time(
-    v.get(weightRangeStart + step),
-    TartgetAlt / 1000
-  );
-  const highTime = highEndTime - highStartTime;
-
-  const increment = (highTime - lowTime) / step;
-  const TimeNeeded = lowTime + increment * (startingWeight - weightRangeStart);
-  return TimeNeeded > 0 ? TimeNeeded : 0;
-};
-
-const v_climb_time_drag0: Map<number, number[]> = new Map([
-  [25000, [-0.25, 0.313, -0.0145, 5.56e-4, -3.03e-6]],
-  [30000, [2.24, -0.519, 0.0701, -2.72e-3, 3.98e-5]],
-  [35000, [-0.429, 0.701, -0.0513, 1.65e-3, -7.27e-6]],
-  [40000, [-2.25, 1.26, -0.0999, 3.74e-3, -3.67e-5]],
-  [45000, [0.667, 0.128, 0.0394, -2.59e-3, 6.67e-5]],
-  [50000, [1, -0.02, 0.058, -3.2e-3, 8e-5]],
-]);
-
-const v_climb_time_drag4: Map<number, number[]> = new Map([
-  [25000, [-3.29, 1.33, -0.118, -4.59e-3, -5.45e-5]],
-  [30000, [0.571, 0.0306, 0.0152, -6.73e-4, 1.76e-5]],
-  [35000, [2, -0.131, 0.0353, -1.79e-3, 4.124e-5]],
-  [40000, [-0.917, 0.769, -0.0424, 8.73e-4, 1.67e-5]],
-  [45000, [4.33, -1.29, 0.214, -0.0107, 2e-4]],
-
-  [50000, [1.78e-15, 0.37, 8.67e-3, -8e-4, 5.33e-5]],
-]);
-
-const v_climb_time_drag8: Map<number, number[]> = new Map([
-  [25000, [3.41, -0.922, 0.115, -4.73e-3, 7.12e-5]],
-  [30000, [3, -0.883, 0.123, -5.35e-3, 8.55e-5]],
-  [35000, [0.167, 0.307, -1.56e-3, -4.59e-4, 2.67e-5]],
-  [40000, [0.667, 0.0206, 0.0554, -4.06e-3, 1.07e-4]],
-  [45000, [-1.72, 0.93, -0.059, 2.2e-3, 0]],
-  [50000, [7, -2.6, 0.449, -0.0271, 6e-4]],
-]);
-
-const time_vectors_climb_deltaT_positive: Map<number, number[]> = new Map([
-  [5, [0.1, 5]],
-  [10, [0.2, 10]],
-  [15, [0.3, 15]],
-  [20, [0.45, 20.2]],
-  [25, [0.65, 25.2]],
-  [30, [0.85, 30.2]],
-  [35, [1.1, 35]],
-]);
-
-const time_vectors_climb_deltaT_negative: Map<number, number[]> = new Map([
-  [5, [2.5, 250]],
-  [10, [2.5, 500]],
-  [15, [3.75, 750]],
-  [20, [6.25, 1000]],
-  [25, [7.5, 1250]],
-  [30, [12.5, 1500]],
-  [35, [15, 1750]],
-]);
+const tempCorrectionTable = new TempCorrectionTable(
+  'Climb time Air temperture correction table',
+  new CorrectionTable(
+    'climb time positive correction',
+    new Map([
+      [0, new CorrectionVector([0, 0])],
+      [5, new CorrectionVector([5, 0.1])],
+      [10, new CorrectionVector([10, 0.2])],
+      [15, new CorrectionVector([15, 0.3])],
+      [20, new CorrectionVector([20, 0.45])],
+      [25, new CorrectionVector([25, 0.65])],
+      [30, new CorrectionVector([30, 0.85])],
+      [35, new CorrectionVector([35, 1.1])],
+    ])
+  ),
+  new CorrectionTable(
+    'climb time positive correction',
+    new Map([
+      [0, new CorrectionVector([0, 0])],
+      [5, new CorrectionVector([250, 2.5])],
+      [10, new CorrectionVector([500, 2.5])],
+      [15, new CorrectionVector([750, 3.75])],
+      [20, new CorrectionVector([1000, 6.25])],
+      [25, new CorrectionVector([1250, 7.5])],
+      [30, new CorrectionVector([1500, 12.5])],
+      [35, new CorrectionVector([1750, 15])],
+    ])
+  )
+);

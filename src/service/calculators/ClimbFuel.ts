@@ -1,4 +1,9 @@
-import { ApplyDeltaTempTCorrection } from 'src/service/conversionTool';
+import {
+  CorrectionTable,
+  CorrectionVector,
+  DragCorrectionTable,
+  TempCorrectionTable,
+} from './CorrectionTable';
 
 export const ClimbFuelUsed = (
   startingAlt: number,
@@ -7,40 +12,34 @@ export const ClimbFuelUsed = (
   deltaTemp: number,
   drag: number
 ): number => {
-  // Select equation vectors for the Aircraft Drag
-  const [vDrag, vnextDrag] = selectVectorsForDrag(drag);
+  const [v, vnextDrag, step, startDrag] = climbFuelDragTable.getInterval(drag);
 
-  // calc fuel with "Low table"
-  let fuelUsed = CalcFuelFor(vDrag, startingAlt, TartgetAlt, startingWeight);
+  let target_fuelUsed = v.GetLinear(startingWeight, TartgetAlt);
+  let start_fuelUsed = v.GetLinear(startingWeight, startingAlt);
 
-  // if high table ( 0-4  / 4-8 / 8-null )
-  if (vnextDrag) {
-    const nextFuelUsed = CalcFuelFor(
-      vnextDrag,
-      startingAlt,
-      TartgetAlt,
-      startingWeight
-    );
-    const increment = (nextFuelUsed - fuelUsed) / 4; // delta drag from table is 4
+  start_fuelUsed = start_fuelUsed < 0 ? 0 : start_fuelUsed;
 
-    const deltaDrag = drag >= 4 ? drag - 4 : drag;
-    fuelUsed = fuelUsed + increment * deltaDrag;
+  if (step != 0) {
+    const target_nextfuelUsed = vnextDrag.GetLinear(startingWeight, TartgetAlt);
+    const start_nextfuelUsed = vnextDrag.GetLinear(startingWeight, startingAlt);
+
+    const target_increment = (target_nextfuelUsed - target_fuelUsed) / step;
+    const start_increment = (start_nextfuelUsed - start_fuelUsed) / step;
+
+    target_fuelUsed =
+      target_fuelUsed +
+      (target_increment > 0 ? target_increment * (drag - startDrag) : 0);
+
+    start_fuelUsed =
+      start_fuelUsed +
+      (start_increment > 0 ? start_increment * (drag - startDrag) : 0);
   }
 
-  fuelUsed = fuelUsed < 0 ? 0 : fuelUsed;
+  let fuelUsed = target_fuelUsed - start_fuelUsed;
+  console.log('fuelUsed', target_fuelUsed, start_fuelUsed, fuelUsed);
+
   if (deltaTemp > 0) {
-    const step = 250;
-    for (let rangeStart = 250; rangeStart < 2000; rangeStart += step) {
-      if (fuelUsed >= rangeStart && fuelUsed < rangeStart + step) {
-        fuelUsed = ApplyDeltaTempTCorrection(
-          selectVectorsForDeltaTemp,
-          fuelUsed,
-          deltaTemp,
-          rangeStart,
-          step
-        );
-      }
-    }
+    fuelUsed = tempCorrectionTable.GetLinear(fuelUsed, deltaTemp);
   }
 
   // round to Highest 10th
@@ -49,145 +48,77 @@ export const ClimbFuelUsed = (
   return fuelUsed < 0 ? 0 : Math.ceil(fuelUsed);
 };
 
-const CalcFuelFor = (
-  vDrag: Map<number, number[]>,
-  startingAlt: number,
-  TartgetAlt: number,
-  startingWeight: number
-): number => {
-  let fuelUsed = 0;
-  const step = 5000;
-  for (
-    let weigthRangeStart = 30000;
-    weigthRangeStart < 50000;
-    weigthRangeStart += step
-  ) {
-    if (
-      startingWeight >= weigthRangeStart &&
-      startingWeight < weigthRangeStart + step
-    ) {
-      fuelUsed = fuelUsedFor(
-        vDrag,
-        startingAlt,
-        TartgetAlt,
-        step,
-        startingWeight,
-        weigthRangeStart
-      );
-    }
-  }
+const vectors_Climb_Drag0 = new CorrectionTable(
+  'Climb Fuel Used Drag 0',
+  new Map([
+    [25000, new CorrectionVector([-102, 0.0435, -1.59e-6, 2.9e-11])],
+    [30000, new CorrectionVector([-58.9, 0.0383, -1.18e-6, 2.53e-11])],
+    [35000, new CorrectionVector([-128, 0.0678, -3.13e-6, 6.74e-11])],
+    [40000, new CorrectionVector([-35.7, 0.0534, -2.16e-6, 5.89e-11])],
+    [45000, new CorrectionVector([-60, 0.0621, -2.61e-6, 8e-11])],
+    [50000, new CorrectionVector([-63.3, 0.0784, -4.21e-6, 1.39e-10])],
+  ])
+);
 
-  return fuelUsed;
-};
+const vectors_Climb_Drag4 = new CorrectionTable(
+  'Climb Fuel Used Drag 4',
+  new Map([
+    [25000, new CorrectionVector([-75, 0.0401, -1.43e-6, 2.98e-11])],
+    [30000, new CorrectionVector([-38.9, 0.0382, -1.23e-6, 3.02e-11])],
+    [35000, new CorrectionVector([-143, 0.0639, -2.55e-6, 5.89e-11])],
+    [40000, new CorrectionVector([-112, 0.0663, -2.79e-6, 7.7e-11])],
+    [45000, new CorrectionVector([-40, 0.0548, -1.71e-6, 6.67e-11])],
+    [50000, new CorrectionVector([-197, 0.103, -5.17e-6, 1.67e-10])],
+  ])
+);
 
-/* CLIMB tools */
+const vectors_Climb_Drag8 = new CorrectionTable(
+  'Climb Fuel Used Drag 8',
+  new Map([
+    [25000, new CorrectionVector([-101, 0.0476, -1.82e-6, 3.74e-11])],
+    [30000, new CorrectionVector([-185, 0.0714, -3.12e-6, 6.54e-11])],
+    [35000, new CorrectionVector([-63.3, 0.049, -1.55e-6, 4.41e-11])],
+    [40000, new CorrectionVector([-193, 0.0966, -5.36e-6, 1.49e-10])],
+    [45000, new CorrectionVector([-168, 0.0973, -5.14e-6, 1.6e-10])],
+    [50000, new CorrectionVector([-5, 0.0562, -1.5e-6, 9.33e-12])],
+  ])
+);
 
-const selectVectorsForDrag = (drag: number) => {
-  if (drag >= 8) return [vectors_Climb_Drag8, null];
-  if (drag >= 4 && drag < 8) {
-    return [vectors_Climb_Drag4, vectors_Climb_Drag8];
-  }
-  return [vectors_Climb_Drag0, vectors_Climb_Drag4];
-};
+const climbFuelDragTable = new DragCorrectionTable(
+  'Climb Fuel Used Drag Correction Table',
+  new Map([
+    [0, vectors_Climb_Drag0],
+    [4, vectors_Climb_Drag4],
+    [8, vectors_Climb_Drag8],
+  ])
+);
 
-const selectVectorsForDeltaTemp = (deltaTemp: number) => {
-  return deltaTemp > 0
-    ? vectors_climb_deltaT_positive
-    : vectors_climb_deltaT_negative;
-};
-
-const vectors_Climb_Drag0: Map<number, number[]> = new Map([
-  [25000, [-102, 43.5, -1.59, 0.029]],
-  [30000, [-58.9, 38.3, -1.18, 0.0253]],
-  [35000, [-128, 67.8, -3.13, 0.0674]],
-  [40000, [-37.5, 53.4, -2.16, 0.0589]],
-  [45000, [-60, 62.1, -2.61, 0.08]],
-  [50000, [-63.3, 78.4, -4.21, 0.139]],
-]);
-
-const vectors_Climb_Drag4: Map<number, number[]> = new Map([
-  [25000, [-75, 40.1, -1.43, 0.0298]],
-  [30000, [-38.9, 38.2, -1.23, 0.0302]],
-  [35000, [-143, 63.9, -2.55, 0.0589]],
-  [40000, [-112, 66.3, -2.79, 0.077]],
-  [45000, [-40, 54.8, -1.71, 0.0667]],
-  [50000, [-197, 103, -5.17, 0.167]],
-]);
-
-const vectors_Climb_Drag8: Map<number, number[]> = new Map([
-  [25000, [-101, 46.7, -1.82, 0.0374]],
-  [30000, [-185, 71.4, -3.12, 0.0654]],
-  [35000, [-63.3, 49, -1.55, 0.0441]],
-  [40000, [-193, 96.6, -5.36, 0.149]],
-  [45000, [-168, 97.3, -5.14, 0.16]],
-  [50000, [-5, 56.2, -1.5, 0.0933]],
-]);
-
-const CLB_Fuel = (coeff: number[] | undefined, pressureAlt: number) => {
-  if (typeof coeff == 'undefined') return 0;
-  const fuelUsed = Math.ceil(
-    coeff[0] +
-      coeff[1] * pressureAlt +
-      coeff[2] * pressureAlt * pressureAlt +
-      coeff[3] * pressureAlt * pressureAlt * pressureAlt
-  );
-
-  return fuelUsed >= 0 ? fuelUsed : 0;
-};
-
-const fuelUsedFor = (
-  vDrag: Map<number, number[]>,
-  startingAlt: number,
-  TartgetAlt: number,
-  step: number,
-  startingWeight: number,
-  weigthRangeStart: number
-) => {
-  const lowStartFuelUsed = CLB_Fuel(
-    vDrag.get(weigthRangeStart),
-    startingAlt / 1000
-  );
-  const lowEndFuelUsed = CLB_Fuel(
-    vDrag.get(weigthRangeStart),
-    TartgetAlt / 1000
-  );
-  const lowFuelUsed = lowEndFuelUsed - lowStartFuelUsed;
-
-  const highStartFuelUsed = CLB_Fuel(
-    vDrag.get(weigthRangeStart + step),
-    startingAlt / 1000
-  );
-  const highEndFuelUsed = CLB_Fuel(
-    vDrag.get(weigthRangeStart + step),
-    TartgetAlt / 1000
-  );
-  const highFuelUsed = highEndFuelUsed - highStartFuelUsed;
-
-  // Linear interpolation between 40 and 45 GW charts
-  const increment = (highFuelUsed - lowFuelUsed) / step;
-  const fuelUsed =
-    lowFuelUsed + increment * (startingWeight - weigthRangeStart);
-  return fuelUsed > 0 ? fuelUsed : 0;
-};
-
-const vectors_climb_deltaT_positive: Map<number, number[]> = new Map([
-  [250, [2.5, 250]],
-  [500, [5, 500]],
-  [750, [7.5, 752]],
-  [1000, [12.5, 1018]],
-  [1250, [21.3, 1254]],
-  [1500, [27.5, 1495]],
-  [1750, [39.5, 1768]],
-  [2000, [55, 2000]],
-]);
-
-const vectors_climb_deltaT_negative: Map<number, number[]> = new Map([
-  [250, [2.5, 250]],
-  [500, [2.5, 500]],
-  [750, [3.75, 750]],
-  [1000, [6.25, 1000]],
-  [1250, [7.5, 1250]],
-  [1500, [12.5, 1500]],
-  [1750, [15, 1750]],
-  [2000, [20, 1987]],
-]);
+const tempCorrectionTable = new TempCorrectionTable(
+  'Climb Fuel  Air temperture correction table',
+  new CorrectionTable(
+    'climb distance positive correction',
+    new Map([
+      [250, new CorrectionVector([250, 2.5])],
+      [500, new CorrectionVector([500, 5])],
+      [750, new CorrectionVector([752, 7.5])],
+      [1000, new CorrectionVector([1018, 12.5])],
+      [1250, new CorrectionVector([1254, 21.3])],
+      [1500, new CorrectionVector([1495, 27.5])],
+      [1750, new CorrectionVector([1768, 39.5])],
+      [2000, new CorrectionVector([2000, 55])],
+    ])
+  ),
+  new CorrectionTable(
+    'climb distance positive correction',
+    new Map([
+      [250, new CorrectionVector([250, 2.5])],
+      [500, new CorrectionVector([500, 2.5])],
+      [750, new CorrectionVector([750, 3.75])],
+      [1000, new CorrectionVector([1000, 6.25])],
+      [1250, new CorrectionVector([1250, 7.5])],
+      [1500, new CorrectionVector([1500, 12.5])],
+      [1750, new CorrectionVector([1750, 15])],
+      [2000, new CorrectionVector([1987, 20])],
+    ])
+  )
+);

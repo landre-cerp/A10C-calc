@@ -1,185 +1,130 @@
-import { ApplyDeltaTempTCorrection } from '../conversionTool';
+import {
+  TempCorrectionTable,
+  CorrectionTable,
+  CorrectionVector,
+  DragCorrectionTable,
+} from './CorrectionTable';
 
 export const ClimbDistanceNeeded = (
   startingAlt: number,
-  TartgetAlt: number,
+  tartgetAlt: number,
   startingWeight: number,
   deltaTemp: number,
   drag: number
 ): number => {
-  // Select equation vectors for the Aircraft Drag
-  const [v, vnext] = selectDistanceVectorsForDrag(drag);
+  const [v, vnext, step, startDrag] = climbDistanceDragTable.getInterval(drag);
 
-  let distanceNeeded = CalcDistanceNeededFor(
-    v,
-    startingAlt,
-    TartgetAlt,
-    startingWeight
-  );
+  let target_distanceNeeded = v.GetLinear(startingWeight, tartgetAlt);
+  let start_distanceNeeded = v.GetLinear(startingWeight, startingAlt);
 
-  if (vnext) {
-    const nextdistanceNeeded = CalcDistanceNeededFor(
-      vnext,
-      startingAlt,
-      TartgetAlt,
-      startingWeight
+  start_distanceNeeded = start_distanceNeeded < 0 ? 0 : start_distanceNeeded;
+
+  if (step != 0) {
+    const target_nextdistanceNeeded = vnext.GetLinear(
+      startingWeight,
+      tartgetAlt
+    );
+    const start_nextdistanceNeeded = vnext.GetLinear(
+      startingWeight,
+      startingAlt
     );
 
-    const increment = (nextdistanceNeeded - distanceNeeded) / 4; // delta drag from table is 4
+    const target_increment =
+      (target_nextdistanceNeeded - target_distanceNeeded) / step;
+    const start_increment =
+      (start_nextdistanceNeeded - start_distanceNeeded) / step;
 
-    const deltaDrag = drag >= 4 ? drag - 4 : drag;
-    distanceNeeded =
-      distanceNeeded + (increment > 0 ? increment * deltaDrag : 0);
+    target_distanceNeeded =
+      target_distanceNeeded +
+      (target_increment > 0 ? target_increment * (drag - startDrag) : 0);
+
+    start_distanceNeeded =
+      start_distanceNeeded +
+      (start_increment > 0 ? start_increment * (drag - startDrag) : 0);
   }
 
-  if (deltaTemp > 0) {
-    const step = 25;
+  let distanceNeeded = target_distanceNeeded - start_distanceNeeded;
+  console.log(
+    'distanceNeeded',
+    target_distanceNeeded,
+    start_distanceNeeded,
+    distanceNeeded
+  );
 
-    for (let rangeStart = 25; rangeStart < 125; rangeStart += step) {
-      if (distanceNeeded >= rangeStart && distanceNeeded < rangeStart + step) {
-        distanceNeeded = ApplyDeltaTempTCorrection(
-          selectVectorsForDeltaTemp,
-          distanceNeeded,
-          deltaTemp,
-          rangeStart,
-          step
-        );
-      }
-    }
+  if (deltaTemp > 0) {
+    distanceNeeded = tempCorrectionTable.GetLinear(distanceNeeded, deltaTemp);
   }
 
   return distanceNeeded < 0 ? 0 : Math.ceil(distanceNeeded);
 };
 
-const CalcDistanceNeededFor = (
-  v: Map<number, number[]>,
-  StartingAlt: number,
-  TartgetAlt: number,
-  startingWeight: number
-): number => {
-  let distanceNeeded = 0;
+const climbDistGrab0 = new CorrectionTable(
+  'Climb Distance Grab 0 correction',
+  new Map([
+    [25000, new CorrectionVector([-10.4, 3.11e-3, 1.65e-7, 3.48e-12])],
+    [30000, new CorrectionVector([-2.14, 1.59e-3, -8.43e-8, 2.56e-12])],
+    [35000, new CorrectionVector([-13.6, 4.9e-3, -3.09e-7, 7.33e-12])],
+    [40000, new CorrectionVector([-12, 4.59e-3, -2.9e-7, 7.67e-12])],
+    [45000, new CorrectionVector([-17.8, 7.08e-3, -5.25e-7, 1.45e-11])],
+    [50000, new CorrectionVector([-6.8, 4.04e-3, -2.98e-7, 1.1e-11])],
+  ])
+);
 
-  const step = 5000;
-  for (
-    let weightRangeStart = 35000;
-    weightRangeStart < 50000;
-    weightRangeStart += step
-  ) {
-    if (
-      startingWeight >= weightRangeStart &&
-      startingWeight < weightRangeStart + step
-    ) {
-      // Equation for Low GW
+const climbDistGrab4 = new CorrectionTable(
+  'Climb Distance Grab 4 correction',
+  new Map([
+    [25000, new CorrectionVector([-12.2, 3.61e-3, -2.03e-7, 4.39e-12])],
+    [30000, new CorrectionVector([-6.14, 2.63e-3, -1.55e-7, 4.11e-12])],
+    [35000, new CorrectionVector([-14.1, 5.12e-3, -3.41e-7, 8.56e-12])],
+    [40000, new CorrectionVector([-13.3, 4.98e-3, -3.24e-7, 8.96e-12])],
+    [45000, new CorrectionVector([-2.8, 2.62e-3, -1.63e-7, 6.67e-12])],
+    [50000, new CorrectionVector([-12.4, 5.77e-3, -4.48e-7, 1.57e-11])],
+  ])
+);
 
-      distanceNeeded = distanceNeededFor(
-        v,
-        StartingAlt,
-        TartgetAlt,
-        startingWeight,
-        weightRangeStart,
-        step
-      );
-    }
-  }
+const climbDistGrab8 = new CorrectionTable(
+  'CLB Distance Drag 8 Correction',
+  new Map([
+    [25000, new CorrectionVector([-1.29, 8.82e-4, -3.07e-8, 1.44e-12])],
+    [30000, new CorrectionVector([-12.3, 4.24e-3, -2.66e-7, 6.56e-12])],
+    [35000, new CorrectionVector([-5, 2.7e-3, -1.74e-7, 5.67e-12])],
+    [40000, new CorrectionVector([-27.3, 9.18e-3, -6.7e-7, 1.77e-11])],
+    [45000, new CorrectionVector([-10.1, 4.85e-3, -3.5e-7, 1.2e-11])],
+    [50000, new CorrectionVector([0.5, 1.58e-3, -7e-8, 6.67e-12])],
+  ])
+);
 
-  return distanceNeeded;
-};
+const climbDistanceDragTable = new DragCorrectionTable(
+  'Drag correction table for climb distance',
+  new Map([
+    [0, climbDistGrab0],
+    [4, climbDistGrab4],
+    [8, climbDistGrab8],
+  ])
+);
 
-const selectDistanceVectorsForDrag = (drag: number) => {
-  if (drag >= 8) return [v_climb_distance_drag8, null];
-  if (drag >= 4 && drag < 8) {
-    return [v_climb_distance_drag4, v_climb_distance_drag8];
-  }
-  return [v_climb_distance_drag0, v_climb_distance_drag4];
-};
-
-const CLB_Distance = (coeff: number[] | undefined, pressureAlt: number) => {
-  if (typeof coeff == 'undefined') return 0;
-
-  const distanceNeeded = Math.ceil(
-    coeff[0] +
-      coeff[1] * pressureAlt +
-      coeff[2] * pressureAlt * pressureAlt +
-      coeff[3] * pressureAlt * pressureAlt * pressureAlt +
-      coeff[4] * pressureAlt * pressureAlt * pressureAlt * pressureAlt
-  );
-
-  return distanceNeeded >= 0 ? distanceNeeded : 0;
-};
-
-const distanceNeededFor = (
-  v: Map<number, number[]>,
-  startingAlt: number,
-  TartgetAlt: number,
-  startingWeight: number,
-  weightRangeStart: number,
-  step: number
-) => {
-  const low_vectors_Climb = v.get(weightRangeStart);
-  const high_vectors_Climb = v.get(weightRangeStart + step);
-
-  const lowStartDistance = CLB_Distance(low_vectors_Climb, startingAlt / 1000);
-  const lowEndDistance = CLB_Distance(low_vectors_Climb, TartgetAlt / 1000);
-  const lowDistance = lowEndDistance - lowStartDistance;
-
-  const highStartDistance = CLB_Distance(
-    high_vectors_Climb,
-    startingAlt / 1000
-  );
-  const highEndDistance = CLB_Distance(high_vectors_Climb, TartgetAlt / 1000);
-  const highDistance = highEndDistance - highStartDistance;
-
-  const increment = (highDistance - lowDistance) / step;
-  const distanceNeeded =
-    lowDistance + increment * (startingWeight - weightRangeStart);
-  return distanceNeeded > 0 ? distanceNeeded : 0;
-};
-
-const v_climb_distance_drag0: Map<number, number[]> = new Map([
-  [25000, [7.81, -2.25, 0.303, -0.012, 1.72e-4]],
-  [30000, [0.643, 0.703, 8.33e-4, -5.96e-4, 3.94e-5]],
-  [35000, [12.1, -3.26, 0.477, -0.0218, 3.64e-4]],
-  [40000, [3.75, -0.838, 0.294, -0.0168, 3.5e-4]],
-  [45000, [16.7, -4.8, 0.754, -0.0391, 7.67e-4]],
-  [50000, [17.5, -5.13, 0.818, -0.043, 9e-4]],
-]);
-
-const v_climb_distance_drag4: Map<number, number[]> = new Map([
-  [25000, [8.12, -2.37, 0.318, -0.0129, 1.92e-4]],
-  [30000, [3.93, -0.566, 0.153, -7.28e-3, 1.42e-4]],
-  [35000, [16.1, -4.46, 0.583, -0.0256, 4.27e-4]],
-  [40000, [6.17, -1.73, 0.399, -0.0214, 4.33e-4]],
-  [45000, [-10, 5.33, -0.493, 0.0227, -2.67e-4]],
-  [50000, [24.5, -8.14, 1.25, -0.0663, 1.37e-3]],
-]);
-
-const v_climb_distance_drag8: Map<number, number[]> = new Map([
-  [25000, [-1.07, 0.814, -0.0242, 1.2e-3, 3.03e-6]],
-  [30000, [8.5, -2.35, 0.369, -0.017, 2.94e-4]],
-  [35000, [4.75, -0.657, 0.187, -9.5e-3, 2.17e-4]],
-  [40000, [21.4, -7.62, 1.14, -0.0581, 1.08e-3]],
-  [45000, [2.5, 0.1, 0.228, -0.016, 4.67e-4]],
-  [50000, [0, 0, 0, 0, 1]],
-]);
-
-const distance_vectors_climb_deltaT_positive: Map<number, number[]> = new Map([
-  [25, [0.25, 25]],
-  [50, [1.1, 50]],
-  [75, [2.05, 75]],
-  [100, [3.5, 100]],
-  [125, [5.5, 125]],
-]);
-
-const distance_vectors_climb_deltaT_negative: Map<number, number[]> = new Map([
-  [25, [0.25, 25]],
-  [50, [0.4, 50]],
-  [75, [0.95, 75]],
-  [100, [1.2, 100]],
-  [125, [1.75, 125]],
-]);
-
-const selectVectorsForDeltaTemp = (deltaTemp: number) => {
-  return deltaTemp > 0
-    ? distance_vectors_climb_deltaT_positive
-    : distance_vectors_climb_deltaT_negative;
-};
+const tempCorrectionTable = new TempCorrectionTable(
+  'Climb Distance Air temperture correction table',
+  new CorrectionTable(
+    'climb distance positive correction',
+    new Map([
+      [0, new CorrectionVector([0, 0])],
+      [25, new CorrectionVector([25, 0.25])],
+      [50, new CorrectionVector([50, 1.1])],
+      [75, new CorrectionVector([75, 2.05])],
+      [100, new CorrectionVector([100, 3.5])],
+      [125, new CorrectionVector([125, 5.5])],
+    ])
+  ),
+  new CorrectionTable(
+    'climb distance positive correction',
+    new Map([
+      [0, new CorrectionVector([0, 0])],
+      [25, new CorrectionVector([25, 0.25])],
+      [50, new CorrectionVector([50, 1.1])],
+      [75, new CorrectionVector([75, 2.05])],
+      [100, new CorrectionVector([100, 3.5])],
+      [125, new CorrectionVector([125, 5.5])],
+    ])
+  )
+);

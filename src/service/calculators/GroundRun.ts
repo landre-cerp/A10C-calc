@@ -1,120 +1,48 @@
+import { CorrectionTable, CorrectionVector } from './CorrectionTable';
+
 export const GroundRun = (
   takeoffIndex: number,
   weight: number,
   headWind: number
 ): number => {
-  let increment = 0;
-  let groundRunDist = 0;
-
-  if (weight >= 30000 && weight < 35000) {
-    increment =
-      (GroundRunFormula(vectors_GR[35], takeoffIndex) -
-        GroundRunFormula(vectors_GR[30], takeoffIndex)) /
-      5000;
-    groundRunDist =
-      GroundRunFormula(vectors_GR[30], takeoffIndex) +
-      increment * (weight - 30000);
-  }
-  if (weight >= 35000 && weight < 40000) {
-    increment =
-      (GroundRunFormula(vectors_GR[40], takeoffIndex) -
-        GroundRunFormula(vectors_GR[35], takeoffIndex)) /
-      5000;
-    groundRunDist =
-      GroundRunFormula(vectors_GR[35], takeoffIndex) +
-      increment * (weight - 35000);
-  }
-  if (weight >= 40000 && weight < 45000) {
-    increment =
-      (GroundRunFormula(vectors_GR[45], takeoffIndex) -
-        GroundRunFormula(vectors_GR[40], takeoffIndex)) /
-      5000;
-    groundRunDist =
-      GroundRunFormula(vectors_GR[40], takeoffIndex) +
-      increment * (weight - 40000);
-  }
-  if (weight >= 45000)
-    groundRunDist = GroundRunFormula(vectors_GR[45], takeoffIndex);
-
-  // Apply headwing Correction
-  if (groundRunDist < 2000) {
-    increment =
-      (GR_windCorrectFormula(vectors_GR_wind[2000], headWind) -
-        GR_windCorrectFormula(vectors_GR_wind[1000], headWind)) /
-      1000;
-    return (
-      GR_windCorrectFormula(vectors_GR_wind[1000], headWind) +
-      increment * (groundRunDist - 1000)
-    );
-  }
-  if (groundRunDist >= 2000 && groundRunDist < 3000) {
-    increment =
-      (GR_windCorrectFormula(vectors_GR_wind[3000], headWind) -
-        GR_windCorrectFormula(vectors_GR_wind[2000], headWind)) /
-      1000;
-    return (
-      GR_windCorrectFormula(vectors_GR_wind[2000], headWind) +
-      increment * (groundRunDist - 2000)
-    );
-  }
-  if (groundRunDist >= 3000 && groundRunDist < 4000) {
-    increment =
-      (GR_windCorrectFormula(vectors_GR_wind[4000], headWind) -
-        GR_windCorrectFormula(vectors_GR_wind[3000], headWind)) /
-      1000;
-    return (
-      GR_windCorrectFormula(vectors_GR_wind[3000], headWind) +
-      increment * (groundRunDist - 3000)
-    );
-  }
-  if (groundRunDist >= 4000 && groundRunDist < 5000) {
-    increment =
-      (GR_windCorrectFormula(vectors_GR_wind[5000], headWind) -
-        GR_windCorrectFormula(vectors_GR_wind[4000], headWind)) /
-      1000;
-    return (
-      GR_windCorrectFormula(vectors_GR_wind[4000], headWind) +
-      increment * (groundRunDist - 4000)
-    );
-  }
-  if (groundRunDist >= 5000) {
-    increment =
-      (GR_windCorrectFormula(vectors_GR_wind[6000], headWind) -
-        GR_windCorrectFormula(vectors_GR_wind[5000], headWind)) /
-      1000;
-    return (
-      GR_windCorrectFormula(vectors_GR_wind[5000], headWind) +
-      increment * (groundRunDist - 5000)
-    );
-  }
-  return 0;
-};
-
-/*
-  Ground run formulas
-*/
-
-const vectors_GR = {
-  30: [6536, -495, -2.38],
-  35: [10202, -879, 5.36],
-  40: [15521, -1492, 20.5],
-  45: [23743, -2592, 56],
-};
-
-const GroundRunFormula = (coeff: number[], takeoffIndex: number): number => {
-  return (
-    coeff[0] + coeff[1] * takeoffIndex + coeff[2] * takeoffIndex * takeoffIndex
+  // calculate ground run distance
+  const groundRunDist = GroundRuncCorrectionTable.GetLinear(
+    weight,
+    takeoffIndex
   );
+
+  // then correct for head wind
+  return GroundRuncCorrectionTable_wind.GetLinear(groundRunDist, headWind);
 };
 
-const vectors_GR_wind = {
-  1000: [-13.5, 975],
-  2000: [-24.5, 1950],
-  3000: [-34.5, 2925],
-  4000: [-53, 4150],
-  5000: [-51, 4750],
-  6000: [-66, 5950],
-};
-const GR_windCorrectFormula = (coeff: number[], headWind: number): number => {
-  return coeff[0] * headWind + coeff[1];
-};
+// F(Weight , takeoffIndex)
+const GroundRuncCorrectionTable = new CorrectionTable(
+  'Ground Run',
+  new Map([
+    [30000, new CorrectionVector([6430, -465, -4.17])],
+    [35000, new CorrectionVector([10517, -984, 13.2])],
+    [40000, new CorrectionVector([15521, -1492, 20.5])],
+    [45000, new CorrectionVector([23743, -2592, 56])],
+    [50000, new CorrectionVector([36320, -4180, 100])],
+  ])
+);
+
+const GroundRuncCorrectionTable_wind = new CorrectionTable(
+  'Ground Run Head Wind Correction',
+  new Map([
+    [1000, new CorrectionVector([975, -13.5])],
+    [2000, new CorrectionVector([1950, -24.5])],
+    [3000, new CorrectionVector([2925, -34.5])],
+    [4000, new CorrectionVector([4150, -53])],
+    [5000, new CorrectionVector([4750, -51])],
+    [6000, new CorrectionVector([5950, -66])],
+    [7000, new CorrectionVector([6800, -73])],
+    [8000, new CorrectionVector([7750, -80])],
+    [9000, new CorrectionVector([8750, -90])],
+    [10000, new CorrectionVector([9800, -104])],
+    [11000, new CorrectionVector([10900, -113])],
+    [12000, new CorrectionVector([11850, -120])],
+    [13000, new CorrectionVector([13050, -136])],
+    [14000, new CorrectionVector([13700, -132])],
+  ])
+);
