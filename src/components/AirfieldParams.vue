@@ -17,9 +17,12 @@
               :rules="[(val) => val >= 0]"
             >
               <template v-slot:append
-                ><q-btn no-caps v-on:click="airport.switchQnhUnit()">{{
-                  QNH_Unit[Qnh.unit]
-                }}</q-btn></template
+                ><q-btn
+                  color="primary"
+                  no-caps
+                  v-on:click="airport.switchQnhUnit()"
+                  >{{ QNH_Unit[Qnh.unit] }}</q-btn
+                ></template
               >
             </q-input>
           </q-item>
@@ -55,14 +58,18 @@
         <AircraftWeight></AircraftWeight>
         <q-item>
           <q-item-section>
-            <q-item-label>PTFS</q-item-label>
+            <q-item-label
+              >PTFS
+              <q-icon class="q-ms-md" name="help">
+                <q-tooltip>
+                  Fan speed should be checked after approximately 1,000 feet on
+                  takeoff roll.
+                </q-tooltip></q-icon
+              ></q-item-label
+            >
             <p class="text-h6">
               {{ PTFS(Temp).toFixed(0) }}
             </p>
-            <q-tooltip>
-              Fan speed should be checked after approximately 1,000 feet on
-              takeoff roll.
-            </q-tooltip>
           </q-item-section>
         </q-item>
         <q-item>
@@ -96,10 +103,13 @@
         </q-item>
         <q-item>
           <q-item-section>
-            <q-item-label>Takeoff Weight</q-item-label>
-            <q-tooltip>
-              Charts assume 500 lbs is used for taxi + takeoff
-            </q-tooltip>
+            <q-item-label
+              >Takeoff Weight<q-icon class="q-ms-md" name="help"
+                ><q-tooltip>
+                  Charts assume 500 lbs is used for taxi + takeoff
+                </q-tooltip>
+              </q-icon></q-item-label
+            >
 
             <p class="text-h6">
               {{ aircraft.TakeOffWeight.toFixed(0) }}
@@ -117,7 +127,7 @@
         <q-item>
           <q-item-section class="q-pa-md bg-grey-10 text-white">
             <q-item-label class="text-center"
-              >{{ ground.toFixed(0) }} / {{ airport.runwayLength }}
+              >{{ ground.toFixed(0) }} / {{ airport.runwayLength }} feet
             </q-item-label>
             <q-linear-progress
               dark

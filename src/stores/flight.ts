@@ -7,6 +7,7 @@ export const useFlightStore = defineStore('flight', {
     Qnh: {} as QNH,
     FlightLevel: 200 as number,
     fuelReserve: 2000 as number,
+    missionRange: 100 as number,
     phases: [
       {
         label: 'Taxi & Takeoff',

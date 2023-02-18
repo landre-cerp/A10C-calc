@@ -15,11 +15,9 @@ export const ClimbTimeNeeded = (
   // Select equation vectors for the Aircraft Drag
 
   const [v, vnext, step, startDrag] = climbTimeDragTable.getInterval(drag);
-  console.log('v', v, vnext, step, startDrag);
+
   let target_timeNeeded = v.GetLinear(startingWeight, tartgetAlt);
   let start_timeNeeded = v.GetLinear(startingWeight, startingAlt);
-  console.log('target_timeNeeded', target_timeNeeded);
-  console.log('start_timeNeeded', start_timeNeeded);
 
   start_timeNeeded = start_timeNeeded < 0 ? 0 : start_timeNeeded;
 
