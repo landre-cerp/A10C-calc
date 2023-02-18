@@ -7,10 +7,14 @@
           <q-item>
             <q-input
               class="q-mr-md"
-              v-model="runwayLength"
+              v-model.number="runwayLength"
               label="Runway length (feet)"
             />
-            <q-input class="q-mr-md" v-model="Temp" label="Runway Temp. °C" />
+            <q-input
+              class="q-mr-md"
+              v-model.number="Temp"
+              label="Runway Temp. °C"
+            />
             <q-input
               v-model.number:model-value="Qnh.value"
               label="QNH"
@@ -42,7 +46,7 @@
           </q-item>
 
           <q-item>
-            <q-input v-model="HeadWind" label="Head wind (kts)" />
+            <q-input v-model.number="HeadWind" label="Head wind (kts)" />
           </q-item>
         </q-list>
       </q-card-section>

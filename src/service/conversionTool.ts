@@ -7,24 +7,6 @@ const convertAltitudeUnits = (qnh: QNH) => {
   return (qnh.value = Math.round((qnh.value / 29.92) * 1013));
 };
 
-const ApplyDeltaTempTCorrection = (
-  selector: (delta: number) => Map<number, number[]>,
-  initialNumber: number,
-  deltaT: number,
-  startRange: number,
-  step: number
-) => {
-  const correctionTable = selector(deltaT);
-  const startCoeff = correctionTable.get(startRange);
-  const endCoeff = correctionTable.get(startRange + step);
-
-  const startCompute = deltaT * startCoeff[0] + startCoeff[1];
-  const endCompute = deltaT * endCoeff[0] + endCoeff[1];
-
-  const increment = (endCompute - startCompute) / step;
-  return startCompute + increment * (initialNumber - startRange);
-};
-
 const PressureAltitude = (altitude: number, Qnh: QNH): number => {
   let pressAlt = 0;
   if (Qnh.unit == QNH_Unit.hPa) {
@@ -37,4 +19,18 @@ const PressureAltitude = (altitude: number, Qnh: QNH): number => {
   return pressAlt;
 };
 
-export { convertAltitudeUnits, ApplyDeltaTempTCorrection, PressureAltitude };
+const getStdTemp = (altitude: number): number => {
+  return -1.98e-3 * altitude + 15;
+};
+
+const deltaFromStandardTemp = (altitude: number, temp: number): number => {
+  const standardTemp = getStdTemp(altitude);
+  return temp - standardTemp;
+};
+
+export {
+  convertAltitudeUnits,
+  PressureAltitude,
+  deltaFromStandardTemp,
+  getStdTemp,
+};

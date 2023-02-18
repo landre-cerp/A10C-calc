@@ -44,12 +44,6 @@ export const ClimbDistanceNeeded = (
   }
 
   let distanceNeeded = target_distanceNeeded - start_distanceNeeded;
-  console.log(
-    'distanceNeeded',
-    target_distanceNeeded,
-    start_distanceNeeded,
-    distanceNeeded
-  );
 
   if (deltaTemp > 0) {
     distanceNeeded = tempCorrectionTable.GetLinear(distanceNeeded, deltaTemp);

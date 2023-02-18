@@ -36,7 +36,6 @@ export const ClimbFuelUsed = (
   }
 
   let fuelUsed = target_fuelUsed - start_fuelUsed;
-  console.log('fuelUsed', target_fuelUsed, start_fuelUsed, fuelUsed);
 
   if (deltaTemp > 0) {
     fuelUsed = tempCorrectionTable.GetLinear(fuelUsed, deltaTemp);

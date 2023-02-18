@@ -8,6 +8,7 @@ export const useFlightStore = defineStore('flight', {
     FlightLevel: 200 as number,
     fuelReserve: 2000 as number,
     missionRange: 100 as number,
+    cruiseHeadWind: 0 as number,
     phases: [
       {
         label: 'Taxi & Takeoff',

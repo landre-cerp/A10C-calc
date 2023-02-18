@@ -4,7 +4,7 @@ import {
   CorrectionVector,
 } from './CorrectionTable';
 
-export const CruiseMachSpeed = (
+const CruiseMachSpeed = (
   cruisePressureAlt: number,
   cruiseWeight: number,
   deltaTemp: number,
@@ -75,3 +75,22 @@ const MachSpeedDragCorrection = new DragCorrectionTable(
     [8, vector_MachSpeed_Drag8],
   ])
 );
+
+const TrueAirspeed = (mach: number, outsideAirTemp: number): number => {
+  return Math.ceil(Mach2TAStable.GetLinear(mach, outsideAirTemp));
+};
+
+const Mach2TAStable = new CorrectionTable(
+  ' Mach2TAS ',
+  new Map([
+    [0.35, new CorrectionVector([225, 0.5])],
+    [0.4, new CorrectionVector([250, 0.6])],
+    [0.45, new CorrectionVector([290, 0.6])],
+    [0.5, new CorrectionVector([318, 0.65])],
+    [0.55, new CorrectionVector([350, 0.6])],
+    [0.6, new CorrectionVector([380, 0.8])],
+    [0.65, new CorrectionVector([408, 0.85])],
+  ])
+);
+
+export { TrueAirspeed, CruiseMachSpeed };

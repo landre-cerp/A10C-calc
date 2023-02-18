@@ -28,7 +28,7 @@
         >
         <q-item-section>
           <q-input
-            v-model="gunAmmoPercent"
+            v-model.number="gunAmmoPercent"
             :rules="[(val) => val >= 0 && val <= 100]"
           >
             <template v-slot:append> % </template>

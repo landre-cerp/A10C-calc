@@ -5,7 +5,7 @@
         <div class="col">
           <div class="row q-mb-md">
             <q-input
-              class="text-h6"
+              class="text-h6 q-mr-md"
               v-model.number="FlightLevel"
               mask="###"
               label="Flight Level (Ex 160)"
@@ -13,20 +13,26 @@
             >
             </q-input>
             <q-input
-              class="text-h6"
+              class="text-h6 q-mr-md"
               v-model.number="fuelReserve"
               label="Fuel Reserve"
               @update:model-value="Recalc"
             ></q-input>
             <q-input
-              class="text-h6"
+              class="text-h6 q-mr-md"
               v-model.number="missionRange"
               label="Mission Range"
               @update:model-value="Recalc"
             ></q-input>
+            <q-input
+              class="text-h6 q-mr-md"
+              v-model.number="cruiseHeadWind"
+              label="Cruise Head Wind"
+              @update:model-value="Recalc"
+            ></q-input>
           </div>
           <q-item-label class="q-mb-md">
-            Pressure Altitude {{ flight.CruisePressureAlt }} with QNH
+            Pressure Altitude {{ Math.ceil(flight.CruisePressureAlt) }} with QNH
             {{ flight.Qnh.value }} {{ QNH_Unit[flight.Qnh.unit] }}
           </q-item-label>
 
@@ -85,8 +91,8 @@
               <td class="text-right">{{ phase.startWeight }}</td>
               <td class="text-right">{{ phase.FuelOnBoard }}</td>
               <td class="text-right" v-if="phase.type == PhaseType.CRUISE">
-                <div class="col">
-                  <q-item> {{ phase.FuelUsed.toFixed(5) }} NM/Lbs </q-item>
+                <div class="col text-right">
+                  <q-item> {{ phase.FuelUsed.toFixed(0) }} Lbs </q-item>
                   <q-item>
                     {{
                       CruiseMachSpeed(
@@ -97,6 +103,34 @@
                       ).toFixed(2)
                     }}
                     Mach
+                  </q-item>
+                  <q-item>
+                    {{
+                      TrueAirspeed(
+                        CruiseMachSpeed(
+                          flight.CruisePressureAlt,
+                          phase.startWeight,
+                          airport.DeltaTemp,
+                          aircraft.Drag
+                        ),
+                        getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
+                      ).toFixed(0)
+                    }}
+                    Kts
+                  </q-item>
+                  <q-item>
+                    {{
+                      TrueAirspeed(
+                        CruiseMachSpeed(
+                          flight.CruisePressureAlt,
+                          phase.startWeight,
+                          airport.DeltaTemp,
+                          aircraft.Drag
+                        ),
+                        getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
+                      ) - cruiseHeadWind
+                    }}
+                    Kts
                   </q-item>
                 </div>
               </td>
@@ -131,18 +165,24 @@ import { ClimbFuelUsed } from 'src/service/calculators/ClimbFuel';
 import { ClimbTimeNeeded } from 'src/service/calculators/ClimbTime';
 import { ClimbDistanceNeeded } from 'src/service/calculators/ClimbDistance';
 import { CruiseNMperLbsUsed } from 'src/service/calculators/CruiseFuel';
-import { CruiseMachSpeed } from 'src/service/calculators/CruiseMachSpeed';
+import {
+  CruiseMachSpeed,
+  TrueAirspeed,
+} from 'src/service/calculators/CruiseMachSpeed';
 import { OptimumCruiseAltitude } from 'src/service/calculators/OptimumCruiseAltitude';
 
 import { QInput, QItem, QItemSection, QItemLabel, QMarkupTable } from 'quasar';
 import { combatCeiling } from 'src/service/calculators/CombatCeiling';
+import { getStdTemp } from 'src/service/conversionTool';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
 const flight = useFlightStore();
 
 flight.Qnh = airport.Qnh;
-const { missionRange, fuelReserve, phases, FlightLevel } = storeToRefs(flight);
+console.log(flight.Qnh);
+const { cruiseHeadWind, missionRange, fuelReserve, phases, FlightLevel } =
+  storeToRefs(flight);
 
 // init Phases with Stores Value;
 const TakeOffPhase = phases.value[0];
@@ -156,6 +196,7 @@ ClimbPhase.startWeight = TakeOffPhase.startWeight - TakeOffPhase.FuelUsed;
 Recalc();
 
 function Recalc() {
+  console.log('Recalc');
   const ClimbPhase = phases.value[1];
   const CruisePhase = phases.value[2];
 
@@ -187,14 +228,28 @@ function Recalc() {
 
   // Recalc Cruise Phase
 
-  CruisePhase.FuelUsed = CruiseNMperLbsUsed(
+  CruisePhase.Distance = missionRange.value - ClimbPhase.Distance;
+
+  console.log(
     flight.CruisePressureAlt,
     CruisePhase.startWeight,
     airport.DeltaTemp,
     aircraft.Drag
   );
 
-  CruisePhase.Distance = missionRange.value - ClimbPhase.Distance;
+  CruisePhase.FuelUsed = Math.ceil(
+    CruisePhase.Distance /
+      CruiseNMperLbsUsed(
+        flight.CruisePressureAlt,
+        CruisePhase.startWeight,
+        airport.DeltaTemp,
+        aircraft.Drag
+      )
+  );
+
+  // CruisePhase.Duration = Math.ceil(
+  //   (60 / (groundSpeed.value - cruiseHeadWind.value)) * CruisePhase.Distance
+  // );
 
   flight.Recalc();
 }

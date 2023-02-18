@@ -31,5 +31,5 @@ const percentLoad = computed(
   () => aircraft.TotalWeight / aircraft.MaxTakeOffWeight
 );
 
-const colorPercent = computed(() => (percentLoad.value > 1 ? 'red' : 'green'));
+const colorPercent = computed(() => (aircraft.OverWeight ? 'red' : 'green'));
 </script>
