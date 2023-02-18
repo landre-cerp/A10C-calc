@@ -27,6 +27,7 @@ const defaultState = {
   ] as IAircraftStore[],
   fuelQty: 75 as number,
   gunAmmoPercent: 100 as number,
+  flaps: 7 as number,
 };
 
 export const useA10CStore = defineStore('a10c', {

@@ -75,6 +75,11 @@
               {{ PTFS(Temp).toFixed(0) }}
             </p>
           </q-item-section>
+          <q-item-section>
+            <q-item-label class="text-h6"
+              >FLAPS {{ aircraft.flaps }}</q-item-label
+            >
+          </q-item-section>
         </q-item>
         <q-item>
           <q-item-section>
