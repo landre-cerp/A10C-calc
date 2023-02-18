@@ -92,7 +92,7 @@
               <td class="text-right">{{ phase.FuelOnBoard }}</td>
               <td class="text-right" v-if="phase.type == PhaseType.CRUISE">
                 <div class="col text-right">
-                  <q-item> {{ phase.FuelUsed.toFixed(0) }} Lbs </q-item>
+                  <q-item> {{ phase.FuelUsed }} Lbs </q-item>
                   <q-item>
                     {{
                       CruiseMachSpeed(
@@ -105,6 +105,7 @@
                     Mach
                   </q-item>
                   <q-item>
+                    TAS
                     {{
                       TrueAirspeed(
                         CruiseMachSpeed(
@@ -119,6 +120,7 @@
                     Kts
                   </q-item>
                   <q-item>
+                    GS
                     {{
                       TrueAirspeed(
                         CruiseMachSpeed(
@@ -174,6 +176,7 @@ import { OptimumCruiseAltitude } from 'src/service/calculators/OptimumCruiseAlti
 import { QInput, QItem, QItemSection, QItemLabel, QMarkupTable } from 'quasar';
 import { combatCeiling } from 'src/service/calculators/CombatCeiling';
 import { getStdTemp } from 'src/service/conversionTool';
+import { onMounted } from 'vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -193,7 +196,7 @@ TakeOffPhase.startWeight = Math.ceil(aircraft.TotalWeight);
 const ClimbPhase = phases.value[1];
 ClimbPhase.startWeight = TakeOffPhase.startWeight - TakeOffPhase.FuelUsed;
 
-Recalc();
+onMounted(() => Recalc());
 
 function Recalc() {
   console.log('Recalc');
@@ -230,12 +233,19 @@ function Recalc() {
 
   CruisePhase.Distance = missionRange.value - ClimbPhase.Distance;
 
-  console.log(
-    flight.CruisePressureAlt,
-    CruisePhase.startWeight,
-    airport.DeltaTemp,
-    aircraft.Drag
+  CruisePhase.FuelOnBoard = ClimbPhase.FuelOnBoard - ClimbPhase.FuelUsed;
+  CruisePhase.startWeight = ClimbPhase.startWeight - ClimbPhase.FuelUsed;
+
+  const groundSpeed = TrueAirspeed(
+    CruiseMachSpeed(
+      flight.CruisePressureAlt,
+      CruisePhase.startWeight,
+      airport.DeltaTemp,
+      aircraft.Drag
+    ),
+    getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
   );
+  console.log(groundSpeed);
 
   CruisePhase.FuelUsed = Math.ceil(
     CruisePhase.Distance /
@@ -247,9 +257,9 @@ function Recalc() {
       )
   );
 
-  // CruisePhase.Duration = Math.ceil(
-  //   (60 / (groundSpeed.value - cruiseHeadWind.value)) * CruisePhase.Distance
-  // );
+  CruisePhase.Duration = Math.ceil(
+    (60 / (groundSpeed - cruiseHeadWind.value)) * CruisePhase.Distance
+  );
 
   flight.Recalc();
 }
