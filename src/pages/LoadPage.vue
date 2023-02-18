@@ -1,10 +1,10 @@
 <template>
   <q-page padding>
     <!-- content -->
-    <TakeOffIndex></TakeOffIndex>
+    <AircraftLoad></AircraftLoad>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import TakeOffIndex from 'src/components/TakeOffIndex.vue';
+import AircraftLoad from 'src/components/AircraftLoad.vue';
 </script>

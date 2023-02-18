@@ -4,10 +4,12 @@
     use-input
     input-debounce="0"
     v-model="model"
+    :model-value="val"
     :options="options"
     @update:model-value="(val) => itemSelected(pylonNum, val)"
     emit-value
     @filter="filterFn"
+    :disable="props.locked"
   >
   </q-select>
 </template>
@@ -22,6 +24,7 @@ const props = defineProps({
   val: String,
   pylon: { required: true, default: { ...emptyLoad } as IAircraftStore },
   itemSelected: { required: true },
+  locked: Boolean,
 });
 
 const weapons = aircraftStores.filter(

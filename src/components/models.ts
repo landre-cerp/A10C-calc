@@ -36,3 +36,31 @@ export interface IA10CPylons {
         IAircraftStore
       ];
 }
+
+export enum QNH_Unit {
+  hPa,
+  inMg,
+}
+
+export interface QNH {
+  value: number;
+  unit: QNH_Unit;
+}
+
+export enum PhaseType {
+  TAXI,
+  CLIMB,
+  CRUISE,
+  ONZONE,
+  RTB,
+}
+
+export interface FlightPhase {
+  label: string;
+  type: PhaseType;
+  startWeight: number;
+  FuelOnBoard: number;
+  FuelUsed: number;
+  Distance: number;
+  Duration: number;
+}

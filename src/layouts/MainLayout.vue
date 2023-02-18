@@ -6,14 +6,14 @@
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          A10C Perf calculator
+          A10C Perf calculator (for DCS)
         </q-toolbar-title>
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/" label="AirField" />
-        <q-route-tab to="/loadPage" label="Armement" />
-        <q-route-tab to="/" label="Perf" />
+        <q-route-tab to="/Load" label="Armement" />
+        <q-route-tab to="/Airfield" label="TakeOff" />
+        <q-route-tab to="/Flight" label="Flight" />
       </q-tabs>
     </q-header>
 

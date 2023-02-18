@@ -1,0 +1,244 @@
+export const CruiseFuelUsed = (
+  cruisePressureAlt: number,
+  cruiseWeight: number,
+  deltaTemp: number,
+  drag: number,
+  distance: number
+): number => {
+  // Enter chart with Cruise GrossWeigth , pressure Altitude , Drag Index
+  const [vDrag, vnextDrag] = selectLbsVectorsForDrag(drag);
+
+  // calc fuel with "Low table"
+  let nauticalMilesPerLbs = CalcNauticalPerLbsFuel(
+    vDrag,
+    cruisePressureAlt,
+    cruiseWeight
+  );
+
+  // if high table ( 0-4  / 4-8 / 8-null )
+  if (vnextDrag != vDrag) {
+    const nextNauticalMilesPerLbs = CalcNauticalPerLbsFuel(
+      vnextDrag,
+      cruisePressureAlt,
+      cruiseWeight
+    );
+    const increment = (nextNauticalMilesPerLbs - nauticalMilesPerLbs) / 4; // delta drag from table is 4
+
+    nauticalMilesPerLbs = nauticalMilesPerLbs + increment * 4;
+  }
+
+  return nauticalMilesPerLbs < 0 ? 0 : nauticalMilesPerLbs;
+};
+
+export const CruiseMachSpeed = (
+  cruisePressureAlt: number,
+  cruiseWeight: number,
+  deltaTemp: number,
+  drag: number,
+  distance: number
+): number => {
+  // Enter chart with Cruise GrossWeigth , pressure Altitude , Drag Index
+
+  const [vMach, vNextMach] = selectMachVectorsForDrag(drag);
+
+  let trueMach = CalcCruiseSpeed(vMach, cruisePressureAlt, cruiseWeight);
+
+  // if high table ( 0-4  / 4-8 / 8-null )
+  if (vNextMach != vMach) {
+    const nextTrueMach = CalcCruiseSpeed(
+      vNextMach,
+      cruisePressureAlt,
+      cruiseWeight
+    );
+    const incrementSpeed = (nextTrueMach - trueMach) / 4;
+    trueMach = trueMach + incrementSpeed * 4;
+  }
+
+  return trueMach < 0 ? 0 : trueMach;
+};
+
+const CalcNauticalPerLbsFuel = (
+  vDrag: Map<number, number[]>,
+  cruisePressureAlt: number,
+  cruiseWeight: number
+): number => {
+  let fuelUsed = 0;
+  const step = 5000;
+  for (let AltRangeStart = 0; AltRangeStart < 30000; AltRangeStart += step) {
+    if (
+      cruisePressureAlt >= AltRangeStart &&
+      cruisePressureAlt < AltRangeStart + step
+    ) {
+      fuelUsed = NMPerLbsFor(
+        vDrag,
+        cruisePressureAlt,
+        cruiseWeight,
+        step,
+        AltRangeStart
+      );
+    }
+  }
+
+  return fuelUsed;
+};
+
+/* Cruise tools */
+
+const selectLbsVectorsForDrag = (drag: number) => {
+  if (drag >= 8) return [vectors_Cruise_LbsNm_Drag8, null];
+  if (drag >= 4 && drag < 8) {
+    return [vectors_Cruise_LbsNm_Drag4, vectors_Cruise_LbsNm_Drag8];
+  }
+  return [vectors_Cruise_LbsNm_Drag0, vectors_Cruise_LbsNm_Drag4];
+};
+
+const selectMachVectorsForDrag = (drag: number) => {
+  if (drag >= 8) return [vector_MachSpeed_Drag8, null];
+  if (drag >= 4 && drag < 8) {
+    return [vector_MachSpeed_Drag4, vector_MachSpeed_Drag8];
+  }
+  return [vector_MachSpeed_Drag0, vector_MachSpeed_Drag4];
+};
+
+const selectVectorsForDeltaTemp = (deltaTemp: number) => {
+  return deltaTemp > 0
+    ? vectors_Cruise_deltaT_positive
+    : vectors_Cruise_deltaT_negative;
+};
+
+const vectors_Cruise_LbsNm_Drag0: Map<number, number[]> = new Map([
+  [0, [0.106, -1.21e-6, 6.79e-12]],
+  [5000, [0.116, -6.74e-7, -6.79e-12]],
+  [10000, [0.155, -2.43e-6, 1.79e-11]],
+  [15000, [0.163, -2.2e-6, 1.18e-11]],
+  [20000, [0.198, -3.25e-6, 2.14e-11]],
+  [25000, [0.239, -4.65e-6, 3.57e-11]],
+  [30000, [0.237, -3.26e-6, 5e-12]],
+]);
+
+const vectors_Cruise_LbsNm_Drag4: Map<number, number[]> = new Map([
+  [0, [0.0892, -5.77e-7, -1.79e-12]],
+  [5000, [0.11, -1.03e-6, 1.64e-12]],
+  [10000, [0.129, -1.57e-6, 7.86e-12]],
+  [15000, [0.148, -2.1e-6, 1.39e-11]],
+  [20000, [0.157, -1.8e-6, 5.71e-12]],
+  [25000, [0.182, -2.24e-6, 5.71e-12]],
+  [30000, [0.247, -5.16e-6, 4e-11]],
+]);
+
+const vectors_Cruise_LbsNm_Drag8: Map<number, number[]> = new Map([
+  [0, [0.0641, 3.8e-7, -1.25e-11]],
+  [5000, [0.121, -2.02e-6, 1.61e-11]],
+  [10000, [0.126, -1.76e-6, 1.11e-11]],
+  [15000, [0.101, 8.04e-8, -1.25e-11]],
+  [20000, [0.16, -2.35e-6, 1.29e-11]],
+  [25000, [0.189, -3.42e-6, 2.57e-11]],
+  [30000, [0.232, -4.98e-6, 4e-11]],
+]);
+
+const NMperLbs = (coeff: number[] | undefined, weight: number) => {
+  if (typeof coeff == 'undefined') return 0;
+  const fuelUsed = coeff[0] + coeff[1] * weight + coeff[2] * weight * weight;
+  return fuelUsed >= 0 ? fuelUsed : 0;
+};
+
+const NMPerLbsFor = (
+  vDrag: Map<number, number[]>,
+  cruisePressureAlt: number,
+  cruiseWeight: number,
+  step: number,
+  AltRangeStart: number
+) => {
+  const lowValue = NMperLbs(vDrag.get(AltRangeStart), cruiseWeight);
+  const highValue = NMperLbs(vDrag.get(AltRangeStart + step), cruiseWeight);
+
+  // Linear interpolation between 40 and 45 GW charts
+  const increment = (highValue - lowValue) / step;
+
+  const distancePerLbs =
+    lowValue + increment * (cruisePressureAlt - AltRangeStart);
+  return distancePerLbs > 0 ? distancePerLbs : 0;
+};
+
+const vectors_Cruise_deltaT_positive: Map<number, number[]> = new Map([]);
+
+const vectors_Cruise_deltaT_negative: Map<number, number[]> = new Map([]);
+
+const CalcCruiseSpeed = (
+  vDrag: Map<number, number[]>,
+  cruisePressureAlt: number,
+  cruiseWeight: number
+) => {
+  let machSpeed = 0;
+  const step = 5000;
+  for (let altitude = 0; altitude < 35000; altitude += step) {
+    if (cruisePressureAlt >= altitude && cruisePressureAlt < altitude + step) {
+      machSpeed = calcMachSpeedFor(
+        vDrag,
+        cruisePressureAlt,
+        cruiseWeight,
+        step,
+        altitude
+      );
+    }
+  }
+
+  return machSpeed;
+};
+
+const vector_MachSpeed_Drag0: Map<number, number[]> = new Map([
+  [0, [0.241, 2.79e-7, 5e-11]],
+  [5000, [0.195, 3.41e-6, 1.43e-11]],
+  [10000, [0.261, 2.23e-6, 1.79e-11]],
+  [15000, [0.273, 3.45e-6, 3.57e-12]],
+  [20000, [0.224, 7.14e-6, -3.57e-11]],
+  [25000, [0.299, 5.56e-6, -1.43e-11]],
+  [30000, [0.224, 1.12e-5, -8e-11]],
+  [35000, [0.34, 6e-6, 2e-28]],
+]);
+
+const vector_MachSpeed_Drag4: Map<number, number[]> = new Map([
+  [0, [0.205, 2.21e-6, 1.43e-11]],
+  [5000, [0.147, 6.4e-6, -3.93e-11]],
+  [10000, [0.205, 4.1e-6, -3.57e-12]],
+  [15000, [0.154, 8.51e-6, -5.71e-11]],
+  [20000, [0.159, 9.81e-6, -7.14e-11]],
+  [25000, [0.222, 8.49e-6, -5e-11]],
+  [30000, [0.16, 1.34e-5, -1.04e-10]],
+  [35000, [0.22, 1.25e-5, -1e-10]],
+]);
+
+const vector_MachSpeed_Drag8: Map<number, number[]> = new Map([
+  [0, [0.196, 2.03e-6, 1.79e-11]],
+  [5000, [0.145, 5.87e-6, -3.21e-11]],
+  [10000, [0.17, 5.28e-6, -1.79e-11]],
+  [15000, [0.132, 9.18e-6, -6.79e-11]],
+  [20000, [0.196, 7.29e-6, -3.93e-11]],
+  [25000, [0.226, 7.48e-6, -3.57e-11]],
+  [30000, [0.204, 1.06e-5, -7.14e-11]],
+  [35000, [0.31, 6e-6, 1.11e-24]],
+]);
+
+function calcMachSpeedFor(
+  vDrag: Map<number, number[]>,
+  cruisePressureAlt: number,
+  cruiseWeight: number,
+  step: number,
+  AltRangeStart: number
+): number {
+  const lowValue = MachSpeed(vDrag.get(AltRangeStart), cruiseWeight);
+  const highValue = MachSpeed(vDrag.get(AltRangeStart + step), cruiseWeight);
+
+  // Linear interpolation between 40 and 45 GW charts
+  const increment = (highValue - lowValue) / step;
+
+  const distancePerLbs =
+    lowValue + increment * (cruisePressureAlt - AltRangeStart);
+  return distancePerLbs > 0 ? distancePerLbs : 0;
+}
+
+const MachSpeed = (coeff: number[] | undefined, weight: number) => {
+  if (typeof coeff == 'undefined') return 0;
+  const fuelUsed = coeff[0] + coeff[1] * weight + coeff[2] * weight * weight;
+  return fuelUsed >= 0 ? fuelUsed : 0;
+};
