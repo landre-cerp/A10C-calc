@@ -6,11 +6,15 @@
         <q-list>
           <q-item>
             <q-input
+              filled
+              debounce="500"
               class="q-mr-md"
               v-model.number="runwayLength"
               label="Runway length (feet)"
             />
             <q-input
+              filled
+              debounce="500"
               class="q-mr-md"
               v-model.number="Temp"
               label="Runway Temp. °C"
@@ -18,6 +22,8 @@
           </q-item>
           <q-item>
             <q-input
+              filled
+              debounce="500"
               v-model.number:model-value="Qnh.value"
               label="QNH"
               :rules="[(val) => val >= 0]"
@@ -34,6 +40,8 @@
           </q-item>
           <q-item>
             <q-input
+              filled
+              debounce="500"
               class="q-mr-md"
               v-model.number="AirportElevation"
               label="Airport Altitude (feet)"
@@ -48,7 +56,12 @@
           </q-item>
 
           <q-item>
-            <q-input v-model.number="HeadWind" label="Head wind (kts)" />
+            <q-input
+              filled
+              debounce="500"
+              v-model.number="HeadWind"
+              label="Head wind (kts)"
+            />
           </q-item>
         </q-list>
       </q-card-section>

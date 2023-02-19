@@ -5,6 +5,8 @@
       <div class="col">
         <div class="row q-mb-md">
           <q-input
+            filled
+            debounce="500"
             class="text-h6 q-mr-md"
             v-model.number="FlightLevel"
             mask="###"
@@ -12,17 +14,23 @@
           >
           </q-input>
           <q-input
+            filled
+            debounce="500"
             class="text-h6 q-mr-md"
             v-model.number="fuelReserve"
             label="Fuel Reserve"
-            :rules="[(val) => val >= 0 && descentPhase.FuelOnBoard >= val]"
+            :rules="[(val) => val >= 0, checkReserve]"
           ></q-input>
           <q-input
+            filled
+            debounce="500"
             class="text-h6 q-mr-md"
             v-model.number="missionRange"
             label="Mission Range"
           ></q-input>
           <q-input
+            filled
+            debounce="500"
             class="text-h6 q-mr-md"
             v-model.number="cruiseHeadWind"
             label="Cruise Head Wind"
@@ -70,7 +78,7 @@
         <tr>
           <th></th>
           <th class="text-center" colspan="2">Starting Phase with</th>
-          <th colspan="5"></th>
+          <th colspan="4"></th>
         </tr>
         <tr>
           <th class="text-left">Phase</th>
@@ -80,7 +88,6 @@
           <th class="text-right">F. Used (lbs)</th>
           <th class="text-right">Dist (NM)</th>
           <th class="text-right">Time (min)</th>
-          <th class="text-right">Combat Ceiling (500fpm)</th>
         </tr>
       </thead>
       <tbody>
@@ -88,6 +95,8 @@
           <td class="text-left text-h6">{{ phase.label }}</td>
           <td class="text-right">{{ phase.startWeight }}</td>
           <td class="text-right">{{ phase.FuelOnBoard }}</td>
+
+          <!-- Comment  -->
 
           <td
             class="text-right"
@@ -150,21 +159,40 @@
               </q-item-section>
             </q-item>
           </td>
-          <td v-if="phase.type == PhaseType.ONZONE">
+          <td v-else-if="phase.type == PhaseType.ONZONE">
             <q-input
+              filled
+              debounce="500"
               class="q-mr-md"
               v-model.number="combatFuelFlow"
               label="Combat Fuel Flow"
+              @update:model-value="Recalc"
+              :rules="[checkReserve]"
             >
-              <template v-slot:append>{{
-                ((combatFuelFlow * combatduration) / 60).toFixed(0)
-              }}</template>
+              <template v-slot:append
+                >{{ ((combatFuelFlow * combatduration) / 60).toFixed(0) }}
+              </template>
             </q-input>
+            <q-item>
+              <q-item-label class="text-bold">
+                Combat ceiling :
+
+                {{
+                  combatCeiling(
+                    phase.startWeight,
+                    airport.DeltaTemp,
+                    aircraft.Drag
+                  ).toFixed(0)
+                }}</q-item-label
+              >
+            </q-item>
           </td>
 
           <td v-else class="text-right">
             <q-item>{{ phase.comment }}</q-item>
           </td>
+
+          <!-- FUEL USED  -->
 
           <td
             class="text-right text-bold"
@@ -174,30 +202,32 @@
           </td>
           <td v-else class="text-right">{{ phase.FuelUsed.toFixed(0) }}</td>
 
+          <!-- Distance  -->
+
           <td v-if="phase.type == PhaseType.ONZONE" class="text-right"></td>
           <td v-else class="text-right">{{ phase.Distance }}</td>
 
+          <!-- TIME -->
+
           <td v-if="phase.type == PhaseType.ONZONE">
             <q-input
+              filled
+              debounce="500"
               class="q-mr-md"
               v-model.number="combatduration"
               label="Combat Duration"
+              @update:model-value="Recalc"
+              :rules="[checkReserve]"
             ></q-input>
           </td>
 
           <td v-else class="text-right">{{ phase.Duration }}</td>
+
+          <!-- Combat Ceiling -->
           <td
             v-if="phase.type == PhaseType.ONZONE"
             class="text-right text-bold"
-          >
-            {{
-              combatCeiling(
-                phase.startWeight,
-                airport.DeltaTemp,
-                aircraft.Drag
-              ).toFixed(0)
-            }}
-          </td>
+          ></td>
           <td v-else class="text-right"></td>
         </tr>
       </tbody>
@@ -353,7 +383,6 @@ function RecalcRTB(distance: number, RTBPhase: FlightPhase) {
 
   const AverageWeight =
     (RTBPhase.startWeight + aircraft.ZeroFuelWeight + fuelReserve.value) / 2;
-  console.log('Average', AverageWeight);
 
   RTBPhase.Distance = distance;
 
@@ -416,13 +445,27 @@ const getCruiseAverageWeight = (CruisePhase: FlightPhase): number => {
   return CruisePhase.startWeight - fuelUsedForMaxWeight / 2;
 };
 
+function checkReserve(): boolean {
+  const descentPhase = phases.value.find((p) => p.type == PhaseType.DESCENT);
+  if (descentPhase) {
+    return descentPhase.FuelOnBoard >= fuelReserve.value;
+  } else {
+    return false;
+  }
+}
+
 function Recalc() {
   const ClimbPhase = phases.value[1];
   const CruisePhase = phases.value[2];
+  const onZonePhase = phases.value[3];
   const RTBPhase = phases.value[4];
 
   RecalcClimb(ClimbPhase);
   RecalcCruise(ClimbPhase, CruisePhase);
+  onZonePhase.FuelUsed = Math.ceil(
+    (combatFuelFlow.value / 60) * combatduration.value
+  );
+
   RTBPhase.startWeight = CruisePhase.startWeight - CruisePhase.FuelUsed - 4930; // Wepons
   RTBPhase.Drag = aircraft.Drag - 3.72;
   RecalcRTB(CruisePhase.Distance, RTBPhase);

@@ -28,6 +28,8 @@
         >
         <q-item-section>
           <q-input
+            filled
+            debounce="500"
             v-model.number="gunAmmoPercent"
             :rules="[(val) => val >= 0 && val <= 100]"
           >

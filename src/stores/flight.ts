@@ -21,7 +21,7 @@ export const useFlightStore = defineStore('flight', {
         Duration: 1,
         FuelFlow: 0,
         Drag: 0,
-        comment: 'Assume 500 lbs fuel used for taxi and takeoff to climb speed',
+        comment: '',
       },
       {
         label: 'Climb',
