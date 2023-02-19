@@ -7,19 +7,26 @@
           <q-item>
             <q-input
               class="q-mr-md"
-              v-model="runwayLength"
+              v-model.number="runwayLength"
               label="Runway length (feet)"
             />
-            <q-input class="q-mr-md" v-model="Temp" label="Runway Temp. °C" />
+            <q-input
+              class="q-mr-md"
+              v-model.number="Temp"
+              label="Runway Temp. °C"
+            />
             <q-input
               v-model.number:model-value="Qnh.value"
               label="QNH"
               :rules="[(val) => val >= 0]"
             >
               <template v-slot:append
-                ><q-btn no-caps v-on:click="airport.switchQnhUnit()">{{
-                  QNH_Unit[Qnh.unit]
-                }}</q-btn></template
+                ><q-btn
+                  color="primary"
+                  no-caps
+                  v-on:click="airport.switchQnhUnit()"
+                  >{{ QNH_Unit[Qnh.unit] }}</q-btn
+                ></template
               >
             </q-input>
           </q-item>
@@ -39,7 +46,7 @@
           </q-item>
 
           <q-item>
-            <q-input v-model="HeadWind" label="Head wind (kts)" />
+            <q-input v-model.number="HeadWind" label="Head wind (kts)" />
           </q-item>
         </q-list>
       </q-card-section>
@@ -55,14 +62,23 @@
         <AircraftWeight></AircraftWeight>
         <q-item>
           <q-item-section>
-            <q-item-label>PTFS</q-item-label>
+            <q-item-label
+              >PTFS
+              <q-icon class="q-ms-md" name="help">
+                <q-tooltip>
+                  Fan speed should be checked after approximately 1,000 feet on
+                  takeoff roll.
+                </q-tooltip></q-icon
+              ></q-item-label
+            >
             <p class="text-h6">
               {{ PTFS(Temp).toFixed(0) }}
             </p>
-            <q-tooltip>
-              Fan speed should be checked after approximately 1,000 feet on
-              takeoff roll.
-            </q-tooltip>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label class="text-h6"
+              >FLAPS {{ aircraft.flaps }}</q-item-label
+            >
           </q-item-section>
         </q-item>
         <q-item>
@@ -96,10 +112,13 @@
         </q-item>
         <q-item>
           <q-item-section>
-            <q-item-label>Takeoff Weight</q-item-label>
-            <q-tooltip>
-              Charts assume 500 lbs is used for taxi + takeoff
-            </q-tooltip>
+            <q-item-label
+              >Takeoff Weight<q-icon class="q-ms-md" name="help"
+                ><q-tooltip>
+                  Charts assume 500 lbs is used for taxi + takeoff
+                </q-tooltip>
+              </q-icon></q-item-label
+            >
 
             <p class="text-h6">
               {{ aircraft.TakeOffWeight.toFixed(0) }}
@@ -117,7 +136,7 @@
         <q-item>
           <q-item-section class="q-pa-md bg-grey-10 text-white">
             <q-item-label class="text-center"
-              >{{ ground.toFixed(0) }} / {{ airport.runwayLength }}
+              >{{ ground.toFixed(0) }} / {{ airport.runwayLength }} feet
             </q-item-label>
             <q-linear-progress
               dark
@@ -150,7 +169,7 @@ import { QNH_Unit } from './models';
 import { computed } from 'vue';
 
 /// Calculators
-import { TakeoffIndex } from 'src/service/calculators/TakeOffIndex';
+import { TakeoffIndexCalculator } from 'src/service/calculators/TakeOffIndex';
 import { GroundRun } from 'src/service/calculators/GroundRun';
 import { TakeoffSpeed } from 'src/service/calculators/takeOffSpeed';
 import { PTFS } from 'src/service/calculators/PTFS';
@@ -179,6 +198,10 @@ const ground = computed(() => {
   if (typeof temp == 'undefined') temp = 0;
   return temp;
 });
+
+const TOICalculator = new TakeoffIndexCalculator();
+const TakeoffIndex = (temp: number, pressureAltitude: number) =>
+  TOICalculator.Calc(pressureAltitude, temp);
 
 const colorPercent = computed(() => (percentRun.value > 1 ? 'red' : 'green'));
 </script>

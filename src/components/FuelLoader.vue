@@ -7,7 +7,10 @@
       </p></q-item-section
     >
     <q-item-section>
-      <q-input v-model="fuelQty" :rules="[(val) => val >= 0 && val <= 100]">
+      <q-input
+        v-model.number="fuelQty"
+        :rules="[(val) => val >= 0 && val <= 100]"
+      >
         <template v-slot:append> % </template>
       </q-input>
     </q-item-section>

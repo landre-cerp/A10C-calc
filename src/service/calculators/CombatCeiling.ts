@@ -1,91 +1,64 @@
-import { ApplyDeltaTempTCorrection } from 'src/service/conversionTool';
+import {
+  TempCorrectionTable,
+  CorrectionVector,
+  CorrectionTable,
+} from './CorrectionTable';
 
 export const combatCeiling = (
   startingWeight: number,
   deltaTemp: number,
   drag: number
 ): number => {
-  // Select equation vectors for the Aircraft Drag
-
-  const [vDrag, vnextDrag] = selectDragVector(drag);
-
-  let combatCeiling = CalcCombatCeiling(vDrag, startingWeight);
-
-  if (vnextDrag != vDrag) {
-    const NextCombatCeiling = CalcCombatCeiling(vnextDrag, startingWeight);
-    const increment = (NextCombatCeiling - combatCeiling) / 4; // delta drag from table is 4
-    const deltaDrag = drag >= 4 ? drag - 4 : drag;
-    combatCeiling = combatCeiling + (increment > 0 ? increment * deltaDrag : 0);
-  }
+  let combatCeiling = vector_combatCeiling_drag.GetLinear(drag, startingWeight);
 
   if (deltaTemp > 0) {
-    const step = 2500;
-    for (let rangeStart = 20000; rangeStart < 42500; rangeStart += step) {
-      if (combatCeiling >= rangeStart && combatCeiling < rangeStart + step) {
-        combatCeiling = ApplyDeltaTempTCorrection(
-          selectVectorsForDeltaTemp,
-          combatCeiling,
-          deltaTemp,
-          rangeStart,
-          step
-        );
-      }
-    }
+    combatCeiling = tempCorrectionTable.GetLinear(combatCeiling, deltaTemp);
   }
 
   return combatCeiling;
 };
 
-const CalcCombatCeiling = (
-  coeff: number[] | undefined,
-  startingWeight: number
-): number => {
-  if (typeof coeff == 'undefined') return 0;
+const vector_combatCeiling_drag = new CorrectionTable(
+  'Combat ceiling drag correction table',
+  new Map([
+    [0, new CorrectionVector([54857, -0.627])],
+    [4, new CorrectionVector([54157, -0.657])],
+    [8, new CorrectionVector([53464, -0.676])],
+  ])
+);
 
-  return coeff[0] * startingWeight + coeff[1];
-};
+const tempCorrectionTable = new TempCorrectionTable(
+  'Combat ceiling delta temp correction table',
+  new CorrectionTable(
+    ' positive correction table',
 
-const selectDragVector = (drag: number) => {
-  if (drag >= 8)
-    return [vector_combatCeiling_drag.get(8), vector_combatCeiling_drag.get(8)];
-  if (drag >= 4)
-    return [vector_combatCeiling_drag.get(4), vector_combatCeiling_drag.get(8)];
-  return [vector_combatCeiling_drag.get(0), vector_combatCeiling_drag.get(4)];
-};
+    new Map([
+      [20000, new CorrectionVector([20000, -200])],
+      [22500, new CorrectionVector([22500, -175])],
+      [25000, new CorrectionVector([25000, -150])],
+      [27500, new CorrectionVector([27500, -125])],
+      [30000, new CorrectionVector([30000, -100])],
+      [32500, new CorrectionVector([32500, -75])],
+      [35000, new CorrectionVector([35000, -100])],
+      [37500, new CorrectionVector([37500, -75])],
+      [40000, new CorrectionVector([40000, -75])],
+      [42500, new CorrectionVector([42500, -75])],
+    ])
+  ),
 
-const selectVectorsForDeltaTemp = (deltaTemp: number) => {
-  return deltaTemp > 0
-    ? combatCeiling_deltaTemp_positive
-    : combatCeiling_deltaTemp_negative;
-};
-
-const vector_combatCeiling_drag: Map<number, number[]> = new Map([
-  [0, [-0.627, 54857]],
-  [4, [-0.657, 54157]],
-  [8, [-0.676, 53464]],
-]);
-const combatCeiling_deltaTemp_positive: Map<number, number[]> = new Map([
-  [20000, [-200, 20000]],
-  [22500, [-175, 22500]],
-  [25000, [-150, 25000]],
-  [27500, [-125, 27500]],
-  [30000, [-100, 30000]],
-  [32500, [-75, 32500]],
-  [35000, [-100, 35000]],
-  [37500, [-75, 37500]],
-  [40000, [-75, 40000]],
-  [42500, [-75, 42500]],
-]);
-
-const combatCeiling_deltaTemp_negative: Map<number, number[]> = new Map([
-  [20000, [-125, 20000]],
-  [22500, [-100, 22500]],
-  [25000, [-75, 25000]],
-  [27500, [-50, 27500]],
-  [30000, [-25, 30000]],
-  [32500, [-25, 32500]],
-  [35000, [-25, 35000]],
-  [37500, [-25, 37500]],
-  [40000, [-25, 40000]],
-  [42500, [-25, 42500]],
-]);
+  new CorrectionTable(
+    'negative correction table',
+    new Map([
+      [20000, new CorrectionVector([20000, -125])],
+      [22500, new CorrectionVector([22500, -100])],
+      [25000, new CorrectionVector([25000, -75])],
+      [27500, new CorrectionVector([27500, -50])],
+      [30000, new CorrectionVector([30000, -25])],
+      [32500, new CorrectionVector([32500, -25])],
+      [35000, new CorrectionVector([35000, -25])],
+      [37500, new CorrectionVector([37500, -25])],
+      [40000, new CorrectionVector([40000, -25])],
+      [42500, new CorrectionVector([42500, -25])],
+    ])
+  )
+);

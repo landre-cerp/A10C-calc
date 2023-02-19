@@ -63,4 +63,5 @@ export interface FlightPhase {
   FuelUsed: number;
   Distance: number;
   Duration: number;
+  FuelFlow: number;
 }

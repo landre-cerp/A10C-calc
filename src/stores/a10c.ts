@@ -27,6 +27,7 @@ const defaultState = {
   ] as IAircraftStore[],
   fuelQty: 75 as number,
   gunAmmoPercent: 100 as number,
+  flaps: 7 as number,
 };
 
 export const useA10CStore = defineStore('a10c', {
@@ -106,6 +107,8 @@ export const useA10CStore = defineStore('a10c', {
 
     EmptyAllPylons() {
       this.pylonsLoad = [
+        { ...AIM9M },
+        { ...TGP },
         { ...emptyLoad },
         { ...emptyLoad },
         { ...emptyLoad },
@@ -114,9 +117,7 @@ export const useA10CStore = defineStore('a10c', {
         { ...emptyLoad },
         { ...emptyLoad },
         { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
+        { ...ALQ184 },
       ];
     },
 
