@@ -15,6 +15,8 @@
               v-model.number="Temp"
               label="Runway Temp. °C"
             />
+          </q-item>
+          <q-item>
             <q-input
               v-model.number:model-value="Qnh.value"
               label="QNH"
