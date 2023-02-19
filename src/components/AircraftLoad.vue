@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-sm">
+  <div class="q-pa-md col items-start q-gutter-sm">
     <q-list class="row">
       <q-item>
         <q-item-section class="col q-mr-md">
@@ -28,6 +28,8 @@
         >
         <q-item-section>
           <q-input
+            filled
+            debounce="500"
             v-model.number="gunAmmoPercent"
             :rules="[(val) => val >= 0 && val <= 100]"
           >
@@ -35,27 +37,30 @@
           </q-input>
         </q-item-section>
       </q-item>
-    </q-list>
-    <q-list class="row">
       <FuelLoader></FuelLoader>
-      <AircraftWeight></AircraftWeight>
     </q-list>
 
-    <q-img
-      src="src/assets/a10C-emports.jpg"
-      style="max-height: 170px; max-width: 605px"
-    ></q-img>
-
-    <q-markup-table bordered dense>
+    <q-markup-table dense>
       <thead>
-        <tr filled color="red">
-          <td colspan="4">
+        <tr>
+          <th colspan="4">
+            <q-img
+              src="src/assets/a10C-emports.jpg"
+              style="max-height: 170px; max-width: 605px"
+            ></q-img>
+          </th>
+          <th colspan="2">
+            <AircraftWeight></AircraftWeight>
+          </th>
+        </tr>
+        <tr filled>
+          <th colspan="4">
             <q-checkbox
               v-model:modelValue="symetrical"
               label="Symetrical Load"
             />
-          </td>
-          <td colspan="2">
+          </th>
+          <th colspan="2">
             <q-btn-group>
               <q-btn color="primary" v-on:click="empty()">Empty</q-btn>
               <q-btn color="primary" v-on:click="loadHog()">Hog Std</q-btn>
@@ -66,15 +71,15 @@
                 icon="restart_alt"
               ></q-btn>
             </q-btn-group>
-          </td>
+          </th>
         </tr>
         <tr align="center">
-          <td>#</td>
-          <td><q-icon name="lock"></q-icon></td>
-          <td>Store</td>
-          <td></td>
-          <td>Lbs</td>
-          <td>Drag</td>
+          <th>#</th>
+          <th><q-icon name="lock"></q-icon></th>
+          <th>Store</th>
+          <th></th>
+          <th>Lbs</th>
+          <th>Drag</th>
         </tr>
       </thead>
       <tbody>

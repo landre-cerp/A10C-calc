@@ -53,10 +53,12 @@ export enum PhaseType {
   CRUISE,
   ONZONE,
   RTB,
+  DESCENT,
 }
 
 export interface FlightPhase {
   label: string;
+  comment: string;
   type: PhaseType;
   startWeight: number;
   FuelOnBoard: number;
@@ -64,4 +66,5 @@ export interface FlightPhase {
   Distance: number;
   Duration: number;
   FuelFlow: number;
+  Drag: number;
 }
