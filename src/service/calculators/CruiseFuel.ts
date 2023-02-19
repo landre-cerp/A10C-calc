@@ -117,7 +117,3 @@ const NMPerLbsFor = (
     lowValue + increment * (cruisePressureAlt - AltRangeStart);
   return distancePerLbs > 0 ? distancePerLbs : 0;
 };
-
-const vectors_Cruise_deltaT_positive: Map<number, number[]> = new Map([]);
-
-const vectors_Cruise_deltaT_negative: Map<number, number[]> = new Map([]);

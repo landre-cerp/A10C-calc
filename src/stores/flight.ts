@@ -19,6 +19,7 @@ export const useFlightStore = defineStore('flight', {
         FuelUsed: 500,
         Distance: 2,
         Duration: 1,
+        FuelFlow: 0,
       },
       {
         label: 'Climb',
@@ -28,6 +29,7 @@ export const useFlightStore = defineStore('flight', {
         FuelUsed: 0,
         Distance: 0,
         Duration: 0,
+        FuelFlow: 0,
       },
       {
         label: 'Cruise',
@@ -37,6 +39,7 @@ export const useFlightStore = defineStore('flight', {
         FuelUsed: 0,
         Distance: 0,
         Duration: 0,
+        FuelFlow: 0,
       },
       {
         label: 'On Zone',
@@ -46,6 +49,7 @@ export const useFlightStore = defineStore('flight', {
         FuelUsed: 0,
         Distance: 0,
         Duration: 0,
+        FuelFlow: 0,
       },
       {
         label: 'RTB',
@@ -55,6 +59,7 @@ export const useFlightStore = defineStore('flight', {
         FuelUsed: 500,
         Distance: 0,
         Duration: 0,
+        FuelFlow: 0,
       },
     ] as FlightPhase[],
   }),

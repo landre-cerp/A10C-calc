@@ -9,26 +9,22 @@
               v-model.number="FlightLevel"
               mask="###"
               label="Flight Level (Ex 160)"
-              @update:model-value="Recalc"
             >
             </q-input>
             <q-input
               class="text-h6 q-mr-md"
               v-model.number="fuelReserve"
               label="Fuel Reserve"
-              @update:model-value="Recalc"
             ></q-input>
             <q-input
               class="text-h6 q-mr-md"
               v-model.number="missionRange"
               label="Mission Range"
-              @update:model-value="Recalc"
             ></q-input>
             <q-input
               class="text-h6 q-mr-md"
               v-model.number="cruiseHeadWind"
               label="Cruise Head Wind"
-              @update:model-value="Recalc"
             ></q-input>
           </div>
           <q-item-label class="q-mb-md">
@@ -68,7 +64,7 @@
         </q-item>
       </div>
       <div class="col">
-        <q-markup-table separator="vertical">
+        <q-markup-table separator="cell">
           <thead>
             <tr>
               <th></th>
@@ -91,50 +87,64 @@
               <td class="text-right">{{ phase.startWeight }}</td>
               <td class="text-right">{{ phase.FuelOnBoard }}</td>
               <td class="text-right" v-if="phase.type == PhaseType.CRUISE">
-                <div class="col text-right">
-                  <q-item> {{ phase.FuelUsed }} Lbs </q-item>
-                  <q-item>
-                    {{
-                      CruiseMachSpeed(
-                        flight.CruisePressureAlt,
-                        phase.startWeight,
-                        airport.DeltaTemp,
-                        aircraft.Drag
-                      ).toFixed(2)
-                    }}
-                    Mach
-                  </q-item>
-                  <q-item>
-                    TAS
-                    {{
-                      TrueAirspeed(
-                        CruiseMachSpeed(
-                          flight.CruisePressureAlt,
-                          phase.startWeight,
-                          airport.DeltaTemp,
-                          aircraft.Drag
-                        ),
-                        getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
-                      ).toFixed(0)
-                    }}
-                    Kts
-                  </q-item>
-                  <q-item>
-                    GS
-                    {{
-                      TrueAirspeed(
-                        CruiseMachSpeed(
-                          flight.CruisePressureAlt,
-                          phase.startWeight,
-                          airport.DeltaTemp,
-                          aircraft.Drag
-                        ),
-                        getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
-                      ) - cruiseHeadWind
-                    }}
-                    Kts
-                  </q-item>
-                </div>
+                <q-item>
+                  <q-item-section>
+                    <q-list dense>
+                      <q-item>Optimum params</q-item>
+                      <q-item>
+                        {{
+                          CruiseMachSpeed(
+                            flight.CruisePressureAlt,
+                            phase.startWeight,
+                            airport.DeltaTemp,
+                            aircraft.Drag
+                          ).toFixed(2)
+                        }}
+                        Mach
+                      </q-item>
+                      <q-item>
+                        {{
+                          TrueAirspeed(
+                            CruiseMachSpeed(
+                              flight.CruisePressureAlt,
+                              phase.startWeight,
+                              airport.DeltaTemp,
+                              aircraft.Drag
+                            ),
+                            getStdTemp(flight.CruisePressureAlt) +
+                              airport.DeltaTemp
+                          ).toFixed(0)
+                        }}
+                        Kts
+                      </q-item>
+                      <q-item>
+                        {{
+                          TrueAirspeed(
+                            CruiseMachSpeed(
+                              flight.CruisePressureAlt,
+                              phase.startWeight,
+                              airport.DeltaTemp,
+                              aircraft.Drag
+                            ),
+                            getStdTemp(flight.CruisePressureAlt) +
+                              airport.DeltaTemp
+                          ) - cruiseHeadWind
+                        }}
+                        Kts
+                      </q-item>
+                      <q-item>
+                        {{ phase.FuelFlow.toFixed(0) }}
+                        Lbs/hr
+                      </q-item>
+                    </q-list>
+                  </q-item-section>
+
+                  <q-item-section>
+                    <q-item class="text-bold">
+                      {{ phase.FuelUsed.toFixed(0) }} Lbs
+                    </q-item>
+                  </q-item-section>
+                </q-item>
               </td>
               <td v-else class="text-right">{{ phase.FuelUsed }}</td>
               <td class="text-right">{{ phase.Distance }}</td>
@@ -161,7 +171,7 @@ import { useA10CStore } from 'src/stores/a10c';
 import { useAirportStore } from 'src/stores/Airport';
 import { useFlightStore } from 'src/stores/flight';
 import { storeToRefs } from 'pinia';
-import { PhaseType, QNH_Unit } from './models';
+import { FlightPhase, PhaseType, QNH_Unit } from './models';
 
 import { ClimbFuelUsed } from 'src/service/calculators/ClimbFuel';
 import { ClimbTimeNeeded } from 'src/service/calculators/ClimbTime';
@@ -176,7 +186,7 @@ import { OptimumCruiseAltitude } from 'src/service/calculators/OptimumCruiseAlti
 import { QInput, QItem, QItemSection, QItemLabel, QMarkupTable } from 'quasar';
 import { combatCeiling } from 'src/service/calculators/CombatCeiling';
 import { getStdTemp } from 'src/service/conversionTool';
-import { onMounted } from 'vue';
+import { onMounted, onUpdated } from 'vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -196,13 +206,15 @@ TakeOffPhase.startWeight = Math.ceil(aircraft.TotalWeight);
 const ClimbPhase = phases.value[1];
 ClimbPhase.startWeight = TakeOffPhase.startWeight - TakeOffPhase.FuelUsed;
 
-onMounted(() => Recalc());
+onMounted(() => {
+  Recalc();
+});
 
-function Recalc() {
-  console.log('Recalc');
-  const ClimbPhase = phases.value[1];
-  const CruisePhase = phases.value[2];
+onUpdated(() => {
+  Recalc();
+});
 
+function recalcClimb(ClimbPhase: FlightPhase) {
   // Recalc Climb Phase
 
   ClimbPhase.FuelUsed = ClimbFuelUsed(
@@ -228,38 +240,77 @@ function Recalc() {
     airport.DeltaTemp,
     aircraft.Drag
   );
+}
 
-  // Recalc Cruise Phase
+function RecalcCruise(ClimbPhase: FlightPhase, CruisePhase: FlightPhase) {
+  // Step 1 - Optimum Cruise Altitude with startWeight
 
   CruisePhase.Distance = missionRange.value - ClimbPhase.Distance;
+  const AverageWeight = getCruiseAverageWeight(CruisePhase);
 
-  CruisePhase.FuelOnBoard = ClimbPhase.FuelOnBoard - ClimbPhase.FuelUsed;
-  CruisePhase.startWeight = ClimbPhase.startWeight - ClimbPhase.FuelUsed;
-
-  const groundSpeed = TrueAirspeed(
+  const Ktas = TrueAirspeed(
     CruiseMachSpeed(
       flight.CruisePressureAlt,
-      CruisePhase.startWeight,
+      AverageWeight,
       airport.DeltaTemp,
       aircraft.Drag
     ),
     getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
   );
-  console.log(groundSpeed);
+  const groundSpeed = Ktas - cruiseHeadWind.value;
 
-  CruisePhase.FuelUsed = Math.ceil(
-    CruisePhase.Distance /
-      CruiseNMperLbsUsed(
-        flight.CruisePressureAlt,
-        CruisePhase.startWeight,
-        airport.DeltaTemp,
-        aircraft.Drag
-      )
+  const FuelFlow =
+    Ktas /
+    CruiseNMperLbsUsed(
+      flight.CruisePressureAlt,
+      AverageWeight,
+      airport.DeltaTemp,
+      aircraft.Drag
+    );
+
+  CruisePhase.Duration = Math.ceil(CruisePhase.Distance / (groundSpeed / 60));
+  CruisePhase.FuelUsed = Math.ceil((FuelFlow * CruisePhase.Duration) / 60);
+  CruisePhase.FuelFlow = FuelFlow;
+}
+
+const getCruiseAverageWeight = (CruisePhase: FlightPhase): number => {
+  const cruiseMach = CruiseMachSpeed(
+    flight.CruisePressureAlt,
+    CruisePhase.startWeight, // Start Weight  , then half the fuel Used.
+    airport.DeltaTemp,
+    aircraft.Drag
   );
 
-  CruisePhase.Duration = Math.ceil(
-    (60 / (groundSpeed - cruiseHeadWind.value)) * CruisePhase.Distance
+  const Ktas = TrueAirspeed(
+    cruiseMach,
+    getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
   );
+
+  const groundSpeed = Ktas - cruiseHeadWind.value;
+
+  const FuelFlow =
+    Ktas /
+    CruiseNMperLbsUsed(
+      flight.CruisePressureAlt,
+      CruisePhase.startWeight,
+      airport.DeltaTemp,
+      aircraft.Drag
+    );
+
+  // then duration  = distance with ground Speed.
+  const duration = CruisePhase.Distance / (groundSpeed / 60);
+  const fuelUsedForMaxWeight = (FuelFlow / 60) * duration;
+
+  // then Same calcul with Avegage Weight
+  return CruisePhase.startWeight - fuelUsedForMaxWeight / 2;
+};
+
+function Recalc() {
+  const ClimbPhase = phases.value[1];
+  const CruisePhase = phases.value[2];
+
+  recalcClimb(ClimbPhase);
+  RecalcCruise(ClimbPhase, CruisePhase);
 
   flight.Recalc();
 }
