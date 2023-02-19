@@ -107,8 +107,6 @@ export const useA10CStore = defineStore('a10c', {
 
     EmptyAllPylons() {
       this.pylonsLoad = [
-        { ...AIM9M },
-        { ...TGP },
         { ...emptyLoad },
         { ...emptyLoad },
         { ...emptyLoad },
@@ -117,7 +115,9 @@ export const useA10CStore = defineStore('a10c', {
         { ...emptyLoad },
         { ...emptyLoad },
         { ...emptyLoad },
-        { ...ALQ184 },
+        { ...emptyLoad },
+        { ...emptyLoad },
+        { ...emptyLoad },
       ];
     },
 

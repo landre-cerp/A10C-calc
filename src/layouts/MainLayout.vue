@@ -6,7 +6,7 @@
           <q-avatar>
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
-          A10C Perf calculator (for DCS)
+          A10C Perf calculator (for DCS) - by Cerppo
         </q-toolbar-title>
       </q-toolbar>
 
