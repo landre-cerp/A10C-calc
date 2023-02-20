@@ -268,7 +268,6 @@ const { cruiseHeadWind, missionRange, fuelReserve, phases, FlightLevel } =
 
 const combatFuelFlow = ref(7000);
 const combatduration = ref(30);
-const descentPhase = ref(phases.value.find((p) => p.type == PhaseType.DESCENT));
 
 onMounted(() => {
   // init Phases with Stores Value;
@@ -405,8 +404,6 @@ function RecalcRTB(distance: number, RTBPhase: FlightPhase) {
       airport.DeltaTemp,
       RTBPhase.Drag
     );
-
-  console.log('FuelFlow', FuelFlow, 'Ktas', Ktas, 'groundSpeed', groundSpeed);
 
   RTBPhase.Duration = Math.ceil(distance / (groundSpeed / 60));
   RTBPhase.FuelUsed = Math.ceil((FuelFlow * RTBPhase.Duration) / 60);

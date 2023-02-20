@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
+  <div class="q-pa-md col items-start q-gutter-md">
     <q-card class="my-card">
       <q-card-section>
         <p class="text-h5">Airport information</p>
@@ -69,12 +69,16 @@
       <q-card-section>
         <p class="text-h5">Fuel management</p>
         <FuelLoader></FuelLoader>
+        <AircraftWeight
+          :total-weight="aircraft.TotalWeight"
+          :max-take-off-weight="aircraft.MaxTakeOffWeight"
+        >
+        </AircraftWeight>
       </q-card-section>
     </q-card>
 
     <q-card class="my-card">
       <q-list>
-        <AircraftWeight></AircraftWeight>
         <q-item>
           <q-item-section>
             <q-item-label
@@ -148,24 +152,19 @@
             </p>
           </q-item-section>
         </q-item>
-        <q-item>
-          <q-item-section class="q-pa-md bg-grey-10 text-white">
-            <q-item-label class="text-center"
-              >{{ ground.toFixed(0) }} / {{ airport.runwayLength }} feet
-            </q-item-label>
-            <q-linear-progress
-              dark
-              stripe
-              rounded
-              size="20px"
-              :value="percentRun"
-              :color="colorPercent"
-              class="q-mt-sm"
-            >
-            </q-linear-progress>
-          </q-item-section>
-        </q-item>
       </q-list>
+    </q-card>
+    <q-card>
+      <q-card-section>
+        <p class="text-h5 text-center">Runway</p>
+      </q-card-section>
+      <RunwayViewer
+        :groundRun="ground"
+        :toda="airport.runwayLength"
+        :tora="airport.runwayLength"
+        :asda="airport.runwayLength"
+        :lda="airport.runwayLength"
+      ></RunwayViewer>
     </q-card>
   </div>
 </template>
@@ -188,21 +187,13 @@ import { TakeoffIndexCalculator } from 'src/service/calculators/TakeOffIndex';
 import { GroundRun } from 'src/service/calculators/GroundRun';
 import { TakeoffSpeed } from 'src/service/calculators/takeOffSpeed';
 import { PTFS } from 'src/service/calculators/PTFS';
+import RunwayViewer from './RunwayViewer.vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
 
 const { Temp, AirportElevation, HeadWind, Qnh, runwayLength } =
   storeToRefs(airport);
-
-const percentRun = computed(
-  () =>
-    GroundRun(
-      TakeoffIndex(airport.Temp, airport.AirportPressureAltitude),
-      aircraft.TakeOffWeight,
-      airport.HeadWind
-    ) / airport.runwayLength
-);
 
 const ground = computed(() => {
   let temp = GroundRun(
@@ -217,6 +208,4 @@ const ground = computed(() => {
 const TOICalculator = new TakeoffIndexCalculator();
 const TakeoffIndex = (temp: number, pressureAltitude: number) =>
   TOICalculator.Calc(pressureAltitude, temp);
-
-const colorPercent = computed(() => (percentRun.value > 1 ? 'red' : 'green'));
 </script>

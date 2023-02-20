@@ -89,7 +89,9 @@ export const useFlightStore = defineStore('flight', {
   getters: {
     Bingo(): number {
       // As you should have 2000 fuel reserve on TOD at then end of RTB
-      return this.fuelReserve + this.phases[4].FuelUsed;
+      return (
+        Math.ceil(1 + (this.fuelReserve + this.phases[4].FuelUsed) / 100) * 100
+      );
     },
     CruisePressureAlt(): number {
       return PressureAltitude(this.FlightLevel * 100, this.Qnh);

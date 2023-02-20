@@ -50,18 +50,23 @@
             ></q-img>
           </th>
           <th colspan="2">
-            <AircraftWeight></AircraftWeight>
+            <AircraftWeight
+              :total-weight="aircraft.TotalWeight"
+              :max-take-off-weight="aircraft.MaxTakeOffWeight"
+            >
+            </AircraftWeight>
           </th>
         </tr>
         <tr filled>
-          <th colspan="4">
-            <q-checkbox
-              v-model:modelValue="symetrical"
-              label="Symetrical Load"
-            />
-          </th>
+          <th colspan="4"></th>
           <th colspan="2">
             <q-btn-group>
+              <q-btn color="primary"
+                ><q-checkbox
+                  dark
+                  v-model:modelValue="symetrical"
+                  label="Symetrical Load"
+              /></q-btn>
               <q-btn color="primary" v-on:click="empty()">Empty</q-btn>
               <q-btn color="primary" v-on:click="loadHog()">Hog Std</q-btn>
 
