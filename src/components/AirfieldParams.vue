@@ -140,17 +140,29 @@
                 {{ aircraft.TakeOffWeight.toFixed(0) }}
               </p>
             </q-item-section>
-            <q-option-group
-              v-model="aircraft.fuelForTakeoff"
-              :options="[
-                {
-                  label: '300',
-                  value: 300,
-                },
-                { label: '500', value: 500 },
-              ]"
-              inline
-            />
+            <q-item-section>
+              <q-item-label
+                >Takeoff Fuel
+                <q-icon class="q-ms-md" name="help">
+                  <q-tooltip>
+                    Fan speed should be checked after approximately 1,000 feet
+                    on takeoff roll.
+                  </q-tooltip></q-icon
+                ></q-item-label
+              >
+
+              <q-option-group
+                v-model="aircraft.fuelForTakeoff"
+                :options="[
+                  {
+                    label: '300 lbs',
+                    value: 300,
+                  },
+                  { label: '500 lbs', value: 500 },
+                ]"
+                inline
+              />
+            </q-item-section>
           </q-item>
           <q-item>
             <q-item-section>

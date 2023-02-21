@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md col items-start q-gutter-sm">
-    <q-list class="row">
+    <q-card>
       <q-item>
         <q-item-section class="col q-mr-md">
           <q-item-label>Zero Fuel Weight (lbs)</q-item-label>
@@ -37,83 +37,65 @@
           </q-input>
         </q-item-section>
       </q-item>
+
       <FuelLoader></FuelLoader>
-    </q-list>
 
-    <q-markup-table dense>
-      <thead>
-        <tr>
-          <th colspan="4">
-            <q-img
-              src="src/assets/a10C-emports.jpg"
-              style="max-height: 170px; max-width: 605px"
-            ></q-img>
-          </th>
-          <th colspan="2">
-            <AircraftWeight
-              :total-weight="aircraft.TotalWeight"
-              :max-take-off-weight="aircraft.MaxTakeOffWeight"
-            >
-            </AircraftWeight>
-          </th>
-        </tr>
-        <tr filled>
-          <th colspan="4"></th>
-          <th colspan="2">
-            <q-btn-group>
-              <q-btn color="primary"
-                ><q-checkbox
-                  dark
-                  v-model:modelValue="symetrical"
-                  label="Symetrical Load"
-              /></q-btn>
-              <q-btn color="primary" v-on:click="empty()">Empty</q-btn>
-              <q-btn color="primary" v-on:click="loadHog()">Hog Std</q-btn>
+      <AircraftWeight
+        :total-weight="aircraft.TotalWeight"
+        :max-take-off-weight="aircraft.MaxTakeOffWeight"
+      >
+      </AircraftWeight>
+    </q-card>
+    <div class="text-center">
+      <q-img
+        src="src/assets/a10C-emports.jpg"
+        style="max-height: 170px; max-width: 605px"
+      ></q-img>
+    </div>
 
-              <q-btn
-                color="primary"
-                v-on:click="aircraft.ResetAllPylons()"
-                icon="restart_alt"
-              ></q-btn>
-            </q-btn-group>
-          </th>
-        </tr>
-        <tr align="center">
-          <th>#</th>
-          <th><q-icon name="lock"></q-icon></th>
-          <th>Store</th>
-          <th></th>
-          <th>Lbs</th>
-          <th>Drag</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(pylon, index) in pylonsLoad" :key="index">
-          <td class="col-2">{{ 11 - index }}</td>
-          <td class="col-2">
-            <q-checkbox v-model="locks[index]"></q-checkbox>
-          </td>
-          <td style="col-8">
-            <PylonLoader
-              :val="pylon.label"
-              :pylonNum="index"
-              :pylon="pylon"
-              :itemSelected="itemSelected"
-              :locked="locks[index]"
-            ></PylonLoader>
-          </td>
-          <td>
-            <q-btn
-              v-on:click="aircraft.ResetPylon(index)"
-              icon="restart_alt"
-              :disable="locks[index]"
-            ></q-btn>
-          </td>
-          <td>{{ pylon.weight }}</td>
-          <td>{{ pylon.drag }}</td>
-        </tr>
-      </tbody>
-    </q-markup-table>
+    <q-btn-group spread>
+      <q-btn color="primary"
+        ><q-checkbox dark v-model:modelValue="symetrical" label="Sym. Load"
+      /></q-btn>
+      <q-btn color="primary" v-on:click="empty()">Empty</q-btn>
+      <q-btn color="primary" v-on:click="loadHog()">Hog Std</q-btn>
+    </q-btn-group>
+
+    <q-card v-for="(pylon, index) in pylonsLoad" :key="index">
+      <q-card-actions align="between">
+        <q-checkbox v-model="locks[index]">
+          <q-icon name="lock" size="sm"></q-icon>{{ 11 - index }}</q-checkbox
+        >
+        <q-item>
+          <q-item-section>
+            <q-item-label>Weight (lbs)</q-item-label>
+            <p>{{ pylon.weight.toFixed(0) }}</p>
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section>
+            <q-item-label>Drag </q-item-label>
+            <p>{{ pylon.drag }}</p>
+          </q-item-section>
+        </q-item>
+
+        <q-btn
+          v-on:click="aircraft.ResetPylon(index)"
+          icon="restart_alt"
+          :disable="locks[index]"
+        ></q-btn>
+      </q-card-actions>
+
+      <q-card-section>
+        <PylonLoader
+          :val="pylon.label"
+          :pylonNum="index"
+          :pylon="pylon"
+          :itemSelected="itemSelected"
+          :locked="locks[index]"
+        ></PylonLoader>
+      </q-card-section>
+    </q-card>
   </div>
 </template>
 
@@ -176,3 +158,9 @@ function loadHog() {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.my-card
+  width: 100%
+  max-width: 350px
+</style>
