@@ -16,7 +16,7 @@ export const useFlightStore = defineStore('flight', {
         startWeight: 0,
         FuelOnBoard: 0,
         // constants froms charts
-        FuelUsed: 500,
+        FuelUsed: 0,
         Distance: 2,
         Duration: 1,
         FuelFlow: 0,

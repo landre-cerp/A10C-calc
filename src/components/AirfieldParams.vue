@@ -78,85 +78,94 @@
     </q-card>
 
     <q-card class="my-card">
-      <q-list>
-        <q-item>
-          <q-item-section>
-            <q-item-label
-              >PTFS
-              <q-icon class="q-ms-md" name="help">
-                <q-tooltip>
-                  Fan speed should be checked after approximately 1,000 feet on
-                  takeoff roll.
-                </q-tooltip></q-icon
-              ></q-item-label
-            >
-            <p class="text-h6">
-              {{ PTFS(Temp).toFixed(0) }}
-            </p>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label class="text-h6"
-              >FLAPS {{ aircraft.flaps }}</q-item-label
-            >
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-item-label>Rotate at</q-item-label>
-            <p class="text-h6">
-              {{ (TakeoffSpeed(aircraft.TotalWeight - 500) - 10).toFixed(0) }}
-              KTS
-            </p>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>
-              <q-icon name="flight_takeoff"></q-icon>
-              Takeoff speed
-            </q-item-label>
+      <q-card-section>
+        <p class="text-h5">Take Off information</p>
 
-            <p class="text-h6">
-              {{ TakeoffSpeed(aircraft.TakeOffWeight).toFixed(0) }} KTS
-            </p>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-item-label>Takeoff Index (max thrust)</q-item-label>
-            <p class="text-h6">
-              {{
-                TakeoffIndex(Temp, airport.AirportPressureAltitude).toFixed(1)
-              }}
-            </p>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-item-label
-              >Takeoff Weight<q-icon class="q-ms-md" name="help"
-                ><q-tooltip>
-                  Charts assume 500 lbs is used for taxi + takeoff
-                </q-tooltip>
-              </q-icon></q-item-label
-            >
+        <q-list>
+          <q-item>
+            <q-item-section>
+              <q-item-label
+                >PTFS
+                <q-icon class="q-ms-md" name="help">
+                  <q-tooltip>
+                    Fan speed should be checked after approximately 1,000 feet
+                    on takeoff roll.
+                  </q-tooltip></q-icon
+                ></q-item-label
+              >
+              <p class="text-h6">
+                {{ PTFS(Temp).toFixed(0) }}
+              </p>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="text-h6"
+                >FLAPS {{ aircraft.flaps }}</q-item-label
+              >
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label>Rotate at</q-item-label>
+              <p class="text-h6">
+                {{ (TakeoffSpeed(aircraft.TakeOffWeight) - 10).toFixed(0) }}
+                KTS
+              </p>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>
+                <q-icon name="flight_takeoff"></q-icon>
+                Takeoff speed
+              </q-item-label>
 
-            <p class="text-h6">
-              {{ aircraft.TakeOffWeight.toFixed(0) }}
-            </p>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-item-label>Ground run (feet)</q-item-label>
-            <p class="text-h6">
-              {{ ground.toFixed(0) }}
-            </p>
-          </q-item-section>
-        </q-item>
-      </q-list>
+              <p class="text-h6">
+                {{ TakeoffSpeed(aircraft.TakeOffWeight).toFixed(0) }} KTS
+              </p>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label>Takeoff Index (max thrust)</q-item-label>
+              <p class="text-h6">
+                {{
+                  TakeoffIndex(Temp, airport.AirportPressureAltitude).toFixed(1)
+                }}
+              </p>
+            </q-item-section>
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label>Takeoff Weight</q-item-label>
+
+              <p class="text-h6">
+                {{ aircraft.TakeOffWeight.toFixed(0) }}
+              </p>
+            </q-item-section>
+            <q-option-group
+              v-model="aircraft.fuelForTakeoff"
+              :options="[
+                {
+                  label: '300',
+                  value: 300,
+                },
+                { label: '500', value: 500 },
+              ]"
+              inline
+            />
+          </q-item>
+          <q-item>
+            <q-item-section>
+              <q-item-label>Ground run (feet)</q-item-label>
+              <p class="text-h6">
+                {{ ground.toFixed(0) }}
+              </p>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card-section>
     </q-card>
     <q-card>
       <q-card-section>
-        <p class="text-h5 text-center">Runway</p>
+        <p class="text-h5">Runway</p>
       </q-card-section>
       <RunwayViewer
         :groundRun="ground"

@@ -452,10 +452,13 @@ function checkReserve(): boolean {
 }
 
 function Recalc() {
+  const TakeOffPhase = phases.value[0];
   const ClimbPhase = phases.value[1];
   const CruisePhase = phases.value[2];
   const onZonePhase = phases.value[3];
   const RTBPhase = phases.value[4];
+
+  TakeOffPhase.FuelUsed = aircraft.fuelForTakeoff;
 
   RecalcClimb(ClimbPhase);
   RecalcCruise(ClimbPhase, CruisePhase);

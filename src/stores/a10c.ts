@@ -28,6 +28,7 @@ const defaultState = {
   fuelQty: 75 as number,
   gunAmmoPercent: 100 as number,
   flaps: 7 as number,
+  fuelForTakeoff: 300 as number,
 };
 
 export const useA10CStore = defineStore('a10c', {
@@ -82,7 +83,7 @@ export const useA10CStore = defineStore('a10c', {
     },
 
     TakeOffWeight(): number {
-      return this.TotalWeight - 500;
+      return this.TotalWeight - this.fuelForTakeoff;
     },
 
     ZeroFuelWeight(): number {
