@@ -1,5 +1,5 @@
 import {
-  TempCorrectionTable,
+  PosNegCorrectionTable,
   CorrectionTable,
   CorrectionVector,
   DragCorrectionTable,
@@ -45,8 +45,8 @@ export const ClimbDistanceNeeded = (
 
   let distanceNeeded = target_distanceNeeded - start_distanceNeeded;
 
-  if (deltaTemp > 0) {
-    distanceNeeded = tempCorrectionTable.GetLinear(distanceNeeded, deltaTemp);
+  if (deltaTemp != 0) {
+    distanceNeeded = posNegCorrectionTable.GetLinear(distanceNeeded, deltaTemp);
   }
 
   return distanceNeeded < 0 ? 0 : Math.ceil(distanceNeeded);
@@ -97,7 +97,7 @@ const climbDistanceDragTable = new DragCorrectionTable(
   ])
 );
 
-const tempCorrectionTable = new TempCorrectionTable(
+const posNegCorrectionTable = new PosNegCorrectionTable(
   'Climb Distance Air temperture correction table',
   new CorrectionTable(
     'climb distance positive correction',
@@ -110,6 +110,7 @@ const tempCorrectionTable = new TempCorrectionTable(
       [125, new CorrectionVector([125, 5.5])],
     ])
   ),
+  // TODO vérify this negative correction table . ( same as positive ?)
   new CorrectionTable(
     'climb distance positive correction',
     new Map([

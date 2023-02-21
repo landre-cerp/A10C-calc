@@ -5,6 +5,7 @@ import {
 } from 'src/service/conversionTool';
 
 import { defineStore } from 'pinia';
+import { RCR } from 'src/service/calculators/Rcr';
 
 export const useAirportStore = defineStore('airport', {
   state: () => ({
@@ -13,6 +14,7 @@ export const useAirportStore = defineStore('airport', {
     HeadWind: 0,
     Qnh: { value: 1013, unit: QNH_Unit.hPa } as QNH,
     runwayLength: 0 as number,
+    rcr: RCR.DRY as number,
   }),
 
   getters: {

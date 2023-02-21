@@ -163,12 +163,49 @@
                 inline
               />
             </q-item-section>
+            <q-item-section>
+              <q-item-label>Runway Condition </q-item-label>
+
+              <q-option-group
+                v-model="airport.rcr"
+                :options="[
+                  {
+                    label: 'Dry',
+                    value: RCR.DRY,
+                  },
+                  { label: 'WET', value: RCR.WET },
+                  { label: 'ICY', value: RCR.ICY },
+                ]"
+                inline
+              />
+            </q-item-section>
           </q-item>
           <q-item>
             <q-item-section>
               <q-item-label>Ground run (feet)</q-item-label>
               <p class="text-h6">
                 {{ ground.toFixed(0) }}
+              </p>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label
+                >50 feet obstacle clearance distance (feet)</q-item-label
+              >
+              <p class="text-h6">
+                {{ obstacleDistanceClearance(ground, airport.Temp).toFixed(0) }}
+              </p>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Critical field Length (feet)</q-item-label>
+              <p class="text-h6">
+                {{
+                  CriticalFieldLength(
+                    TakeoffIndex(Temp, airport.AirportPressureAltitude),
+                    aircraft.TakeOffWeight,
+                    airport.rcr,
+                    airport.HeadWind
+                  ).toFixed(0)
+                }}
               </p>
             </q-item-section>
           </q-item>
@@ -181,10 +218,12 @@
       </q-card-section>
       <RunwayViewer
         :groundRun="ground"
+        :critical="CriticalField"
         :toda="airport.runwayLength"
-        :tora="airport.runwayLength"
+        :tora="airport.runwayLength + 1000"
         :asda="airport.runwayLength"
         :lda="airport.runwayLength"
+        takeoff
       ></RunwayViewer>
     </q-card>
   </div>
@@ -209,6 +248,9 @@ import { GroundRun } from 'src/service/calculators/GroundRun';
 import { TakeoffSpeed } from 'src/service/calculators/takeOffSpeed';
 import { PTFS } from 'src/service/calculators/PTFS';
 import RunwayViewer from './RunwayViewer.vue';
+import { obstacleDistanceClearance } from 'src/service/calculators/ObstacleClearance';
+import { RCR } from 'src/service/calculators/Rcr';
+import { CriticalFieldLength } from 'src/service/calculators/CriticalFieldLength';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -229,4 +271,13 @@ const ground = computed(() => {
 const TOICalculator = new TakeoffIndexCalculator();
 const TakeoffIndex = (temp: number, pressureAltitude: number) =>
   TOICalculator.Calc(pressureAltitude, temp);
+
+const CriticalField = computed(() =>
+  CriticalFieldLength(
+    TakeoffIndex(Temp.value, airport.AirportPressureAltitude),
+    aircraft.TakeOffWeight,
+    airport.rcr,
+    airport.HeadWind
+  )
+);
 </script>
