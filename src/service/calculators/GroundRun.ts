@@ -12,7 +12,11 @@ export const GroundRun = (
   );
 
   // then correct for head wind
-  return GroundRuncCorrectionTable_wind.GetLinear(groundRunDist, headWind);
+  return (
+    Math.ceil(
+      GroundRuncCorrectionTable_wind.GetLinear(groundRunDist, headWind) / 100
+    ) * 100
+  );
 };
 
 // F(Weight , takeoffIndex)
