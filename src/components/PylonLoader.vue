@@ -3,13 +3,15 @@
     dense
     use-input
     input-debounce="0"
-    v-model="model"
+    v-model="weapons"
     :model-value="val"
     :options="options"
     @update:model-value="(val) => itemSelected(pylonNum, val)"
     emit-value
     @filter="filterFn"
     :disable="props.locked"
+    filled
+    hide-bottom-space
   >
   </q-select>
 </template>
@@ -31,10 +33,9 @@ const weapons = aircraftStores.filter(
   (s) => s.availableOn?.indexOf(props.pylonNum + 1) !== -1
 ) as IAircraftStore[];
 
-const model = ref(props.pylon);
 let options = ref(weapons);
 
-function filterFn(val, update) {
+function filterFn(val: string, update): void {
   if (val === '') {
     update(() => (options.value = weapons));
     return;
