@@ -3,7 +3,7 @@ import {
   CorrectionTable,
   CorrectionVector,
   DragCorrectionTable,
-} from './CorrectionTable';
+} from "./CorrectionTable";
 
 export const ClimbDistanceNeeded = (
   startingAlt: number,
@@ -53,7 +53,7 @@ export const ClimbDistanceNeeded = (
 };
 
 const climbDistGrab0 = new CorrectionTable(
-  'Climb Distance Grab 0 correction',
+  "Climb Distance Grab 0 correction",
   new Map([
     [25000, new CorrectionVector([-10.4, 3.11e-3, 1.65e-7, 3.48e-12])],
     [30000, new CorrectionVector([-2.14, 1.59e-3, -8.43e-8, 2.56e-12])],
@@ -65,7 +65,7 @@ const climbDistGrab0 = new CorrectionTable(
 );
 
 const climbDistGrab4 = new CorrectionTable(
-  'Climb Distance Grab 4 correction',
+  "Climb Distance Grab 4 correction",
   new Map([
     [25000, new CorrectionVector([-12.2, 3.61e-3, -2.03e-7, 4.39e-12])],
     [30000, new CorrectionVector([-6.14, 2.63e-3, -1.55e-7, 4.11e-12])],
@@ -77,7 +77,7 @@ const climbDistGrab4 = new CorrectionTable(
 );
 
 const climbDistGrab8 = new CorrectionTable(
-  'CLB Distance Drag 8 Correction',
+  "CLB Distance Drag 8 Correction",
   new Map([
     [25000, new CorrectionVector([-1.29, 8.82e-4, -3.07e-8, 1.44e-12])],
     [30000, new CorrectionVector([-12.3, 4.24e-3, -2.66e-7, 6.56e-12])],
@@ -89,7 +89,7 @@ const climbDistGrab8 = new CorrectionTable(
 );
 
 const climbDistanceDragTable = new DragCorrectionTable(
-  'Drag correction table for climb distance',
+  "Drag correction table for climb distance",
   new Map([
     [0, climbDistGrab0],
     [4, climbDistGrab4],
@@ -98,28 +98,28 @@ const climbDistanceDragTable = new DragCorrectionTable(
 );
 
 const posNegCorrectionTable = new PosNegCorrectionTable(
-  'Climb Distance Air temperture correction table',
+  "Climb Distance Air temperture correction table",
   new CorrectionTable(
-    'climb distance positive correction',
+    "climb distance positive correction",
     new Map([
       [0, new CorrectionVector([0, 0])],
       [25, new CorrectionVector([25, 0.25])],
       [50, new CorrectionVector([50, 1.1])],
-      [75, new CorrectionVector([75, 2.05])],
-      [100, new CorrectionVector([100, 3.5])],
+      [75, new CorrectionVector([75, 2.0])],
+      [100, new CorrectionVector([100, 3.6])],
       [125, new CorrectionVector([125, 5.5])],
     ])
   ),
-  // TODO vérify this negative correction table . ( same as positive ?)
+
   new CorrectionTable(
-    'climb distance positive correction',
+    "climb distance positive correction",
     new Map([
       [0, new CorrectionVector([0, 0])],
       [25, new CorrectionVector([25, 0.25])],
-      [50, new CorrectionVector([50, 1.1])],
-      [75, new CorrectionVector([75, 2.05])],
-      [100, new CorrectionVector([100, 3.5])],
-      [125, new CorrectionVector([125, 5.5])],
+      [50, new CorrectionVector([50, 0.5])],
+      [75, new CorrectionVector([75, 0.875])],
+      [100, new CorrectionVector([100, 1.38])],
+      [125, new CorrectionVector([125, 2.25])],
     ])
   )
 );
