@@ -1,64 +1,50 @@
 <!-- eslint-disable @typescript-eslint/no-non-null-assertion -->
 <template>
-  <div class="q-pa-md items-start q-gutter-sm">
-    <div class="row q-gutter-md">
-      <div class="col">
-        <div class="row q-mb-md">
-          <q-input
-            filled
-            debounce="500"
-            class="text-h6 q-mr-md"
-            v-model.number="FlightLevel"
-            mask="###"
-            label="Flight Level (Ex 160)"
-          >
-          </q-input>
-          <q-input
-            filled
-            debounce="500"
-            class="text-h6 q-mr-md"
-            v-model.number="fuelReserve"
-            label="Fuel Reserve"
-            :rules="[(val) => val >= 0, checkReserve]"
-          ></q-input>
-          <q-input
-            filled
-            debounce="500"
-            class="text-h6 q-mr-md"
-            v-model.number="missionRange"
-            label="Mission Range"
-          ></q-input>
-          <q-input
-            filled
-            debounce="500"
-            class="text-h6 q-mr-md"
-            v-model.number="cruiseHeadWind"
-            label="Cruise Head Wind"
-          ></q-input>
-        </div>
-        <q-item-label class="q-mb-md">
-          Pressure Altitude {{ Math.ceil(flight.CruisePressureAlt) }} with QNH
-          {{ flight.Qnh.value }} {{ QNH_Unit[flight.Qnh.unit] }}
-        </q-item-label>
-
-        <q-item-label class="q-mb-md">
-          Optimum Cruise Altitude
-          {{
-            OptimumCruiseAltitude(
-              aircraft.Drag,
-              aircraft.TakeOffWeight,
-              missionRange
-            ).toFixed(0)
-          }}
-        </q-item-label>
-      </div>
+  <div class="q-pa-sm items-start q-gutter-sm">
+    <div class="row q-gutter-sm">
+      <q-input
+        filled
+        debounce="500"
+        class="text-h6 q-mr-md"
+        v-model.number="FlightLevel"
+        mask="###"
+        label="Flight Level (Ex 160)"
+        :hint="'Optimum Cruise Altitude' + optimum_cruise_altitude.toFixed(0)"
+      >
+        <template v-slot:append>
+          <q-btn @click="selectOptimumCruiseAltitude">Optimum</q-btn>
+        </template>
+      </q-input>
+      <q-input
+        filled
+        debounce="500"
+        class="text-h6 q-mr-md"
+        v-model.number="fuelReserve"
+        label="Fuel Reserve"
+        :rules="[(val) => val >= 0, checkReserve]"
+      ></q-input>
+      <q-input
+        filled
+        debounce="500"
+        class="text-h6 q-mr-md"
+        v-model.number="missionRange"
+        label="Mission Range"
+      ></q-input>
+      <q-input
+        filled
+        debounce="500"
+        class="text-h6 q-mr-md"
+        v-model.number="cruiseHeadWind"
+        label="Cruise Head Wind"
+      ></q-input>
 
       <q-item>
-        <q-item-section>
-          <q-item-label>BINGO</q-item-label>
-          <p class="text-h6">{{ flight.Bingo }}</p>
-        </q-item-section>
+        Pressure Altitude
+
+        {{ Math.ceil(flight.CruisePressureAlt) }} with QNH
+        {{ flight.Qnh.value }} {{ QNH_Unit[flight.Qnh.unit] }}
       </q-item>
+
       <q-item>
         <q-item-section>
           <q-item-label>STD Day T° Dev</q-item-label>
@@ -73,7 +59,7 @@
       </q-item>
     </div>
 
-    <q-markup-table separator="cell" wrap-cell>
+    <q-markup-table dense separator="cell">
       <thead>
         <tr>
           <th></th>
@@ -102,62 +88,51 @@
             class="text-right"
             v-if="phase.type == PhaseType.CRUISE || phase.type == PhaseType.RTB"
           >
-            <q-item>
-              <q-item-section>
-                <q-list dense>
-                  <q-item>Optimum params</q-item>
-                  <q-item>
-                    {{
-                      CruiseMachSpeed(
-                        flight.CruisePressureAlt,
-                        phase.startWeight,
-                        airport.DeltaTemp,
-                        aircraft.Drag
-                      ).toFixed(2)
-                    }}
-                    Mach
-                  </q-item>
-                  <q-item>
-                    {{
-                      TrueAirspeed(
-                        CruiseMachSpeed(
-                          flight.CruisePressureAlt,
-                          phase.startWeight,
-                          airport.DeltaTemp,
-                          aircraft.Drag
-                        ),
-                        getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
-                      ).toFixed(0)
-                    }}
-                    Kts
-                  </q-item>
-                  <q-item>
-                    {{
-                      TrueAirspeed(
-                        CruiseMachSpeed(
-                          flight.CruisePressureAlt,
-                          phase.startWeight,
-                          airport.DeltaTemp,
-                          aircraft.Drag
-                        ),
-                        getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
-                      ) - cruiseHeadWind
-                    }}
-                    Kts
-                  </q-item>
-                  <q-item>
-                    {{ phase.FuelFlow.toFixed(0) }}
-                    Lbs/hr
-                  </q-item>
-                  <q-item
-                    class="text-bold col"
-                    v-if="phase.type == PhaseType.RTB"
-                  >
-                    ALL WEAPONS Releases
-                  </q-item>
-                </q-list>
-              </q-item-section>
-            </q-item>
+            <q-list dense>
+              <q-item class="text-bold">Optimum params</q-item>
+              <q-item>
+                {{
+                  CruiseMachSpeed(
+                    flight.CruisePressureAlt,
+                    phase.startWeight,
+                    airport.DeltaTemp,
+                    aircraft.Drag
+                  ).toFixed(2)
+                }}
+                Mach / TAS
+                {{
+                  TrueAirspeed(
+                    CruiseMachSpeed(
+                      flight.CruisePressureAlt,
+                      phase.startWeight,
+                      airport.DeltaTemp,
+                      aircraft.Drag
+                    ),
+                    getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
+                  ).toFixed(0)
+                }}
+                Kts / GS
+                {{
+                  TrueAirspeed(
+                    CruiseMachSpeed(
+                      flight.CruisePressureAlt,
+                      phase.startWeight,
+                      airport.DeltaTemp,
+                      aircraft.Drag
+                    ),
+                    getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
+                  ) - cruiseHeadWind
+                }}
+                Kts
+              </q-item>
+              <q-item>
+                {{ phase.FuelFlow.toFixed(0) }}
+                Lbs/hr
+              </q-item>
+              <q-item class="text-bold col" v-if="phase.type == PhaseType.RTB">
+                ALL WEAPONS Released
+              </q-item>
+            </q-list>
           </td>
           <td v-else-if="phase.type == PhaseType.ONZONE">
             <q-input
@@ -209,7 +184,7 @@
 
           <!-- TIME -->
 
-          <td v-if="phase.type == PhaseType.ONZONE">
+          <td v-if="phase.type == PhaseType.ONZONE" style="width: 10em">
             <q-input
               filled
               debounce="500"
@@ -255,7 +230,7 @@ import { OptimumCruiseAltitude } from 'src/service/calculators/OptimumCruiseAlti
 import { QInput, QItem, QItemSection, QItemLabel, QMarkupTable } from 'quasar';
 import { combatCeiling } from 'src/service/calculators/CombatCeiling';
 import { getStdTemp } from 'src/service/conversionTool';
-import { onMounted, onUpdated, ref } from 'vue';
+import { computed, onMounted, onUpdated, ref } from 'vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -266,7 +241,7 @@ flight.Qnh = airport.Qnh;
 const { cruiseHeadWind, missionRange, fuelReserve, phases, FlightLevel } =
   storeToRefs(flight);
 
-const combatFuelFlow = ref(7000);
+const combatFuelFlow = ref(5000);
 const combatduration = ref(30);
 
 onMounted(() => {
@@ -312,6 +287,20 @@ onMounted(() => {
 onUpdated(() => {
   Recalc();
 });
+
+const optimum_cruise_altitude = computed(() => {
+  {
+    return OptimumCruiseAltitude(
+      aircraft.Drag,
+      aircraft.TakeOffWeight,
+      missionRange.value
+    );
+  }
+});
+
+function selectOptimumCruiseAltitude() {
+  FlightLevel.value = optimum_cruise_altitude.value;
+}
 
 function RecalcClimb(ClimbPhase: FlightPhase) {
   // Recalc Climb Phase

@@ -1,6 +1,7 @@
 // Store because it's the real name
 
 export interface IAircraftStore {
+  short: string;
   label: string;
   weight: number;
   drag: number;

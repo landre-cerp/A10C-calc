@@ -5,8 +5,8 @@ import { PressureAltitude } from 'src/service/conversionTool';
 export const useFlightStore = defineStore('flight', {
   state: () => ({
     Qnh: {} as QNH,
-    FlightLevel: 200 as number,
-    fuelReserve: 2000 as number,
+    FlightLevel: 160 as number,
+    fuelReserve: 1500 as number,
     missionRange: 100 as number,
     cruiseHeadWind: 0 as number,
     phases: [
@@ -75,7 +75,7 @@ export const useFlightStore = defineStore('flight', {
         label: 'TOP of Descent',
         type: PhaseType.DESCENT,
         startWeight: 0,
-        FuelOnBoard: 2000,
+        FuelOnBoard: 0,
         FuelUsed: 0,
         Distance: 0,
         Duration: 0,

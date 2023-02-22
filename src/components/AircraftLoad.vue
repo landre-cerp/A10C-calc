@@ -1,13 +1,6 @@
 <template>
-  <div class="q-pa-md col items-start q-gutter-sm">
+  <div class="col items-start q-gutter-sm">
     <q-card>
-      <q-item>
-        <q-item-section class="col q-mr-md">
-          <q-item-label>Zero Fuel Weight (lbs)</q-item-label>
-          <p class="text-h6">{{ aircraft.ZeroFuelWeight.toFixed(0) }}</p>
-        </q-item-section>
-      </q-item>
-
       <q-item>
         <q-item-section class="col q-mr-md">
           <q-item-label>Drag</q-item-label>
@@ -40,11 +33,16 @@
 
       <FuelLoader></FuelLoader>
 
-      <AircraftWeight
-        :total-weight="aircraft.TotalWeight"
-        :max-take-off-weight="aircraft.MaxTakeOffWeight"
-      >
-      </AircraftWeight>
+      <q-item-section class="q-pa-md">
+        <AircraftWeight
+          :total-weight="aircraft.TotalWeight"
+          :max-take-off-weight="aircraft.MaxTakeOffWeight"
+          :zero-fuel-weight="aircraft.ZeroFuelWeight"
+          :weapons-weight="aircraft.WeaponWeight + aircraft.AmmoWeight"
+          :fuel-weight="aircraft.FuelWeight"
+        >
+        </AircraftWeight>
+      </q-item-section>
     </q-card>
     <div class="text-center">
       <q-img
@@ -60,42 +58,39 @@
       <q-btn color="primary" v-on:click="empty()">Empty</q-btn>
       <q-btn color="primary" v-on:click="loadHog()">Hog Std</q-btn>
     </q-btn-group>
+    <div class="row">
+      <q-card
+        v-for="(pylon, index) in pylonsLoad"
+        :key="index"
+        class="col-12 col-sm-6 col-md-4 col-lg-3"
+        color="secondary"
+      >
+        <q-card-actions align="between">
+          <q-checkbox v-model="locks[index]">{{ 11 - index }} </q-checkbox>
+          <q-item>
+            <p>{{ pylon.weight.toFixed(0) }} lbs</p>
+          </q-item>
+          <q-item>
+            <p>drag : {{ pylon.drag }}</p>
+          </q-item>
 
-    <q-card v-for="(pylon, index) in pylonsLoad" :key="index">
-      <q-card-actions align="between">
-        <q-checkbox v-model="locks[index]">
-          <q-icon name="lock" size="sm"></q-icon>{{ 11 - index }}</q-checkbox
-        >
-        <q-item>
-          <q-item-section>
-            <q-item-label>Weight (lbs)</q-item-label>
-            <p>{{ pylon.weight.toFixed(0) }}</p>
-          </q-item-section>
-        </q-item>
-        <q-item>
-          <q-item-section>
-            <q-item-label>Drag </q-item-label>
-            <p>{{ pylon.drag }}</p>
-          </q-item-section>
-        </q-item>
-
-        <q-btn
-          v-on:click="aircraft.ResetPylon(index)"
-          icon="restart_alt"
-          :disable="locks[index]"
-        ></q-btn>
-      </q-card-actions>
-
-      <q-card-section>
-        <PylonLoader
-          :val="pylon.label"
-          :pylonNum="index"
-          :pylon="pylon"
-          :itemSelected="itemSelected"
-          :locked="locks[index]"
-        ></PylonLoader>
-      </q-card-section>
-    </q-card>
+          <q-btn
+            v-on:click="aircraft.ResetPylon(index)"
+            icon="restart_alt"
+            :disable="locks[index]"
+          ></q-btn>
+        </q-card-actions>
+        <q-card-section>
+          <PylonLoader
+            :val="pylon.short"
+            :pylonNum="index"
+            :pylon="pylon"
+            :itemSelected="itemSelected"
+            :locked="locks[index]"
+          ></PylonLoader>
+        </q-card-section>
+      </q-card>
+    </div>
   </div>
 </template>
 
