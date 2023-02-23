@@ -7,6 +7,7 @@
             <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
           </q-avatar>
           A10C Perf calculator (for DCS) - by Cerppo
+          <span style="float: right">{{ appVersion }}</span>
         </q-toolbar-title>
       </q-toolbar>
 
@@ -23,4 +24,7 @@
   </q-layout>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { version } from '../../package.json';
+const appVersion = version;
+</script>
