@@ -2,7 +2,7 @@ import {
   CorrectionTable,
   CorrectionVector,
   DragCorrectionTable,
-  TempCorrectionTable,
+  PosNegCorrectionTable,
 } from './CorrectionTable';
 
 export const ClimbFuelUsed = (
@@ -37,8 +37,8 @@ export const ClimbFuelUsed = (
 
   let fuelUsed = target_fuelUsed - start_fuelUsed;
 
-  if (deltaTemp > 0) {
-    fuelUsed = tempCorrectionTable.GetLinear(fuelUsed, deltaTemp);
+  if (deltaTemp != 0) {
+    fuelUsed = posNegCorrectionTable.GetLinear(fuelUsed, deltaTemp);
   }
 
   // round to Highest 10th
@@ -92,7 +92,7 @@ const climbFuelDragTable = new DragCorrectionTable(
   ])
 );
 
-const tempCorrectionTable = new TempCorrectionTable(
+const posNegCorrectionTable = new PosNegCorrectionTable(
   'Climb Fuel  Air temperture correction table',
   new CorrectionTable(
     'climb distance positive correction',
@@ -108,7 +108,7 @@ const tempCorrectionTable = new TempCorrectionTable(
     ])
   ),
   new CorrectionTable(
-    'climb distance positive correction',
+    'climb distance negative correction',
     new Map([
       [250, new CorrectionVector([250, 2.5])],
       [500, new CorrectionVector([500, 2.5])],

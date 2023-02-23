@@ -1,27 +1,33 @@
 <template>
-  <q-item>
-    <q-item-section class="col q-mr-md">
-      <q-item-section class="q-pa-md bg-grey-10 text-white">
-        <q-item-label class="text-center">Aircraft Weight</q-item-label>
-        <q-item-label class="text-center"
-          >{{ totalWeight.toFixed(0) }} / {{ maxTakeOffWeight.toFixed(0) }} lbs
-        </q-item-label>
-        <q-item-label class="text-center text-h6"
-          >{{ (percentLoad * 100).toFixed(2) }} %
-        </q-item-label>
-        <q-linear-progress
-          dark
-          stripe
-          rounded
-          size="20px"
-          :value="percentLoad"
-          :color="colorPercent"
-          class="q-mt-sm"
-        >
-        </q-linear-progress>
-      </q-item-section>
-    </q-item-section>
-  </q-item>
+  <div class="progress">
+    <div
+      :style="{ width: Math.ceil(percentZeroFW) + '%', color: 'white' }"
+      class="progress-bar progress-bar-zfw q-py-md"
+    >
+      <span>Zero FW {{ zeroFuelWeight }}</span>
+    </div>
+    <div
+      v-if="weaponsWeight > 0"
+      :style="{
+        width: percentWeapons + '%',
+        color: 'black',
+        verticalAlign: 'middle',
+      }"
+      class="progress-bar progress-bar-weapons text-bold q-py-md"
+    >
+      <span>WPs</span>
+    </div>
+    <div
+      v-if="fuelWeight > 0"
+      :style="{
+        width: Math.ceil(percentFuel) + '%',
+        color: 'white',
+      }"
+      class="progress-bar progress-bar-fuel q-py-md"
+    >
+      <span>Fuel</span>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -30,9 +36,49 @@ import { computed } from 'vue';
 const props = defineProps({
   totalWeight: { type: Number, required: true, default: 0 },
   maxTakeOffWeight: { type: Number, required: true, default: 0 },
+  zeroFuelWeight: { type: Number, required: true, default: 0 },
+  weaponsWeight: { type: Number, required: true, default: 0 },
+  fuelWeight: { type: Number, required: true, default: 0 },
 });
 
-const percentLoad = computed(() => props.totalWeight / props.maxTakeOffWeight);
-
-const colorPercent = computed(() => (percentLoad.value > 1 ? 'red' : 'green'));
+const percentZeroFW = computed(
+  () => (100 * props.zeroFuelWeight) / props.maxTakeOffWeight
+);
+const percentWeapons = computed(
+  () => (100 * props.weaponsWeight) / props.maxTakeOffWeight
+);
+const percentFuel = computed(
+  () => (100 * props.fuelWeight) / props.maxTakeOffWeight
+);
 </script>
+
+<style scoped>
+.progress {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: 50px;
+  border-radius: 10px;
+  background-color: grey;
+}
+.progress-bar {
+  float: left;
+  width: 0%;
+  height: 100%;
+  line-height: 20px;
+
+  color: black;
+  text-align: center;
+  background-color: yellow;
+}
+
+.progress-bar-zfw {
+  background-color: rgb(48, 87, 144);
+}
+.progress-bar-weapons {
+  background-color: rgba(255, 196, 0, 0.986);
+}
+.progress-bar-fuel {
+  background-color: rgb(127, 0, 218);
+}
+</style>

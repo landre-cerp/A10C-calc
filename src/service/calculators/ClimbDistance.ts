@@ -1,5 +1,5 @@
 import {
-  TempCorrectionTable,
+  PosNegCorrectionTable,
   CorrectionTable,
   CorrectionVector,
   DragCorrectionTable,
@@ -45,8 +45,8 @@ export const ClimbDistanceNeeded = (
 
   let distanceNeeded = target_distanceNeeded - start_distanceNeeded;
 
-  if (deltaTemp > 0) {
-    distanceNeeded = tempCorrectionTable.GetLinear(distanceNeeded, deltaTemp);
+  if (deltaTemp != 0) {
+    distanceNeeded = posNegCorrectionTable.GetLinear(distanceNeeded, deltaTemp);
   }
 
   return distanceNeeded < 0 ? 0 : Math.ceil(distanceNeeded);
@@ -97,7 +97,7 @@ const climbDistanceDragTable = new DragCorrectionTable(
   ])
 );
 
-const tempCorrectionTable = new TempCorrectionTable(
+const posNegCorrectionTable = new PosNegCorrectionTable(
   'Climb Distance Air temperture correction table',
   new CorrectionTable(
     'climb distance positive correction',
@@ -105,20 +105,21 @@ const tempCorrectionTable = new TempCorrectionTable(
       [0, new CorrectionVector([0, 0])],
       [25, new CorrectionVector([25, 0.25])],
       [50, new CorrectionVector([50, 1.1])],
-      [75, new CorrectionVector([75, 2.05])],
-      [100, new CorrectionVector([100, 3.5])],
+      [75, new CorrectionVector([75, 2.0])],
+      [100, new CorrectionVector([100, 3.6])],
       [125, new CorrectionVector([125, 5.5])],
     ])
   ),
+
   new CorrectionTable(
     'climb distance positive correction',
     new Map([
       [0, new CorrectionVector([0, 0])],
       [25, new CorrectionVector([25, 0.25])],
-      [50, new CorrectionVector([50, 1.1])],
-      [75, new CorrectionVector([75, 2.05])],
-      [100, new CorrectionVector([100, 3.5])],
-      [125, new CorrectionVector([125, 5.5])],
+      [50, new CorrectionVector([50, 0.5])],
+      [75, new CorrectionVector([75, 0.875])],
+      [100, new CorrectionVector([100, 1.38])],
+      [125, new CorrectionVector([125, 2.25])],
     ])
   )
 );

@@ -131,7 +131,7 @@ export class CorrectionVector implements IVector {
   }
 }
 
-export class TempCorrectionTable {
+export class PosNegCorrectionTable {
   name: string;
 
   constructor(
@@ -156,7 +156,6 @@ export class TempCorrectionTable {
       intervalValue,
       value
     );
-
     const returnValue = lowVector.calc(value);
 
     if (step == 0) {

@@ -1,5 +1,5 @@
 import {
-  TempCorrectionTable,
+  PosNegCorrectionTable,
   CorrectionTable,
   CorrectionVector,
   DragCorrectionTable,
@@ -37,8 +37,8 @@ export const ClimbTimeNeeded = (
   }
   let timeNeeded = target_timeNeeded - start_timeNeeded;
 
-  if (deltaTemp > 0) {
-    timeNeeded = tempCorrectionTable.GetLinear(timeNeeded, deltaTemp);
+  if (deltaTemp != 0) {
+    timeNeeded = posNegCorrectionTable.GetLinear(timeNeeded, deltaTemp);
   }
 
   return timeNeeded < 0 ? 0 : Math.ceil(timeNeeded);
@@ -89,7 +89,7 @@ const climbTimeDragTable = new DragCorrectionTable(
   ])
 );
 
-const tempCorrectionTable = new TempCorrectionTable(
+const posNegCorrectionTable = new PosNegCorrectionTable(
   'Climb time Air temperture correction table',
   new CorrectionTable(
     'climb time positive correction',
@@ -106,15 +106,16 @@ const tempCorrectionTable = new TempCorrectionTable(
   ),
   new CorrectionTable(
     'climb time positive correction',
+    // TODO: fix this
     new Map([
       [0, new CorrectionVector([0, 0])],
-      [5, new CorrectionVector([250, 2.5])],
-      [10, new CorrectionVector([500, 2.5])],
-      [15, new CorrectionVector([750, 3.75])],
-      [20, new CorrectionVector([1000, 6.25])],
-      [25, new CorrectionVector([1250, 7.5])],
-      [30, new CorrectionVector([1500, 12.5])],
-      [35, new CorrectionVector([1750, 15])],
+      [5, new CorrectionVector([5, 0.05])],
+      [10, new CorrectionVector([10, 0.1])],
+      [15, new CorrectionVector([15, 0.1])],
+      [20, new CorrectionVector([20, 0.2])],
+      [25, new CorrectionVector([25, 8, 0.25])],
+      [30, new CorrectionVector([30, 8, 0.36])],
+      [35, new CorrectionVector([35, 8, 0.45])],
     ])
   )
 );

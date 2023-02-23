@@ -1,6 +1,7 @@
 import { IAircraftStore, LoadType } from './../components/models';
 
 export const emptyLoad = {
+  short: '',
   label: '',
   availableOn: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
   weight: 0,
@@ -11,6 +12,7 @@ export const emptyLoad = {
 } as IAircraftStore;
 
 export const TGP = {
+  short: 'AN/AAQ-28',
   label: 'AN/AAQ-28 Litening Targeting pod',
   weight: 459,
   drag: 0.35,
@@ -22,6 +24,7 @@ export const TGP = {
 } as IAircraftStore;
 
 export const AIM9M = {
+  short: '[LAU-105] 1 AIM-9M',
   label: '[LAU-105] 1 AIM-9M Sidewinder IR AAM',
   weight: 256,
   drag: 0.3,
@@ -33,6 +36,7 @@ export const AIM9M = {
 } as IAircraftStore;
 
 export const ALQ184 = {
+  short: 'ALQ-184',
   label: 'ALQ-184 ECM Pod',
   weight: 474,
   drag: 0.75,
@@ -44,6 +48,7 @@ export const ALQ184 = {
 } as IAircraftStore;
 
 export const LAU88_T_AGM65D = {
+  short: '[LAU-88] 3xAGM-65D',
   label: '[LAU-88] 3xAGM-65D - Maverick D (IIR ASM) ',
   weight: 1907,
   drag: 1.66,
@@ -54,7 +59,20 @@ export const LAU88_T_AGM65D = {
   gpsGuided: false,
 } as IAircraftStore;
 
+export const LAU88_D_AGM65D = {
+  short: '[LAU-88] 2xAGM-65D',
+  label: '[LAU-88] 2xAGM-65D Maverick D (IIR ASM)',
+  weight: 1426,
+  drag: 1.31,
+  type: LoadType.AG_Missile,
+  availableOn: [3, 9],
+  training: false,
+  laserGuided: false,
+  gpsGuided: false,
+} as IAircraftStore;
+
 export const GBU_54 = {
+  short: 'GBU-54B',
   label: 'GBU-54B LJDAM 500lbLaser & GPS guided bomb LD',
   weight: 558,
   drag: 0.2,
@@ -65,7 +83,20 @@ export const GBU_54 = {
   gpsGuided: true,
 } as IAircraftStore;
 
+export const GBU_12 = {
+  short: 'GBU-12',
+  label: 'GBU-12 500lb Laser bomb',
+  weight: 611,
+  drag: 0.51,
+  type: LoadType.Bombs,
+  availableOn: [1, 2, 3, 4, 5, 6, 7, 8, 10, 11],
+  training: false,
+  laserGuided: true,
+  gpsGuided: false,
+} as IAircraftStore;
+
 export const M151_APKWS = {
+  short: '[LAU-131] 7x 2.75" M151',
   label: '[LAU-131] 7x 2.75" Hydra, Laser Rkts M151, HE APKWS',
   weight: 298,
   drag: 0.6,
@@ -76,10 +107,23 @@ export const M151_APKWS = {
   gpsGuided: false,
 } as IAircraftStore;
 
+export const CBU_105 = {
+  short: 'CBU-105',
+  label: 'CBU-105 10 x SFW CBU with WCMD',
+  weight: 919,
+  drag: 1.17,
+  type: LoadType.Bombs,
+  availableOn: [3, 4, 5, 7, 8, 9],
+  training: false,
+  laserGuided: false,
+  gpsGuided: false,
+} as IAircraftStore;
+
 export const aircraftStores: IAircraftStore[] = [
   emptyLoad,
   // AA Combat Missiles
   {
+    short: '[LAU-105] 1 AIM-9L',
     label: '[LAU-105] 1 AIM-9L Sidewinder IR AAM',
     weight: 256,
     drag: 0.3,
@@ -91,6 +135,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
   AIM9M,
   {
+    short: '[LAU-105] 2 AIM-9L',
     label: '[LAU-105] 2 AIM-9L Sidewinder IR AAM',
     weight: 443,
     drag: 0.4,
@@ -101,6 +146,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-105] 2 AIM-9M',
     label: '[LAU-105] 2 AIM-9M Sidewinder IR AAM',
     weight: 443,
     drag: 0.4,
@@ -114,6 +160,7 @@ export const aircraftStores: IAircraftStore[] = [
   // Bombs
 
   {
+    short: 'CBU-87',
     label: 'CBU-87 202x CEM cluster bomb',
     weight: 948,
     drag: 1.17,
@@ -124,6 +171,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: 'CBU-97',
     label: 'CBU-97 10x SFW cluster bomb',
     weight: 919,
     drag: 1.17,
@@ -133,17 +181,10 @@ export const aircraftStores: IAircraftStore[] = [
     laserGuided: false,
     gpsGuided: false,
   },
+  GBU_12,
+
   {
-    label: 'GBU-12 500lb Laser bomb',
-    weight: 611,
-    drag: 0.51,
-    type: LoadType.Bombs,
-    availableOn: [1, 2, 3, 4, 5, 6, 7, 8, 10, 11],
-    training: false,
-    laserGuided: true,
-    gpsGuided: false,
-  },
-  {
+    short: 'MK-82',
     label: 'MK-82 500lb GP Bomb LD',
     weight: 503,
     drag: 0.2,
@@ -154,6 +195,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: 'MK-82',
     label: 'MK-82 Air ballute 500lb GP Bomb HD',
     weight: 534,
     drag: 0.26,
@@ -166,6 +208,7 @@ export const aircraftStores: IAircraftStore[] = [
 
   // Bombs specific to inner Pylons
   {
+    short: '[BRU-42] 3xGBU-12 ',
     label: '[BRU-42] 3xGBU-12 500lb Laser bomb',
     weight: 1956,
     drag: 2.14,
@@ -177,6 +220,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
+    short: '[BRU-42] 3xMK-82 ',
     label: '[BRU-42] 3xMK-82 500lb GP boms LD',
     weight: 1631,
     drag: 1.21,
@@ -188,6 +232,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
+    short: '[BRU-42] 3xMK-82 Air',
     label: '[BRU-42] 3xMK-82 Air ballute 500lb GP Bomb HD',
     weight: 1724,
     drag: 1.39,
@@ -199,6 +244,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
+    short: 'CBU-103',
     label: 'CBU-103 202 x CEM CBU with WCMD',
     weight: 948,
     drag: 1.17,
@@ -208,17 +254,10 @@ export const aircraftStores: IAircraftStore[] = [
     laserGuided: false,
     gpsGuided: false,
   },
+  CBU_105,
+
   {
-    label: 'CBU-105 10 x SFW CBU with WCMD',
-    weight: 919,
-    drag: 1.17,
-    type: LoadType.Bombs,
-    availableOn: [3, 4, 5, 7, 8, 9],
-    training: false,
-    laserGuided: false,
-    gpsGuided: false,
-  },
-  {
+    short: 'GBU-10',
     label: 'GBU-10 2000lb Laser bomb',
     weight: 2114,
     drag: 0.71,
@@ -229,6 +268,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: 'GBU-31(V)1/B',
     label: 'GBU-31(V)1/B JDAM 2000lb GPS guided bomb',
     weight: 2059,
     drag: 0.5,
@@ -239,6 +279,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: true,
   },
   {
+    short: 'GBU-31(V)3/B',
     label: 'GBU-31(V)3/B JDAM 2000lb GPS guided penetrator bomb',
     weight: 2163,
     drag: 0.5,
@@ -249,6 +290,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: true,
   },
   {
+    short: 'GBU-38',
     label: 'GBU-38 JDAM 500 GPS guided bomb',
     weight: 531,
     drag: 0.2,
@@ -264,6 +306,7 @@ export const aircraftStores: IAircraftStore[] = [
   // Pods
 
   {
+    short: 'ALQ-131',
     label: 'ALQ-131 - ECM Pod',
     weight: 672,
     drag: 0.75,
@@ -277,6 +320,7 @@ export const aircraftStores: IAircraftStore[] = [
   ALQ184,
 
   {
+    short: '[BRU-42] TER',
     label: '[BRU-42] Triple ejector Rack',
     weight: 0,
     drag: 0,
@@ -288,6 +332,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
+    short: 'MK-84',
     label: 'MK-84 2000lb GP bomb LD',
     weight: 0,
     drag: 0,
@@ -302,6 +347,7 @@ export const aircraftStores: IAircraftStore[] = [
   M151_APKWS,
 
   {
+    short: '[BRU-42] 3x[LAU-131] 7x 2.75" M151',
     label: '[BRU-42] 3x[LAU-131] 7x 2.75" Hydra, Laser Rkts M151, HE APKWS',
     weight: 1001,
     drag: 2.41,
@@ -313,6 +359,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
+    short: '[LAU-131] 7x 2.75" M282',
     label: '[LAU-131] 7x 2.75" Hydra, Laser Rkts M282, MPP APKWS',
     weight: 328,
     drag: 0.6,
@@ -323,6 +370,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[BRU-42] 3x[LAU-131] 7x 2.75" M282',
     label: '[BRU-42] 3x[LAU-131] 7x 2.75" Hydra, Laser Rkts M282, HE APKWS',
     weight: 1093,
     drag: 2.41,
@@ -334,6 +382,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
+    short: 'SUU-25',
     label: 'SUU-25 x 8 LUU-2 Target marker flares',
     weight: 0,
     drag: 0,
@@ -347,6 +396,7 @@ export const aircraftStores: IAircraftStore[] = [
   TGP,
   // Mavevricks
   {
+    short: '[LAU-117] AGM-65D',
     label: '[LAU-117] AGM-65D Maverick D (IIR ASM)',
     weight: 611,
     drag: 0.93,
@@ -357,6 +407,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-117] AGM-65G',
     label: '[LAU-117] AGM-65G Maverick G (IIR ASM - Lg Whd)',
     weight: 794,
     drag: 0.93,
@@ -367,6 +418,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-117] AGM-65H',
     label: '[LAU-117] AGM-65H Maverick H (CCD Imp ASM)',
     weight: 589,
     drag: 0.93,
@@ -377,6 +429,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-117] AGM-65K',
     label: '[LAU-117] AGM-65K Maverick K (CCD Imp ASM)',
     weight: 785,
     drag: 0.93,
@@ -388,6 +441,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
+    short: '[LAU-117] AGM-65L',
     label: '[LAU-117] AGM-65L Maverick L (CCD Laser ASM)',
     weight: 774,
     drag: 0.93,
@@ -398,6 +452,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-88] 1xAGM-65D',
     label: '[LAU-88] 1xAGM-65D Maverick D (IIR ASM)',
     weight: 946,
     drag: 0.96,
@@ -409,6 +464,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
+    short: '[LAU-88] 1x AGM-65H',
     label: '[LAU-88] 1x AGM-65H Maverick H (CCD Imp ASM)',
     weight: 946,
     drag: 0.96,
@@ -419,18 +475,10 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
 
-  {
-    label: '[LAU-88] 2xAGM-65D Maverick D (IIR ASM)',
-    weight: 1426,
-    drag: 1.31,
-    type: LoadType.AG_Missile,
-    availableOn: [3, 9],
-    training: false,
-    laserGuided: false,
-    gpsGuided: false,
-  },
+  LAU88_D_AGM65D,
 
   {
+    short: '[LAU-88] 2x AGM-65H',
     label: '[LAU-88] 2x AGM-65H - Maverick H (CCD Imp ASM)',
     weight: 1382,
     drag: 1.31,
@@ -444,6 +492,7 @@ export const aircraftStores: IAircraftStore[] = [
   LAU88_T_AGM65D,
 
   {
+    short: '[LAU-88] 3x AGM-65H',
     label: '[LAU-88] 3x AGM-65H - Maverick H (CCD Imp ASM)',
     weight: 1841,
     drag: 1.66,
@@ -456,6 +505,7 @@ export const aircraftStores: IAircraftStore[] = [
 
   // rockets
   {
+    short: '[LAU-131] 7 M151',
     label: '[LAU-131] 7x7.25" Hydra rkts M151, unguided HE',
     weight: 225,
     drag: 0.6,
@@ -466,6 +516,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-131] 7 M156',
     label: '[LAU-131] 7x7.25" Hydra rkts M156, unguided  WPhos',
     weight: 229,
     drag: 0.6,
@@ -476,6 +527,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-131] 7 M257',
     label: '[LAU-131] 7x7.25" Hydra rkts M257, Para illmu',
     weight: 238,
     drag: 0.6,
@@ -486,6 +538,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-131] 7MK5',
     label: '[LAU-131] 7x7.25" Hydra rkts MK5, HEAT',
     weight: 201,
     drag: 0.6,
@@ -496,6 +549,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-68] 7M151',
     label: '[LAU-68] 7x7.25" Hydra rkts M151, unguided HE',
     weight: 251,
     drag: 0.6,
@@ -506,6 +560,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-68] 7 M156',
     label: '[LAU-68] 7x7.25" Hydra rkts M156, unguided WPhos',
     weight: 251,
     drag: 0.6,
@@ -516,6 +571,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-68] 7 M257',
     label: '[LAU-68] 7x7.25" Hydra rkts M257, Para illmu',
     weight: 262,
     drag: 0.6,
@@ -526,6 +582,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[LAU-68] 7MK5',
     label: '[LAU-68] 7x7.25" Hydra rkts MK5, HEAT',
     weight: 225,
     drag: 0.6,
@@ -538,6 +595,7 @@ export const aircraftStores: IAircraftStore[] = [
 
   // With TER
   {
+    short: '[BRU-42] 3x[LAU-131] 7 M151',
     label: '[BRU-42] 3x[LAU-131] 7x7.25" Hydra rkts M151, unguided HE',
     weight: 897,
     drag: 2.41,
@@ -548,6 +606,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[BRU-42] 3x[LAU-131] 7M156',
     label: '[BRU-42] 3x[LAU-131] 7x7.25" Hydra rkts M156, unguided WPhos',
     weight: 904,
     drag: 2.41,
@@ -558,6 +617,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[BRU-42] 3x[LAU-131] 7 M257',
     label: '[BRU-42] 3x[LAU-131] 7x7.25" Hydra rkts M257, Para illmu',
     weight: 933,
     drag: 2.41,
@@ -568,6 +628,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[BRU-42] 3x[LAU-131] 7 MK5',
     label: '[BRU-42] 3x[LAU-131] 7x7.25" Hydra rkts MK5, HEAT',
     weight: 822,
     drag: 2.41,
@@ -578,6 +639,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[BRU-42] 3x[LAU-68] 7 M151',
     label: '[BRU-42] 3x[LAU-68] 7x7.25" Hydra rkts M151, unguided HE',
     weight: 877,
     drag: 2.41,
@@ -588,6 +650,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[BRU-42] 3x[LAU-68] 7 M156',
     label: '[BRU-42] 3x[LAU-68] 7x7.25" Hydra rkts M156, unguided WPhos',
     weight: 886,
     drag: 2.41,
@@ -598,6 +661,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[BRU-42] 3x[LAU-68] 7 M257',
     label: '[BRU-42] 3x[LAU-68] 7x7.25" Hydra rkts M257, Para illmu',
     weight: 911,
     drag: 2.41,
@@ -608,6 +672,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
+    short: '[BRU-42] 3x[LAU-68] 7 MK5',
     label: '[BRU-42] 3x[LAU-68] 7x7.25" Hydra rkts MK5, HEAT',
     weight: 798,
     drag: 2.41,

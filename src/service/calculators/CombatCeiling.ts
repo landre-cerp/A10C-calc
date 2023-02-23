@@ -1,5 +1,5 @@
 import {
-  TempCorrectionTable,
+  PosNegCorrectionTable,
   CorrectionVector,
   CorrectionTable,
 } from './CorrectionTable';
@@ -11,8 +11,8 @@ export const combatCeiling = (
 ): number => {
   let combatCeiling = vector_combatCeiling_drag.GetLinear(drag, startingWeight);
 
-  if (deltaTemp > 0) {
-    combatCeiling = tempCorrectionTable.GetLinear(combatCeiling, deltaTemp);
+  if (deltaTemp != 0) {
+    combatCeiling = posNegCorrectionTable.GetLinear(combatCeiling, deltaTemp);
   }
 
   return combatCeiling;
@@ -27,7 +27,7 @@ const vector_combatCeiling_drag = new CorrectionTable(
   ])
 );
 
-const tempCorrectionTable = new TempCorrectionTable(
+const posNegCorrectionTable = new PosNegCorrectionTable(
   'Combat ceiling delta temp correction table',
   new CorrectionTable(
     ' positive correction table',
