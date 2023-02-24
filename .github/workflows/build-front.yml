@@ -8,7 +8,7 @@ on:
         type: string
     secrets:
       fontawesome-token:
-        description: "Fontawesome Pro Npm token"
+        description: 'Fontawesome Pro Npm token'
         required: true
 
 jobs:
@@ -22,12 +22,12 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          cache: "npm"
-          cache-dependency-path: "**/package-lock.json"
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
           always-auth: true
-          node-version: "16.x"
+          node-version: '16.x'
           registry-url: https://npm.fontawesome.com
-          scope: "@fortawesome"
+          scope: '@fortawesome'
 
       - name: Install dependencies
         run: |
@@ -41,15 +41,15 @@ jobs:
           npm i -g @quasar/cli
       - name: Quasar build
         run: |
-          cd ${{inputs.working-dir}} 
-          quasar build
+          cd ${{inputs.working-dir}}
+          quasar build -m pwa
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: dist-spa
+          name: dist-pwa
           path: |
-            ${{inputs.working-dir}}/dist/spa
-            !${{inputs.working-dir}}/dist/spa/**/.*md
+            ${{inputs.working-dir}}/dist/pwa
+            !${{inputs.working-dir}}/dist/pwa/**/.*md
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:

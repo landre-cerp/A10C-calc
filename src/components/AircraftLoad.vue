@@ -46,7 +46,7 @@
     </q-card>
     <div class="text-center">
       <q-img
-        src="src/assets/a10C-emports.jpg"
+        src="~assets/a10C-emports.jpg"
         style="max-height: 170px; max-width: 605px"
       ></q-img>
     </div>
