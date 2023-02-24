@@ -1,0 +1,57 @@
+name: Front build
+
+on:
+  workflow_call:
+    inputs:
+      working-dir:
+        required: true
+        type: string
+    secrets:
+      fontawesome-token:
+        description: "Fontawesome Pro Npm token"
+        required: true
+
+jobs:
+  quasar-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+          always-auth: true
+          node-version: "16.x"
+          registry-url: https://npm.fontawesome.com
+          scope: "@fortawesome"
+
+      - name: Install dependencies
+        run: |
+          cd ${{inputs.working-dir}}
+          npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.fontawesome-token }}
+      - name: Quasar install
+        run: |
+          cd ${{inputs.working-dir}}
+          npm i -g @quasar/cli
+      - name: Quasar build
+        run: |
+          cd ${{inputs.working-dir}} 
+          quasar build
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-spa
+          path: |
+            ${{inputs.working-dir}}/dist/spa
+            !${{inputs.working-dir}}/dist/spa/**/.*md
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Dockerfile
+          path: ${{inputs.working-dir}}/Dockerfile
