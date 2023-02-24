@@ -47,7 +47,7 @@
           :rules="[(val) => val >= 0]"
         >
           <template v-slot:append>
-            {{ airport.AirportPressureAltitude.toFixed(0) }}
+            {{ airport.AirportPressureAltitude }}
             <q-icon name="help">
               <q-tooltip>Pressure Altitude</q-tooltip>
             </q-icon>
