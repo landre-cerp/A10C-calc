@@ -5,7 +5,7 @@ on: [push]
 
 defaults:
   run:
-    working-directory: frontapp
+    working-directory: .
 
 jobs:
   quasar-build:
