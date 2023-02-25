@@ -15,6 +15,9 @@
         <q-route-tab to="/Load" label="Armement" />
         <q-route-tab to="/Airfield" label="TakeOff" />
         <q-route-tab to="/Flight" label="Flight" />
+        <q-route-tab to="/Landing" label="Landing" />
+
+        <q-route-tab to="/About" label="About" />
       </q-tabs>
     </q-header>
 

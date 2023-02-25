@@ -106,7 +106,6 @@ const posNegCorrectionTable = new PosNegCorrectionTable(
   ),
   new CorrectionTable(
     'climb time positive correction',
-    // TODO: fix this
     new Map([
       [0, new CorrectionVector([0, 0])],
       [5, new CorrectionVector([5, 0.05])],
