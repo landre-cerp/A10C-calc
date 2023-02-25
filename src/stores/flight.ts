@@ -15,19 +15,21 @@ export const useFlightStore = defineStore('flight', {
         type: PhaseType.TAXI,
         startWeight: 0,
         FuelOnBoard: 0,
+        releasedWeight: 0,
         // constants froms charts
         FuelUsed: 0,
         Distance: 2,
         Duration: 1,
         FuelFlow: 0,
         Drag: 0,
-        comment: '',
+        comment: 'Taxi fuel + 200lbs',
       },
       {
         label: 'Climb',
         type: PhaseType.CLIMB,
         startWeight: 0,
         FuelOnBoard: 0,
+        releasedWeight: 0,
         FuelUsed: 0,
         Distance: 0,
         Duration: 0,
@@ -40,6 +42,7 @@ export const useFlightStore = defineStore('flight', {
         type: PhaseType.CRUISE,
         startWeight: 0,
         FuelOnBoard: 0,
+        releasedWeight: 0,
         FuelUsed: 0,
         Distance: 0,
         Duration: 0,
@@ -52,6 +55,7 @@ export const useFlightStore = defineStore('flight', {
         type: PhaseType.ONZONE,
         startWeight: 0,
         FuelOnBoard: 0,
+        releasedWeight: 0,
         FuelUsed: 0,
         Distance: 0,
         Duration: 0,
@@ -64,6 +68,7 @@ export const useFlightStore = defineStore('flight', {
         type: PhaseType.RTB,
         startWeight: 0,
         FuelOnBoard: 0,
+        releasedWeight: 0,
         FuelUsed: 500,
         Distance: 0,
         Duration: 0,
@@ -76,6 +81,7 @@ export const useFlightStore = defineStore('flight', {
         type: PhaseType.DESCENT,
         startWeight: 0,
         FuelOnBoard: 0,
+        releasedWeight: 0,
         FuelUsed: 0,
         Distance: 0,
         Duration: 0,
@@ -84,6 +90,19 @@ export const useFlightStore = defineStore('flight', {
         comment: '',
       },
     ] as FlightPhase[],
+    releasedStore: [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+    ] as boolean[],
   }),
 
   getters: {
@@ -105,7 +124,9 @@ export const useFlightStore = defineStore('flight', {
 
       for (let index = 1; index < this.phases.length; index++) {
         this.phases[index].startWeight =
-          this.phases[index - 1].startWeight - this.phases[index - 1].FuelUsed;
+          this.phases[index - 1].startWeight -
+          this.phases[index - 1].FuelUsed -
+          this.phases[index - 1].releasedWeight;
         this.phases[index].FuelOnBoard =
           this.phases[index - 1].FuelOnBoard - this.phases[index - 1].FuelUsed;
 

@@ -3,8 +3,8 @@
     <q-header elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar>
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+          <q-avatar square>
+            <img src="~assets/Logo_Hog.png" />
           </q-avatar>
           A10C Perf calculator (for DCS) - by Cerppo
           <span style="float: right">{{ appVersion }}</span>

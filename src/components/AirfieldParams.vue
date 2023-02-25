@@ -1,28 +1,36 @@
 <template>
   <q-card class="my-card">
-    <q-card-section class="col-6">
-      <p class="text-h5">Airport information</p>
-      <q-item>
+    <q-card-section>
+      <q-item-label class="text-h5">Airport information</q-item-label>
+    </q-card-section>
+
+    <q-card-section class="row">
+      <q-item class="col-12 col-sm-6 col-md-4">
         <q-input
+          style="width: 100%"
           filled
           debounce="500"
-          class="q-mr-md"
+          class="q-mr-md text-h6"
           v-model.number="runwayLength"
           label="Runway length (feet)"
         />
-
+      </q-item>
+      <q-item class="col-12 col-sm-6 col-md-4">
         <q-input
+          style="width: 100%"
           filled
           debounce="500"
-          class="q-mr-md"
+          class="q-mr-md text-h6"
           v-model.number="Temp"
           label="Runway Temp. °C"
         />
       </q-item>
-      <q-item>
+      <q-item class="col-12 col-sm-6 col-md-4">
         <q-input
+          style="width: 100%"
           filled
           debounce="500"
+          class="q-mr-md text-h6"
           v-model.number:model-value="Qnh.value"
           label="QNH"
           :rules="[(val) => val >= 0]"
@@ -37,11 +45,12 @@
           >
         </q-input>
       </q-item>
-      <q-item>
+      <q-item class="col-12 col-sm-6 col-md-4">
         <q-input
+          style="width: 100%"
           filled
           debounce="500"
-          class="q-mr-md"
+          class="q-mr-md text-h6"
           v-model.number="AirportElevation"
           label="Airport Altitude (feet)"
           :rules="[(val) => val >= 0]"
@@ -55,10 +64,12 @@
         </q-input>
       </q-item>
 
-      <q-item>
+      <q-item class="col-12 col-sm-6 col-md-4">
         <q-input
+          style="width: 100%"
           filled
           debounce="500"
+          class="q-mr-md text-h6"
           v-model.number="HeadWind"
           label="Head wind (kts)"
           hint="enter negative value for tail wind"
@@ -82,10 +93,13 @@
 
   <q-card class="my-card">
     <q-card-section>
-      <p class="text-h5">Take Off information</p>
-
-      <q-list>
-        <q-item>
+      <p class="text-h5">
+        Take Off information <q-badge>FLAPS {{ aircraft.flaps }} </q-badge>
+      </p>
+    </q-card-section>
+    <q-card-section>
+      <q-list class="row">
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label
               >PTFS
@@ -100,13 +114,8 @@
               {{ PTFS(Temp).toFixed(0) }}
             </p>
           </q-item-section>
-          <q-item-section>
-            <q-item-label class="text-h6"
-              >FLAPS {{ aircraft.flaps }}</q-item-label
-            >
-          </q-item-section>
         </q-item>
-        <q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Rotate at</q-item-label>
             <p class="text-h6">
@@ -114,6 +123,8 @@
               KTS
             </p>
           </q-item-section>
+        </q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>
               <q-icon name="flight_takeoff"></q-icon>
@@ -125,9 +136,17 @@
             </p>
           </q-item-section>
         </q-item>
-        <q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <q-item-label>Takeoff Index (max thrust)</q-item-label>
+            <q-item-label
+              >Takeoff Index (max thrust)
+              <q-icon class="q-ms-md" name="help">
+                <q-tooltip>
+                  TakeOff Index is displayed in case you want to read charts.
+                </q-tooltip></q-icon
+              >
+            </q-item-label>
+
             <p class="text-h6">
               {{
                 TakeoffIndex(Temp, airport.AirportPressureAltitude).toFixed(1)
@@ -135,7 +154,7 @@
             </p>
           </q-item-section>
         </q-item>
-        <q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Takeoff Weight</q-item-label>
 
@@ -143,29 +162,40 @@
               {{ aircraft.TakeOffWeight.toFixed(0) }}
             </p>
           </q-item-section>
+        </q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label
-              >Takeoff Fuel
+              >Taxi Fuel (100 lbs/10 min)
               <q-icon class="q-ms-md" name="help">
                 <q-tooltip>
-                  Charts assume Taxi + Takeoff to climb speed uses either 300 or
-                  500lbs.
+                  (300 pounds/30 minutes) and a worst case fuel consumption of
+                  200 pounds for takeoff and acceleration to climb speed.
                 </q-tooltip></q-icon
               ></q-item-label
             >
 
             <q-option-group
-              v-model="aircraft.fuelForTakeoff"
+              v-model="aircraft.taxiFuel"
               :options="[
                 {
-                  label: '300 lbs',
+                  label: '100',
+                  value: 100,
+                },
+                {
+                  label: '200',
+                  value: 200,
+                },
+                {
+                  label: '300',
                   value: 300,
                 },
-                { label: '500 lbs', value: 500 },
               ]"
               inline
             />
           </q-item-section>
+        </q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Runway Condition </q-item-label>
 
@@ -183,13 +213,15 @@
             />
           </q-item-section>
         </q-item>
-        <q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Ground run (feet)</q-item-label>
             <p class="text-h6">
               {{ ground.toFixed(0) }}
             </p>
           </q-item-section>
+        </q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label
               >50 feet obstacle clearance distance (feet)</q-item-label
@@ -198,6 +230,8 @@
               {{ obstacleDistanceClearance(ground, airport.Temp).toFixed(0) }}
             </p>
           </q-item-section>
+        </q-item>
+        <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Critical field Length (feet)</q-item-label>
             <p class="text-h6">

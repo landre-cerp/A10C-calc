@@ -27,10 +27,11 @@ const defaultState = {
     { ...emptyLoad },
     { ...ALQ184 },
   ] as IAircraftStore[],
+
   fuelQty: 75 as number,
   gunAmmoPercent: 100 as number,
   flaps: 7 as number,
-  fuelForTakeoff: 300 as number,
+  taxiFuel: 300 as number,
 };
 
 export const useA10CStore = defineStore('a10c', {
@@ -40,6 +41,7 @@ export const useA10CStore = defineStore('a10c', {
     Pylons(): IAircraftStore[] | null {
       return this.pylonsLoad;
     },
+
     // Drag coeff for the Load
     Drag(): number {
       if (!this.pylonsLoad) return 0;
@@ -49,6 +51,7 @@ export const useA10CStore = defineStore('a10c', {
         0
       );
     },
+
     // Weigth Section
     WeaponWeight(): number {
       if (!this.pylonsLoad) return 0;
@@ -59,6 +62,7 @@ export const useA10CStore = defineStore('a10c', {
 
       return weigth;
     },
+    // Weigth Section
 
     FuelWeight(): number {
       if (this.fuelQty <= 100) {
@@ -85,7 +89,7 @@ export const useA10CStore = defineStore('a10c', {
     },
 
     TakeOffWeight(): number {
-      return this.TotalWeight - this.fuelForTakeoff;
+      return this.TotalWeight - this.taxiFuel;
     },
 
     ZeroFuelWeight(): number {

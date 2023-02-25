@@ -68,4 +68,5 @@ export interface FlightPhase {
   Duration: number;
   FuelFlow: number;
   Drag: number;
+  releasedWeight: number;
 }

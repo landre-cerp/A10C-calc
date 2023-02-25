@@ -11,9 +11,6 @@
         label="Flight Level (Ex 160)"
         :hint="'Optimum Cruise Altitude' + optimum_cruise_altitude.toFixed(0)"
       >
-        <template v-slot:append>
-          <q-btn @click="selectOptimumCruiseAltitude">Optimum</q-btn>
-        </template>
       </q-input>
       <q-input
         filled
@@ -37,13 +34,6 @@
         v-model.number="cruiseHeadWind"
         label="Cruise Head Wind"
       ></q-input>
-
-      <q-item>
-        Pressure Altitude
-
-        {{ Math.ceil(flight.CruisePressureAlt) }} with QNH
-        {{ flight.Qnh.value }} {{ QNH_Unit[flight.Qnh.unit] }}
-      </q-item>
 
       <q-item>
         <q-item-section>
@@ -95,7 +85,7 @@
                   CruiseMachSpeed(
                     flight.CruisePressureAlt,
                     phase.startWeight,
-                    airport.DeltaTemp,
+
                     aircraft.Drag
                   ).toFixed(2)
                 }}
@@ -105,7 +95,7 @@
                     CruiseMachSpeed(
                       flight.CruisePressureAlt,
                       phase.startWeight,
-                      airport.DeltaTemp,
+
                       aircraft.Drag
                     ),
                     getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
@@ -117,7 +107,7 @@
                     CruiseMachSpeed(
                       flight.CruisePressureAlt,
                       phase.startWeight,
-                      airport.DeltaTemp,
+
                       aircraft.Drag
                     ),
                     getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
@@ -145,7 +135,7 @@
               :rules="[checkReserve]"
             >
               <template v-slot:append
-                >{{ ((combatFuelFlow * combatduration) / 60).toFixed(0) }}
+                >{{ ((combatFuelFlow * phase.Duration) / 60).toFixed(0) }}
               </template>
             </q-input>
             <q-item>
@@ -161,6 +151,33 @@
                 }}</q-item-label
               >
             </q-item>
+            <q-expansion-item
+              expand-separator
+              icon="cancel"
+              :label="`Mission store released : ${releaseWeaponsWeight()} lbs`"
+              caption="Check released / jettissoned weapons"
+            >
+              <q-card>
+                <q-card-section>
+                  <q-list dense>
+                    <q-item
+                      v-for="(pylon, index) in aircraft.Pylons?.filter(
+                        (p) => p.short != ''
+                      )"
+                      :key="index"
+                      class="col-12"
+                      color="secondary"
+                    >
+                      <q-checkbox
+                        v-model="releasedStore[index]"
+                        @update:model-value="Recalc"
+                        >{{ 11 - index }} {{ pylon.short }}
+                      </q-checkbox>
+                    </q-item>
+                  </q-list>
+                </q-card-section>
+              </q-card>
+            </q-expansion-item>
           </td>
 
           <td v-else class="text-right">
@@ -189,10 +206,11 @@
               filled
               debounce="500"
               class="q-mr-md"
-              v-model.number="combatduration"
+              v-model.number="phase.Duration"
               label="Combat Duration"
               @update:model-value="Recalc"
               :rules="[checkReserve]"
+              :hint="`Extra  +${maxTimeOnZone}`"
             ></q-input>
           </td>
 
@@ -215,7 +233,7 @@ import { useA10CStore } from 'src/stores/a10c';
 import { useAirportStore } from 'src/stores/Airport';
 import { useFlightStore } from 'src/stores/flight';
 import { storeToRefs } from 'pinia';
-import { FlightPhase, PhaseType, QNH_Unit } from './models';
+import { FlightPhase, PhaseType } from './models';
 
 import { ClimbFuelUsed } from 'src/service/calculators/ClimbFuel';
 import { ClimbTimeNeeded } from 'src/service/calculators/ClimbTime';
@@ -238,14 +256,21 @@ const flight = useFlightStore();
 
 flight.Qnh = airport.Qnh;
 
-const { cruiseHeadWind, missionRange, fuelReserve, phases, FlightLevel } =
-  storeToRefs(flight);
+const {
+  cruiseHeadWind,
+  missionRange,
+  fuelReserve,
+  phases,
+  FlightLevel,
+  releasedStore,
+} = storeToRefs(flight);
 
 const combatFuelFlow = ref(5000);
-const combatduration = ref(30);
+const maxTimeOnZone = ref(0);
 
 onMounted(() => {
   // init Phases with Stores Value;
+
   const TakeOffPhase = phases.value.find((p) => p.type == PhaseType.TAXI);
 
   if (TakeOffPhase) {
@@ -266,7 +291,7 @@ onMounted(() => {
 
   const onZonePhase = phases.value.find((p) => p.type == PhaseType.ONZONE);
   if (onZonePhase && CruisePhase) {
-    onZonePhase.FuelUsed = (combatFuelFlow.value / 60) * combatduration.value;
+    onZonePhase.FuelUsed = (combatFuelFlow.value / 60) * onZonePhase.Duration;
   }
 
   const RTBPhase = phases.value.find((p) => p.type == PhaseType.RTB);
@@ -297,10 +322,6 @@ const optimum_cruise_altitude = computed(() => {
     );
   }
 });
-
-function selectOptimumCruiseAltitude() {
-  FlightLevel.value = optimum_cruise_altitude.value;
-}
 
 function RecalcClimb(ClimbPhase: FlightPhase) {
   // Recalc Climb Phase
@@ -341,7 +362,7 @@ function RecalcCruise(ClimbPhase: FlightPhase, CruisePhase: FlightPhase) {
     CruiseMachSpeed(
       flight.CruisePressureAlt,
       AverageWeight,
-      airport.DeltaTemp,
+
       CruisePhase.Drag
     ),
     getStdTemp(flight.CruisePressureAlt) + airport.DeltaTemp
@@ -353,12 +374,12 @@ function RecalcCruise(ClimbPhase: FlightPhase, CruisePhase: FlightPhase) {
     CruiseNMperLbsUsed(
       flight.CruisePressureAlt,
       AverageWeight,
-      airport.DeltaTemp,
       CruisePhase.Drag
     );
 
   CruisePhase.Duration = Math.ceil(CruisePhase.Distance / (groundSpeed / 60));
-  CruisePhase.FuelUsed = Math.ceil((FuelFlow * CruisePhase.Duration) / 60);
+  CruisePhase.FuelUsed =
+    10 * Math.ceil((FuelFlow * CruisePhase.Duration) / 600);
   CruisePhase.FuelFlow = FuelFlow;
 }
 
@@ -387,15 +408,10 @@ function RecalcRTB(distance: number, RTBPhase: FlightPhase) {
 
   const FuelFlow =
     Ktas /
-    CruiseNMperLbsUsed(
-      flight.CruisePressureAlt,
-      AverageWeight,
-      airport.DeltaTemp,
-      RTBPhase.Drag
-    );
+    CruiseNMperLbsUsed(flight.CruisePressureAlt, AverageWeight, RTBPhase.Drag);
 
   RTBPhase.Duration = Math.ceil(distance / (groundSpeed / 60));
-  RTBPhase.FuelUsed = Math.ceil((FuelFlow * RTBPhase.Duration) / 60);
+  RTBPhase.FuelUsed = 10 * Math.ceil((FuelFlow * RTBPhase.Duration) / 600);
   RTBPhase.FuelFlow = FuelFlow;
 }
 
@@ -403,7 +419,7 @@ const getCruiseAverageWeight = (CruisePhase: FlightPhase): number => {
   const cruiseMach = CruiseMachSpeed(
     flight.CruisePressureAlt,
     CruisePhase.startWeight, // Start Weight  , then half the fuel Used.
-    airport.DeltaTemp,
+
     aircraft.Drag
   );
 
@@ -419,7 +435,6 @@ const getCruiseAverageWeight = (CruisePhase: FlightPhase): number => {
     CruiseNMperLbsUsed(
       flight.CruisePressureAlt,
       CruisePhase.startWeight,
-      airport.DeltaTemp,
       aircraft.Drag
     );
 
@@ -446,19 +461,45 @@ function Recalc() {
   const CruisePhase = phases.value[2];
   const onZonePhase = phases.value[3];
   const RTBPhase = phases.value[4];
+  const DescentPhase = phases.value[5];
 
-  TakeOffPhase.FuelUsed = aircraft.fuelForTakeoff;
+  TakeOffPhase.FuelUsed = aircraft.taxiFuel + 200;
 
   RecalcClimb(ClimbPhase);
   RecalcCruise(ClimbPhase, CruisePhase);
   onZonePhase.FuelUsed = Math.ceil(
-    (combatFuelFlow.value / 60) * combatduration.value
+    (combatFuelFlow.value / 60) * onZonePhase.Duration
   );
 
-  RTBPhase.startWeight = CruisePhase.startWeight - CruisePhase.FuelUsed - 4930; // Wepons
-  RTBPhase.Drag = aircraft.Drag - 3.72;
+  onZonePhase.releasedWeight = releaseWeaponsWeight();
+  RTBPhase.Drag = aircraft.Drag - releaseWeaponsDrag();
+
+  // Symetrical RTB
   RecalcRTB(CruisePhase.Distance, RTBPhase);
 
   flight.Recalc();
+  maxTimeOnZone.value = Math.floor(
+    ((DescentPhase.FuelOnBoard - fuelReserve.value) / combatFuelFlow.value) * 60
+  );
+}
+
+function releaseWeaponsWeight(): number {
+  let releasedWeight = 0;
+  for (let i = 0; i < aircraft.pylonsLoad.length; i++) {
+    releasedWeight += releasedStore.value[i]
+      ? aircraft.pylonsLoad[i].weight
+      : 0;
+  }
+
+  return releasedWeight;
+}
+
+function releaseWeaponsDrag(): number {
+  let weaponsDrag = 0;
+  for (let i = 0; i < aircraft.pylonsLoad.length; i++) {
+    weaponsDrag += releasedStore.value[i] ? aircraft.pylonsLoad[i].drag : 0;
+  }
+
+  return weaponsDrag;
 }
 </script>

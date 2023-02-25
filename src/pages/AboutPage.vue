@@ -47,7 +47,6 @@
         <div class="text-h6">Roadmap</div>
         <ul>
           <li>Loadout configuration manager</li>
-          <li>Better UI in the load manager</li>
           <li>Landing calculation</li>
           <li>
             Flight phases rework with different mission profiles (LO-LO-LO ,

@@ -1,6 +1,7 @@
 import { QNH, QNH_Unit } from './../components/models';
 import {
   convertAltitudeUnits,
+  deltaFromStandardTemp,
   PressureAltitude,
 } from 'src/service/conversionTool';
 
@@ -19,11 +20,15 @@ export const useAirportStore = defineStore('airport', {
 
   getters: {
     AirportPressureAltitude(): number {
-      return PressureAltitude(this.AirportElevation, this.Qnh);
+      return Math.ceil(PressureAltitude(this.AirportElevation, this.Qnh));
     },
 
     DeltaTemp(): number {
-      return this.Temp - 15;
+      return (
+        Math.ceil(
+          deltaFromStandardTemp(this.AirportElevation, this.Temp) * 10
+        ) / 10
+      );
     },
   },
 
