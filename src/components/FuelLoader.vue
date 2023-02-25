@@ -1,5 +1,5 @@
 <template>
-  <q-item>
+  <q-item dense>
     <q-item-section
       ><q-item-label>Fuel</q-item-label>
       <p class="text-h6">
@@ -8,6 +8,7 @@
     >
     <q-item-section>
       <q-input
+        class="text-h6"
         filled
         debounce="500"
         v-model.number="fuelQty"

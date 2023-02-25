@@ -42,7 +42,7 @@ export const ClimbFuelUsed = (
   }
 
   // round to Highest 10th
-  fuelUsed = Math.ceil(fuelUsed / 10) * 10;
+  fuelUsed = Math.ceil(fuelUsed / 100) * 100;
 
   return fuelUsed < 0 ? 0 : Math.ceil(fuelUsed);
 };

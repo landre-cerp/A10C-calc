@@ -3,17 +3,18 @@
     <div class="progress">
       <div
         :style="{ width: Math.ceil(percentRun) + '%', color: 'white' }"
-        class="progress-bar progress-bar-zfw q-py-md"
+        class="progress-bar q-py-md"
+        :class="percentRun <= 100 ? 'groundrun-ok' : 'ko'"
       >
-        <span>Run</span>
+        <span>Ground run</span>
       </div>
       <div
         :style="{
           width: percentCritical + '%',
-          color: 'black',
           verticalAlign: 'middle',
         }"
-        class="progress-bar progress-bar-weapons text-bold q-py-md"
+        class="progress-bar text-bold q-py-md"
+        :class="percentCritical + percentRun <= 100 ? 'critical-ok' : 'ko'"
       >
         <span>Critical</span>
       </div>
@@ -21,11 +22,8 @@
   </div>
   <div v-else>
     <div class="progress">
-      <div
-        style="width: 100%; color: white"
-        class="progress-bar progress-bar-empty q-py-md"
-      >
-        <span>enter runway length</span>
+      <div style="width: 100%; color: white" class="progress-bar empty q-py-md">
+        <span>Enter runway length</span>
       </div>
     </div>
   </div>
@@ -64,21 +62,28 @@ const percentCritical = computed(
   width: 0%;
   height: 100%;
   line-height: 20px;
+  font-size: 2em;
 
   color: black;
   text-align: center;
   background-color: yellow;
+  border-right: 1px solid black;
 }
 
-.progress-bar-zfw {
+.groundrun-ok {
+  color: white;
   background-color: rgb(48, 87, 144);
 }
 
-.progress-bar-weapons {
+.critical-ok {
   background-color: rgba(255, 196, 0, 0.986);
 }
+.ko {
+  color: white;
+  background-color: rgba(255, 0, 0, 0.986);
+}
 
-.progress-bar-empty {
+.empty {
   background-color: grey;
 }
 </style>

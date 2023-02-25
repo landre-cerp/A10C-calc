@@ -1,4 +1,7 @@
 <template>
+  <p class="text-center text-h6">
+    {{ totalWeight.toFixed(0) }} / {{ maxTakeOffWeight }} Lbs
+  </p>
   <div class="progress">
     <div
       :style="{ width: Math.ceil(percentZeroFW) + '%', color: 'white' }"

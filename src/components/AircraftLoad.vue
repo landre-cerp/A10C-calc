@@ -44,53 +44,43 @@
         </AircraftWeight>
       </q-item-section>
     </q-card>
-    <div class="text-center">
-      <q-img
-        src="~assets/a10C-emports.jpg"
-        style="max-height: 170px; max-width: 605px"
-      ></q-img>
-    </div>
 
-    <q-btn-group spread>
-      <q-btn color="primary"
-        ><q-checkbox dark v-model:modelValue="symetrical" label="Sym. Load"
-      /></q-btn>
-      <q-btn color="primary" v-on:click="empty()">Empty</q-btn>
-      <q-btn color="primary" v-on:click="loadHog()">Hog Std</q-btn>
-    </q-btn-group>
-    <div class="row">
-      <q-card
-        v-for="(pylon, index) in pylonsLoad"
-        :key="index"
-        class="col-12 col-sm-6 col-md-4 col-lg-3"
-        color="secondary"
-      >
-        <q-card-actions align="between">
+    <q-card>
+      <q-card-section>
+        <div class="text-center">
+          <q-img
+            src="~assets/a10C-emports.jpg"
+            style="max-height: 170px; max-width: 605px"
+          ></q-img>
+        </div>
+      </q-card-section>
+
+      <q-btn-group spread>
+        <q-btn color="primary"
+          ><q-checkbox dark v-model:modelValue="symetrical" label="Sym. Load"
+        /></q-btn>
+        <q-btn color="primary" v-on:click="empty()">Empty</q-btn>
+        <q-btn color="primary" v-on:click="loadHog()">Hog Std</q-btn>
+      </q-btn-group>
+      <q-list dense>
+        <q-item
+          v-for="(pylon, index) in pylonsLoad"
+          :key="index"
+          class="col-12"
+          color="secondary"
+        >
           <q-checkbox v-model="locks[index]">{{ 11 - index }} </q-checkbox>
-          <q-item>
-            <p>{{ pylon.weight.toFixed(0) }} lbs</p>
-          </q-item>
-          <q-item>
-            <p>drag : {{ pylon.drag }}</p>
-          </q-item>
 
-          <q-btn
-            v-on:click="aircraft.ResetPylon(index)"
-            icon="restart_alt"
-            :disable="locks[index]"
-          ></q-btn>
-        </q-card-actions>
-        <q-card-section>
           <PylonLoader
-            :val="pylon.short"
+            style="width: 100%"
             :pylonNum="index"
             :pylon="pylon"
             :itemSelected="itemSelected"
             :locked="locks[index]"
           ></PylonLoader>
-        </q-card-section>
-      </q-card>
-    </div>
+        </q-item>
+      </q-list>
+    </q-card>
   </div>
 </template>
 

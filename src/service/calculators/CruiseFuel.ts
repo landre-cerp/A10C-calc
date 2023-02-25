@@ -1,7 +1,6 @@
 export const CruiseNMperLbsUsed = (
   cruisePressureAlt: number,
   cruiseWeight: number,
-  deltaTemp: number,
   drag: number
 ): number => {
   // Enter chart with Cruise GrossWeigth , pressure Altitude , Drag Index
@@ -14,7 +13,6 @@ export const CruiseNMperLbsUsed = (
     cruiseWeight
   );
 
-  // if high table ( 0-4  / 4-8 / 8-null )
   if (vnextDrag != vDrag) {
     const nextNauticalMilesPerLbs = CalcNauticalPerLbsFuel(
       vnextDrag,

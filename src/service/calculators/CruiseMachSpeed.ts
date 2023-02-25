@@ -7,7 +7,6 @@ import {
 const CruiseMachSpeed = (
   cruisePressureAlt: number,
   cruiseWeight: number,
-  deltaTemp: number,
   drag: number
 ): number => {
   // Enter chart with Cruise GrossWeigth , pressure Altitude , Drag Index
