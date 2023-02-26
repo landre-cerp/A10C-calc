@@ -70,7 +70,7 @@
           filled
           debounce="500"
           class="q-mr-md text-h6"
-          v-model.number="HeadWind"
+          v-model.number="Wind.speed"
           label="Head wind (kts)"
           hint="enter negative value for tail wind"
         />
@@ -240,7 +240,7 @@
                   TakeoffIndex(Temp, airport.AirportPressureAltitude),
                   aircraft.TakeOffWeight,
                   airport.rcr,
-                  airport.HeadWind
+                  airport.Wind.speed
                 ).toFixed(0)
               }}
             </p>
@@ -292,14 +292,14 @@ import { CriticalFieldLength } from 'src/service/calculators/CriticalFieldLength
 const aircraft = useA10CStore();
 const airport = useAirportStore();
 
-const { Temp, AirportElevation, HeadWind, Qnh, runwayLength } =
+const { Temp, AirportElevation, Wind, Qnh, runwayLength } =
   storeToRefs(airport);
 
 const ground = computed(() => {
   let temp = GroundRun(
     TakeoffIndex(airport.Temp, airport.AirportPressureAltitude),
     aircraft.TakeOffWeight,
-    airport.HeadWind
+    airport.Wind.speed
   );
   if (typeof temp == 'undefined') temp = 0;
   return temp;
@@ -314,7 +314,7 @@ const CriticalField = computed(() =>
     TakeoffIndex(Temp.value, airport.AirportPressureAltitude),
     aircraft.TakeOffWeight,
     airport.rcr,
-    airport.HeadWind
+    airport.Wind.speed
   )
 );
 </script>

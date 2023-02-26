@@ -50,27 +50,34 @@ export interface QNH {
 }
 
 export enum PhaseType {
-  TAXI,
+  TAKEOFF,
   CLIMB,
   CRUISE,
-  ONZONE,
+  COMBAT,
   RTB,
   DESCENT,
+  REFUEL,
+  LANDING,
 }
 
-export interface FlightPhase {
+export interface IFlightPhase {
   label: string;
   comment: string;
   type: PhaseType;
   startWeight: number;
-  FuelOnBoard: number;
-  FuelUsed: number;
-  Distance: number;
-  Duration: number;
-  FuelFlow: number;
-  Drag: number;
-  releasedWeight: number;
-  headwind: number;
+  fuelOnBoard: number;
+  fuelUsed: number;
+  distance: number;
+  duration: number;
+  fuelFlow: number;
+  drag: number;
+  wind: IWind;
   machSpeed: number;
   trueAirSpeed: number;
+  altitude: number;
+}
+
+export interface IWind {
+  direction: number;
+  speed: number;
 }

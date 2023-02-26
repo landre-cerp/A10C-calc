@@ -1,4 +1,4 @@
-import { QNH, QNH_Unit } from './../components/models';
+import { IWind, QNH, QNH_Unit } from './../components/models';
 import {
   convertAltitudeUnits,
   deltaFromStandardTemp,
@@ -12,7 +12,7 @@ export const useAirportStore = defineStore('airport', {
   state: () => ({
     Temp: 15,
     AirportElevation: 0 as number,
-    HeadWind: 0,
+    Wind: { direction: 0, speed: 0 } as IWind,
     Qnh: { value: 1013, unit: QNH_Unit.hPa } as QNH,
     runwayLength: 0 as number,
     rcr: RCR.DRY as number,
