@@ -21,7 +21,8 @@ export enum LoadType {
   Fuel_Tanks,
 }
 
-export interface IA10CPylons {
+export interface StoresConfiguration {
+  name: string;
   pylonsLoad:
     | [
         IAircraftStore,
@@ -69,4 +70,7 @@ export interface FlightPhase {
   FuelFlow: number;
   Drag: number;
   releasedWeight: number;
+  headwind: number;
+  machSpeed: number;
+  trueAirSpeed: number;
 }
