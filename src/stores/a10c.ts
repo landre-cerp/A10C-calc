@@ -1,61 +1,58 @@
 import {
-  emptyLoad,
-  AIM9M,
-  ALQ184,
-  TGP,
-  LAU88_D_AGM65D,
-  CBU_105,
-  GBU_12,
-  GBU_54,
-  M151_APKWS,
-} from './../data/A10C';
-import { IAircraftStore } from './../components/models';
+  BasicConfiguration,
+  EmptyConfiguration,
+  Hog01,
+  Hog02,
+} from './../data/StoresConfig';
+import { emptyLoad } from './../data/A10C';
+import { IAircraftStore, StoresConfiguration } from './../components/models';
 
 import { defineStore } from 'pinia';
 
+const conf01 = { ...Hog01 };
+
+const availableConfigurations = [
+  EmptyConfiguration,
+  Hog01,
+  Hog02,
+  BasicConfiguration,
+];
+
 const defaultState = {
-  pylonsLoad: [
-    { ...AIM9M },
-    { ...TGP },
-    { ...emptyLoad },
-    { ...emptyLoad },
-    { ...emptyLoad },
-    { ...emptyLoad },
-    { ...emptyLoad },
-    { ...emptyLoad },
-    { ...emptyLoad },
-    { ...emptyLoad },
-    { ...ALQ184 },
-  ] as IAircraftStore[],
+  configuration: { ...conf01 },
 
   fuelQty: 75 as number,
   gunAmmoPercent: 100 as number,
   flaps: 7 as number,
-  taxiFuel: 300 as number,
+  taxiFuel: 100 as number,
 };
 
 export const useA10CStore = defineStore('a10c', {
   state: () => ({ ...defaultState }),
   getters: {
     // Load
-    Pylons(): IAircraftStore[] | null {
-      return this.pylonsLoad;
+    Pylons(): StoresConfiguration['pylonsLoad'] {
+      return this.configuration.pylonsLoad;
     },
 
     // Drag coeff for the Load
     Drag(): number {
-      if (!this.pylonsLoad) return 0;
+      if (!this.configuration.pylonsLoad) return 0;
 
-      return this.pylonsLoad.reduce(
+      return this.configuration.pylonsLoad.reduce(
         (total, current) => total + current.drag,
         0
       );
     },
 
+    AvailableConfigurations() {
+      return availableConfigurations;
+    },
+
     // Weigth Section
     WeaponWeight(): number {
-      if (!this.pylonsLoad) return 0;
-      const weigth = this.pylonsLoad.reduce(
+      if (!this.configuration.pylonsLoad) return 0;
+      const weigth = this.configuration.pylonsLoad.reduce(
         (total, current) => total + current.weight,
         0
       );
@@ -108,68 +105,46 @@ export const useA10CStore = defineStore('a10c', {
   actions: {
     setPylon(pylon: number, store: IAircraftStore) {
       if (pylon >= 0 && pylon <= 10) {
-        this.pylonsLoad[pylon] = store;
+        this.configuration.pylonsLoad[pylon] = store;
       }
     },
 
-    EmptyAllPylons() {
-      this.pylonsLoad = [
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-      ];
+    loadConfiguration(config: StoresConfiguration) {
+      const pylonConf = [] as unknown as StoresConfiguration['pylonsLoad'];
+
+      pylonConf.push(...config.pylonsLoad);
+      this.configuration.pylonsLoad = [...pylonConf];
+      this.configuration.name = config.name;
     },
 
-    ResetAllPylons() {
-      this.pylonsLoad = [
-        { ...AIM9M },
-        { ...TGP },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...emptyLoad },
-        { ...ALQ184 },
-      ];
-    },
+    ResetToDefault() {
+      const pylonConf = [] as unknown as StoresConfiguration['pylonsLoad'];
+      const currentDefault = availableConfigurations.find(
+        (conf) => conf.name === this.configuration.name
+      );
 
-    loadHogDefault() {
-      this.pylonsLoad = [
-        { ...AIM9M },
-        { ...TGP },
-        { ...LAU88_D_AGM65D },
-        { ...GBU_54 },
-        { ...CBU_105 },
-        { ...GBU_12 },
-        { ...CBU_105 },
-        { ...GBU_54 },
-        { ...LAU88_D_AGM65D },
-        { ...M151_APKWS },
-        { ...ALQ184 },
-      ];
+      if (currentDefault) {
+        for (let index = 0; index < currentDefault.pylonsLoad.length; index++) {
+          pylonConf.push({ ...currentDefault.pylonsLoad[index] });
+        }
+        this.configuration.pylonsLoad = [...pylonConf];
+      }
     },
 
     ResetPylon(pylon: number) {
-      const pylonConf = [];
-      for (let index = 0; index < this.pylonsLoad.length; index++) {
+      const pylonConf = [] as unknown as StoresConfiguration['pylonsLoad'];
+      for (
+        let index = 0;
+        index < this.configuration.pylonsLoad.length;
+        index++
+      ) {
         if (index == pylon) {
           pylonConf.push({ ...emptyLoad });
         } else {
-          pylonConf.push({ ...this.pylonsLoad[index] });
+          pylonConf.push({ ...this.configuration.pylonsLoad[index] });
         }
       }
-      this.pylonsLoad = [...pylonConf];
+      this.configuration.pylonsLoad = [...pylonConf];
     },
   },
 });
