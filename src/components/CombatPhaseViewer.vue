@@ -12,18 +12,24 @@
       label="Fuel Flow"
       v-model.number="fuelFlow"
       @update:model-value="ChangeFuelFlow"
-      :rules="[
-        (val) =>
-          val > phase.getStartingAltitude() ||
-          'Altitude must be greater than original to climb',
-      ]"
+      :rules="[(val) => val > 0 || 'must be greater than 0']"
     ></q-input>
   </td>
   <td>{{ phase.getStartingAltitude() }}</td>
-  <td>{{ phase.distance }} NM</td>
+  <td>{{ phase.altitude }}</td>
+  <td></td>
 
-  <td>{{ phase.duration }}</td>
-  <td>{{ phase.duration }} min</td>
+  <td>
+    <q-input
+      filled
+      debounce="500"
+      class="text-h6 q-mr-md"
+      label="Duration in minutes"
+      v-model.number="phaseDuration"
+      @update:model-value="ChangePhaseDuration"
+      :rules="[(val) => val > 0 || 'must be greater than 0']"
+    ></q-input>
+  </td>
   <td>{{ phase.drag.toFixed(2) }}</td>
 </template>
 
@@ -34,6 +40,7 @@ import { onMounted, ref } from 'vue';
 import { IFlightPhase } from './models';
 
 const fuelFlow = ref(0);
+const phaseDuration = ref(0);
 
 const props = defineProps<{
   phase: IFlightPhase;
@@ -46,6 +53,12 @@ onMounted(() => {
 const ChangeFuelFlow = () => {
   if (props.phase instanceof CombatPhase) {
     props.phase.ChangeFuelFlow(fuelFlow.value);
+    props.phase.Recalc();
+  }
+};
+const ChangePhaseDuration = () => {
+  if (props.phase instanceof CombatPhase) {
+    props.phase.ChangeDuration(phaseDuration.value);
     props.phase.Recalc();
   }
 };

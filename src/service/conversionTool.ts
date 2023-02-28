@@ -1,4 +1,4 @@
-import { QNH, QNH_Unit } from './../components/models';
+import { IWind, QNH, QNH_Unit } from './../components/models';
 
 const convertAltitudeUnits = (qnh: QNH) => {
   if (qnh.unit == QNH_Unit.inMg)
@@ -27,6 +27,16 @@ const deltaFromStandardTemp = (altitude: number, temp: number): number => {
   const standardTemp = getStdTemp(altitude);
   return temp - standardTemp;
 };
+
+export class Wind implements IWind {
+  constructor(public direction: number, public speed: number) {}
+
+  Headwind(course: number): number {
+    const windAngle = this.direction - course;
+    const headwind = Math.cos((windAngle * Math.PI) / 180);
+    return headwind;
+  }
+}
 
 export {
   convertAltitudeUnits,

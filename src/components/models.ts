@@ -64,8 +64,6 @@ export interface IFlightPhase {
   label: string;
   comment: string;
   type: PhaseType;
-  startWeight: number;
-  fuelOnBoard: number;
   fuelUsed: number;
   distance: number;
   duration: number;
@@ -75,9 +73,21 @@ export interface IFlightPhase {
   machSpeed: number;
   trueAirSpeed: number;
   altitude: number;
+
+  Recalc(): void;
+
+  getStartingWeight(): number;
+  getFuelOnBoard(): number;
+  getStartingAltitude(): number;
+
+  setStartWeight(weight: number): void;
+  setFuelOnBoard(fuel: number): void;
+  setStartingAltitude(altitude: number): void;
 }
 
 export interface IWind {
   direction: number;
   speed: number;
+
+  Headwind(aircraftCourse: number): number;
 }

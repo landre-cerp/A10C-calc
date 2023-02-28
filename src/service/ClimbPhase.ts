@@ -1,6 +1,6 @@
 import { PhaseType } from 'src/components/models';
 import { useAirportStore } from 'src/stores/Airport';
-import { useFlightStore } from 'src/stores/flight';
+
 import { ClimbDistanceNeeded } from './calculators/ClimbDistance';
 import { ClimbFuelUsed } from './calculators/ClimbFuel';
 import { ClimbTimeNeeded } from './calculators/ClimbTime';
@@ -9,48 +9,49 @@ import { FlightPhase } from './FlightPhase';
 const airport = useAirportStore();
 
 export class ClimbPhase extends FlightPhase {
-  constructor() {
-    const flight = useFlightStore();
-    super('Climb', 'Climb to cruise altitude', PhaseType.CLIMB);
-
-    console.log(airport.AirportPressureAltitude, airport.DeltaTemp);
-
-    this.altitude = flight.CruisePressureAlt;
+  constructor(previous: FlightPhase) {
+    super('Climb', 'Climb to cruise altitude', PhaseType.CLIMB, previous);
 
     this.fuelUsed = this.FuelUsed();
     this.duration = this.Duration();
     this.distance = this.Distance();
+
     this.fuelFlow = (this.FuelUsed() / this.Duration()) * 60;
   }
 
   private FuelUsed(): number {
-    return ClimbFuelUsed(
-      airport.AirportPressureAltitude,
+    this.fuelUsed = ClimbFuelUsed(
+      this.getStartingAltitude(),
       this.altitude,
-      this.startWeight,
+      this.getStartingWeight(),
       airport.DeltaTemp,
       this.drag
     );
+
+    this.fuelFlow = (this.fuelUsed / this.Duration()) * 60;
+    return this.fuelUsed;
   }
 
   private Duration(): number {
-    return ClimbTimeNeeded(
-      airport.AirportPressureAltitude,
+    this.duration = ClimbTimeNeeded(
+      this.getStartingAltitude(),
       this.altitude,
-      this.startWeight,
+      this.getStartingWeight(),
       airport.DeltaTemp,
       this.drag
     );
+    return this.duration;
   }
 
   private Distance(): number {
-    return ClimbDistanceNeeded(
-      airport.AirportPressureAltitude,
+    this.distance = ClimbDistanceNeeded(
+      this.getStartingAltitude(),
       this.altitude,
-      this.startWeight,
+      this.getStartingWeight(),
       airport.DeltaTemp,
       this.drag
     );
+    return this.distance;
   }
 
   Recalc() {

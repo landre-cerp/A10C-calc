@@ -1,34 +1,41 @@
+import { Wind } from './conversionTool';
 import { emptyLoad } from '../data/A10C';
 import {
   PhaseType,
   StoresConfiguration,
   QNH,
   QNH_Unit,
-  IWind,
   IAircraftStore,
 } from '../components/models';
 import { IFlightPhase } from 'src/components/models';
 
-export class FlightPhase implements IFlightPhase {
+export abstract class FlightPhase implements IFlightPhase {
   label: string;
   comment: string;
   type: PhaseType;
 
-  startWeight = 0;
-  fuelOnBoard = 0;
+  private startWeight = 0;
+  private startingAltitude = 0;
+  private fuelOnBoard = 0;
+
   fuelUsed = 0;
+  fuelFlow = 0;
+
   distance = 0;
   duration = 0;
-  fuelFlow = 0;
   drag = 0;
-  headwind = 0;
+
   machSpeed = 0;
   trueAirSpeed = 0;
   altitude = 0;
+
   qnh: QNH = { unit: QNH_Unit.hPa, value: 1013 };
-  wind: IWind = { direction: 0, speed: 0 };
+  wind: Wind = new Wind(0, 0);
 
   course = 0;
+
+  previousPhase: FlightPhase | null = null;
+  nextPhase: FlightPhase | null = null;
 
   storesConfiguration: StoresConfiguration = {
     name: 'Stores Configuration',
@@ -49,10 +56,35 @@ export class FlightPhase implements IFlightPhase {
 
   jettisonStores = [] as IAircraftStore[];
 
-  constructor(label: string, comment: string, type: PhaseType) {
+  constructor(
+    label: string,
+    comment: string,
+    type: PhaseType,
+    previous: FlightPhase | null = null
+  ) {
     this.label = label;
     this.comment = comment;
     this.type = type;
+    this.previousPhase = previous;
+    previous?.setNextPhase(this);
+    if (previous) {
+      this.altitude = previous.getStartingAltitude();
+    }
+  }
+
+  abstract Recalc(): void;
+
+  setPreviousPhase(phase: FlightPhase) {
+    this.previousPhase = phase;
+  }
+  setNextPhase(phase: FlightPhase) {
+    this.nextPhase = phase;
+  }
+
+  getStartingWeight() {
+    return this.previousPhase
+      ? this.previousPhase.getEndingWeight()
+      : this.startWeight;
   }
 
   ChangeAltidude(alt: number) {
@@ -84,16 +116,32 @@ export class FlightPhase implements IFlightPhase {
     this.fuelOnBoard -= fuel;
   }
 
-  getEndingWeight() {
+  getEndingWeight(): number {
     return (
-      this.startWeight -
+      this.getStartingWeight() -
       this.fuelUsed -
       this.jettisonStores.reduce((acc, store) => acc + store.weight, 0)
     );
   }
 
+  getStartingAltitude() {
+    return this.previousPhase
+      ? this.previousPhase.getEndingAltitude()
+      : this.startingAltitude;
+  }
+
+  getEndingAltitude() {
+    return this.altitude;
+  }
+
   getRemainingFuel() {
-    return this.fuelOnBoard - this.fuelUsed;
+    return this.getFuelOnBoard() - this.fuelUsed;
+  }
+
+  getFuelOnBoard(): number {
+    return this.previousPhase
+      ? this.previousPhase.getRemainingFuel()
+      : this.fuelOnBoard;
   }
 
   getEndingDrag() {
@@ -101,5 +149,25 @@ export class FlightPhase implements IFlightPhase {
       this.drag -
       this.jettisonStores.reduce((acc, store) => acc + store.drag, 0)
     );
+  }
+
+  setStartWeight(weight: number): void {
+    this.startWeight = weight;
+  }
+
+  setStartingAltitude(altitude: number): void {
+    this.startingAltitude = altitude;
+  }
+
+  HeadWind(): number {
+    return this.wind.Headwind(this.course);
+  }
+
+  ChangeFuelFlow(fuelFlow: number) {
+    this.fuelFlow = fuelFlow;
+  }
+
+  ChangePhaseDuration(duration: number) {
+    this.duration = duration;
   }
 }

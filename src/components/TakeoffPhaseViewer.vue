@@ -1,16 +1,15 @@
 <template>
-  <q-card-section horizontal>
-    <q-item class="text-h6">{{ phase.label }}</q-item>
+  <td class="text-h6">{{ phase.label }}</td>
+  <td>{{ phase.getStartingWeight().toFixed(0) }}</td>
+  <td>{{ phase.getFuelOnBoard().toFixed(0) }}</td>
+  <td>{{ phase.fuelUsed.toFixed(0) }}</td>
+  <td></td>
 
-    <q-item>Weight : {{ phase.startWeight.toFixed(0) }}</q-item>
-    <q-item>FOB : {{ phase.fuelOnBoard.toFixed(0) }}</q-item>
-    <q-item>Fuel use: {{ phase.fuelUsed.toFixed(0) }}</q-item>
-    <q-item>FF : {{ phase.fuelFlow }}</q-item>
-    <q-item>Distance: {{ phase.distance }} NM</q-item>
-    <q-item>Altitude: {{ phase.altitude }} ft</q-item>
-    <q-item>Duration : {{ phase.duration }} min</q-item>
-    <q-item>Drag: {{ phase.drag.toFixed(2) }}</q-item>
-  </q-card-section>
+  <td>{{ phase.getStartingAltitude() }}</td>
+  <td>{{ phase.altitude }}</td>
+  <td>{{ phase.distance }}</td>
+  <td>{{ phase.duration }}</td>
+  <td>{{ phase.drag.toFixed(2) }}</td>
 </template>
 
 <script setup lang="ts">

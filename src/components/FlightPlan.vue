@@ -56,40 +56,76 @@
       </q-item>
     </div>
 
-    <div v-if="flight.FlightPhases.length == 0">
-      <q-btn @click="flight.AddPhase(PhaseType.TAKEOFF)">{{
-        PhaseType[PhaseType.TAKEOFF]
-      }}</q-btn>
-    </div>
-    <div v-else>
-      <q-card v-for="(phase, index) in flight.FlightPhases" :key="index">
-        <q-card-section horizontal>
-          <q-card-section>
-            <TakeoffPhaseViewer
-              v-if="phase.type == PhaseType.TAKEOFF"
-              :phase="phase"
-            />
-            <PhaseViewer v-else :phase="phase" />
-          </q-card-section>
-          <q-card-section>
+    <q-markup-table class="text-right" separator="cell">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Weight (lbs)</th>
+          <th>FOB (lbs)</th>
+          <th>Fuel Used</th>
+          <th>F.Flow</th>
+          <th>AT (ft)</th>
+          <th>To (ft)</th>
+          <th>Dist.( NM )</th>
+          <th>Dur. (min)</th>
+          <th>Drag</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(phase, index) in flight.FlightPhases" :key="index">
+          <TakeoffPhaseViewer
+            v-if="phase.type == PhaseType.TAKEOFF"
+            :phase="phase"
+          />
+          <ClimbPhaseViewer
+            v-else-if="phase.type == PhaseType.CLIMB"
+            :phase="phase"
+          />
+          <CruisePhaseViewer
+            v-else-if="phase.type == PhaseType.CRUISE"
+            :phase="phase"
+          />
+          <CombatPhaseViewer
+            v-else-if="phase.type == PhaseType.COMBAT"
+            :phase="phase"
+          />
+          <PhaseViewer v-else :phase="phase" />
+          <td>
             <q-btn
-              color="black"
+              color="primary"
+              icon="update"
+              @click="phase.Recalc()"
+            ></q-btn>
+            <q-btn
+              color="red"
               v-if="index == flight.FlightPhases.length - 1"
               icon="delete"
               @click="flight.RemovePhase()"
             ></q-btn>
-          </q-card-section>
-        </q-card-section>
-      </q-card>
-
-      <q-btn
-        color="primary"
-        v-for="(possible, idxPhase) in flight.NextPhases"
-        :key="idxPhase"
-        @click="flight.AddPhase(possible)"
-        >{{ PhaseType[possible] }}
-      </q-btn>
-    </div>
+          </td>
+        </tr>
+        <tr v-if="flight.FlightPhases.length == 0">
+          <td colspan="2" class="text-left">
+            <q-btn @click="flight.AddPhase(PhaseType.TAKEOFF)">{{
+              PhaseType[PhaseType.TAKEOFF]
+            }}</q-btn>
+          </td>
+          <td colspan="*"></td>
+        </tr>
+        <tr v-else>
+          <td colspan="7" class="text-left">
+            <q-btn
+              color="primary"
+              v-for="(possible, idxPhase) in flight.NextPhases"
+              :key="idxPhase"
+              @click="flight.AddPhase(possible)"
+              >{{ PhaseType[possible] }}
+            </q-btn>
+          </td>
+        </tr>
+      </tbody>
+    </q-markup-table>
   </div>
 </template>
 
@@ -103,9 +139,12 @@ import { PhaseType } from './models';
 
 import { OptimumCruiseAltitude } from 'src/service/calculators/OptimumCruiseAltitude';
 
-import { computed, onMounted, ref } from 'vue';
+import { computed } from 'vue';
 import PhaseViewer from './PhaseViewer.vue';
 import TakeoffPhaseViewer from './TakeoffPhaseViewer.vue';
+import ClimbPhaseViewer from './ClimbPhaseViewer.vue';
+import CruisePhaseViewer from './CruisePhaseViewer.vue';
+import CombatPhaseViewer from './CombatPhaseViewer.vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -118,25 +157,9 @@ const {
   fuelReserve,
 
   FlightLevel,
-  releasedStore,
+
   cruiseHeadwind,
 } = storeToRefs(flight);
-
-const maxTimeOnZone = ref(0);
-const combatFuelFlow = ref(0);
-const combatDuration = ref(0);
-
-const loadedPylons = computed(() => {
-  return aircraft.Pylons?.filter((p) => p.short != '');
-});
-
-onMounted(() => {
-  // init Phases with Stores Value;
-
-  flight.InitFlight();
-  combatFuelFlow.value = flight.combatFuelFlow;
-  combatDuration.value = flight.combatDuration;
-});
 
 const optimum_cruise_altitude = computed(() => {
   {
@@ -147,64 +170,4 @@ const optimum_cruise_altitude = computed(() => {
     );
   }
 });
-
-function Recalc() {
-  const DescentPhase = flight.FlightPhases[5];
-  const onZonePhase = flight.phases.find((p) => p.type == PhaseType.COMBAT);
-
-  if (onZonePhase) {
-    onZonePhase.fuelUsed = (onZonePhase.fuelUsed * onZonePhase.duration) / 60;
-  }
-  const RTBPhase = flight.FlightPhases.find((p) => p.type == PhaseType.RTB);
-  if (RTBPhase) {
-    RTBPhase.Drag = aircraft.Drag - releaseWeaponsDrag();
-  }
-
-  flight.Recalc();
-
-  if (onZonePhase) {
-    maxTimeOnZone.value = Math.floor(
-      (DescentPhase.fuelOnBoard - flight.fuelReserve) /
-        (onZonePhase.fuelFlow / 60)
-    );
-  } else {
-    maxTimeOnZone.value = 0;
-  }
-}
-
-// function changeCombatFuelFlow() {
-//   const onZonePhase = flight.phases.find((p) => p.type == PhaseType.COMBAT);
-//   if (onZonePhase) {
-//     onZonePhase.fuelUsed = combatFuelFlow.value;
-//   }
-//   Recalc();
-// }
-
-// function changeCombatDuration() {
-//   const onZonePhase = flight.phases.find((p) => p.type == PhaseType.COMBAT);
-//   if (onZonePhase) {
-//     onZonePhase.duration = combatDuration.value;
-//   }
-//   Recalc();
-// }
-
-// function releaseWeaponsWeight(): number {
-//   let releasedWeight = 0;
-
-//   for (let i = 0; i < loadedPylons.value.length; i++) {
-//     releasedWeight += releasedStore.value[i] ? loadedPylons.value[i].weight : 0;
-//   }
-
-//   return releasedWeight;
-// }
-
-function releaseWeaponsDrag(): number {
-  let weaponsDrag = 0;
-
-  for (let i = 0; i < loadedPylons.value.length; i++) {
-    weaponsDrag += releasedStore.value[i] ? loadedPylons.value[i].drag : 0;
-  }
-
-  return weaponsDrag;
-}
 </script>

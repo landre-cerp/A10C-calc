@@ -48,8 +48,9 @@ export const ClimbDistanceNeeded = (
   if (deltaTemp != 0) {
     distanceNeeded = posNegCorrectionTable.GetLinear(distanceNeeded, deltaTemp);
   }
+  // TODO : Check if this is correct , negative distance is not possible are not ok .
 
-  return distanceNeeded < 0 ? 0 : Math.ceil(distanceNeeded);
+  return distanceNeeded < 0 ? 0 : Math.ceil(distanceNeeded * 10) / 10;
 };
 
 const climbDistGrab0 = new CorrectionTable(
