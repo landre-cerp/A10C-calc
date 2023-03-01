@@ -56,36 +56,88 @@ export const ClimbDistanceNeeded = (
 const climbDistGrab0 = new CorrectionTable(
   'Climb Distance Grab 0 correction',
   new Map([
-    [25000, new CorrectionVector([-10.4, 3.11e-3, 1.65e-7, 3.48e-12])],
-    [30000, new CorrectionVector([-2.14, 1.59e-3, -8.43e-8, 2.56e-12])],
-    [35000, new CorrectionVector([-13.6, 4.9e-3, -3.09e-7, 7.33e-12])],
-    [40000, new CorrectionVector([-12, 4.59e-3, -2.9e-7, 7.67e-12])],
-    [45000, new CorrectionVector([-17.8, 7.08e-3, -5.25e-7, 1.45e-11])],
-    [50000, new CorrectionVector([-6.8, 4.04e-3, -2.98e-7, 1.1e-11])],
+    [
+      25000,
+      new CorrectionVector([-7.81, 2.25e-3, -3.03e-7, 1.2e-11, -1.72e-16]),
+    ],
+    [
+      30000,
+      new CorrectionVector([0.643, 7.03e-4, 8.33e-10, -5.96e-13, 3.94e-17]),
+    ],
+
+    [
+      35000,
+      new CorrectionVector([-12.1, 3.26e-3, -4.77e-7, 2.18e-11, -3.64e-16]),
+    ],
+    [
+      40000,
+      new CorrectionVector([3.75, -8.38e-4, 2.94e-7, -1.68e-11, 3.5e-16]),
+    ],
+
+    [
+      45000,
+      new CorrectionVector([16.7, -4.8e-3, 7.54e-7, -3.91e-11, 7.67e-16]),
+    ],
+    [50000, new CorrectionVector([17.5, -5.13e-3, 8.18e-7, -4.3e-11, 9e-16])],
   ])
 );
 
 const climbDistGrab4 = new CorrectionTable(
   'Climb Distance Grab 4 correction',
   new Map([
-    [25000, new CorrectionVector([-12.2, 3.61e-3, -2.03e-7, 4.39e-12])],
-    [30000, new CorrectionVector([-6.14, 2.63e-3, -1.55e-7, 4.11e-12])],
-    [35000, new CorrectionVector([-14.1, 5.12e-3, -3.41e-7, 8.56e-12])],
-    [40000, new CorrectionVector([-13.3, 4.98e-3, -3.24e-7, 8.96e-12])],
-    [45000, new CorrectionVector([-2.8, 2.62e-3, -1.63e-7, 6.67e-12])],
-    [50000, new CorrectionVector([-12.4, 5.77e-3, -4.48e-7, 1.57e-11])],
+    [
+      25000,
+      new CorrectionVector([-0.353, 3.49e-4, -1.57e-7, 7.85e-12, -1.39e-16]),
+    ],
+
+    [
+      30000,
+      new CorrectionVector([0.104, 5.37e-4, 5.35e-8, -3.81e-12, 1.01e-16]),
+    ],
+    [
+      35000,
+      new CorrectionVector([0.426, 5.02e-5, 1.78e-7, -1.14e-11, 2.57e-16]),
+    ],
+    [
+      40000,
+      new CorrectionVector([0.0801, 2.34e-4, 1.98e-7, -1.33e-11, 3.21e-16]),
+    ],
+    [
+      45000,
+      new CorrectionVector([-0.0397, 1.7e-3, -6.28e-8, 2.3e-12, 6.67e-17]),
+    ],
+    [
+      50000,
+      new CorrectionVector([0.0972, 7.7e-4, 1.91e-7, -1.64e-11, 5.5e-16]),
+    ],
   ])
 );
 
 const climbDistGrab8 = new CorrectionTable(
   'CLB Distance Drag 8 Correction',
   new Map([
-    [25000, new CorrectionVector([-1.29, 8.82e-4, -3.07e-8, 1.44e-12])],
-    [30000, new CorrectionVector([-12.3, 4.24e-3, -2.66e-7, 6.56e-12])],
-    [35000, new CorrectionVector([-5, 2.7e-3, -1.74e-7, 5.67e-12])],
-    [40000, new CorrectionVector([-27.3, 9.18e-3, -6.7e-7, 1.77e-11])],
-    [45000, new CorrectionVector([-10.1, 4.85e-3, -3.5e-7, 1.2e-11])],
-    [50000, new CorrectionVector([0.5, 1.58e-3, -7e-8, 6.67e-12])],
+    [
+      25000,
+      new CorrectionVector([-0.0284, 5.13e-4, 2.82e-9, 2.55e-13, 1.44e-17]),
+    ],
+    [
+      30000,
+      new CorrectionVector([0.225, 3.74e-5, 1.55e-7, -9.45e-12, 2.04e-16]),
+    ],
+    [
+      35000,
+      new CorrectionVector([0.0617, 8.58e-4, 3.23e-8, -3.26e-12, 1.3e-16]),
+    ],
+    [40000, new CorrectionVector([0.278, -7.85e-4, 4.39e-7, -3e-11, 6.94e-16])],
+    [
+      45000,
+      new CorrectionVector([9.92e-3, 1.01e-3, 1.21e-7, -1.09e-11, 3.83e-16]),
+    ],
+
+    [
+      50000,
+      new CorrectionVector([-2.22e-32, 1.79e-3, -9.92e-8, 8.33e-12, -3.33e-17]),
+    ],
   ])
 );
 

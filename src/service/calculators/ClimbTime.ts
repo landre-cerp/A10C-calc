@@ -47,36 +47,94 @@ export const ClimbTimeNeeded = (
 const v_climb_time_drag0 = new CorrectionTable(
   'Climb time for Drag 0',
   new Map([
-    [25000, new CorrectionVector([0.0714, 2.19e-4, -6.23e-9, 2.83e-13])],
-    [30000, new CorrectionVector([-0.557, 3.76e-4, -1.73e-8, 5.47e-13])],
-    [35000, new CorrectionVector([0.0857, 5.38e-4, -3.56e-8, 1.07e-12])],
-    [40000, new CorrectionVector([-0.933, 7.9e-4, -4.67e-8, 1.36e-12])],
-    [45000, new CorrectionVector([-2.33, 1.16e-3, -7.17e-8, 2.07e-12])],
-    [50000, new CorrectionVector([-1.16, 7.94e-4, -4.11e-8, 1.6e-12])],
+    [
+      25000,
+      new CorrectionVector([-0.0109, 2.51e-4, -9.51e-9, 4.01e-13, -1.4e-18]),
+    ],
+
+    [
+      30000,
+      new CorrectionVector([-0.0109, 2.51e-4, -9.51e-9, 4.01e-13, -1.4e-18]),
+    ],
+    [
+      35000,
+      new CorrectionVector([-0.0114, 5.81e-4, -4.05e-8, 1.27e-12, -2.73e-18]),
+    ],
+    [
+      40000,
+      new CorrectionVector([-0.0238, 5.15e-4, -2.03e-8, 3.56e-13, 1.33e-17]),
+    ],
+    [
+      45000,
+      new CorrectionVector([0.00866, 3.4e-4, 1.77e-8, -1.72e-12, 5.45e-17]),
+    ],
+    [
+      50000,
+      new CorrectionVector([0.00397, 3.44e-4, 1.49e-8, -1.16e-12, 4.67e-17]),
+    ],
   ])
 );
 
 const v_climb_time_drag4 = new CorrectionTable(
   'Climb time for drage 4',
   new Map([
-    [25000, new CorrectionVector([-1.16, 7.94e-4, -4.11e-8, 1.6e-12])],
-    [30000, new CorrectionVector([-1.29, 5.79e-4, -3.26e-8, 9.09e-13])],
-    [35000, new CorrectionVector([-0.914, 7.94e-4, -5.37e-8, 1.51e-12])],
-    [40000, new CorrectionVector([-1.67, 1.03e-3, -7.02e-8, 2.04e-12])],
-    [45000, new CorrectionVector([-4.67, 1.81e-3, -1.2e-7, 3.26e-12])],
-    [50000, new CorrectionVector([-1.44, 9.13e-4, -5.74e-8, 2.4e-12])],
+    [
+      25000,
+      new CorrectionVector([0.0357, 1.74e-4, 3.01e-9, -2.51e-13, 9.79e-18]),
+    ],
+    [
+      30000,
+      new CorrectionVector([0.0249, 1.73e-4, 3.82e-9, -3.2e-13, 1.38e-17]),
+    ],
+    [
+      35000,
+      new CorrectionVector([0.0341, 2.98e-4, 1.95e-9, -7.02e-13, 2.88e-17]),
+    ],
+    [
+      40000,
+      new CorrectionVector([-0.0119, 4.76e-4, -1.25e-8, -3.33e-13, 3.33e-17]),
+    ],
+    [
+      45000,
+      new CorrectionVector([0.0455, 2.73e-4, 2.75e-8, -2.4e-12, 7.64e-17]),
+    ],
+    [
+      50000,
+      new CorrectionVector([7.05e-18, 3.7e-4, 8.67e-9, -8e-13, 5.33e-17]),
+    ],
   ])
 );
 
 const v_climb_time_drag8 = new CorrectionTable(
   'Climb time for drage 8',
+
   new Map([
-    [25000, new CorrectionVector([-4.14, 1.3e-3, -7.87e-8, 1.68e-12])],
-    [30000, new CorrectionVector([-3.04, 1.03e-3, -6.15e-8, 1.49e-12])],
-    [35000, new CorrectionVector([-1.03, 7.2e-4, -4.6e-8, 1.41e-12])],
-    [40000, new CorrectionVector([-4.13, 1.67e-3, -1.22e-7, 3.41e-12])],
-    [45000, new CorrectionVector([-1.72, 9.3e-4, -5.9e-8, 2.2e-12])],
-    [50000, new CorrectionVector([-9.2, 3.5e-3, -2.95e-7, 8.93e-12])],
+    [
+      25000,
+      new CorrectionVector([0.148, -7.37e-5, 4.72e-8, -2.63e-12, 4.9e-17]),
+    ],
+    [
+      30000,
+      new CorrectionVector([0.0795, -3.99e-5, 4.76e-8, -2.7e-12, 5.36e-17]),
+    ],
+    [
+      35000,
+      new CorrectionVector([2.16e-3, 3.6e-4, -6.98e-9, -2.4e-13, 2.36e-17]),
+    ],
+    [
+      40000,
+      new CorrectionVector([8.66e-3, 2.33e-4, 3.37e-8, -3.18e-12, 9.45e-17]),
+    ],
+    // -0,0218 + 3,54E-04x + 4,31E-09x^2 + -6,04E-13x^3 + 4,33E-17x^4
+    [
+      45000,
+      new CorrectionVector([-0.0218, 3.54e-4, 4.31e-9, -6.04e-13, 4.33e-17]),
+    ],
+
+    [
+      50000,
+      new CorrectionVector([0.0278, -5.7e-5, 1.48e-7, -1.28e-11, 3.67e-16]),
+    ],
   ])
 );
 
