@@ -14,7 +14,7 @@ const conf01 = { ...BasicConfiguration };
 let availableConfigurations = [] as StoresConfiguration[];
 const localConfigs = LocalStorage.getItem('storesConfig');
 if (localConfigs) {
-  availableConfigurations = JSON.parse(localConfigs) as StoresConfiguration[];
+
 }
 else {
   availableConfigurations = [conf01];
@@ -48,6 +48,10 @@ export const useA10CStore = defineStore('a10c', {
     },
 
     AvailableConfigurations() {
+      availableConfigurations = JSON.parse(localConfigs) as StoresConfiguration[];
+      if (availableConfigurations.length == 0) {
+        availableConfigurations = [conf01];
+      }
       return availableConfigurations;
     },
 
