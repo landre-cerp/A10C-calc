@@ -41,45 +41,46 @@ export const ClimbFuelUsed = (
     fuelUsed = posNegCorrectionTable.GetLinear(fuelUsed, deltaTemp);
   }
 
-  // round to Highest 10th
-  fuelUsed = Math.ceil(fuelUsed / 100) * 100;
+  console.log('fuelUsed', fuelUsed);
+  fuelUsed = Math.ceil(fuelUsed / 10) * 10;
 
-  return fuelUsed < 0 ? 0 : Math.ceil(fuelUsed);
+
+  return fuelUsed < 0 ? 1 : Math.ceil(fuelUsed);
 };
 
 const vectors_Climb_Drag0 = new CorrectionTable(
   'Climb Fuel Used Drag 0',
   new Map([
-    [25000, new CorrectionVector([-102, 0.0435, -1.59e-6, 2.9e-11])],
-    [30000, new CorrectionVector([-58.9, 0.0383, -1.18e-6, 2.53e-11])],
-    [35000, new CorrectionVector([-128, 0.0678, -3.13e-6, 6.74e-11])],
-    [40000, new CorrectionVector([-35.7, 0.0534, -2.16e-6, 5.89e-11])],
-    [45000, new CorrectionVector([-60, 0.0621, -2.61e-6, 8e-11])],
-    [50000, new CorrectionVector([-63.3, 0.0784, -4.21e-6, 1.39e-10])],
+    [25000, new CorrectionVector([-3.36, 0.0169, 5.85e-7, -3.98e-11, 7.39e-16])],
+    [30000, new CorrectionVector([-4.31, 0.0255, -2.43e-7, -1.75e-12, 2.68e-16])],
+    [35000, new CorrectionVector([-4.14, 0.026, 6.81e-7, -6.29e-11, 1.48e-15])],
+    [40000, new CorrectionVector([-1.23, 0.0438, -1.32e-6, 3e-11, 3.41e-16])],
+    [45000, new CorrectionVector([-1.14, 0.0415, -5.46e-7, 1.52e-12, 1e-15])],
+    [50000, new CorrectionVector([-4.44, 0.0478, -3.27e-7, -4.28e-11, 2.79e-15])],
   ])
 );
 
 const vectors_Climb_Drag4 = new CorrectionTable(
   'Climb Fuel Used Drag 4',
   new Map([
-    [25000, new CorrectionVector([-75, 0.0401, -1.43e-6, 2.98e-11])],
-    [30000, new CorrectionVector([-38.9, 0.0382, -1.23e-6, 3.02e-11])],
-    [35000, new CorrectionVector([-143, 0.0639, -2.55e-6, 5.89e-11])],
-    [40000, new CorrectionVector([-112, 0.0663, -2.79e-6, 7.7e-11])],
-    [45000, new CorrectionVector([-40, 0.0548, -1.71e-6, 6.67e-11])],
-    [50000, new CorrectionVector([-197, 0.103, -5.17e-6, 1.67e-10])],
+    [25000, new CorrectionVector([-1.46, 0.0165, 6.81e-7, -4.16e-11, 8.04e-16])],
+    [30000, new CorrectionVector([-2.43, 0.0293, -5.55e-7, 1.01e-11, 2.05e-16])],
+    [35000, new CorrectionVector([-1.27, 0.0169, 2.07e-6, -1.15e-10, 2.19e-15])],
+    [40000, new CorrectionVector([-0.866, 0.0295, 1.05e-6, -8.05e-11, 2.21e-15])],
+    [45000, new CorrectionVector([-0.198, 0.039, 2.64e-7, -3.15e-11, 1.67e-15])],
+    [50000, new CorrectionVector([-0.496, 0.0304, 3.52e-6, -2.48e-10, 6.83e-15])],
   ])
 );
 
 const vectors_Climb_Drag8 = new CorrectionTable(
   'Climb Fuel Used Drag 8',
   new Map([
-    [25000, new CorrectionVector([-101, 0.0476, -1.82e-6, 3.74e-11])],
-    [30000, new CorrectionVector([-185, 0.0714, -3.12e-6, 6.54e-11])],
-    [35000, new CorrectionVector([-63.3, 0.049, -1.55e-6, 4.41e-11])],
-    [40000, new CorrectionVector([-193, 0.0966, -5.36e-6, 1.49e-10])],
-    [45000, new CorrectionVector([-168, 0.0973, -5.14e-6, 1.6e-10])],
-    [50000, new CorrectionVector([-5, 0.0562, -1.5e-6, 9.33e-12])],
+    [25000, new CorrectionVector([5.48, 0.0123, 1.49e-6, -7.73e-11, 1.31e-15])],
+    [30000, new CorrectionVector([10.4, 0.029, 2.99e-6, -1.47e-10, 2.43e-15])],
+    [35000, new CorrectionVector([0.0541, 0.0271, 8.13e-7, -5.55e-11, 1.42e-15])],
+    [40000, new CorrectionVector([0.703, 0.0287, 2.05e-6, -1.65e-10, 4.52e-15])],
+    [45000, new CorrectionVector([-0.595, 0.0359, 2.14e-6, -1.86e-10, 5.67e-15])],
+    [50000, new CorrectionVector([-2.25e-31, 0.0583, -1.79e-6, 1.1e-10, -3.33e-16])],
   ])
 );
 
