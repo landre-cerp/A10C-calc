@@ -53,9 +53,10 @@
         v-model:modelValue="symetrical"
         label="Sym. Load"
       />
+      <q-input label="config Name" v-model="configName" filled dense />
       <q-btn-dropdown color="primary" label="Load Config.">
         <q-list v-for="(config, index) in AvailableConfigurations" :key="index">
-          <q-item clickable v-close-popup @click="loadAndLocaks(config)">
+          <q-item clickable v-close-popup @click="loadAndLocks(config)">
             <q-item-section>
               <q-item-label>{{ config.name }}</q-item-label>
             </q-item-section>
@@ -65,8 +66,14 @@
       <q-btn
         class="q-ml-md"
         color="primary"
-        label="Reset"
-        @click="aircraft.ResetToDefault"
+        icon="save"
+        @click="saveConfig"
+      ></q-btn>
+      <q-btn
+        class="q-ml-md"
+        color="red"
+        icon="delete"
+        @click="deleteConfig"
       ></q-btn>
     </div>
 
@@ -122,6 +129,7 @@ const symetrical = ref(false);
 const { gunAmmoPercent, configuration, AvailableConfigurations } =
   storeToRefs(aircraft);
 let locks = ref([...defaultLocks]);
+const configName = ref('');
 
 function itemSelected(pylon: number, value: IAircraftStore) {
   aircraft.setPylon(pylon, { ...value });
@@ -139,10 +147,19 @@ function itemSelected(pylon: number, value: IAircraftStore) {
   }
 }
 
-function loadAndLocaks(config: StoresConfiguration) {
+function loadAndLocks(config: StoresConfiguration) {
   aircraft.loadConfiguration(config);
+  configName.value = config.name;
   for (let index = 0; index < locks.value.length; index++) {
     locks.value[index] = config.pylonsLoad[index].short != '';
   }
+}
+
+function saveConfig() {
+  aircraft.SaveConfiguration(configName.value);
+}
+
+function deleteConfig() {
+  aircraft.DeleteConfiguration(configName.value);
 }
 </script>

@@ -1,22 +1,24 @@
 import {
   BasicConfiguration,
-  EmptyConfiguration,
-  Hog01,
-  Hog02,
+
+
 } from './../data/StoresConfig';
 import { emptyLoad } from './../data/A10C';
 import { IAircraftStore, StoresConfiguration } from './../components/models';
+import { LocalStorage } from 'quasar';
 
 import { defineStore } from 'pinia';
 
-const conf01 = { ...Hog01 };
+const conf01 = { ...BasicConfiguration };
 
-const availableConfigurations = [
-  EmptyConfiguration,
-  Hog01,
-  Hog02,
-  BasicConfiguration,
-];
+let availableConfigurations = [] as StoresConfiguration[];
+const localConfigs = LocalStorage.getItem('storesConfig');
+if (localConfigs) {
+  availableConfigurations = JSON.parse(localConfigs) as StoresConfiguration[];
+}
+else {
+  availableConfigurations = [conf01];
+}
 
 const defaultState = {
   configuration: { ...conf01 },
@@ -117,19 +119,6 @@ export const useA10CStore = defineStore('a10c', {
       this.configuration.name = config.name;
     },
 
-    ResetToDefault() {
-      const pylonConf = [] as unknown as StoresConfiguration['pylonsLoad'];
-      const currentDefault = availableConfigurations.find(
-        (conf) => conf.name === this.configuration.name
-      );
-
-      if (currentDefault) {
-        for (let index = 0; index < currentDefault.pylonsLoad.length; index++) {
-          pylonConf.push({ ...currentDefault.pylonsLoad[index] });
-        }
-        this.configuration.pylonsLoad = [...pylonConf];
-      }
-    },
 
     ResetPylon(pylon: number) {
       const pylonConf = [] as unknown as StoresConfiguration['pylonsLoad'];
@@ -146,5 +135,27 @@ export const useA10CStore = defineStore('a10c', {
       }
       this.configuration.pylonsLoad = [...pylonConf];
     },
-  },
+
+    LoadConfigurations() {
+      const savedConfigurations = LocalStorage.getItem('storesConfig');
+      if (savedConfigurations) {
+        availableConfigurations.push(savedConfigurations as StoresConfiguration);
+      }
+    },
+
+    SaveConfiguration(name: string) {
+
+      const configToSave = { 'name': name, 'pylonsLoad': this.configuration.pylonsLoad };
+      availableConfigurations.push(configToSave);
+      LocalStorage.set('storesConfig', JSON.stringify(availableConfigurations));
+    },
+
+    DeleteConfiguration(name: string) {
+      const index = availableConfigurations.findIndex((conf) => conf.name === name);
+      if (index >= 0) {
+        availableConfigurations.splice(index, 1);
+        LocalStorage.set('storesConfig', JSON.stringify(availableConfigurations));
+      }
+    }
+  }
 });
