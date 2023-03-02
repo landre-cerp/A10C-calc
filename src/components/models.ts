@@ -24,19 +24,19 @@ export enum LoadType {
 export interface StoresConfiguration {
   name: string;
   pylonsLoad:
-    | [
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore
-      ];
+  | [
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore
+  ];
 }
 
 export enum QNH_Unit {
@@ -54,7 +54,6 @@ export enum PhaseType {
   CLIMB,
   CRUISE,
   COMBAT,
-  RTB,
   DESCENT,
   REFUEL,
   LANDING,

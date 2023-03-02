@@ -11,7 +11,8 @@
     <q-input
       filled
       debounce="500"
-      class="text-h6 q-mr-md"
+      dense
+      class="q-mr-md"
       label="distance"
       v-model.number="distance"
       @update:model-value="ChangePhaseDistance"

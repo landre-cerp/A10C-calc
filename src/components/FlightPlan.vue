@@ -1,4 +1,3 @@
-<!-- eslint-disable @typescript-eslint/no-non-null-assertion -->
 <template>
   <div class="q-pa-sm items-start q-gutter-sm">
     <div class="row q-gutter-sm">
@@ -26,14 +25,6 @@
         class="text-h6 q-mr-md"
         v-model.number="missionRange"
         label="Mission Range"
-      ></q-input>
-      <q-input
-        filled
-        debounce="500"
-        class="text-h6 q-mr-md"
-        label="Cruise Head Wind"
-        v-model.number="cruiseHeadwind"
-        @update:model-value="flight.ChangeCruiseHeadwind"
       ></q-input>
 
       <q-item>
@@ -88,6 +79,18 @@
           />
           <CombatPhaseViewer
             v-else-if="phase.type == PhaseType.COMBAT"
+            :phase="phase"
+          />
+          <RefuelPhaseViewer
+            v-else-if="phase.type == PhaseType.REFUEL"
+            :phase="phase"
+          />
+          <LandingPhaseViewer
+            v-else-if="phase.type == PhaseType.LANDING"
+            :phase="phase"
+          />
+          <DescentPhaseViewer
+            v-else-if="phase.type == PhaseType.DESCENT"
             :phase="phase"
           />
           <PhaseViewer v-else :phase="phase" />
@@ -145,6 +148,9 @@ import TakeoffPhaseViewer from './TakeoffPhaseViewer.vue';
 import ClimbPhaseViewer from './ClimbPhaseViewer.vue';
 import CruisePhaseViewer from './CruisePhaseViewer.vue';
 import CombatPhaseViewer from './CombatPhaseViewer.vue';
+import RefuelPhaseViewer from './RefuelPhaseViewer.vue';
+import LandingPhaseViewer from './LandingPhaseViewer.vue';
+import DescentPhaseViewer from './DescentPhaseViewer.vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -152,14 +158,7 @@ const flight = useFlightStore();
 
 flight.Qnh = airport.Qnh;
 
-const {
-  missionRange,
-  fuelReserve,
-
-  FlightLevel,
-
-  cruiseHeadwind,
-} = storeToRefs(flight);
+const { missionRange, fuelReserve, FlightLevel } = storeToRefs(flight);
 
 const optimum_cruise_altitude = computed(() => {
   {

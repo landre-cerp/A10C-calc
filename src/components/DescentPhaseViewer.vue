@@ -11,15 +11,14 @@
     <q-input
       filled
       debounce="500"
-      dense
-      class="q-mr-md"
+      class="text-h6 q-mr-md"
       label="Altitude"
       v-model.number="altitude"
       @update:model-value="ChangePhaseAltitude"
       :rules="[
         (val) =>
-          val > phase.getStartingAltitude() ||
-          'Altitude must be greater than original to climb',
+          val < phase.getStartingAltitude() ||
+          'Altitude must be lower than original to descent',
       ]"
     ></q-input>
   </td>
@@ -29,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { ClimbPhase } from 'src/service/ClimbPhase';
+import { DescentPhase } from 'src/service/DescentPhase';
 
 import { onMounted, ref } from 'vue';
 import { IFlightPhase } from './models';
@@ -45,7 +44,7 @@ onMounted(() => {
 });
 
 const ChangePhaseAltitude = () => {
-  if (props.phase instanceof ClimbPhase) {
+  if (props.phase instanceof DescentPhase) {
     props.phase.ChangeAltidude(altitude.value);
     props.phase.Recalc();
   }

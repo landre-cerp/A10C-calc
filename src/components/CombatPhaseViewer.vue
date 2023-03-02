@@ -8,7 +8,8 @@
     <q-input
       filled
       debounce="500"
-      class="text-h6 q-mr-md"
+      dense
+      class="q-mr-md"
       label="Fuel Flow"
       v-model.number="fuelFlow"
       @update:model-value="ChangeFuelFlow"
@@ -23,7 +24,8 @@
     <q-input
       filled
       debounce="500"
-      class="text-h6 q-mr-md"
+      dense
+      class="q-mr-md"
       label="Duration in minutes"
       v-model.number="phaseDuration"
       @update:model-value="ChangePhaseDuration"

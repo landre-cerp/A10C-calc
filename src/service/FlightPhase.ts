@@ -9,6 +9,24 @@ import {
 } from '../components/models';
 import { IFlightPhase } from 'src/components/models';
 
+export const FlightGraph = [
+  { start: PhaseType.TAKEOFF, next: [PhaseType.CLIMB] },
+  { start: PhaseType.CLIMB, next: [PhaseType.CRUISE] },
+  {
+    start: PhaseType.CRUISE,
+    next: [
+      PhaseType.CLIMB,
+      PhaseType.CRUISE,
+      PhaseType.COMBAT,
+      PhaseType.REFUEL,
+      PhaseType.DESCENT,
+    ],
+  },
+  { start: PhaseType.COMBAT, next: [PhaseType.CRUISE, PhaseType.CLIMB] },
+  { start: PhaseType.DESCENT, next: [PhaseType.LANDING, PhaseType.CRUISE] },
+  { start: PhaseType.REFUEL, next: [PhaseType.CRUISE] },
+];
+
 export abstract class FlightPhase implements IFlightPhase {
   label: string;
   comment: string;
@@ -20,6 +38,7 @@ export abstract class FlightPhase implements IFlightPhase {
 
   fuelUsed = 0;
   fuelFlow = 0;
+  refuelled = 0;
 
   distance = 0;
   duration = 0;
@@ -108,10 +127,6 @@ export abstract class FlightPhase implements IFlightPhase {
     this.storesConfiguration = storesConfiguration;
   }
 
-  refuel(fuel: number) {
-    this.fuelOnBoard += fuel;
-  }
-
   dumpFuel(fuel: number) {
     this.fuelOnBoard -= fuel;
   }
@@ -135,7 +150,7 @@ export abstract class FlightPhase implements IFlightPhase {
   }
 
   getRemainingFuel() {
-    return this.getFuelOnBoard() - this.fuelUsed;
+    return this.getFuelOnBoard() - this.fuelUsed + this.refuelled;
   }
 
   getFuelOnBoard(): number {
@@ -169,5 +184,9 @@ export abstract class FlightPhase implements IFlightPhase {
 
   ChangePhaseDuration(duration: number) {
     this.duration = duration;
+  }
+
+  Refuel(totalAfterRefuel: number) {
+    this.refuelled = totalAfterRefuel;
   }
 }
