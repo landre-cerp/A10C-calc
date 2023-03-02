@@ -1,9 +1,6 @@
 import { PhaseType } from 'src/components/models';
-import { useAirportStore } from 'src/stores/Airport';
 
 import { FlightPhase } from './FlightPhase';
-
-const airport = useAirportStore();
 
 export class CombatPhase extends FlightPhase {
   constructor(previous: FlightPhase) {
