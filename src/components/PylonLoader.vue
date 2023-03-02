@@ -1,23 +1,24 @@
 <template>
-  <q-select
-    class="text-h6"
-    use-input
-    input-debounce="0"
-    v-model="weapons"
-    :model-value="pylon.short"
-    :label="pylon.weight + ' lbs' + ' drag: ' + pylon.drag"
-    :options="options"
-    @update:model-value="(val) => itemSelected(pylonNum, val)"
-    emit-value
-    @filter="filterFn"
-    @clear="itemSelected(pylonNum, emptyLoad)"
-    :disable="props.locked"
-    filled
-    stack-label
-    clearable
-    hide-dropdown-icon
-  >
-  </q-select>
+  <div>
+    <q-select
+      use-input
+      dense
+      input-debounce="0"
+      v-model="weapons"
+      :model-value="pylon.short"
+      :label="pylon.weight + ' lbs' + ' drag: ' + pylon.drag"
+      :options="options"
+      @update:model-value="(val) => itemSelected(pylonNum, val)"
+      emit-value
+      @filter="filterFn"
+      @clear="itemSelected(pylonNum, emptyLoad)"
+      :disable="props.locked"
+      filled
+      clearable
+      hide-dropdown-icon
+    >
+    </q-select>
+  </div>
 </template>
 
 <script setup lang="ts">
