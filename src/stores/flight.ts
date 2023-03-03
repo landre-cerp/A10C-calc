@@ -50,7 +50,21 @@ export const useFlightStore = defineStore('flight', {
     },
 
     Bingo(): number {
-      return 0;
+      let bingo = 0;
+
+      if (this.phases.length != 0) {
+        // find existence of a landing phase
+        const landingPhase = this.phases.find(p => p.type == PhaseType.LANDING);
+
+        if (landingPhase) {
+          const descentPhase = landingPhase.previousPhase;
+          const rtb = descentPhase?.previousPhase;
+          bingo = this.fuelReserve + rtb!.fuelUsed + descentPhase!.fuelUsed + landingPhase.fuelUsed;
+        }
+      }
+
+
+      return bingo;
     },
 
     CruisePressureAlt(): number {

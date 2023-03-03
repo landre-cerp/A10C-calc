@@ -2,7 +2,9 @@
   <td class="text-h6">{{ phase.label }}</td>
 
   <td>{{ phase.getStartingWeight().toFixed(0) }}</td>
-  <td>{{ phase.getFuelOnBoard().toFixed(0) }}</td>
+  <td :style="check(phase.getFuelOnBoard(), reserve)">
+    {{ phase.getFuelOnBoard().toFixed(0) }}
+  </td>
   <td>
     <q-input
       filled
@@ -33,6 +35,8 @@ const fuelOnBoard = ref(0);
 
 const props = defineProps<{
   phase: IFlightPhase;
+  reserve: number;
+  check: (a: number, b: number) => string;
 }>();
 
 onMounted(() => {

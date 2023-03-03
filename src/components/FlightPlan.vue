@@ -53,6 +53,7 @@
           <th>F.Flow</th>
           <th>AT (ft)</th>
           <th>To (ft)</th>
+          <th>Wind +/-</th>
           <th>Dist.( NM )</th>
           <th>Dur. (min)</th>
           <th>Drag</th>
@@ -64,33 +65,65 @@
           <TakeoffPhaseViewer
             v-if="phase.type == PhaseType.TAKEOFF"
             :phase="phase"
+            :reserve="fuelReserve"
+            :check="check"
           />
           <ClimbPhaseViewer
             v-else-if="phase.type == PhaseType.CLIMB"
             :phase="phase"
+            :reserve="fuelReserve"
+            :check="check"
           />
           <CruisePhaseViewer
             v-else-if="phase.type == PhaseType.CRUISE"
             :phase="phase"
+            :reserve="fuelReserve"
+            :check="check"
           />
           <CombatPhaseViewer
             v-else-if="phase.type == PhaseType.COMBAT"
             :phase="phase"
+            :reserve="fuelReserve"
+            :check="check"
           />
           <RefuelPhaseViewer
             v-else-if="phase.type == PhaseType.REFUEL"
             :phase="phase"
+            :reserve="fuelReserve"
+            :check="check"
           />
           <LandingPhaseViewer
             v-else-if="phase.type == PhaseType.LANDING"
             :phase="phase"
+            :reserve="fuelReserve"
+            :check="check"
           />
           <DescentPhaseViewer
             v-else-if="phase.type == PhaseType.DESCENT"
             :phase="phase"
+            :reserve="fuelReserve"
+            :check="check"
           />
-          <PhaseViewer v-else :phase="phase" />
+          <PhaseViewer
+            v-else
+            :phase="phase"
+            :reserve="fuelReserve"
+            :check="check"
+          />
+
           <td>
+            <q-btn-dropdown
+              color="secondary"
+              icon="air"
+              @click="phase.Recalc()"
+            >
+              <div class="row no-wrap q-pa-md">
+                <div class="column">
+                  <CourseAndWind :phase="phase" />
+                </div>
+              </div>
+            </q-btn-dropdown>
+
             <!-- <q-btn
               color="primary"
               icon="update"
@@ -149,6 +182,7 @@ import LandingPhaseViewer from './LandingPhaseViewer.vue';
 import DescentPhaseViewer from './DescentPhaseViewer.vue';
 
 import ShowWind from './ShowWind.vue';
+import CourseAndWind from './CourseAndWind.vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -167,4 +201,11 @@ const optimum_cruise_altitude = computed(() => {
     );
   }
 });
+
+const check = (fob: number, reserve: number): string => {
+  if (fob < reserve) {
+    return 'color: red';
+  }
+  return 'color: black';
+};
 </script>

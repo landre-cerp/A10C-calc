@@ -90,8 +90,10 @@ export abstract class FlightPhase implements IFlightPhase {
       this.altitude = previous.getStartingAltitude();
       this.storesConfiguration = previous.storesConfiguration;
       this.drag = previous.getEndingDrag();
+      this.wind = new Wind(previous.wind.direction, previous.wind.speed,);
     }
   }
+
 
   abstract Recalc(): void;
 
@@ -108,9 +110,6 @@ export abstract class FlightPhase implements IFlightPhase {
       : this.startWeight;
   }
 
-  ChangeAltidude(alt: number) {
-    this.altitude = alt;
-  }
 
   jettisonStore(numero: number) {
     this.jettisonStores.push(this.storesConfiguration.pylonsLoad[numero]);
@@ -180,16 +179,37 @@ export abstract class FlightPhase implements IFlightPhase {
     return this.wind.RelativeHeadwind(this.course);
   }
 
-
-  ChangeFuelFlow(fuelFlow: number) {
-    this.fuelFlow = fuelFlow;
+  ChangeAltitude(altitude: number): void {
+    this.altitude = altitude;
+  }
+  ChangeDistance(distance: number): void {
+    this.distance = distance;
   }
 
   ChangePhaseDuration(duration: number) {
     this.duration = duration;
   }
 
+  ChangeCourse(course: number) {
+    this.course = course;
+  }
+
+  ChangeSpeed(speed: number): void {
+    this.trueAirSpeed = speed;
+  }
+
+
+  ChangeFuelFlow(fuelFlow: number) {
+    this.fuelFlow = fuelFlow;
+  }
+
   Refuel(totalAfterRefuel: number) {
     this.refuelled = totalAfterRefuel;
   }
+  ChangeWind(direction: number, speed: number) {
+    this.wind.direction = direction;
+    this.wind.speed = speed;
+  }
+
+
 }

@@ -1,21 +1,30 @@
 <template>
   <td class="text-h6">{{ phase.label }}</td>
   <td>{{ phase.getStartingWeight().toFixed(0) }}</td>
-  <td>{{ phase.getFuelOnBoard().toFixed(0) }}</td>
+  <td :style="check(phase.getFuelOnBoard(), reserve)">
+    {{ phase.getFuelOnBoard().toFixed(0) }}
+  </td>
   <td>{{ phase.fuelUsed.toFixed(0) }}</td>
   <td>{{ phase.fuelFlow.toFixed(0) }}</td>
 
   <td>{{ phase.getStartingAltitude() }}</td>
   <td>{{ phase.altitude }}</td>
+  <td>{{ phase.RelativeHeadwind() }}</td>
   <td>
     <q-input
       filled
       debounce="500"
       dense
+      style="width: 80px"
       class="q-mr-md"
       label="distance"
       v-model.number="distance"
       @update:model-value="ChangePhaseDistance"
+      :rules="[
+        (val) =>
+          (val > 0 && phase.fuelUsed <= phase.getFuelOnBoard() - reserve) ||
+          'must be greater than 0 && have check fuel',
+      ]"
     >
     </q-input>
   </td>
@@ -33,6 +42,8 @@ const distance = ref(0);
 
 const props = defineProps<{
   phase: IFlightPhase;
+  reserve: number;
+  check: (a: number, b: number) => string;
 }>();
 
 onMounted(() => {

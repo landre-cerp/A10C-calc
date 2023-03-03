@@ -3,12 +3,16 @@ import { FlightPhase } from './FlightPhase';
 
 import { useAirportStore } from 'src/stores/Airport';
 import { useA10CStore } from './../stores/a10c';
+import { Wind } from './Wind';
+
 const aircraft = useA10CStore();
 const airport = useAirportStore();
+
 
 export class TakeOffPhase extends FlightPhase {
   constructor() {
     super('Take Off', 'Taxi and takeoff', PhaseType.TAKEOFF);
+
     this.Recalc();
   }
 
@@ -21,6 +25,9 @@ export class TakeOffPhase extends FlightPhase {
     this.duration = 1;
     this.fuelUsed = aircraft.taxiFuel + 200;
     this.drag = aircraft.Drag;
-    this.wind = airport.Wind;
+    this.course = airport.runwayQFU;
+    this.wind = new Wind(airport.WindDirection, airport.WindSpeed)
+
+
   }
 }

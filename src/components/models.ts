@@ -74,15 +74,33 @@ export interface IFlightPhase {
   machSpeed: number;
   trueAirSpeed: number;
   altitude: number;
+  course: number;
 
   Recalc(): void;
 
   getStartingWeight(): number;
   getFuelOnBoard(): number;
   getStartingAltitude(): number;
+  getEndingAltitude(): number;
+  getEndingWeight(): number;
+  getEndingDrag(): number;
 
   setStartWeight(weight: number): void;
   setFuelOnBoard(fuel: number): void;
   setStartingAltitude(altitude: number): void;
+
+  RelativeHeadwind(): number;
+  ChangeAltitude(altitude: number): void;
+  ChangeDistance(distance: number): void;
+  ChangePhaseDuration(duration: number): void;
+  ChangeCourse(course: number): void;
+
+  ChangeSpeed(speed: number): void;
+
+  ChangeFuelFlow(fuelFlow: number): void;
+  Refuel(fuel: number): void;
+  ChangeWind(direction: number, speed: number): void;
+
+
 }
 

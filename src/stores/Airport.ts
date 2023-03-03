@@ -23,6 +23,7 @@ export const useAirportStore = defineStore('airport', {
   }),
 
   getters: {
+
     AirportPressureAltitude(): number {
       return Math.ceil(PressureAltitude(this.AirportElevation, this.Qnh));
     },
