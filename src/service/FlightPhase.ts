@@ -1,4 +1,4 @@
-import { Wind } from './conversionTool';
+import { Wind } from './Wind';
 import { emptyLoad } from '../data/A10C';
 import {
   PhaseType,
@@ -88,6 +88,8 @@ export abstract class FlightPhase implements IFlightPhase {
     previous?.setNextPhase(this);
     if (previous) {
       this.altitude = previous.getStartingAltitude();
+      this.storesConfiguration = previous.storesConfiguration;
+      this.drag = previous.getEndingDrag();
     }
   }
 
@@ -174,9 +176,10 @@ export abstract class FlightPhase implements IFlightPhase {
     this.startingAltitude = altitude;
   }
 
-  HeadWind(): number {
-    return this.wind.Headwind(this.course);
+  RelativeHeadwind(): number {
+    return this.wind.RelativeHeadwind(this.course);
   }
+
 
   ChangeFuelFlow(fuelFlow: number) {
     this.fuelFlow = fuelFlow;

@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { IWind, WindDirections } from 'src/service/conversionTool';
+import { IWind, WindDirections } from 'src/service/Wind';
 import { computed } from 'vue';
 
 const props = defineProps<{

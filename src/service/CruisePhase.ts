@@ -49,7 +49,7 @@ export class CruisePhase extends FlightPhase {
       getStdTemp(this.altitude) + airport.DeltaTemp
     );
 
-    const groundSpeed = this.trueAirSpeed - this.HeadWind();
+    const groundSpeed = this.trueAirSpeed - this.wind.RelativeHeadwind(this.course);
     const duration = this.distance / (groundSpeed / 60);
     this.duration = duration;
     return duration;
@@ -82,7 +82,7 @@ export class CruisePhase extends FlightPhase {
       getStdTemp(this.altitude) + airport.DeltaTemp
     );
 
-    const groundSpeed = Ktas - this.wind.Headwind(this.course);
+    const groundSpeed = Ktas - this.wind.RelativeHeadwind(this.course);
 
     const FuelFlow =
       Ktas /

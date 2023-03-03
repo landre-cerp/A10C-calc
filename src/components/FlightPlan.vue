@@ -6,17 +6,6 @@
         dense
         debounce="500"
         class="q-mr-md"
-        v-model.number="FlightLevel"
-        mask="###"
-        label="Flight Level (Ex 160)"
-        :hint="'Optimum Cruise Altitude' + optimum_cruise_altitude.toFixed(0)"
-      >
-      </q-input>
-      <q-input
-        filled
-        dense
-        debounce="500"
-        class="q-mr-md"
         v-model.number="fuelReserve"
         label="Fuel Reserve"
         :rules="[(val) => val >= 0]"
@@ -27,6 +16,7 @@
         debounce="500"
         class="q-mr-md"
         v-model.number="missionRange"
+        :hint="'Optimum Cruise Altitude' + optimum_cruise_altitude.toFixed(0)"
         label="Mission Range"
       ></q-input>
 
@@ -49,17 +39,7 @@
         </q-item-section>
       </q-item>
       <q-item>
-        <q-item-section>
-          <q-item-label>BINGO </q-item-label>
-          <p class="text-h6">
-            {{
-              airport.Winds[1] == WindDirections.Head
-                ? 'Head wind : '
-                : 'Tail wind : '
-            }}
-            {{ airport.Winds[0] }} Kts
-          </p>
-        </q-item-section>
+        <ShowWind :wind="airport.Winds"></ShowWind>
       </q-item>
     </div>
 
@@ -111,11 +91,11 @@
           />
           <PhaseViewer v-else :phase="phase" />
           <td>
-            <q-btn
+            <!-- <q-btn
               color="primary"
               icon="update"
               @click="phase.Recalc()"
-            ></q-btn>
+            ></q-btn> -->
             <q-btn
               color="red"
               v-if="index == flight.FlightPhases.length - 1"
@@ -167,7 +147,8 @@ import CombatPhaseViewer from './CombatPhaseViewer.vue';
 import RefuelPhaseViewer from './RefuelPhaseViewer.vue';
 import LandingPhaseViewer from './LandingPhaseViewer.vue';
 import DescentPhaseViewer from './DescentPhaseViewer.vue';
-import { WindDirections } from 'src/service/conversionTool';
+
+import ShowWind from './ShowWind.vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -175,7 +156,7 @@ const flight = useFlightStore();
 
 flight.Qnh = airport.Qnh;
 
-const { missionRange, fuelReserve, FlightLevel } = storeToRefs(flight);
+const { missionRange, fuelReserve } = storeToRefs(flight);
 
 const optimum_cruise_altitude = computed(() => {
   {

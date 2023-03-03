@@ -59,6 +59,7 @@ export const useFlightStore = defineStore('flight', {
 
     FlightPhases(): IFlightPhase[] {
       return this.phases;
+
     },
 
   },

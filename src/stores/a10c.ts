@@ -150,6 +150,7 @@ export const useA10CStore = defineStore('a10c', {
     SaveConfiguration(name: string) {
 
       const configToSave = { 'name': name, 'pylonsLoad': this.configuration.pylonsLoad };
+      this.DeleteConfiguration(name);
       availableConfigurations.push(configToSave);
       LocalStorage.set('storesConfig', JSON.stringify(availableConfigurations));
     },

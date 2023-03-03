@@ -1,5 +1,5 @@
 import { QNH, QNH_Unit } from './../components/models';
-import { IWind, Wind, WindDirections } from 'src/service/conversionTool';
+import { IWind, Wind, WindDirections } from 'src/service/Wind';
 import {
   convertAltitudeUnits,
   deltaFromStandardTemp,
