@@ -49,7 +49,8 @@ export const useA10CStore = defineStore('a10c', {
 
     AvailableConfigurations() {
       availableConfigurations = JSON.parse(localConfigs) as StoresConfiguration[];
-      if (availableConfigurations.length == 0) {
+
+      if (!availableConfigurations || availableConfigurations.length == 0) {
         availableConfigurations = [conf01];
       }
       return availableConfigurations;
@@ -144,6 +145,10 @@ export const useA10CStore = defineStore('a10c', {
       const savedConfigurations = LocalStorage.getItem('storesConfig');
       if (savedConfigurations) {
         availableConfigurations.push(savedConfigurations as StoresConfiguration);
+      }
+      else {
+        availableConfigurations.push(conf01);
+        this.SaveConfiguration(conf01.name);
       }
     },
 
