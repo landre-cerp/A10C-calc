@@ -41,7 +41,6 @@ export const ClimbFuelUsed = (
     fuelUsed = posNegCorrectionTable.GetLinear(fuelUsed, deltaTemp);
   }
 
-  console.log('fuelUsed', fuelUsed);
   fuelUsed = Math.ceil(fuelUsed / 10) * 10;
 
 

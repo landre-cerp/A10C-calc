@@ -3,8 +3,9 @@
     <div class="row q-gutter-sm">
       <q-input
         filled
+        dense
         debounce="500"
-        class="text-h6 q-mr-md"
+        class="q-mr-md"
         v-model.number="FlightLevel"
         mask="###"
         label="Flight Level (Ex 160)"
@@ -13,16 +14,18 @@
       </q-input>
       <q-input
         filled
+        dense
         debounce="500"
-        class="text-h6 q-mr-md"
+        class="q-mr-md"
         v-model.number="fuelReserve"
         label="Fuel Reserve"
         :rules="[(val) => val >= 0]"
       ></q-input>
       <q-input
         filled
+        dense
         debounce="500"
-        class="text-h6 q-mr-md"
+        class="q-mr-md"
         v-model.number="missionRange"
         label="Mission Range"
       ></q-input>
@@ -43,6 +46,19 @@
         <q-item-section>
           <q-item-label>BINGO </q-item-label>
           <p class="text-h6">{{ flight.Bingo }}</p>
+        </q-item-section>
+      </q-item>
+      <q-item>
+        <q-item-section>
+          <q-item-label>BINGO </q-item-label>
+          <p class="text-h6">
+            {{
+              airport.Winds[1] == WindDirections.Head
+                ? 'Head wind : '
+                : 'Tail wind : '
+            }}
+            {{ airport.Winds[0] }} Kts
+          </p>
         </q-item-section>
       </q-item>
     </div>
@@ -151,6 +167,7 @@ import CombatPhaseViewer from './CombatPhaseViewer.vue';
 import RefuelPhaseViewer from './RefuelPhaseViewer.vue';
 import LandingPhaseViewer from './LandingPhaseViewer.vue';
 import DescentPhaseViewer from './DescentPhaseViewer.vue';
+import { WindDirections } from 'src/service/conversionTool';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();

@@ -1,5 +1,7 @@
 // Store because it's the real name
 
+import { Wind } from 'src/service/conversionTool';
+
 export interface IAircraftStore {
   short: string;
   label: string;
@@ -68,7 +70,7 @@ export interface IFlightPhase {
   duration: number;
   fuelFlow: number;
   drag: number;
-  wind: IWind;
+  wind: Wind;
   machSpeed: number;
   trueAirSpeed: number;
   altitude: number;
@@ -84,9 +86,3 @@ export interface IFlightPhase {
   setStartingAltitude(altitude: number): void;
 }
 
-export interface IWind {
-  direction: number;
-  speed: number;
-
-  Headwind(aircraftCourse: number): number;
-}

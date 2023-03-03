@@ -29,7 +29,7 @@ import { aircraftStores, emptyLoad } from '../data/A10C';
 const props = defineProps({
   pylonNum: { type: Number, required: true, default: 1 },
   pylon: { required: true, default: { ...emptyLoad } as IAircraftStore },
-  itemSelected: { required: true },
+  itemSelected: { required: true, type: Function },
   locked: Boolean,
 });
 
@@ -39,7 +39,7 @@ const weapons = aircraftStores.filter(
 
 let options = ref(weapons);
 
-function filterFn(val: string, update): void {
+function filterFn(val: string, update: any): void {
   if (val === '') {
     update(() => (options.value = weapons));
     return;

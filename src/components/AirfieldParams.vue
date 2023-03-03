@@ -9,8 +9,9 @@
         <q-input
           style="width: 100%"
           filled
+          dense
           debounce="500"
-          class="q-mr-md text-h6"
+          class="q-mr-md"
           v-model.number="runwayLength"
           label="Runway length (feet)"
         />
@@ -19,18 +20,19 @@
         <q-input
           style="width: 100%"
           filled
+          dense
           debounce="500"
-          class="q-mr-md text-h6"
+          class="q-mr-md"
           v-model.number="Temp"
           label="Runway Temp. °C"
         />
-      </q-item>
-      <q-item class="col-12 col-sm-6 col-md-4">
+
         <q-input
           style="width: 100%"
           filled
+          dense
           debounce="500"
-          class="q-mr-md text-h6"
+          class="q-mr-md"
           v-model.number:model-value="Qnh.value"
           label="QNH"
           :rules="[(val) => val >= 0]"
@@ -45,14 +47,16 @@
           >
         </q-input>
       </q-item>
+
       <q-item class="col-12 col-sm-6 col-md-4">
         <q-input
           style="width: 100%"
           filled
+          dense
           debounce="500"
-          class="q-mr-md text-h6"
+          class="q-mr-md"
           v-model.number="AirportElevation"
-          label="Airport Altitude (feet)"
+          label="Airport Elevation (feet)"
           :rules="[(val) => val >= 0]"
         >
           <template v-slot:append>
@@ -63,18 +67,48 @@
           </template>
         </q-input>
       </q-item>
+      <q-item class="col-12 col-sm-6 col-md-4">
+        <q-input
+          style="width: 100%"
+          filled
+          dense
+          debounce="500"
+          class="q-mr-md"
+          v-model.number="runwayQFU"
+          :rules="[
+            (val) => (val >= 0 && val <= 360) || 'Must be between 0 and 360',
+          ]"
+          label="Runway QFU (°)"
+        />
+      </q-item>
 
       <q-item class="col-12 col-sm-6 col-md-4">
         <q-input
           style="width: 100%"
           filled
+          dense
           debounce="500"
-          class="q-mr-md text-h6"
-          v-model.number="Wind.speed"
-          label="Head wind (kts)"
-          hint="enter negative value for tail wind"
+          class="q-mr-md"
+          v-model.number="WindDirection"
+          :rules="[
+            (val) => (val >= 0 && val <= 360) || 'Must be between 0 and 360',
+          ]"
+          label="Wind direction"
+          hint="Enter wind direction in degrees"
+        />
+        <q-input
+          style="width: 100%"
+          filled
+          dense
+          debounce="500"
+          class="q-mr-md"
+          v-model.number="WindSpeed"
+          label="Wind speed"
+          hint="Enter wind speed in knots"
         />
       </q-item>
+
+      <ShowWind :wind="airport.Winds"></ShowWind>
     </q-card-section>
 
     <q-card-section>
@@ -110,7 +144,7 @@
                 </q-tooltip></q-icon
               ></q-item-label
             >
-            <p class="text-h6">
+            <p>
               {{ PTFS(Temp).toFixed(0) }}
             </p>
           </q-item-section>
@@ -118,7 +152,7 @@
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Rotate at</q-item-label>
-            <p class="text-h6">
+            <p>
               {{ (TakeoffSpeed(aircraft.TakeOffWeight) - 10).toFixed(0) }}
               KTS
             </p>
@@ -131,9 +165,7 @@
               Takeoff speed
             </q-item-label>
 
-            <p class="text-h6">
-              {{ TakeoffSpeed(aircraft.TakeOffWeight).toFixed(0) }} KTS
-            </p>
+            <p>{{ TakeoffSpeed(aircraft.TakeOffWeight).toFixed(0) }} KTS</p>
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
@@ -147,7 +179,7 @@
               >
             </q-item-label>
 
-            <p class="text-h6">
+            <p>
               {{
                 TakeoffIndex(Temp, airport.AirportPressureAltitude).toFixed(1)
               }}
@@ -158,7 +190,7 @@
           <q-item-section>
             <q-item-label>Takeoff Weight</q-item-label>
 
-            <p class="text-h6">
+            <p>
               {{ aircraft.TakeOffWeight.toFixed(0) }}
             </p>
           </q-item-section>
@@ -216,7 +248,7 @@
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Ground run (feet)</q-item-label>
-            <p class="text-h6">
+            <p>
               {{ ground.toFixed(0) }}
             </p>
           </q-item-section>
@@ -226,7 +258,7 @@
             <q-item-label
               >50 feet obstacle clearance distance (feet)</q-item-label
             >
-            <p class="text-h6">
+            <p>
               {{ obstacleDistanceClearance(ground, airport.Temp).toFixed(0) }}
             </p>
           </q-item-section>
@@ -234,15 +266,8 @@
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Critical field Length (feet)</q-item-label>
-            <p class="text-h6">
-              {{
-                CriticalFieldLength(
-                  TakeoffIndex(Temp, airport.AirportPressureAltitude),
-                  aircraft.TakeOffWeight,
-                  airport.rcr,
-                  airport.Wind.speed
-                ).toFixed(0)
-              }}
+            <p>
+              {{ CriticalField.toFixed(0) }}
             </p>
           </q-item-section>
         </q-item>
@@ -289,17 +314,26 @@ import { obstacleDistanceClearance } from 'src/service/calculators/ObstacleClear
 import { RCR } from 'src/service/calculators/Rcr';
 import { CriticalFieldLength } from 'src/service/calculators/CriticalFieldLength';
 
+import ShowWind from './ShowWind.vue';
+
 const aircraft = useA10CStore();
 const airport = useAirportStore();
 
-const { Temp, AirportElevation, Wind, Qnh, runwayLength } =
-  storeToRefs(airport);
+const {
+  Temp,
+  AirportElevation,
+  WindDirection,
+  WindSpeed,
+  Qnh,
+  runwayLength,
+  runwayQFU,
+} = storeToRefs(airport);
 
 const ground = computed(() => {
   let temp = GroundRun(
     TakeoffIndex(airport.Temp, airport.AirportPressureAltitude),
     aircraft.TakeOffWeight,
-    airport.Wind.speed
+    airport.RelativeHeadwind
   );
   if (typeof temp == 'undefined') temp = 0;
   return temp;
@@ -314,7 +348,7 @@ const CriticalField = computed(() =>
     TakeoffIndex(Temp.value, airport.AirportPressureAltitude),
     aircraft.TakeOffWeight,
     airport.rcr,
-    airport.Wind.speed
+    airport.RelativeHeadwind
   )
 );
 </script>
