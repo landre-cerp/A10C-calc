@@ -1,9 +1,10 @@
-import { PhaseType } from './../components/models';
+
 import { FlightPhase } from './FlightPhase';
 
 import { useAirportStore } from 'src/stores/Airport';
 import { useA10CStore } from './../stores/a10c';
 import { Wind } from './Wind';
+import { PhaseType } from 'src/components/models';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -27,7 +28,7 @@ export class TakeOffPhase extends FlightPhase {
     this.drag = aircraft.Drag;
     this.course = airport.runwayQFU;
     this.wind = new Wind(airport.WindDirection, airport.WindSpeed)
-
+    this.storesConfiguration = aircraft.configuration;
 
   }
 }

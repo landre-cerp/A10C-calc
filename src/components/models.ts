@@ -1,6 +1,7 @@
 // Store because it's the real name
 
-import { Wind } from 'src/service/conversionTool';
+import { Wind } from 'src/service/Wind';
+
 
 export interface IAircraftStore {
   short: string;
@@ -84,10 +85,12 @@ export interface IFlightPhase {
   getEndingAltitude(): number;
   getEndingWeight(): number;
   getEndingDrag(): number;
+  getStoresConfiguration(): StoresConfiguration;
 
   setStartWeight(weight: number): void;
   setFuelOnBoard(fuel: number): void;
   setStartingAltitude(altitude: number): void;
+
 
   RelativeHeadwind(): number;
   ChangeAltitude(altitude: number): void;

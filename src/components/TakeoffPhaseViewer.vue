@@ -1,7 +1,7 @@
 <template>
   <td class="text-h6">{{ phase.label }}</td>
   <td>{{ phase.getStartingWeight().toFixed(0) }}</td>
-  <td :style="check">
+  <td :style="check(phase.getFuelOnBoard(), reserve)">
     {{ phase.getFuelOnBoard().toFixed(0) }}
   </td>
 

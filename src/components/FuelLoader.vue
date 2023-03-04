@@ -1,20 +1,16 @@
 <template>
-  <q-item dense>
-    <q-item-section>
-      <q-input
-        dense
-        filled
-        debounce="500"
-        v-model.number="fuelQty"
-        :rules="[(val) => val >= 0 && val <= 100]"
-        label="Fuel Quantity %"
-      >
-        <template v-slot:append>
-          {{ aircraft.FuelWeight.toFixed(0) }} Lbs
-        </template>
-      </q-input>
-    </q-item-section>
-  </q-item>
+  <q-input
+    dense
+    filled
+    debounce="500"
+    v-model.number="fuelQty"
+    :rules="[(val) => val >= 0 && val <= 100]"
+    label="Fuel Quantity %"
+  >
+    <template v-slot:append>
+      {{ aircraft.FuelWeight.toFixed(0) }} Lbs
+    </template>
+  </q-input>
 </template>
 
 <script setup lang="ts">

@@ -111,18 +111,24 @@
       <ShowWind :wind="airport.Winds"></ShowWind>
     </q-card-section>
 
-    <q-card-section>
-      <p class="text-h5">Fuel management</p>
-      <FuelLoader></FuelLoader>
-      <AircraftWeight
-        :total-weight="aircraft.TotalWeight"
-        :max-take-off-weight="aircraft.MaxTakeOffWeight"
-        :zero-fuel-weight="aircraft.ZeroFuelWeight"
-        :weapons-weight="aircraft.WeaponWeight + aircraft.AmmoWeight"
-        :fuel-weight="aircraft.FuelWeight"
-      >
-      </AircraftWeight>
-    </q-card-section>
+    <q-expansion-item
+      expand-separator
+      label="Fuel Management"
+      icon="local_gas_station"
+      switch-toggle-side
+    >
+      <q-card-section>
+        <FuelLoader></FuelLoader>
+        <AircraftWeight
+          :total-weight="aircraft.TotalWeight"
+          :max-take-off-weight="aircraft.MaxTakeOffWeight"
+          :zero-fuel-weight="aircraft.ZeroFuelWeight"
+          :weapons-weight="aircraft.WeaponWeight + aircraft.AmmoWeight"
+          :fuel-weight="aircraft.FuelWeight"
+        >
+        </AircraftWeight>
+      </q-card-section>
+    </q-expansion-item>
   </q-card>
 
   <q-card class="my-card">

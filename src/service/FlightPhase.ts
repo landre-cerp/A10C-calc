@@ -5,7 +5,7 @@ import {
   StoresConfiguration,
   QNH,
   QNH_Unit,
-  IAircraftStore,
+
 } from '../components/models';
 import { IFlightPhase } from 'src/components/models';
 
@@ -73,8 +73,6 @@ export abstract class FlightPhase implements IFlightPhase {
     ],
   };
 
-  jettisonStores = [] as IAircraftStore[];
-
   constructor(
     label: string,
     comment: string,
@@ -111,17 +109,16 @@ export abstract class FlightPhase implements IFlightPhase {
   }
 
 
-  jettisonStore(numero: number) {
-    this.jettisonStores.push(this.storesConfiguration.pylonsLoad[numero]);
-    this.storesConfiguration.pylonsLoad[numero] = emptyLoad;
-  }
-
   setStartingWeight(weight: number) {
     this.startWeight = weight;
   }
 
   setFuelOnBoard(fuel: number) {
     this.fuelOnBoard = fuel;
+  }
+
+  getStoresConfiguration(): StoresConfiguration {
+    return this.storesConfiguration;
   }
 
   setStoresConfiguration(storesConfiguration: StoresConfiguration) {
@@ -135,8 +132,8 @@ export abstract class FlightPhase implements IFlightPhase {
   getEndingWeight(): number {
     return (
       this.getStartingWeight() -
-      this.fuelUsed -
-      this.jettisonStores.reduce((acc, store) => acc + store.weight, 0)
+      this.fuelUsed
+
     );
   }
 
@@ -162,8 +159,8 @@ export abstract class FlightPhase implements IFlightPhase {
 
   getEndingDrag() {
     return (
-      this.drag -
-      this.jettisonStores.reduce((acc, store) => acc + store.drag, 0)
+      this.drag
+
     );
   }
 

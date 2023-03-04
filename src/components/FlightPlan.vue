@@ -57,7 +57,7 @@
           <th>Dist.( NM )</th>
           <th>Dur. (min)</th>
           <th>Drag</th>
-          <th></th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -113,6 +113,7 @@
 
           <td>
             <q-btn-dropdown
+              dense
               color="secondary"
               icon="air"
               @click="phase.Recalc()"
@@ -124,12 +125,14 @@
               </div>
             </q-btn-dropdown>
 
-            <!-- <q-btn
+            <q-btn
+              dense
               color="primary"
               icon="update"
               @click="phase.Recalc()"
-            ></q-btn> -->
+            ></q-btn>
             <q-btn
+              dense
               color="red"
               v-if="index == flight.FlightPhases.length - 1"
               icon="delete"

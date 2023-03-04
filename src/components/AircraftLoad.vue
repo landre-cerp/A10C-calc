@@ -1,12 +1,13 @@
 <template>
   <q-card>
-    <q-card-section class="row">
+    <q-card-section class="row q-pb-none">
       <q-item class="col-4-md">
         <q-item-section class="col q-mr-md">
           <q-item-label>Drag</q-item-label>
           <p class="">{{ aircraft.Drag.toFixed(2) }}</p>
-        </q-item-section> </q-item
-      ><q-item class="col-6-md">
+        </q-item-section>
+      </q-item>
+      <q-item class="col-6-md">
         <q-item-section class="col q-mr-md">
           <q-item-label>Weapons (lbs)</q-item-label>
           <p class="">{{ aircraft.WeaponWeight.toFixed(0) }}</p>
@@ -29,21 +30,23 @@
           </q-input>
         </q-item-section>
       </q-item>
+      <q-item>
+        <q-item-section>
+          <FuelLoader></FuelLoader>
+        </q-item-section>
+      </q-item>
+    </q-card-section>
 
-      <FuelLoader></FuelLoader>
-    </q-card-section>
-    <q-card-section class="row">
-      <q-item-section class="q-pa-md">
-        <AircraftWeight
-          :total-weight="aircraft.TotalWeight"
-          :max-take-off-weight="aircraft.MaxTakeOffWeight"
-          :zero-fuel-weight="aircraft.ZeroFuelWeight"
-          :weapons-weight="aircraft.WeaponWeight + aircraft.AmmoWeight"
-          :fuel-weight="aircraft.FuelWeight"
-        >
-        </AircraftWeight>
-      </q-item-section>
-    </q-card-section>
+    <q-item-section class="q-pa-none">
+      <AircraftWeight
+        :total-weight="aircraft.TotalWeight"
+        :max-take-off-weight="aircraft.MaxTakeOffWeight"
+        :zero-fuel-weight="aircraft.ZeroFuelWeight"
+        :weapons-weight="aircraft.WeaponWeight + aircraft.AmmoWeight"
+        :fuel-weight="aircraft.FuelWeight"
+      >
+      </AircraftWeight>
+    </q-item-section>
   </q-card>
 
   <q-card>
@@ -54,7 +57,7 @@
         label="Sym. Load"
       />
       <q-input label="config Name" v-model="configName" filled dense />
-      <q-btn-dropdown color="primary" label="Load Config.">
+      <q-btn-dropdown dense color="primary" label="Load Config.">
         <q-list v-for="(config, index) in AvailableConfigurations" :key="index">
           <q-item clickable v-close-popup @click="loadAndLocks(config)">
             <q-item-section>
@@ -64,12 +67,14 @@
         </q-list>
       </q-btn-dropdown>
       <q-btn
+        dense
         class="q-ml-md"
         color="primary"
         icon="save"
         @click="saveConfig"
       ></q-btn>
       <q-btn
+        dense
         class="q-ml-md"
         color="red"
         icon="delete"

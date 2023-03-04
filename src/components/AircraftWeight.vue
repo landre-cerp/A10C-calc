@@ -60,15 +60,15 @@ const percentFuel = computed(
   display: flex;
   align-items: center;
   overflow: hidden;
-  height: 40px;
-  border-radius: 10px;
+  height: 50px;
+  border-radius: 00px;
   background-color: grey;
 }
 .progress-bar {
   float: left;
   width: 0%;
   height: 100%;
-  line-height: 10px;
+  line-height: 14px;
 
   color: black;
   text-align: center;
