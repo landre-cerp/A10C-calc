@@ -31,11 +31,11 @@ export interface ICorrectionTable {
   getInterval: (
     value: number
   ) => [
-    lowVector: CorrectionVector,
-    highVector: CorrectionVector,
-    step: number,
-    LowRangeValue: number
-  ];
+      lowVector: CorrectionVector,
+      highVector: CorrectionVector,
+      step: number,
+      LowRangeValue: number
+    ];
 
   /**
    *
@@ -119,7 +119,7 @@ interface IVector {
 }
 
 export class CorrectionVector implements IVector {
-  constructor(private vector: number[]) {}
+  constructor(private vector: number[]) { }
 
   public calc(x: number): number {
     let result = 0;

@@ -1,7 +1,9 @@
 <template>
   <q-page padding>
-    <p>In progress</p>
+    <LandingPerf />
   </q-page>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LandingPerf from 'src/components/LandingPerf.vue';
+</script>

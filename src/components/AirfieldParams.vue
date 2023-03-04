@@ -235,20 +235,7 @@
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <q-item-label>Runway Condition </q-item-label>
-
-            <q-option-group
-              v-model="airport.rcr"
-              :options="[
-                {
-                  label: 'Dry',
-                  value: RCR.DRY,
-                },
-                { label: 'WET', value: RCR.WET },
-                { label: 'ICY', value: RCR.ICY },
-              ]"
-              inline
-            />
+            <RCRSelector :rcr="airport.rcr" :update-rcr="updateRcr" />
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
@@ -283,12 +270,11 @@
   <q-card>
     <q-card-section>
       <p class="text-h5">Runway</p>
-
       <RunwayViewer
         :groundRun="ground"
         :critical="CriticalField"
         :toda="airport.runwayLength"
-        :tora="airport.runwayLength + 1000"
+        :tora="airport.runwayLength"
         :asda="airport.runwayLength"
         :lda="airport.runwayLength"
         takeoff
@@ -321,6 +307,7 @@ import { RCR } from 'src/service/calculators/Rcr';
 import { CriticalFieldLength } from 'src/service/calculators/CriticalFieldLength';
 
 import ShowWind from './ShowWind.vue';
+import RCRSelector from './RCRSelector.vue';
 
 const aircraft = useA10CStore();
 const airport = useAirportStore();
@@ -357,4 +344,8 @@ const CriticalField = computed(() =>
     airport.RelativeHeadwind
   )
 );
+
+const updateRcr = (rcr: RCR) => {
+  airport.rcr = rcr;
+};
 </script>
