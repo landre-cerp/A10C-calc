@@ -139,11 +139,7 @@
         :tora="airport.runwayLength"
         :asda="airport.runwayLength"
         :takeoff="true"
-        :wind="
-          new Wind(airport.WindDirection, airport.WindSpeed).Winds(
-            airport.runwayQFU
-          )
-        "
+        :wind="airportWinds"
       ></RunwayViewer>
     </q-card-section>
   </q-card>
@@ -185,6 +181,12 @@ const ground = computed(() => {
   );
   if (typeof temp == 'undefined') temp = 0;
   return temp;
+});
+
+const airportWinds = computed(() => {
+  return new Wind(airport.WindDirection, airport.WindSpeed).Winds(
+    airport.runwayQFU
+  );
 });
 
 const TOICalculator = new TakeoffIndexCalculator();
