@@ -57,6 +57,8 @@
         </ul>
         <p>Some day</p>
         <ul>
+          <li>Brief sumup</li>
+          <li>Cross wind warnings at TO or LD</li>
           <li>
             DCS airport database with runway informations (things like TORA,
             TODA, QFU, etc.) and METAR decoder.

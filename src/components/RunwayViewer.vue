@@ -1,5 +1,5 @@
 <template>
-  <div v-if="toda > 0">
+  <div v-if="toda || lda">
     <div class="progress">
       <div
         :style="{ width: Math.ceil(percentRun) + '%', color: 'white' }"
@@ -9,7 +9,7 @@
         <span>{{ groundRun.toFixed(0) }}</span>
       </div>
       <div
-        v-if="percentCritical > 0"
+        v-if="critical"
         :style="{
           width: percentCritical + '%',
           verticalAlign: 'middle',
@@ -19,6 +19,9 @@
       >
         <span>Critical</span>
       </div>
+    </div>
+    <div class="wind">
+      <ShowWind :wind="wind" />
     </div>
   </div>
   <div v-else>
@@ -31,39 +34,55 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, PropType } from 'vue';
+import ShowWind from './ShowWind.vue';
+import { IWind } from 'src/service/Wind';
 
 const props = defineProps({
   groundRun: { type: Number, required: true, default: 0 },
-  critical: { type: Number, required: true, default: 0 },
-  tora: { type: Number, required: true, default: 0 },
-  toda: { type: Number, required: true, default: 0 },
-  asda: { type: Number, required: true, default: 0 },
-  lda: { type: Number, required: true, default: 0 },
+  critical: { type: Number, default: 0 },
+  tora: { type: Number, default: 0 },
+  toda: { type: Number, default: 0 },
+  asda: { type: Number, default: 0 },
+  lda: { type: Number, default: 0 },
   takeoff: { type: Boolean, required: true, default: false },
+  wind: { type: Object as PropType<IWind>, required: true },
 });
 
-const percentRun = computed(() => (100 * props.groundRun) / props.toda);
-const percentCritical = computed(
-  () => (100 * (props.critical - props.groundRun)) / props.toda
+const percentRun = computed(
+  () => (100 * props.groundRun) / (props.takeoff ? props.toda : props.lda)
+);
+const percentCritical = computed(() =>
+  props.toda ? (100 * (props.critical - props.groundRun)) / props.toda : 0
 );
 </script>
 
 <style scoped>
+.wind {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  color: white;
+  background-color: black;
+  position: absolute;
+  border: 1px solid white;
+  bottom: 20px;
+  right: 20px;
+}
 .progress {
   display: flex;
   align-items: center;
   overflow: hidden;
   height: 50px;
-  border-radius: 10px;
-  background-color: grey;
+  border-radius: 00px;
+  background-color: black;
 }
 .progress-bar {
   float: left;
   width: 0%;
-  height: 100%;
-  line-height: 20px;
-  font-size: 2em;
+  height: 80%;
+  line-height: 10px;
+  font-size: 1.2em;
 
   color: black;
   text-align: center;
@@ -73,7 +92,7 @@ const percentCritical = computed(
 
 .groundrun-ok {
   color: white;
-  background-color: rgb(48, 87, 144);
+  background-color: rgb(15, 147, 0);
 }
 
 .critical-ok {

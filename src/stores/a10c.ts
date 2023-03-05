@@ -1,27 +1,18 @@
-import {
-  BasicConfiguration,
-
-
-} from './../data/StoresConfig';
+import { BasicConfiguration, EmptyConfiguration } from './../data/StoresConfig';
 import { emptyLoad } from './../data/A10C';
 import { IAircraftStore, StoresConfiguration } from './../components/models';
 import { LocalStorage } from 'quasar';
-
 import { defineStore } from 'pinia';
 
-const conf01 = { ...BasicConfiguration };
+const basicConf = { ...BasicConfiguration };
+const emptyConf = { ...EmptyConfiguration, name: 'Empty' };
 
 let availableConfigurations = [] as StoresConfiguration[];
 const localConfigs = LocalStorage.getItem('storesConfig');
-if (localConfigs) {
-
-}
-else {
-  availableConfigurations = [conf01];
-}
 
 const defaultState = {
-  configuration: { ...conf01 },
+
+  configuration: { ...basicConf },
 
   fuelQty: 75 as number,
   gunAmmoPercent: 100 as number,
@@ -51,7 +42,7 @@ export const useA10CStore = defineStore('a10c', {
       availableConfigurations = JSON.parse(localConfigs) as StoresConfiguration[];
 
       if (!availableConfigurations || availableConfigurations.length == 0) {
-        availableConfigurations = [conf01];
+        availableConfigurations = [emptyConf, basicConf];
       }
       return availableConfigurations;
     },
@@ -111,6 +102,7 @@ export const useA10CStore = defineStore('a10c', {
 
   actions: {
     setPylon(pylon: number, store: IAircraftStore) {
+
       if (pylon >= 0 && pylon <= 10) {
         this.configuration.pylonsLoad[pylon] = store;
       }
@@ -141,16 +133,6 @@ export const useA10CStore = defineStore('a10c', {
       this.configuration.pylonsLoad = [...pylonConf];
     },
 
-    LoadConfigurations() {
-      const savedConfigurations = LocalStorage.getItem('storesConfig');
-      if (savedConfigurations) {
-        availableConfigurations.push(savedConfigurations as StoresConfiguration);
-      }
-      else {
-        availableConfigurations.push(conf01);
-        this.SaveConfiguration(conf01.name);
-      }
-    },
 
     SaveConfiguration(name: string) {
 
