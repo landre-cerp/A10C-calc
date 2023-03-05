@@ -6,9 +6,10 @@
         class="progress-bar q-py-md"
         :class="percentRun <= 100 ? 'groundrun-ok' : 'ko'"
       >
-        <span>Ground run</span>
+        <span>{{ groundRun.toFixed(0) }}</span>
       </div>
       <div
+        v-if="percentCritical > 0"
         :style="{
           width: percentCritical + '%',
           verticalAlign: 'middle',
