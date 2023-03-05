@@ -12,8 +12,8 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/Load" label="Armement" />
-        <q-route-tab to="/Airfield" label="TakeOff" />
+        <q-route-tab to="/Load" label="Loadout" />
+        <q-route-tab to="/TakeOff" label="TakeOff" />
         <q-route-tab to="/Flight" label="Flight" />
         <q-route-tab to="/Landing" label="Landing" />
 

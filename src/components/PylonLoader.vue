@@ -1,53 +1,56 @@
 <template>
-  <div>
-    <q-select
-      use-input
-      dense
-      input-debounce="0"
-      v-model="weapons"
-      :model-value="pylon.short"
-      :label="pylon.weight + ' lbs' + ' drag: ' + pylon.drag"
-      :options="options"
-      @update:model-value="(val) => itemSelected(pylonNum, val)"
-      emit-value
-      @filter="filterFn"
-      @clear="itemSelected(pylonNum, emptyLoad)"
-      :disable="props.locked"
-      filled
-      clearable
-      hide-dropdown-icon
-    >
-    </q-select>
-  </div>
+  <q-select
+    use-input
+    dense
+    input-debounce="0"
+    v-model="pylonVm"
+    option-label="short"
+    :label="pylon.weight + ' lbs' + ' drag: ' + pylon.drag"
+    :options="options"
+    @filter="filterFn"
+    :disable="props.locked"
+    clearable
+    filled
+    hide-dropdown-icon
+    @update:model-value="emit('item-selected', pylonVm)"
+    @clear="emit('item-cleared')"
+  >
+  </q-select>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onUpdated, PropType, ref } from 'vue';
 import { IAircraftStore } from './models';
-import { aircraftStores, emptyLoad } from '../data/A10C';
+import { emptyLoad } from '../data/A10C';
+
+const emit = defineEmits(['item-selected', 'item-cleared']);
 
 const props = defineProps({
-  pylonNum: { type: Number, required: true, default: 1 },
   pylon: { required: true, default: { ...emptyLoad } as IAircraftStore },
-  itemSelected: { required: true, type: Function },
+  availableStores: {
+    required: true,
+    type: Array as PropType<IAircraftStore[]>,
+  },
+  empty: { required: true, type: Object as PropType<IAircraftStore> },
   locked: Boolean,
 });
 
-const weapons = aircraftStores.filter(
-  (s) => s.availableOn?.indexOf(props.pylonNum + 1) !== -1
-) as IAircraftStore[];
+const pylonVm = ref(props.pylon);
+let options = ref(props.availableStores);
 
-let options = ref(weapons);
+onUpdated(() => {
+  pylonVm.value = props.pylon;
+});
 
 function filterFn(val: string, update: any): void {
   if (val === '') {
-    update(() => (options.value = weapons));
+    update(() => (options.value = props.availableStores));
     return;
   }
   update(() => {
     const needle = val.toLowerCase();
 
-    options.value = weapons.filter(
+    options.value = props.availableStores.filter(
       (w) => w.label.toLocaleLowerCase().indexOf(needle) > -1
     );
   });

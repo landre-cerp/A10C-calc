@@ -1,9 +1,9 @@
 <template>
   <q-page padding>
-    <FlightPlan />
+    <TakeOffParams />
   </q-page>
 </template>
 
 <script setup lang="ts">
-import FlightPlan from 'src/components/flightphases/FlightPlan.vue';
+import TakeOffParams from 'src/components/TakeOffParams.vue';
 </script>

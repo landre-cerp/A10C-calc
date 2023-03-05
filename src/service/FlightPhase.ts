@@ -102,10 +102,11 @@ export abstract class FlightPhase implements IFlightPhase {
     this.nextPhase = phase;
   }
 
-  getStartingWeight() {
-    return this.previousPhase
+  getStartingWeight(): number {
+    const weight = this.previousPhase
       ? this.previousPhase.getEndingWeight()
       : this.startWeight;
+    return Math.ceil(weight);
   }
 
 
