@@ -76,7 +76,7 @@ export const useA10CStore = defineStore('a10c', {
 
     TotalWeight(): number {
       return (
-        this.ZeroFuelWeight +
+        this.EmptyWeight +
         this.WeaponWeight +
         this.FuelWeight +
         this.AmmoWeight
@@ -87,7 +87,7 @@ export const useA10CStore = defineStore('a10c', {
       return this.TotalWeight - this.taxiFuel;
     },
 
-    ZeroFuelWeight(): number {
+    EmptyWeight(): number {
       return 25629;
     },
 

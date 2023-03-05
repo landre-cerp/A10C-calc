@@ -7,7 +7,7 @@
       :style="{ width: Math.ceil(percentZeroFW) + '%', color: 'white' }"
       class="progress-bar progress-bar-zfw q-py-md"
     >
-      <span>Empty Weight {{ zeroFuelWeight }} lbs</span>
+      <span>Empty Weight {{ emptyWeight }} lbs</span>
     </div>
     <div
       v-if="weaponsWeight > 0"
@@ -39,13 +39,13 @@ import { computed } from 'vue';
 const props = defineProps({
   totalWeight: { type: Number, required: true, default: 0 },
   maxTakeOffWeight: { type: Number, required: true, default: 0 },
-  zeroFuelWeight: { type: Number, required: true, default: 0 },
+  emptyWeight: { type: Number, required: true, default: 0 },
   weaponsWeight: { type: Number, required: true, default: 0 },
   fuelWeight: { type: Number, required: true, default: 0 },
 });
 
 const percentZeroFW = computed(
-  () => (100 * props.zeroFuelWeight) / props.maxTakeOffWeight
+  () => (100 * props.emptyWeight) / props.maxTakeOffWeight
 );
 const percentWeapons = computed(
   () => (100 * props.weaponsWeight) / props.maxTakeOffWeight
