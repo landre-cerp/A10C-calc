@@ -1,19 +1,14 @@
-import { BasicConfiguration } from './../data/StoresConfig';
+import { BasicConfiguration, EmptyConfiguration } from './../data/StoresConfig';
 import { emptyLoad } from './../data/A10C';
 import { IAircraftStore, StoresConfiguration } from './../components/models';
 import { LocalStorage } from 'quasar';
 import { defineStore } from 'pinia';
 
 const basicConf = { ...BasicConfiguration };
+const emptyConf = { ...EmptyConfiguration, name: 'Empty' };
 
 let availableConfigurations = [] as StoresConfiguration[];
 const localConfigs = LocalStorage.getItem('storesConfig');
-if (localConfigs) {
-
-}
-else {
-  availableConfigurations = [basicConf];
-}
 
 const defaultState = {
 
@@ -47,7 +42,7 @@ export const useA10CStore = defineStore('a10c', {
       availableConfigurations = JSON.parse(localConfigs) as StoresConfiguration[];
 
       if (!availableConfigurations || availableConfigurations.length == 0) {
-        availableConfigurations = [basicConf];
+        availableConfigurations = [emptyConf, basicConf];
       }
       return availableConfigurations;
     },
@@ -138,16 +133,6 @@ export const useA10CStore = defineStore('a10c', {
       this.configuration.pylonsLoad = [...pylonConf];
     },
 
-    LoadConfigurationsFromStore() {
-      const savedConfigurations = LocalStorage.getItem('storesConfig');
-      if (savedConfigurations) {
-        availableConfigurations.push(savedConfigurations as StoresConfiguration);
-      }
-      else {
-        availableConfigurations.push(basicConf);
-        this.SaveConfiguration(basicConf.name);
-      }
-    },
 
     SaveConfiguration(name: string) {
 
