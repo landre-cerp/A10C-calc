@@ -5,10 +5,12 @@
         <div class="text-h6">About</div>
       </q-card-section>
       <q-card-section>
-        <p>
+        <q-banner rounded class="bg-orange q-gutter-sm">
           This calculator is intended to be used for DCS game only, not for real
           flight
-        </p>
+        </q-banner>
+      </q-card-section>
+      <q-card-section>
         <p>
           I started this project as an 'exercice' to play with
           <a target="_blank" href="https://quasar.dev/"
@@ -45,13 +47,21 @@
       </q-card-section>
       <q-card-section>
         <div class="text-h6">Roadmap</div>
+        <p>In progress</p>
         <ul>
-          <li>Loadout configuration manager</li>
           <li>Landing calculation</li>
           <li>
             Flight phases rework with different mission profiles (LO-LO-LO ,
-            HI-LO-HI)
+            HI-LO-HI) ( in progress)
           </li>
+        </ul>
+        <p>Some day</p>
+        <ul>
+          <li>
+            DCS airport database with runway informations (things like TORA,
+            TODA, QFU, etc.) and METAR decoder.
+          </li>
+          <li>Cross wind check at take off / landing</li>
           <li>Takeoff continuation speed , refusal</li>
           <li>
             DCS connector to get live data from the game ( weight, weapons
@@ -60,11 +70,18 @@
           <li>Flaps 0 configuration</li>
           <li>Translations (at least french + english to start somewhere)</li>
           <li>Some converters</li>
-          <li>
-            DCS airport database with runway informations (things like TORA,
-            TODA, QFU, etc.) and METAR decoder.
-          </li>
+          <li>DCS Web editor plugin ?</li>
         </ul>
+      </q-card-section>
+
+      <q-card-section>
+        <p>
+          If you want to discuss about this project, or have any question, feel
+          free to join the
+          <a href="https://discord.gg/FHu59hU" target="_blank"
+            >discord server</a
+          >
+        </p>
       </q-card-section>
     </q-card>
   </q-page>

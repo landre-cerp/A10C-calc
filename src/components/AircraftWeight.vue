@@ -1,5 +1,5 @@
 <template>
-  <p class="text-center text-h6">
+  <p class="text-center">
     {{ totalWeight.toFixed(0) }} / {{ maxTakeOffWeight }} Lbs
   </p>
   <div class="progress">
@@ -7,7 +7,7 @@
       :style="{ width: Math.ceil(percentZeroFW) + '%', color: 'white' }"
       class="progress-bar progress-bar-zfw q-py-md"
     >
-      <span>Zero FW {{ zeroFuelWeight }}</span>
+      <span>Empty Weight {{ zeroFuelWeight }} lbs</span>
     </div>
     <div
       v-if="weaponsWeight > 0"
@@ -18,7 +18,7 @@
       }"
       class="progress-bar progress-bar-weapons text-bold q-py-md"
     >
-      <span>WPs</span>
+      <span>{{ weaponsWeight }} WP<br /> </span>
     </div>
     <div
       v-if="fuelWeight > 0"
@@ -28,7 +28,7 @@
       }"
       class="progress-bar progress-bar-fuel q-py-md"
     >
-      <span>Fuel</span>
+      <span>{{ fuelWeight.toFixed(0) }} lbs</span>
     </div>
   </div>
 </template>
@@ -61,14 +61,14 @@ const percentFuel = computed(
   align-items: center;
   overflow: hidden;
   height: 50px;
-  border-radius: 10px;
+  border-radius: 00px;
   background-color: grey;
 }
 .progress-bar {
   float: left;
   width: 0%;
   height: 100%;
-  line-height: 20px;
+  line-height: 14px;
 
   color: black;
   text-align: center;

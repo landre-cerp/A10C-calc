@@ -1,23 +1,24 @@
 <template>
-  <q-select
-    class="text-h6"
-    use-input
-    input-debounce="0"
-    v-model="weapons"
-    :model-value="pylon.short"
-    :label="pylon.weight + ' lbs' + ' drag: ' + pylon.drag"
-    :options="options"
-    @update:model-value="(val) => itemSelected(pylonNum, val)"
-    emit-value
-    @filter="filterFn"
-    @clear="itemSelected(pylonNum, emptyLoad)"
-    :disable="props.locked"
-    filled
-    stack-label
-    clearable
-    hide-dropdown-icon
-  >
-  </q-select>
+  <div>
+    <q-select
+      use-input
+      dense
+      input-debounce="0"
+      v-model="weapons"
+      :model-value="pylon.short"
+      :label="pylon.weight + ' lbs' + ' drag: ' + pylon.drag"
+      :options="options"
+      @update:model-value="(val) => itemSelected(pylonNum, val)"
+      emit-value
+      @filter="filterFn"
+      @clear="itemSelected(pylonNum, emptyLoad)"
+      :disable="props.locked"
+      filled
+      clearable
+      hide-dropdown-icon
+    >
+    </q-select>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -28,7 +29,7 @@ import { aircraftStores, emptyLoad } from '../data/A10C';
 const props = defineProps({
   pylonNum: { type: Number, required: true, default: 1 },
   pylon: { required: true, default: { ...emptyLoad } as IAircraftStore },
-  itemSelected: { required: true },
+  itemSelected: { required: true, type: Function },
   locked: Boolean,
 });
 
@@ -38,7 +39,7 @@ const weapons = aircraftStores.filter(
 
 let options = ref(weapons);
 
-function filterFn(val: string, update): void {
+function filterFn(val: string, update: any): void {
   if (val === '') {
     update(() => (options.value = weapons));
     return;

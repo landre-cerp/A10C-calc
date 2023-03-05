@@ -1,9 +1,9 @@
 <template>
   <q-page padding>
-    <FlightPhase />
+    <FlightPlan />
   </q-page>
 </template>
 
 <script setup lang="ts">
-import FlightPhase from 'src/components/FlightPhase.vue';
+import FlightPlan from 'src/components/FlightPlan.vue';
 </script>

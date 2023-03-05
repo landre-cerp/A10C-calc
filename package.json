@@ -1,6 +1,6 @@
 {
   "name": "a10calc",
-  "version": "0.0.7-0",
+  "version": "0.7.0",
   "description": "Performance Calculator for DCS A10C",
   "productName": "A10CCalc",
   "author": "cerpogaming <cerpo.gaming@gmail.com>",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
+    "metar-js": "^0.0.5",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
@@ -26,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "autoprefixer": "^10.4.2",
+    "electron": "^23.1.1",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",

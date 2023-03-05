@@ -1,5 +1,8 @@
 // Store because it's the real name
 
+import { Wind } from 'src/service/Wind';
+
+
 export interface IAircraftStore {
   short: string;
   label: string;
@@ -24,19 +27,19 @@ export enum LoadType {
 export interface StoresConfiguration {
   name: string;
   pylonsLoad:
-    | [
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore,
-        IAircraftStore
-      ];
+  | [
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore,
+    IAircraftStore
+  ];
 }
 
 export enum QNH_Unit {
@@ -50,27 +53,57 @@ export interface QNH {
 }
 
 export enum PhaseType {
-  TAXI,
+  TAKEOFF,
   CLIMB,
   CRUISE,
-  ONZONE,
-  RTB,
+  COMBAT,
   DESCENT,
+  REFUEL,
+  LANDING,
 }
 
-export interface FlightPhase {
+export interface IFlightPhase {
   label: string;
   comment: string;
   type: PhaseType;
-  startWeight: number;
-  FuelOnBoard: number;
-  FuelUsed: number;
-  Distance: number;
-  Duration: number;
-  FuelFlow: number;
-  Drag: number;
-  releasedWeight: number;
-  headwind: number;
+  fuelUsed: number;
+  distance: number;
+  duration: number;
+  fuelFlow: number;
+  drag: number;
+  wind: Wind;
   machSpeed: number;
   trueAirSpeed: number;
+  altitude: number;
+  course: number;
+
+  Recalc(): void;
+
+  getStartingWeight(): number;
+  getFuelOnBoard(): number;
+  getStartingAltitude(): number;
+  getEndingAltitude(): number;
+  getEndingWeight(): number;
+  getEndingDrag(): number;
+  getStoresConfiguration(): StoresConfiguration;
+
+  setStartWeight(weight: number): void;
+  setFuelOnBoard(fuel: number): void;
+  setStartingAltitude(altitude: number): void;
+
+
+  RelativeHeadwind(): number;
+  ChangeAltitude(altitude: number): void;
+  ChangeDistance(distance: number): void;
+  ChangePhaseDuration(duration: number): void;
+  ChangeCourse(course: number): void;
+
+  ChangeSpeed(speed: number): void;
+
+  ChangeFuelFlow(fuelFlow: number): void;
+  Refuel(fuel: number): void;
+  ChangeWind(direction: number, speed: number): void;
+
+
 }
+

@@ -14,5 +14,8 @@
     "markdown": true,
     "javascript": true,
     "python": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }
