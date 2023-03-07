@@ -95,10 +95,14 @@ export abstract class FlightPhase implements IFlightPhase {
 
   abstract Recalc(): void;
 
+  isLastPhase(): boolean {
+    return this.nextPhase === null;
+  }
+
   setPreviousPhase(phase: FlightPhase) {
     this.previousPhase = phase;
   }
-  setNextPhase(phase: FlightPhase) {
+  setNextPhase(phase: FlightPhase | null) {
     this.nextPhase = phase;
   }
 
@@ -195,7 +199,6 @@ export abstract class FlightPhase implements IFlightPhase {
   ChangeSpeed(speed: number): void {
     this.trueAirSpeed = speed;
   }
-
 
   ChangeFuelFlow(fuelFlow: number) {
     this.fuelFlow = fuelFlow;

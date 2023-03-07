@@ -20,18 +20,16 @@
                 </q-tooltip></q-icon
               ></q-item-label
             >
-            <p>
-              {{ PTFS(Temp).toFixed(0) }}
-            </p>
+
+            {{ PTFS(Temp).toFixed(0) }}
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Rotate at</q-item-label>
-            <p>
-              {{ (TakeoffSpeed(aircraft.TakeOffWeight) - 10).toFixed(0) }}
-              KTS
-            </p>
+
+            {{ (TakeoffSpeed(aircraft.TakeOffWeight) - 10).toFixed(0) }}
+            KTS
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
@@ -41,7 +39,7 @@
               Takeoff speed
             </q-item-label>
 
-            <p>{{ TakeoffSpeed(aircraft.TakeOffWeight).toFixed(0) }} KTS</p>
+            {{ TakeoffSpeed(aircraft.TakeOffWeight).toFixed(0) }} KTS
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
@@ -54,18 +52,15 @@
                 </q-tooltip></q-icon
               >
             </q-item-label>
-            <p>
-              {{
-                TakeoffIndex(Temp, airport.AirportPressureAltitude).toFixed(1)
-              }}
-            </p>
+
+            {{ TakeoffIndex(Temp, airport.AirportPressureAltitude).toFixed(1) }}
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Takeoff Weight</q-item-label>
 
-            <p>{{ aircraft.TakeOffWeight.toFixed(0) }} Lbs</p>
+            {{ aircraft.TakeOffWeight.toFixed(0) }} Lbs
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
@@ -108,22 +103,21 @@
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Ground run</q-item-label>
-            <p>{{ ground.toFixed(0) }} ft</p>
+            {{ ground.toFixed(0) }} ft
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>50 feet obstacle clearance distance</q-item-label>
-            <p>
-              {{ obstacleDistanceClearance(ground, airport.Temp).toFixed(0) }}
-              ft
-            </p>
+
+            {{ obstacleDistanceClearance(ground, airport.Temp).toFixed(0) }}
+            ft
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>Critical field Length</q-item-label>
-            <p>{{ CriticalField.toFixed(0) }} ft</p>
+            {{ CriticalField.toFixed(0) }} ft
           </q-item-section>
         </q-item>
       </q-list>
