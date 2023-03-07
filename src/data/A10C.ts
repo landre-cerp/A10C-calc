@@ -96,7 +96,7 @@ export const GBU_12 = {
 } as IAircraftStore;
 
 export const M151_APKWS = {
-  short: '[LAU-131] 7x 2.75" M151',
+  short: '[LAU-131] 7x 2.75" M151 APKWS',
   label: '[LAU-131] 7x 2.75" Hydra, Laser Rkts M151, HE APKWS',
   weight: 298,
   drag: 0.6,
@@ -195,7 +195,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
-    short: 'MK-82',
+    short: 'MK-82 Air',
     label: 'MK-82 Air ballute 500lb GP Bomb HD',
     weight: 534,
     drag: 0.26,
@@ -347,7 +347,7 @@ export const aircraftStores: IAircraftStore[] = [
   M151_APKWS,
 
   {
-    short: '[BRU-42] 3x[LAU-131] 7x 2.75" M151',
+    short: '[BRU-42] 3x[LAU-131] 7x 2.75" M151 APKWS',
     label: '[BRU-42] 3x[LAU-131] 7x 2.75" Hydra, Laser Rkts M151, HE APKWS',
     weight: 1001,
     drag: 2.41,
@@ -359,7 +359,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   {
-    short: '[LAU-131] 7x 2.75" M282',
+    short: '[LAU-131] 7x 2.75" M282 APKWS',
     label: '[LAU-131] 7x 2.75" Hydra, Laser Rkts M282, MPP APKWS',
     weight: 328,
     drag: 0.6,
@@ -370,7 +370,7 @@ export const aircraftStores: IAircraftStore[] = [
     gpsGuided: false,
   },
   {
-    short: '[BRU-42] 3x[LAU-131] 7x 2.75" M282',
+    short: '[BRU-42] 3x[LAU-131] 7x 2.75" M282 APKWS',
     label: '[BRU-42] 3x[LAU-131] 7x 2.75" Hydra, Laser Rkts M282, HE APKWS',
     weight: 1093,
     drag: 2.41,

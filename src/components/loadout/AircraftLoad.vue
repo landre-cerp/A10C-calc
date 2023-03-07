@@ -41,7 +41,7 @@
       <AircraftWeight
         :total-weight="aircraft.TotalWeight"
         :max-take-off-weight="aircraft.MaxTakeOffWeight"
-        :zero-fuel-weight="aircraft.ZeroFuelWeight"
+        :empty-weight="aircraft.EmptyWeight"
         :weapons-weight="aircraft.WeaponWeight + aircraft.AmmoWeight"
         :fuel-weight="aircraft.FuelWeight"
       >
