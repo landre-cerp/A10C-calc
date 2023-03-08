@@ -1,5 +1,5 @@
 <template>
-  <q-item class="q-mr-sm" :style="checValidHead">
+  <q-item class="q-mr-sm items-center" :style="checValidHead">
     <q-icon
       class="q-mr-sm"
       v-if="headWind"
@@ -13,7 +13,7 @@
     {{ longiSpeed }} KTS
   </q-item>
 
-  <q-item v-if="crossSpeed > 0" :style="checkValidCross">
+  <q-item class="items-center" v-if="crossSpeed > 0" :style="checkValidCross">
     <q-icon
       class="q-mr-sm"
       v-if="crossWindLeft"

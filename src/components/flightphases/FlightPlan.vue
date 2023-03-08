@@ -61,10 +61,15 @@
     <q-card> </q-card>
 
     <q-card v-for="(phase, index) in flight.FlightPhases" :key="index">
-      <q-card-section class="bg-info text-white">
-        {{ phase.label }}
-
-        <div style="float: right">
+      <div
+        class="row justify-between bg-secondary text-white q-pa-md items-center"
+      >
+        <div class="row items-center">
+          <span class="text-h6 q-mr-md">{{ phase.label }}</span>
+          <OptimumPhaseParams :phase="phase" />
+        </div>
+        <div class="row items-center">
+          <ShowWind :wind="phase.wind.Winds(phase.course)" horizontal />
           <q-btn-dropdown
             v-if="phase.type != PhaseType.TAKEOFF"
             dense
@@ -99,10 +104,7 @@
             @click="flight.RemovePhase()"
           />
         </div>
-        <q-card-section horizontal style="float: right">
-          <ShowWind :wind="phase.wind.Winds(phase.course)" horizontal />
-        </q-card-section>
-      </q-card-section>
+      </div>
 
       <q-card-section>
         <PhaseViewer
@@ -194,6 +196,7 @@ import PhaseViewer from './PhaseViewer.vue';
 import ShowItem from './ShowItem.vue';
 import CourseAndWind from './CourseAndWind.vue';
 import ShowWind from '../ShowWind.vue';
+import OptimumPhaseParams from './OptimumPhaseParams.vue';
 
 const aircraft = useA10CStore();
 const airport = useTakeOffStore();

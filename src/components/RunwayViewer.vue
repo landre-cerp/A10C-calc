@@ -19,9 +19,9 @@
       >
         <span>Critical</span>
       </div>
-    </div>
-    <div class="wind">
-      <ShowWind :wind="wind" check-winds />
+      <div class="wind">
+        <ShowWind :wind="wind" check-winds />
+      </div>
     </div>
   </div>
   <div v-else>
@@ -61,27 +61,24 @@ const percentCritical = computed(() =>
 .wind {
   display: flex;
   justify-content: center;
-  height: 40px;
+  position: relative;
+
   color: white;
   background-color: black;
-  position: absolute;
-  border: 1px solid white;
-  bottom: 20px;
-  right: 20px;
 }
 .progress {
   display: flex;
   align-items: center;
   overflow: hidden;
-  height: 50px;
+  height: 60px;
   border-radius: 00px;
   background-color: black;
 }
 .progress-bar {
   float: left;
   width: 0%;
-  height: 80%;
-  line-height: 10px;
+  height: 70%;
+  line-height: 12px;
   font-size: 1.2em;
 
   color: black;
