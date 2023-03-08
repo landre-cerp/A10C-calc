@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="wind">
-      <ShowWind :wind="wind" />
+      <ShowWind :wind="wind" check-winds />
     </div>
   </div>
   <div v-else>

@@ -33,6 +33,7 @@ export const useFlightStore = defineStore('flight', {
     ] as boolean[],
   }),
 
+
   getters: {
     NextPhases(): PhaseType[] {
       if (this.phases.length == 0) {
@@ -76,6 +77,41 @@ export const useFlightStore = defineStore('flight', {
 
     },
 
+    TotalDistance(): number {
+      let totalDistance = 0;
+      this.phases.forEach((phase) => {
+        totalDistance += phase.distance;
+      });
+      return totalDistance;
+    },
+
+    TotalFuelUsed(): number {
+      let totalFuelUsed = 0;
+      this.phases.forEach((phase) => {
+        totalFuelUsed += phase.fuelUsed;
+      });
+      return totalFuelUsed;
+    },
+    TotalDuration(): number {
+      let totalDuration = 0;
+      this.phases.forEach((phase) => {
+        totalDuration += phase.duration;
+      });
+      return totalDuration;
+    },
+
+    CruiseAltitude(): number {
+      const cruisePhases = this.phases.filter((p) => p.type == PhaseType.CRUISE);
+      let cruiseAltitude = 0;
+      cruisePhases.forEach((phase) => {
+        if (phase.altitude > cruiseAltitude) {
+          cruiseAltitude = phase.altitude;
+        }
+      });
+
+      return cruiseAltitude;
+
+    },
   },
 
   actions: {
@@ -95,9 +131,8 @@ export const useFlightStore = defineStore('flight', {
       }
     },
     RemovePhase() {
-      this.phases.pop();
+      const removed = this.phases.pop() as FlightPhase;
+      removed.previousPhase?.setNextPhase(null);
     },
-
-
   },
 });

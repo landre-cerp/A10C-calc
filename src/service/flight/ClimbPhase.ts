@@ -58,5 +58,6 @@ export class ClimbPhase extends FlightPhase {
     this.fuelUsed = this.FuelUsed();
     this.duration = this.Duration();
     this.distance = this.Distance();
+    this.fuelFlow = (this.FuelUsed() / this.Duration()) * 60;
   }
 }

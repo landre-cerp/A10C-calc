@@ -77,7 +77,10 @@ export interface IFlightPhase {
   altitude: number;
   course: number;
 
+
   Recalc(): void;
+
+  isLastPhase(): boolean;
 
   getStartingWeight(): number;
   getFuelOnBoard(): number;
@@ -103,6 +106,8 @@ export interface IFlightPhase {
   ChangeFuelFlow(fuelFlow: number): void;
   Refuel(fuel: number): void;
   ChangeWind(direction: number, speed: number): void;
+
+  setNextPhase(phase: IFlightPhase | null): void;
 
 
 }
