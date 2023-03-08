@@ -60,7 +60,12 @@ export const useFlightStore = defineStore('flight', {
         if (landingPhase) {
           const descentPhase = landingPhase.previousPhase;
           const rtb = descentPhase?.previousPhase;
-          bingo = this.fuelReserve + rtb!.fuelUsed + descentPhase!.fuelUsed + landingPhase.fuelUsed;
+          if (rtb && descentPhase) {
+            bingo = this.fuelReserve + rtb.fuelUsed + descentPhase.fuelUsed + landingPhase.fuelUsed;
+          }
+          else {
+            bingo = 0;
+          }
         }
       }
 
