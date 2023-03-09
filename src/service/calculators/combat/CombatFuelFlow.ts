@@ -13,15 +13,15 @@ export const combatFuelFlow = (
 
 ): number => {
 
-    console.log('ICI', indicatedAirSpeed, pressureAltitude, deltaTemp)
+
 
     const [v, vNext, step, lowRangeStart] = CombatFF_Std_Day_linear.getInterval(deltaTemp);
-    console.log('ICI', v, vNext, step, lowRangeStart)
+
 
     let CombatFuelFlow = v.GetLinear(pressureAltitude, indicatedAirSpeed);
-    console.log('ICI', CombatFuelFlow)
+
     if (step != 0) {
-        console.log('In STEP ICI', CombatFuelFlow)
+
         const highFF = vNext.GetLinear(pressureAltitude, indicatedAirSpeed);
         const incrementSpeed = (highFF - CombatFuelFlow) / step;
         CombatFuelFlow = CombatFuelFlow + incrementSpeed * (deltaTemp - lowRangeStart);
@@ -62,11 +62,26 @@ const CombatFF_Std_Minus20 = new CorrectionTable(
     ])
 );
 
+const CombatFF_Std_Day_plus20 = new CorrectionTable(
+    'Combat Fuel Flow STD Day +20°C',
+    new Map([
+        [0, new CorrectionVector([5974, -0.145, 0.00409])],
+        [5000, new CorrectionVector([5190, 0.686, 0.00347])],
+        [10000, new CorrectionVector([4492, 1.25, 0.00307])],
+        [15000, new CorrectionVector([3899, 0.469, 0.00589])],
+        [20000, new CorrectionVector([3440, 0.586, 0.00429])],
+        [25000, new CorrectionVector([2920, 0.179, 0.00643])],
+        [30000, new CorrectionVector([2009, 5.58, -0.0075])],
+        [35000, new CorrectionVector([2095, -0.9, 0.01])],
+    ])
+);
+
 const CombatFF_Std_Day_linear = new DragCorrectionTable(
     'Combat Fuel Flow Standard Day',
     new Map([
         [-20, CombatFF_Std_Minus20],
-        [0, CombatFF_Std_Day]
+        [0, CombatFF_Std_Day],
+        [20, CombatFF_Std_Day_plus20],
     ])
 );
 
