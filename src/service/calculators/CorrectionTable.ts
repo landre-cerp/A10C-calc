@@ -178,6 +178,13 @@ export class DragCorrectionTable {
     this.ranges = Array.from(this.dragTable.keys()).sort((a, b) => a - b);
   }
 
+  /**
+   * 
+   * @param drag Value to get the intervals for
+   * @returns [lowDragTable, highDragTable, step, lowRangeStart]
+   * @example const [lowDragTable, highDragTable, step, lowRangeStart] = dragTable.getInterval(drag);
+   
+   */
   getInterval(
     drag: number
   ): [ICorrectionTable, ICorrectionTable, number, number] {

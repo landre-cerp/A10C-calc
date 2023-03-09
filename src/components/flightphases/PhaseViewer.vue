@@ -109,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref } from 'vue';
 import { IFlightPhase, PhaseType } from '../models';
 import ShowItem from './ShowItem.vue';
 
