@@ -1,5 +1,8 @@
 <template>
-  <q-page class="q-pa-sm" style="max-width: 900px">
+  <q-btn class="q-mt-md" color="primary" @click="exportToPng"
+    >Export kneeboard</q-btn
+  >
+  <q-page id="kneeboard" class="q-pa-sm" style="max-width: 900px">
     <div
       style="display: flex; flex-direction: row; justify-content: space-between"
     >
@@ -192,6 +195,9 @@ import {
 import { RCR } from 'src/service/calculators/Rcr';
 import { onMounted, ref } from 'vue';
 
+import { toPng } from 'html-to-image';
+import { saveAs } from 'file-saver';
+
 const aircraft = useA10CStore();
 const flight = useFlightStore();
 const takeOff = useTakeOffStore();
@@ -219,6 +225,19 @@ onMounted(() => {
     landingConfig.value.weight = landing.getStartingWeight();
   }
 });
+
+function exportToPng() {
+  const node = document.getElementById('kneeboard');
+  if (node) {
+    toPng(node, { backgroundColor: 'white' })
+      .then((blob) => {
+        saveAs(blob, 'kneeboard.png');
+      })
+      .catch((error) => {
+        console.error('oops, something went wrong!', error);
+      });
+  }
+}
 </script>
 
 <style scoped>
