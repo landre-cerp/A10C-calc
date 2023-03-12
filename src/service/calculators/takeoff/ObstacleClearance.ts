@@ -1,10 +1,4 @@
 import { CorrectionTable, CorrectionVector } from '../CorrectionTable';
-/**
-90,4 + 0,974x + 1,64E-04x^2 + -2,68E-08x^3 + 1,77E-12x^4
-14,2 + 1,4x + -6,25E-06x^2 + -6,23E-09x^3 + 1,63E-12x^4
--5,23 + 1,24x + 2,33E-04x^2 + -6,23E-08x^3 + 7,03E-12x^4
-118 + 0,11x + 1,53E-03x^2 + -4,66E-07x^3 + 4,81E-11x^4
- */
 
 export const obstacleDistanceClearance = (
   distance: number,

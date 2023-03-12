@@ -123,11 +123,11 @@ const props = defineProps<{
   phase: IFlightPhase;
   reserve: number;
 
-  editFuelFlow: boolean | undefined;
-  editFOB: boolean | undefined;
-  editAltitude: boolean | undefined;
-  editDistance: boolean | undefined;
-  editDuration: boolean | undefined;
+  editFuelFlow?: boolean;
+  editFOB?: boolean;
+  editAltitude?: boolean;
+  editDistance?: boolean;
+  editDuration?: boolean;
 }>();
 
 onMounted(() => {

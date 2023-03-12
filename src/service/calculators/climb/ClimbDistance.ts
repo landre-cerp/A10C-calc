@@ -12,36 +12,9 @@ export const ClimbDistanceNeeded = (
   deltaTemp: number,
   drag: number
 ): number => {
-  const [v, vnext, step, startDrag] = climbDistanceDragTable.getInterval(drag);
 
-  let target_distanceNeeded = v.GetLinear(startingWeight, tartgetAlt);
-  let start_distanceNeeded = v.GetLinear(startingWeight, startingAlt);
-
-  start_distanceNeeded = start_distanceNeeded < 0 ? 0 : start_distanceNeeded;
-
-  if (step != 0) {
-    const target_nextdistanceNeeded = vnext.GetLinear(
-      startingWeight,
-      tartgetAlt
-    );
-    const start_nextdistanceNeeded = vnext.GetLinear(
-      startingWeight,
-      startingAlt
-    );
-
-    const target_increment =
-      (target_nextdistanceNeeded - target_distanceNeeded) / step;
-    const start_increment =
-      (start_nextdistanceNeeded - start_distanceNeeded) / step;
-
-    target_distanceNeeded =
-      target_distanceNeeded +
-      (target_increment > 0 ? target_increment * (drag - startDrag) : 0);
-
-    start_distanceNeeded =
-      start_distanceNeeded +
-      (start_increment > 0 ? start_increment * (drag - startDrag) : 0);
-  }
+  const target_distanceNeeded = Math.max(0, climbDistanceDragTable.getLinear(drag, startingWeight, tartgetAlt));
+  const start_distanceNeeded = Math.max(0, climbDistanceDragTable.getLinear(drag, startingWeight, startingAlt));
 
   let distanceNeeded = target_distanceNeeded - start_distanceNeeded;
 

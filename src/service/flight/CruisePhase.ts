@@ -16,8 +16,8 @@ export class CruisePhase extends FlightPhase {
     super('Cruise', 'Cruise at same altitude', PhaseType.CRUISE, previous);
 
     this.altitude = this.getStartingAltitude();
-    this.distance = this.Distance();
-    this.fuelUsed = this.FuelUsed();
+
+    this.FuelUsed();
     this.duration = this.Duration();
     this.fuelFlow = (this.FuelUsed() / this.Duration()) * 60;
     this.averageWeight = this.getCruiseAverageWeight();
@@ -55,14 +55,10 @@ export class CruisePhase extends FlightPhase {
     return duration;
   }
 
-  private Distance(): number {
-    return this.distance;
-  }
 
   Recalc() {
-    this.fuelUsed = this.FuelUsed();
-    this.duration = this.Duration();
-    this.distance = this.Distance();
+    this.FuelUsed();
+    this.Duration();
     this.altitude = this.getStartingAltitude();
   }
 

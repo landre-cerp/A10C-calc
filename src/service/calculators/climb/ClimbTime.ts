@@ -12,29 +12,9 @@ export const ClimbTimeNeeded = (
   deltaTemp: number,
   drag: number
 ): number => {
-  // Select equation vectors for the Aircraft Drag
 
-  const [v, vnext, step, startDrag] = climbTimeDragTable.getInterval(drag);
-
-  let target_timeNeeded = v.GetLinear(startingWeight, tartgetAlt);
-  let start_timeNeeded = v.GetLinear(startingWeight, startingAlt);
-
-  start_timeNeeded = start_timeNeeded < 0 ? 0 : start_timeNeeded;
-
-  if (step != 0) {
-    const target_nexttimeNeeded = vnext.GetLinear(startingWeight, tartgetAlt);
-    const start_nexttimeNeeded = vnext.GetLinear(startingWeight, startingAlt);
-
-    const target_increment = (target_nexttimeNeeded - target_timeNeeded) / step;
-    const start_increment = (start_nexttimeNeeded - start_timeNeeded) / step;
-
-    target_timeNeeded =
-      target_timeNeeded +
-      (target_increment > 0 ? target_increment * (drag - startDrag) : 0);
-    start_timeNeeded =
-      start_timeNeeded +
-      (start_increment > 0 ? start_increment * (drag - startDrag) : 0);
-  }
+  const target_timeNeeded = climbTimeDragTable.getLinear(drag, startingWeight, tartgetAlt);
+  const start_timeNeeded = climbTimeDragTable.getLinear(drag, startingWeight, startingAlt);
   let timeNeeded = target_timeNeeded - start_timeNeeded;
 
   if (deltaTemp != 0) {
