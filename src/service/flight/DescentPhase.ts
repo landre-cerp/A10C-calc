@@ -31,12 +31,10 @@ export class DescentPhase extends FlightPhase {
     let intermediateTime = 0;
     if (this.getEndingAltitude() != 0) {
       intermediateTime = TimePenetrationDescent(this.getStartingWeight(), this.drag, this.getEndingAltitude());
-      console.log(intermediateTime);
     }
 
     const interm = TimePenetrationDescent(this.getStartingWeight(), this.drag, this.getStartingAltitude());
 
-    console.log(interm);
     return Math.ceil(interm - intermediateTime);
 
   }
@@ -59,6 +57,7 @@ export class DescentPhase extends FlightPhase {
     this.fuelUsed = this.FuelUsed();
     this.duration = this.Duration();
     this.distance = this.Distance();
+    this.fuelFlow = this.distance / this.duration * 60;
   }
 
   ChangeDistance(distance: number) {
