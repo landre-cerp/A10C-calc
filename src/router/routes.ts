@@ -13,6 +13,7 @@ const routes: RouteRecordRaw[] = [
         path: '/Landing',
         component: () => import('src/pages/LandingPage.vue'),
       },
+      { path: '/Brief', component: () => import('src/pages/BriefPage.vue') },
       { path: '/About', component: () => import('src/pages/AboutPage.vue') },
     ],
   },
