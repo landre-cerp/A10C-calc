@@ -104,7 +104,7 @@
       :value="phase.duration.toFixed(1)"
       unit="min"
     />
-    <ShowItem label="Drag" :value="phase.drag" unit="" />
+    <ShowItem label="Drag" :value="phase.drag.toFixed(2)" unit="" />
   </q-list>
 </template>
 

@@ -49,7 +49,6 @@
         <div class="text-h6">Roadmap</div>
         <p>In progress</p>
         <ul>
-          <li>Landing calculation</li>
           <li>
             Flight phases rework with different mission profiles (LO-LO-LO ,
             HI-LO-HI) ( in progress)
@@ -58,12 +57,10 @@
         <p>Some day</p>
         <ul>
           <li>Brief sumup</li>
-          <li>Cross wind warnings at TO or LD</li>
           <li>
             DCS airport database with runway informations (things like TORA,
             TODA, QFU, etc.) and METAR decoder.
           </li>
-          <li>Cross wind check at take off / landing</li>
           <li>Takeoff continuation speed , refusal</li>
           <li>
             DCS connector to get live data from the game ( weight, weapons
