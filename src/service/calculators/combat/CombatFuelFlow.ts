@@ -13,25 +13,8 @@ export const combatFuelFlow = (
 
 ): number => {
 
-
-
-    const [v, vNext, step, lowRangeStart] = CombatFF_Std_Day_linear.getInterval(deltaTemp);
-
-
-    let CombatFuelFlow = v.GetLinear(pressureAltitude, indicatedAirSpeed);
-
-    if (step != 0) {
-
-        const highFF = vNext.GetLinear(pressureAltitude, indicatedAirSpeed);
-        const incrementSpeed = (highFF - CombatFuelFlow) / step;
-        CombatFuelFlow = CombatFuelFlow + incrementSpeed * (deltaTemp - lowRangeStart);
-
-    }
-    return CombatFuelFlow;
+    return Math.max(0, CombatFF_Std_Day_linear.getLinear(deltaTemp, pressureAltitude, indicatedAirSpeed));
 }
-
-
-
 
 const CombatFF_Std_Day = new CorrectionTable(
     'Combat Fuel Flow Standard Day',

@@ -10,10 +10,10 @@ export class LandingPhase extends FlightPhase {
     super('Landing', 'Landing to Airport', PhaseType.LANDING, previous);
 
     this.altitude = this.getStartingAltitude();
-    this.distance = this.Distance();
-    this.fuelUsed = this.FuelUsed();
-    this.duration = this.Duration();
-    this.fuelFlow = (this.FuelUsed() / this.Duration()) * 60;
+    this.Distance();
+    this.FuelUsed();
+    this.Duration();
+    this.fuelFlow = (this.fuelUsed / this.duration) * 60;
   }
 
 
@@ -32,9 +32,9 @@ export class LandingPhase extends FlightPhase {
   }
 
   Recalc() {
-    this.fuelUsed = this.FuelUsed();
-    this.duration = this.Duration();
-    this.distance = this.Distance();
+    this.FuelUsed();
+    this.Duration();
+    this.Distance();
   }
 
   ChangeDistance(distance: number) {

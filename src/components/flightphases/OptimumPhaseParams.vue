@@ -11,12 +11,21 @@
     STD Day dev is
     {{ combatFuelFlow(250, phase.altitude, airport.DeltaTemp).toFixed(0) }}
   </q-item-label>
+  <q-item-label v-if="phase.type == PhaseType.DESCENT">
+    Speed for Max range is
+    {{
+      SpeedForMaxRangeDescent(phase.getStartingWeight(), phase.drag).toFixed(0)
+    }}
+    KIAS ( Idle, SB closed) <br />Fuel, time and distance for Penetration
+    descent : 80% core RPM, 200 KIAS , SB opened 40%
+  </q-item-label>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 import { IFlightPhase, PhaseType } from '../models';
 import { combatFuelFlow } from '../../service/calculators/combat/CombatFuelFlow';
+import { SpeedForMaxRangeDescent } from '../../service/calculators/descent/MaximumRange';
 import { useTakeOffStore } from 'src/stores/Airport';
 
 const airport = useTakeOffStore();

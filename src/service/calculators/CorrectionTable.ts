@@ -216,4 +216,21 @@ export class DragCorrectionTable {
       lowDragRange,
     ];
   }
+
+
+  getLinear(drag: number, intervalValue: number, knownValue: number) {
+    const [v, vnext, step, startDrag] = this.getInterval(drag);
+
+    let wantedValue = v.GetLinear(intervalValue, knownValue);
+    if (step != 0) {
+      const nexWantedValue = vnext.GetLinear(intervalValue, knownValue);
+      const increment = (nexWantedValue - wantedValue) / step;
+      wantedValue = wantedValue + (increment > 0 ? increment * (drag - startDrag) : 0);
+
+    }
+
+    return wantedValue;
+
+
+  }
 }

@@ -37,8 +37,8 @@ const koColor = 'color: negative';
 
 const props = defineProps<{
   wind: IWind;
-  horizontal: boolean;
-  checkWinds: boolean;
+  horizontal?: boolean;
+  checkWinds?: boolean;
 }>();
 
 const headWind = computed(() => {

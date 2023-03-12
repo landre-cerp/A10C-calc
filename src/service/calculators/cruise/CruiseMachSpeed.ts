@@ -9,19 +9,9 @@ const CruiseMachSpeed = (
   cruiseWeight: number,
   drag: number
 ): number => {
-  // Enter chart with Cruise GrossWeigth , pressure Altitude , Drag Index
-  const [v, vnext, step, startDrag] = MachSpeedDragCorrection.getInterval(drag);
 
-  let trueMach = v.GetLinear(cruisePressureAlt, cruiseWeight);
+  return Math.max(0, MachSpeedDragCorrection.getLinear(drag, cruisePressureAlt, cruiseWeight));
 
-  if (step != 0) {
-    const nextTrueMach = vnext.GetLinear(cruisePressureAlt, cruiseWeight);
-
-    const incrementSpeed = (nextTrueMach - trueMach) / step;
-    trueMach = trueMach + incrementSpeed * (drag - startDrag);
-  }
-
-  return trueMach < 0 ? 0 : trueMach;
 };
 
 const vector_MachSpeed_Drag0 = new CorrectionTable(

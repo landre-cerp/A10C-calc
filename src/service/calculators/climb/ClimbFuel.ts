@@ -12,28 +12,9 @@ export const ClimbFuelUsed = (
   deltaTemp: number,
   drag: number
 ): number => {
-  const [v, vnextDrag, step, startDrag] = climbFuelDragTable.getInterval(drag);
 
-  let target_fuelUsed = v.GetLinear(startingWeight, TartgetAlt);
-  let start_fuelUsed = v.GetLinear(startingWeight, startingAlt);
-
-  start_fuelUsed = start_fuelUsed < 0 ? 0 : start_fuelUsed;
-
-  if (step != 0) {
-    const target_nextfuelUsed = vnextDrag.GetLinear(startingWeight, TartgetAlt);
-    const start_nextfuelUsed = vnextDrag.GetLinear(startingWeight, startingAlt);
-
-    const target_increment = (target_nextfuelUsed - target_fuelUsed) / step;
-    const start_increment = (start_nextfuelUsed - start_fuelUsed) / step;
-
-    target_fuelUsed =
-      target_fuelUsed +
-      (target_increment > 0 ? target_increment * (drag - startDrag) : 0);
-
-    start_fuelUsed =
-      start_fuelUsed +
-      (start_increment > 0 ? start_increment * (drag - startDrag) : 0);
-  }
+  const target_fuelUsed = Math.max(0, climbFuelDragTable.getLinear(drag, startingWeight, TartgetAlt));
+  const start_fuelUsed = Math.max(0, climbFuelDragTable.getLinear(drag, startingWeight, startingAlt));
 
   let fuelUsed = target_fuelUsed - start_fuelUsed;
 

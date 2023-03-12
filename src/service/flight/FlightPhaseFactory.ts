@@ -1,12 +1,13 @@
-import { CombatPhase } from './calculators/combat/CombatPhase';
-import { PhaseType } from './../components/models';
-import { FlightPhase } from './FlightPhase';
+
 import { TakeOffPhase } from './TakeOffPhase';
-import { ClimbPhase } from './flight/ClimbPhase';
-import { CruisePhase } from './calculators/cruise/CruisePhase';
-import { DescentPhase } from '../DescentPhase';
+import { ClimbPhase } from './ClimbPhase';
+import { CruisePhase } from './CruisePhase';
+import { DescentPhase } from './DescentPhase';
 import { LandingPhase } from './LandingPhase';
 import { RefuelPhase } from './RefuelPhase';
+import { CombatPhase } from './CombatPhase';
+import { PhaseType } from 'src/components/models';
+import { FlightPhase } from '../FlightPhase';
 
 export class FlightPhaseFactory {
   static createTakoffPhase() {

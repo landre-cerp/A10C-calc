@@ -9,23 +9,8 @@ export const OptimumCruiseAltitude = (
   weight: number,
   distance: number
 ): number => {
-  const [v, vnext, step, startDrag] = optimmumCruiseDragTable.getInterval(drag);
 
-  let optimumCruiseAlt = v.GetLinear(distance, weight);
-
-  if (step != 0) {
-    const optimumCruiseAlt_next = vnext.GetLinear(distance, weight);
-
-    const optimumCruiseAlt_increment =
-      (optimumCruiseAlt_next - optimumCruiseAlt) / step;
-
-    optimumCruiseAlt =
-      optimumCruiseAlt +
-      (optimumCruiseAlt_increment > 0
-        ? optimumCruiseAlt_increment * (drag - startDrag)
-        : 0);
-  }
-
+  const optimumCruiseAlt = optimmumCruiseDragTable.getLinear(drag, distance, weight)
   return Math.ceil(optimumCruiseAlt / 10) * 10;
 };
 
