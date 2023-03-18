@@ -8,7 +8,13 @@
     @updated-temp="landingConfig.temperature = airport.Temp"
     @updated-wind="updateWind"
     @updated-qfu="landingConfig.runwayCourse = airport.runwayQFU"
-  />
+  >
+    <q-item>
+      <q-btn color="primary" @click="copyTakeOffParams"
+        >Copy Take Off params</q-btn
+      >
+    </q-item>
+  </AirportParams>
 
   <q-card>
     <q-card-section class="row">
@@ -127,12 +133,13 @@ import { Wind } from 'src/service/Wind';
 import RunwayViewer from './RunwayViewer.vue';
 import RCRSelector from './RCRSelector.vue';
 import { RCR } from 'src/service/calculators/Rcr';
-import { useLandingStore } from 'src/stores/Airport';
+import { useLandingStore, useTakeOffStore } from 'src/stores/Airport';
 import { useFlightStore } from 'src/stores/flight';
 import { PhaseType } from './models';
 import AirportParams from './AirportParams.vue';
 
 const airport = useLandingStore();
+const takeOffAirport = useTakeOffStore();
 const flight = useFlightStore();
 
 const landingConfig = ref({
@@ -164,5 +171,16 @@ const updateRcr = (rcr: RCR) => {
 
 const updateWind = () => {
   landingConfig.value.wind = new Wind(airport.WindDirection, airport.WindSpeed);
+};
+
+const copyTakeOffParams = () => {
+  airport.AirportElevation = takeOffAirport.AirportElevation;
+  airport.Temp = takeOffAirport.Temp;
+  airport.Qnh = takeOffAirport.Qnh;
+  airport.WindDirection = takeOffAirport.WindDirection;
+  airport.WindSpeed = takeOffAirport.WindSpeed;
+  airport.runwayQFU = takeOffAirport.runwayQFU;
+  airport.rcr = takeOffAirport.rcr;
+  airport.runwayLength = takeOffAirport.runwayLength;
 };
 </script>
