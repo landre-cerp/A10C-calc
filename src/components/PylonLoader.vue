@@ -50,8 +50,8 @@ function filterFn(val: string, update: any): void {
   update(() => {
     const needle = val.toLowerCase();
 
-    options.value = props.availableStores.filter(
-      (w) => w.label.toLocaleLowerCase().indexOf(needle) > -1
+    options.value = props.availableStores.filter((w) =>
+      w.label.toLocaleLowerCase().includes(needle)
     );
   });
 }

@@ -213,7 +213,7 @@ export const aircraftStores: IAircraftStore[] = [
     weight: 1956,
     drag: 2.14,
     type: LoadType.Bombs,
-    availableOn: [3, 9],
+    availableOn: [3, 4, 8, 9],
     training: false,
     laserGuided: true,
     gpsGuided: false,
