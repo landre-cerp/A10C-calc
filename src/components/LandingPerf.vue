@@ -21,11 +21,16 @@
       <q-item>
         <q-input
           style="width: 200px"
-          v-model="landingConfig.weight"
+          v-model="airport.grossWeight"
           filled
           dense
           debounce="500"
           label="Gross weight"
+          :rules="[
+            (val) =>
+              (val > a10C.EmptyWeight && val <= a10C.MaxLandingWeight) ||
+              'Weight must be higher than empty weight and lower than max landing weight',
+          ]"
         >
         </q-input>
       </q-item>
@@ -119,7 +124,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 
 import {
   LandingGroundRoll,
@@ -137,10 +142,12 @@ import { useLandingStore, useTakeOffStore } from 'src/stores/Airport';
 import { useFlightStore } from 'src/stores/flight';
 import { PhaseType } from './models';
 import AirportParams from './AirportParams.vue';
+import { useA10CStore } from 'src/stores/a10c';
 
 const airport = useLandingStore();
 const takeOffAirport = useTakeOffStore();
 const flight = useFlightStore();
+const a10C = useA10CStore();
 
 const landingConfig = ref({
   weight: 0,
@@ -157,11 +164,17 @@ const landingConfig = ref({
   rcr: airport.rcr | RCR.DRY,
 } as ILandingConfiguration);
 
+watchEffect(() => {
+  landingConfig.value.weight = airport.grossWeight;
+});
+
 onMounted(() => {
   // Init landing weight from Landing phase if plan exists
   const landing = flight.phases.find((p) => p.type === PhaseType.LANDING);
   if (landing) {
     landingConfig.value.weight = landing.getStartingWeight();
+  } else {
+    landingConfig.value.weight = airport.grossWeight;
   }
 });
 
