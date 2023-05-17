@@ -95,6 +95,10 @@ export const useA10CStore = defineStore('a10c', {
       return 46476;
     },
 
+    MaxLandingWeight(): number {
+      return 46476;
+    },
+
     OverWeight(): boolean {
       return this.TotalWeight > this.MaxTakeOffWeight;
     },

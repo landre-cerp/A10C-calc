@@ -3,6 +3,7 @@
     <q-card-section>
       <q-item-label class="text-h5">Airport information</q-item-label>
     </q-card-section>
+    <slot></slot>
 
     <q-card-section class="row">
       <q-item class="col-12 col-sm-6 col-md-4">

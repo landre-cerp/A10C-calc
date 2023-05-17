@@ -22,6 +22,8 @@ function createUseStore<Id extends string>(id: Id) {
         runwayLength: 0 as number,
         runwayQFU: 0 as number,
         rcr: RCR.DRY as number,
+        // Dirty : TODO rework this
+        grossWeight: 0 as number,
       }),
 
       getters: {
