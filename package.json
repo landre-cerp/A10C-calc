@@ -7,8 +7,12 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
+    "start": "quasar dev",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
-    "test": "echo \"No test specified\" && exit 0"
+    "test:e2e": "cross-env NODE_ENV=test start-test \"quasar dev\" http-get://localhost:9000 \"cypress open --e2e\"",
+    "test:e2e:ci": "cross-env NODE_ENV=test start-test \"quasar dev\" http-get://localhost:9000 \"cypress run --e2e\"",
+    "test:component": "cross-env NODE_ENV=test cypress open --component",
+    "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
   },
   "dependencies": {
     "@fortawesome/fontawesome-pro": "^6.3.0",
@@ -26,6 +30,7 @@
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
     "@quasar/app-vite": "^1.0.0",
+    "@quasar/quasar-app-extension-testing-e2e-cypress": "^5.1.0",
     "@types/node": "^12.20.21",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
@@ -42,7 +47,9 @@
     "workbox-expiration": "^6.5.4",
     "workbox-precaching": "^6.5.4",
     "workbox-routing": "^6.5.4",
-    "workbox-strategies": "^6.5.4"
+    "workbox-strategies": "^6.5.4",
+    "cypress": "^12.2.0",
+    "eslint-plugin-cypress": "^2.12.1"
   },
   "engines": {
     "node": "^18 || ^16 || ^14.19",

@@ -35,14 +35,25 @@ jobs:
           npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.fontawesome-token }}
+
       - name: Quasar install
         run: |
           cd ${{inputs.working-dir}}
           npm i -g @quasar/cli
+
       - name: Quasar build
         run: |
           cd ${{inputs.working-dir}}
           quasar build
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          # Starts web server for E2E tests - replace with your own server invocation
+          # https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
+          component: true
+          # Records to Cypress Cloud
+
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
