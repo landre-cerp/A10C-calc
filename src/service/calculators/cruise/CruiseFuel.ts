@@ -55,7 +55,7 @@ const CalcNauticalPerLbsFuel = (
 /* Cruise tools */
 
 const selectLbsVectorsForDrag = (drag: number) => {
-  if (drag >= 8) return [vectors_Cruise_LbsNm_Drag8, null];
+  if (drag >= 8) return [vectors_Cruise_LbsNm_Drag8, vectors_Cruise_LbsNm_Drag8];
   if (drag >= 4 && drag < 8) {
     return [vectors_Cruise_LbsNm_Drag4, vectors_Cruise_LbsNm_Drag8];
   }
