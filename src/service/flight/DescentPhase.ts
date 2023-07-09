@@ -1,7 +1,7 @@
 
 import { PhaseType } from 'src/components/models';
 import { FlightPhase } from '../FlightPhase';
-import { DistancePenetrationDescent, FuelPenetrationDescent, TimePenetrationDescent } from 'src/service/calculators/descent/PenetrationDescent'
+import { DistancePenetrationDescent, FuelPenetrationDescent, TimePenetrationDescent } from '../../modules/a10c/descent/PenetrationDescent'
 
 export class DescentPhase extends FlightPhase {
 

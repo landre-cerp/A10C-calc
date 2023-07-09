@@ -1,8 +1,8 @@
-import { CruiseNMperLbsUsed } from 'src/service/calculators/cruise/CruiseFuel';
+import { CruiseNMperLbsUsed } from '../../modules/a10c/cruise/CruiseFuel';
 import { PhaseType } from 'src/components/models';
 import { useTakeOffStore } from 'src/stores/Airport';
 
-import { CruiseMachSpeed, TrueAirspeed } from '../calculators/cruise/CruiseMachSpeed';
+import { CruiseMachSpeed, TrueAirspeed } from '../../modules/a10c/cruise/CruiseMachSpeed';
 import { getStdTemp } from '../conversionTool';
 
 import { FlightPhase } from '../FlightPhase';

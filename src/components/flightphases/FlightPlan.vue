@@ -188,7 +188,7 @@ import { storeToRefs } from 'pinia';
 
 import { PhaseType } from '../models';
 
-import { OptimumCruiseAltitude } from 'src/service/calculators/cruise/OptimumCruiseAltitude';
+import { OptimumCruiseAltitude } from 'src/modules/a10c/cruise/OptimumCruiseAltitude';
 
 import { computed } from 'vue';
 import PhaseViewer from './PhaseViewer.vue';

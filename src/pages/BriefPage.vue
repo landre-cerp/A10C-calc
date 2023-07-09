@@ -181,7 +181,7 @@
 import { useA10CStore } from 'src/stores/a10c';
 import { useFlightStore } from 'src/stores/flight';
 import { useTakeOffStore, useLandingStore } from 'src/stores/Airport';
-import { TakeoffSpeed } from 'src/service/calculators/takeoff/takeOffSpeed';
+import { TakeoffSpeed } from 'src/modules/a10c/takeoff/takeOffSpeed';
 import { PhaseType, QNH_Unit } from 'src/components/models';
 
 import ShowItem from 'src/components/flightphases/ShowItem.vue';
@@ -191,8 +191,8 @@ import {
   TouchdownSpeed,
   ILandingConfiguration,
   ApproachSpeed,
-} from 'src/service/calculators/landing/Landing';
-import { RCR } from 'src/service/calculators/Rcr';
+} from 'src/modules/a10c/landing/Landing';
+import { RCR } from '../modules/a10c/Rcr';
 import { onMounted, ref } from 'vue';
 
 import { toPng } from 'html-to-image';

@@ -24,8 +24,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { IFlightPhase, PhaseType } from '../models';
-import { combatFuelFlow } from '../../service/calculators/combat/CombatFuelFlow';
-import { SpeedForMaxRangeDescent } from '../../service/calculators/descent/MaximumRange';
+import { combatFuelFlow } from '../../modules/a10c/combat/CombatFuelFlow';
+import { SpeedForMaxRangeDescent } from '../../modules/a10c/descent/MaximumRange';
 import { useTakeOffStore } from 'src/stores/Airport';
 
 const airport = useTakeOffStore();

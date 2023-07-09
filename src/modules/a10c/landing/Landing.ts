@@ -1,4 +1,4 @@
-import { Wind } from '../../Wind';
+import { Wind } from '../../../service/Wind';
 import { CorrectionTable, CorrectionVector, PosNegCorrectionTable } from '../CorrectionTable';
 import { RCR } from '../Rcr';
 
