@@ -172,9 +172,7 @@ onMounted(() => {
   // Init landing weight from Landing phase if plan exists
   const landing = flight.phases.find((p) => p.type === PhaseType.LANDING);
   if (landing) {
-    landingConfig.value.weight = landing.getStartingWeight();
-  } else {
-    landingConfig.value.weight = airport.grossWeight;
+    airport.grossWeight = landing.getStartingWeight();
   }
 });
 
