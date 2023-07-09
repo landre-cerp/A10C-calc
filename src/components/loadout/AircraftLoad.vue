@@ -39,7 +39,6 @@
 
     <q-item-section class="q-pa-none">
       <AircraftWeight
-        :total-weight="aircraft.TotalWeight"
         :max-take-off-weight="aircraft.MaxTakeOffWeight"
         :empty-weight="aircraft.EmptyWeight"
         :weapons-weight="aircraft.WeaponWeight + aircraft.AmmoWeight"
