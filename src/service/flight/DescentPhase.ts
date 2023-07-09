@@ -49,15 +49,13 @@ export class DescentPhase extends FlightPhase {
 
     return Math.ceil(distance);
 
-
-
   }
 
   Recalc() {
     this.fuelUsed = this.FuelUsed();
     this.duration = this.Duration();
     this.distance = this.Distance();
-    this.fuelFlow = this.distance / this.duration * 60;
+    this.fuelFlow = this.fuelUsed / this.duration * 60;
   }
 
   ChangeDistance(distance: number) {
