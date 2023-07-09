@@ -13,7 +13,7 @@ export class LandingPhase extends FlightPhase {
     this.Distance();
     this.FuelUsed();
     this.Duration();
-    this.fuelFlow = (this.fuelUsed / this.duration) * 60;
+    this.fuelFlow = 0;
   }
 
 
