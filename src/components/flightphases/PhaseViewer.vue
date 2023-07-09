@@ -5,6 +5,7 @@
       :value="phase.getStartingWeight().toFixed(0)"
       unit="lbs"
     />
+
     <q-input
       v-if="editFOB"
       filled

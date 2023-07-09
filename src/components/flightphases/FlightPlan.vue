@@ -138,15 +138,15 @@
           edit-f-o-b
         />
         <PhaseViewer
-          v-else-if="phase.type == PhaseType.LANDING"
-          :phase="phase"
-          :reserve="fuelReserve"
-        />
-        <PhaseViewer
           v-else-if="phase.type == PhaseType.DESCENT"
           :phase="phase"
           :reserve="fuelReserve"
           edit-altitude
+        />
+        <PhaseViewer
+          v-else-if="phase.type == PhaseType.LANDING"
+          :phase="phase"
+          :reserve="fuelReserve"
         />
       </q-card-section>
 
