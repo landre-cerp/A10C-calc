@@ -47,6 +47,18 @@ export const ALQ184 = {
   gpsGuided: false,
 } as IAircraftStore;
 
+export const ALQ184_LONG = {
+  short: 'ALQ-184-LONG',
+  label: 'ALQ-184 LONG ECM Pod',
+  weight: 631,
+  drag: 0.9,
+  type: LoadType.Pods,
+  availableOn: [1, 11],
+  training: false,
+  laserGuided: false,
+  gpsGuided: false,
+} as IAircraftStore;
+
 export const LAU88_T_AGM65D = {
   short: '[LAU-88] 3xAGM-65D',
   label: '[LAU-88] 3xAGM-65D - Maverick D (IIR ASM) ',
@@ -318,6 +330,7 @@ export const aircraftStores: IAircraftStore[] = [
   },
 
   ALQ184,
+  ALQ184_LONG,
 
   {
     short: '[BRU-42] TER',
