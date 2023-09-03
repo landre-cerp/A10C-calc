@@ -17,8 +17,10 @@
           label="Runway length (feet)"
         />
       </q-item>
+
       <q-item class="col-12 col-sm-6 col-md-4">
         <q-input
+          bottom-slots
           style="width: 100%"
           filled
           dense
@@ -27,7 +29,11 @@
           v-model.number="Temp"
           label="Runway Temp. °C"
           @update:model-value="emit('updated-temp')"
-        />
+        >
+          <template v-slot:hint>
+            DCS mission temp is for sea level. remove 2°C every 1000 feets
+          </template>
+        </q-input>
 
         <q-input
           style="width: 100%"
