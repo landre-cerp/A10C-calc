@@ -30,8 +30,13 @@
           label="Runway Temp. °C"
           @update:model-value="emit('updated-temp')"
         >
-          <template v-slot:hint>
-            DCS mission temp is for sea level. remove 2°C every 1000 feets
+          <template v-slot:append>
+            <q-icon name="help">
+              <q-tooltip>
+                DCS Temperature in brief is for sea level. Remove 2°C every 1000
+                feets.
+              </q-tooltip>
+            </q-icon>
           </template>
         </q-input>
 
