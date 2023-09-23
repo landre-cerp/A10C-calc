@@ -6,10 +6,6 @@ on:
       working-dir:
         required: true
         type: string
-    secrets:
-      fontawesome-token:
-        description: 'Fontawesome Pro Npm token'
-        required: true
 
 jobs:
   quasar-build:
@@ -26,15 +22,11 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
           always-auth: true
           node-version: '16.x'
-          registry-url: https://npm.fontawesome.com
-          scope: '@fortawesome'
 
       - name: Install dependencies
         run: |
           cd ${{inputs.working-dir}}
           npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.fontawesome-token }}
 
       - name: Quasar install
         run: |

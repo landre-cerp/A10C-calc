@@ -3,12 +3,12 @@
     <q-icon
       class="q-mr-sm"
       v-if="headWind"
-      :name="horizontal ? 'fal fa-down' : 'fal fa-left'"
+      :name="horizontal ? 'fas fa-down-long' : 'fas fa-left-long'"
     ></q-icon>
     <q-icon
       class="q-mr-sm"
       v-if="tailWind"
-      :name="horizontal ? 'fal fa-up' : 'fal fa-right'"
+      :name="horizontal ? 'fas fa-up-long' : 'fas fa-right-long'"
     ></q-icon>
     {{ longiSpeed }} KTS
   </q-item>
@@ -17,12 +17,12 @@
     <q-icon
       class="q-mr-sm"
       v-if="crossWindLeft"
-      :name="horizontal ? 'fa-light fa-right' : 'fa-light fa-down'"
+      :name="horizontal ? 'fas fa-right-long' : 'fas fa-down-long'"
     ></q-icon>
     <q-icon
       class="q-mr-sm"
       v-if="crossWindRight"
-      :name="horizontal ? 'fa-light fa-left' : 'fa-light fa-up'"
+      :name="horizontal ? 'fas fa-left-long' : 'fas fa-up-long'"
     ></q-icon>
     {{ crossSpeed }} KTS
   </q-item>
