@@ -15,10 +15,10 @@
     "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-pro": "^6.3.0",
     "@quasar/extras": "^1.16.6",
     "axios": "^0.21.1",
     "file-saver": "^2.0.5",
+    "font-awesome": "^4.7.0",
     "html-to-image": "^1.11.11",
     "metar-js": "^0.0.5",
     "pinia": "^2.0.11",

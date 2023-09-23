@@ -35,7 +35,7 @@
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>
-              <q-icon name="flight_takeoff"></q-icon>
+              <q-icon name="plane_departure"></q-icon>
               Takeoff speed
             </q-item-label>
 

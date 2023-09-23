@@ -73,7 +73,7 @@
           <q-btn-dropdown
             v-if="phase.type != PhaseType.TAKEOFF"
             dense
-            icon="fa-light fa-wind"
+            icon="fas fa-wind"
             size="sm"
             text-color="black"
             color="warning"
@@ -88,7 +88,7 @@
           </q-btn-dropdown>
           <q-btn
             dense
-            icon="fa-light fa-calculator"
+            icon="fas fa-calculator"
             color="accent"
             size="md"
             class="q-mr-sm"

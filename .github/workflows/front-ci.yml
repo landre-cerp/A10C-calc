@@ -12,5 +12,3 @@ jobs:
     uses: ./.github/workflows/build-front.yml
     with:
       working-dir: .
-    secrets:
-      fontawesome-token: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
