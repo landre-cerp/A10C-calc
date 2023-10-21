@@ -1,7 +1,7 @@
 <template>
   <q-list class="row">
     <ShowItem
-      label="SW"
+      :label="$t('flight_phase.starting_weight')"
       :value="phase.getStartingWeight().toFixed(0)"
       unit="lbs"
     />
@@ -12,7 +12,7 @@
       dense
       debounce="500"
       class="q-mr-md"
-      label="Qty refueled (lbs)"
+      :label="$t('flight_phase.quantity_refuelled')"
       v-model.number="fuelOnBoard"
       @update:model-value="Refuel"
       :rules="[(val) => val > 0 || 'You must refuel']"
@@ -21,13 +21,17 @@
     <ShowItem
       v-else
       :style="check(phase.getFuelOnBoard(), reserve)"
-      label="EFOB"
+      :label="$t('flight_phase.efob')"
       :value="phase.getFuelOnBoard().toFixed(0)"
       unit="lbs"
     />
-    <ShowItem label="Fuel Used" :value="phase.fuelUsed.toFixed(0)" unit="lbs" />
     <ShowItem
-      label="Starting Altitude"
+      :label="$t('flight_phase.fuel_used')"
+      :value="phase.fuelUsed.toFixed(0)"
+      unit="lbs"
+    />
+    <ShowItem
+      :label="$t('flight_phase.starting_altitude')"
       :value="phase.getStartingAltitude()"
       unit=""
     />
@@ -38,15 +42,15 @@
       dense
       debounce="500"
       class="q-mr-md"
-      label="Fuel Flow"
+      :label="$t('flight_phase.fuel_flow')"
       v-model.number="fuelFlow"
       @update:model-value="ChangeFuelFlow"
     ></q-input>
     <ShowItem
       v-else
-      label="Fuel Flow"
+      :label="$t('flight_phase.fuel_flow')"
       :value="phase.fuelFlow.toFixed(0)"
-      unit="lbs/hr"
+      unit="lbs/h"
     />
 
     <q-input
@@ -56,7 +60,7 @@
       dense
       class="q-mr-md"
       style="width: 120px"
-      label="Altitude"
+      :label="$t('flight_phase.altitude')"
       v-model.number="altitude"
       @update:model-value="ChangePhaseAltitude"
       :rules="[(val) => CheckAltitude(val)]"
@@ -71,13 +75,13 @@
       dense
       style="width: 120px"
       class="q-mr-md"
-      label="distance"
+      :label="$t('flight_phase.distance')"
       v-model.number="distance"
       @update:model-value="ChangePhaseDistance"
       :rules="[
         (val) =>
           (val > 0 && phase.fuelUsed <= phase.getFuelOnBoard() - reserve) ||
-          'must be greater than 0 && have check fuel',
+          $t('flight_phase.greater_than_zero'),
       ]"
     >
     </q-input>
@@ -90,22 +94,26 @@
       dense
       style="width: 140px"
       class="q-mr-md"
-      label="Duration in minutes"
+      :label="$t('flight_phase.duration_minutes')"
       v-model.number="phaseDuration"
       @update:model-value="ChangePhaseDuration"
       :rules="[
         (val) =>
           (val > 0 && phase.fuelUsed <= phase.getFuelOnBoard() - reserve) ||
-          'must be greater than 0 && check fuel',
+          $t('flight_phase.greater_than_zero'),
       ]"
     ></q-input>
     <ShowItem
       v-else
-      label="Duration"
+      :label="$t('flight_phase.duration')"
       :value="phase.duration.toFixed(1)"
       unit="min"
     />
-    <ShowItem label="Drag" :value="phase.drag.toFixed(2)" unit="" />
+    <ShowItem
+      :label="$t('flight_phase.drag')"
+      :value="phase.drag.toFixed(2)"
+      unit=""
+    />
   </q-list>
 </template>
 
@@ -113,6 +121,8 @@
 import { onMounted, ref } from 'vue';
 import { IFlightPhase, PhaseType } from '../models';
 import ShowItem from './ShowItem.vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 
 const fuelFlow = ref(0);
 const fuelOnBoard = ref(0);
@@ -147,12 +157,12 @@ const CheckAltitude = (val: number) => {
   if (props.phase.type == PhaseType.DESCENT) {
     return (
       val < props.phase.getStartingAltitude() ||
-      'Altitude must be lower than original to descent'
+      t('flight_phase.alt_must_be_lower')
     );
   } else {
     return (
       val > props.phase.getStartingAltitude() ||
-      'Altitude must be greater than original to climb'
+      t('flight_phase.alt_must_be_higher')
     );
   }
 };

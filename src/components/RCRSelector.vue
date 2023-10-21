@@ -1,15 +1,15 @@
 <template>
-  <q-item-label>Runway Condition </q-item-label>
+  <q-item-label>{{ $t('runway_condition.label') }} </q-item-label>
 
   <q-option-group
     v-model="runwayCondition"
     :options="[
       {
-        label: 'Dry',
+        label: $t('runway_condition.dry'),
         value: RCR.DRY,
       },
-      { label: 'WET', value: RCR.WET },
-      { label: 'ICY', value: RCR.ICY },
+      { label: $t('runway_condition.wet'), value: RCR.WET },
+      { label: $t('runway_condition.icy'), value: RCR.ICY },
     ]"
     inline
     @update:model-value="updateRcr"

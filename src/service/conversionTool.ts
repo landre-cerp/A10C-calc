@@ -2,7 +2,7 @@
 import { QNH, QNH_Unit } from './../components/models';
 
 const convertAltitudeUnits = (qnh: QNH) => {
-  if (qnh.unit == QNH_Unit.inMg)
+  if (qnh.unit == QNH_Unit.inHg)
     return (qnh.value = Math.round((qnh.value / 1013) * 2992) / 100);
 
   return (qnh.value = Math.round((qnh.value / 29.92) * 1013));
@@ -12,7 +12,7 @@ const PressureAltitude = (altitude: number, Qnh: QNH): number => {
   let pressAlt = 0;
   if (Qnh.unit == QNH_Unit.hPa) {
     pressAlt = 30 * (1013 - Qnh.value);
-  } else if (Qnh.unit == QNH_Unit.inMg) {
+  } else if (Qnh.unit == QNH_Unit.inHg) {
     pressAlt = 1000 * (29.92 - Qnh.value);
   }
   pressAlt = altitude + pressAlt;

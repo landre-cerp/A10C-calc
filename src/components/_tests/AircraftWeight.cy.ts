@@ -18,7 +18,7 @@ describe('<AircraftWeight />', () => {
           fuelWeight: fuelWeight,
         },
       })
-      const expectedEWS = `Empty Weight ${emptyWeight} lbs`
+      const expectedEWS = ` ${emptyWeight} lbs`
       cy.get('div#emptyWeight').should('have.text', expectedEWS)
 
       const expectedWPS = `${weaponsWeight} WP`
@@ -44,7 +44,7 @@ describe('<AircraftWeight />', () => {
         },
       })
 
-      const expectedEWS = `Empty Weight ${emptyWeight} lbs`
+      const expectedEWS = ` ${emptyWeight} lbs`
       cy.get('div#emptyWeight').should('have.text', expectedEWS)
 
       cy.get('div#weaponsWeight').should('not.exist')
@@ -66,7 +66,7 @@ describe('<AircraftWeight />', () => {
         },
       })
 
-      const expectedEWS = `Empty Weight ${emptyWeight} lbs`
+      const expectedEWS = ` ${emptyWeight} lbs`
       cy.get('div#emptyWeight').should('have.text', expectedEWS)
 
       cy.get('div#weaponsWeight').should('not.exist')

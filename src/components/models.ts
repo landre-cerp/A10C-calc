@@ -44,7 +44,7 @@ export interface StoresConfiguration {
 
 export enum QNH_Unit {
   hPa,
-  inMg,
+  inHg,
 }
 
 export interface QNH {
@@ -56,7 +56,7 @@ export enum PhaseType {
   TAKEOFF,
   CLIMB,
   CRUISE,
-  COMBAT,
+  HI_COMBAT,
   DESCENT,
   REFUEL,
   LANDING,

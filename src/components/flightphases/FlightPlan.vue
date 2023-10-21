@@ -4,7 +4,7 @@
     <q-card>
       <q-card-section class="text-h6 bg-primary text-white" horizontal>
         <q-card-section class="row">
-          <q-item class="q-mr-md">Flight Plan summary</q-item>
+          <q-item class="q-mr-md">{{ $t('flight_phase.summary') }}</q-item>
           <q-input
             filled
             dense
@@ -12,7 +12,7 @@
             dark
             class="q-mr-md"
             v-model.number="fuelReserve"
-            label="Fuel Reserve"
+            :label="$t('flight_phase.reserve')"
             :rules="[(val) => val >= 0]"
           ></q-input>
           <q-input
@@ -22,40 +22,48 @@
             debounce="500"
             class="q-mr-md"
             v-model.number="missionRange"
-            label="Mission Range"
+            :label="$t('flight_phase.mission_range')"
           ></q-input>
         </q-card-section>
       </q-card-section>
       <q-card-section class="row">
         <ShowItem
-          label="Cruise Alt."
+          :label="$t('flight_phase.cruise_alt')"
           :value="flight.CruiseAltitude.toFixed(0)"
           unit="ft"
         />
         <ShowItem
-          label="Opti. Cruise Alt."
+          :label="$t('flight_phase.optimum_cruise_alt')"
           :value="optimum_cruise_altitude.toFixed(0)"
           unit="ft"
         />
 
         <ShowItem
-          label="Distance"
+          :label="$t('flight_phase.distance')"
           :value="flight.TotalDistance.toFixed(0)"
           unit="NM"
         />
 
         <ShowItem
-          label="Duration"
+          :label="$t('flight_phase.duration')"
           :value="flight.TotalDuration.toFixed(0)"
           unit="Min"
         />
         <ShowItem
-          label="Fuel Used"
+          :label="$t('flight_phase.fuel_used')"
           :value="flight.TotalFuelUsed.toFixed(0)"
           unit="lbs"
         />
-        <ShowItem label="STD Day T° Dev" :value="airport.DeltaTemp" unit="°C" />
-        <ShowItem label="Bingo" :value="flight.Bingo" unit="lbs" />
+        <ShowItem
+          :label="$t('flight_phase.std_day_temp_dev')"
+          :value="airport.DeltaTemp"
+          unit="°C"
+        />
+        <ShowItem
+          :label="$t('flight_phase.bingo')"
+          :value="flight.Bingo"
+          unit="lbs"
+        />
       </q-card-section>
     </q-card>
     <q-card> </q-card>
@@ -65,7 +73,9 @@
         class="row justify-between bg-secondary text-white q-pa-md items-center"
       >
         <div class="row items-center">
-          <span class="text-h6 q-mr-md">{{ phase.label }}</span>
+          <span class="text-h6 q-mr-md">{{
+            $t('flight_phase.' + PhaseType[phase.type])
+          }}</span>
           <OptimumPhaseParams :phase="phase" />
         </div>
         <div class="row items-center">
@@ -100,7 +110,7 @@
             color="negative"
             icon="delete"
             size="sm"
-            label="Remove last"
+            :label="$t('flight_phase.remove_last')"
             @click="flight.RemovePhase()"
           />
         </div>
@@ -125,7 +135,7 @@
           edit-distance
         />
         <PhaseViewer
-          v-else-if="phase.type == PhaseType.COMBAT"
+          v-else-if="phase.type == PhaseType.HI_COMBAT"
           :phase="phase"
           :reserve="fuelReserve"
           edit-duration
@@ -156,7 +166,7 @@
           outline
           size="sm"
           @click="flight.AddPhase(PhaseType.TAKEOFF)"
-          >{{ PhaseType[PhaseType.TAKEOFF] }}</q-btn
+          >{{ $t('flight_phase.' + PhaseType[PhaseType.TAKEOFF]) }}</q-btn
         >
 
         <q-btn
@@ -166,15 +176,15 @@
           v-for="(possible, idxPhase) in flight.NextPhases"
           :key="idxPhase"
           @click="flight.AddPhase(possible)"
-          >{{ PhaseType[possible] }}
+          >{{ $t('flight_phase.' + PhaseType[possible]) }}
         </q-btn>
       </q-card-actions>
     </q-card>
     <q-card v-if="flight.FlightPhases.length == 0">
       <q-card-section class="row">
-        <q-btn outline size="sm" @click="flight.AddPhase(PhaseType.TAKEOFF)">{{
-          PhaseType[PhaseType.TAKEOFF]
-        }}</q-btn>
+        <q-btn outline size="sm" @click="flight.AddPhase(PhaseType.TAKEOFF)">
+          {{ $t('flight_phase.' + PhaseType[PhaseType.TAKEOFF]) }}
+        </q-btn>
       </q-card-section>
     </q-card>
   </div>

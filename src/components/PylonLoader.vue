@@ -5,7 +5,7 @@
     input-debounce="0"
     v-model="pylonVm"
     option-label="short"
-    :label="pylon.weight + ' lbs' + ' drag: ' + pylon.drag"
+    :label="pylon.weight + ' lbs ' + $t('drag') + ': ' + pylon.drag"
     :options="options"
     @filter="filterFn"
     :disable="props.locked"
@@ -42,7 +42,9 @@ onUpdated(() => {
   pylonVm.value = props.pylon;
 });
 
-function filterFn(val: string, update: () => void): void {
+type updateFn = (fn: () => void) => void;
+
+function filterFn(val: string, update: updateFn): void {
   if (val === '') {
     update(() => (options.value = props.availableStores));
     return;

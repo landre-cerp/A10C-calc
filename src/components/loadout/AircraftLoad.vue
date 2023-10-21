@@ -3,13 +3,13 @@
     <q-card-section class="row q-pb-none">
       <q-item class="col-4-md">
         <q-item-section class="col q-mr-md">
-          <q-item-label>Drag</q-item-label>
+          <q-item-label>{{ $t('drag') }}</q-item-label>
           <p class="">{{ aircraft.Drag.toFixed(2) }}</p>
         </q-item-section>
       </q-item>
       <q-item class="col-6-md">
         <q-item-section class="col q-mr-md">
-          <q-item-label>Weapons (lbs)</q-item-label>
+          <q-item-label>{{ $t('weapons') }} (lbs)</q-item-label>
           <p class="">{{ aircraft.WeaponWeight.toFixed(0) }}</p>
         </q-item-section>
       </q-item>
@@ -19,7 +19,7 @@
           <q-input
             filled
             dense
-            label="Gun Ammo %"
+            :label="$t('gun_ammo') + ' %'"
             debounce="500"
             v-model.number="gunAmmoPercent"
             :rules="[(val) => val >= 0 && val <= 100]"
@@ -53,9 +53,9 @@
       <q-checkbox
         class="q-mr-md"
         v-model:modelValue="symetrical"
-        label="Sym. Load"
+        :label="$t('sym_load')"
       />
-      <q-input label="config Name" v-model="configName" filled dense />
+      <q-input :label="$t('config_name')" v-model="configName" filled dense />
       <q-btn-dropdown dense outline label="Config.">
         <q-list v-for="(config, index) in AvailableConfigurations" :key="index">
           <q-item clickable v-close-popup @click="loadAndLocks(config)">

@@ -17,12 +17,12 @@ export const FlightGraph = [
     next: [
       PhaseType.CLIMB,
       PhaseType.CRUISE,
-      PhaseType.COMBAT,
+      PhaseType.HI_COMBAT,
       PhaseType.REFUEL,
       PhaseType.DESCENT,
     ],
   },
-  { start: PhaseType.COMBAT, next: [PhaseType.CRUISE, PhaseType.CLIMB] },
+  { start: PhaseType.HI_COMBAT, next: [PhaseType.CRUISE, PhaseType.CLIMB] },
   { start: PhaseType.DESCENT, next: [PhaseType.LANDING, PhaseType.CRUISE] },
   { start: PhaseType.REFUEL, next: [PhaseType.CRUISE] },
 ];

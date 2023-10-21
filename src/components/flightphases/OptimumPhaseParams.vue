@@ -4,20 +4,26 @@
     {{ GroundSpeed }} GS
   </q-item-label>
   <q-item-label v-else-if="phase.type == PhaseType.CLIMB">
-    Speeds(x1000ft : IAS) : [ SL: 200 - 5: 195 - 10: 190 - 15: 185 - 20: 180 ]
+    {{ $t('flight_phase.optimum.climb_speed') }}
   </q-item-label>
-  <q-item-label v-if="phase.type == PhaseType.COMBAT">
-    Combat FF at 250 KIAS, {{ phase.altitude }} and {{ airport.DeltaTemp }} °C
-    STD Day dev is
+  <q-item-label v-if="phase.type == PhaseType.HI_COMBAT">
+    {{ $t('flight_phase.optimum.combat_ff') }}, {{ phase.altitude }}
+    {{ $t('and') }} {{ airport.DeltaTemp }}
+    {{ $t('flight_phase.optimum.std_day_temp_dev') }}
     {{ combatFuelFlow(250, phase.altitude, airport.DeltaTemp).toFixed(0) }}
   </q-item-label>
   <q-item-label v-if="phase.type == PhaseType.DESCENT">
-    Speed for Max range is
     {{
-      SpeedForMaxRangeDescent(phase.getStartingWeight(), phase.drag).toFixed(0)
+      $t('flight_phase.optimum.speed_max_range', {
+        speed: SpeedForMaxRangeDescent(
+          phase.getStartingWeight(),
+          phase.drag
+        ).toFixed(0),
+      })
     }}
-    KIAS ( Idle, SB closed) <br />Fuel, time and distance for Penetration
-    descent : 80% core RPM, 200 KIAS , SB opened 40%
+    <br />
+
+    {{ $t('flight_phase.optimum.speed_max_range_help') }}
   </q-item-label>
 </template>
 
