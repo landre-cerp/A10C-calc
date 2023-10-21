@@ -42,7 +42,7 @@ onUpdated(() => {
   pylonVm.value = props.pylon;
 });
 
-function filterFn(val: string, update: any): void {
+function filterFn(val: string, update: () => void): void {
   if (val === '') {
     update(() => (options.value = props.availableStores));
     return;
