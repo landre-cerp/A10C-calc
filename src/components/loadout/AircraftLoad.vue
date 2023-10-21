@@ -69,7 +69,7 @@
         dense
         class="q-ml-md"
         outline
-        icon="fa-light fa-save"
+        icon="fas fa-save"
         @click="saveConfig"
       ></q-btn>
       <q-btn
@@ -77,7 +77,7 @@
         class="q-ml-md"
         color="red"
         outline
-        icon="fa-light fa-trash-can"
+        icon="fas fa-trash-can"
         @click="deleteConfig"
       ></q-btn>
     </div>

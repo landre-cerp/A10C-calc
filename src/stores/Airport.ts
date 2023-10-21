@@ -8,7 +8,7 @@ import {
 } from 'src/service/conversionTool';
 
 import { defineStore } from 'pinia';
-import { RCR } from 'src/service/calculators/Rcr';
+import { RCR } from 'src/modules/a10c/Rcr';
 
 function createUseStore<Id extends string>(id: Id) {
   return defineStore(id,

@@ -35,7 +35,7 @@
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label>
-              <q-icon name="flight_takeoff"></q-icon>
+              <q-icon name="fas fa-plane-departure"></q-icon>
               Takeoff speed
             </q-item-label>
 
@@ -149,18 +149,19 @@ import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 
 /// Calculators
-import { TakeoffIndexCalculator } from 'src/service/calculators/takeoff/TakeOffIndex';
-import { GroundRun } from 'src/service/calculators/takeoff/GroundRun';
-import { TakeoffSpeed } from 'src/service/calculators/takeoff/takeOffSpeed';
-import { PTFS } from 'src/service/calculators/takeoff/PTFS';
+import { TakeoffIndexCalculator } from '../modules/a10c/takeoff/TakeOffIndex';
+import { GroundRun } from '../modules/a10c/takeoff/GroundRun';
+import { TakeoffSpeed } from '../modules/a10c/takeoff/takeOffSpeed';
+import { PTFS } from '../modules/a10c/takeoff/PTFS';
 import RunwayViewer from './RunwayViewer.vue';
-import { obstacleDistanceClearance } from 'src/service/calculators/takeoff/ObstacleClearance';
-import { RCR } from 'src/service/calculators/Rcr';
-import { CriticalFieldLength } from 'src/service/calculators/takeoff/CriticalFieldLength';
+import { obstacleDistanceClearance } from 'src/modules/a10c/takeoff/ObstacleClearance';
+
+import { CriticalFieldLength } from '../modules/a10c/takeoff/CriticalFieldLength';
 
 import RCRSelector from './RCRSelector.vue';
 import AirportParams from './AirportParams.vue';
 import { Wind } from 'src/service/Wind';
+import { RCR } from 'src/modules/a10c/Rcr';
 
 const aircraft = useA10CStore();
 const airport = useTakeOffStore();

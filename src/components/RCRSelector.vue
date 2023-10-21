@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { RCR } from 'src/service/calculators/Rcr';
+import { RCR } from 'src/modules/a10c/Rcr';
 import { ref } from 'vue';
 
 const props = defineProps<{
