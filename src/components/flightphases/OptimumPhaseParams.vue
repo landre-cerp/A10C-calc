@@ -9,7 +9,7 @@
   <q-item-label v-if="phase.type == PhaseType.HI_COMBAT">
     {{ $t('flight_phase.optimum.combat_ff') }}, {{ phase.altitude }}
     {{ $t('and') }} {{ airport.DeltaTemp }}
-    {{ $t('flight_phase.optimum.std_day_temp_dev') }}
+    {{ $t('flight_phase.std_day_temp_dev') }}
     {{ combatFuelFlow(250, phase.altitude, airport.DeltaTemp).toFixed(0) }}
   </q-item-label>
   <q-item-label v-if="phase.type == PhaseType.DESCENT">
