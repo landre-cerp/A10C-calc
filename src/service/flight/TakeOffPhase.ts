@@ -12,7 +12,7 @@ const airport = useTakeOffStore();
 
 export class TakeOffPhase extends FlightPhase {
   constructor() {
-    super('Take Off', 'Taxi and takeoff', PhaseType.TAKEOFF);
+    super('takeoff', 'Taxi and takeoff', PhaseType.TAKEOFF);
 
     this.Recalc();
   }

@@ -27,7 +27,7 @@
   <div v-else>
     <div class="progress">
       <div style="width: 100%; color: white" class="progress-bar empty q-py-md">
-        <span>Enter runway length</span>
+        <span>{{ $t('takeoff_info.enter_runway_length') }}</span>
       </div>
     </div>
   </div>

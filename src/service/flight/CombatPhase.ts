@@ -4,7 +4,7 @@ import { FlightPhase } from '../FlightPhase';
 
 export class CombatPhase extends FlightPhase {
   constructor(previous: FlightPhase) {
-    super('Hi Combat', 'Hi combat phase', PhaseType.COMBAT, previous);
+    super('hi_combat', 'Hi combat phase', PhaseType.HI_COMBAT, previous);
     this.FuelUsed();
   }
 

@@ -1,7 +1,9 @@
 <template>
   <q-card class="my-card">
     <q-card-section>
-      <q-item-label class="text-h5">Airport information</q-item-label>
+      <q-item-label class="text-h5">{{
+        $t('airport.information')
+      }}</q-item-label>
     </q-card-section>
     <slot></slot>
 
@@ -14,7 +16,7 @@
           debounce="500"
           class="q-mr-md"
           v-model.number="runwayLength"
-          label="Runway length (feet)"
+          :label="$t('airport.runway_length')"
         />
       </q-item>
 
@@ -27,14 +29,13 @@
           debounce="500"
           class="q-mr-md"
           v-model.number="Temp"
-          label="Runway Temp. °C"
+          :label="$t('airport.temperature') + ' °C'"
           @update:model-value="emit('updated-temp')"
         >
           <template v-slot:append>
             <q-icon name="help">
               <q-tooltip>
-                DCS Temperature in brief is for sea level. Remove 2°C every 1000
-                feets.
+                {{ $t('airport.temperature_help') }}
               </q-tooltip>
             </q-icon>
           </template>
@@ -70,14 +71,14 @@
           debounce="500"
           class="q-mr-md"
           v-model.number="AirportElevation"
-          label="Airport Elevation (feet)"
+          :label="$t('airport.elevation')"
           @update:model-value="emit('updated-elevation')"
           :rules="[(val) => val >= 0]"
         >
           <template v-slot:append>
             {{ airport.AirportPressureAltitude }}
             <q-icon name="help">
-              <q-tooltip>Pressure Altitude</q-tooltip>
+              <q-tooltip>{{ $t('airport.pressure_altitude') }}</q-tooltip>
             </q-icon>
           </template>
         </q-input>
@@ -93,7 +94,7 @@
           :rules="[
             (val) => (val >= 0 && val <= 360) || 'Must be between 0 and 360',
           ]"
-          label="Runway QFU (°)"
+          :label="$t('airport.runway_qfu')"
           @update:model-value="emit('updated-qfu')"
         />
       </q-item>
@@ -109,8 +110,8 @@
           :rules="[
             (val) => (val >= 0 && val <= 360) || 'Must be between 0 and 360',
           ]"
-          label="Wind direction"
-          hint="Enter wind direction in degrees"
+          :label="$t('airport.wind_direction')"
+          :hint="$t('airport.wind_direction_help')"
           @update:model-value="emit('updated-wind')"
         />
         <q-input
@@ -120,8 +121,8 @@
           debounce="500"
           class="q-mr-md"
           v-model.number="WindSpeed"
-          label="Wind speed"
-          hint="Enter wind speed in knots"
+          :label="$t('airport.wind_speed')"
+          :hint="$t('airport.wind_speed_help')"
           @update:model-value="emit('updated-wind')"
         />
       </q-item>

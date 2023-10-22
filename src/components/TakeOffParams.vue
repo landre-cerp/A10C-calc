@@ -4,7 +4,8 @@
   <q-card class="my-card">
     <q-card-section>
       <p class="text-h5">
-        Take Off information <q-badge>FLAPS {{ aircraft.flaps }} </q-badge>
+        {{ $t('takeoff_info.info') }}
+        <q-badge>{{ $t('takeoff_info.flaps') }} {{ aircraft.flaps }} </q-badge>
       </p>
     </q-card-section>
     <q-card-section>
@@ -15,8 +16,7 @@
               >PTFS
               <q-icon class="q-ms-md" name="help">
                 <q-tooltip>
-                  Fan speed should be checked after approximately 1,000 feet on
-                  takeoff roll.
+                  {{ $t('takeoff_info.ptfs_help') }}
                 </q-tooltip></q-icon
               ></q-item-label
             >
@@ -26,7 +26,7 @@
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <q-item-label>Rotate at</q-item-label>
+            <q-item-label>{{ $t('takeoff_info.rotate_speed') }}</q-item-label>
 
             {{ (TakeoffSpeed(aircraft.TakeOffWeight) - 10).toFixed(0) }}
             KTS
@@ -36,7 +36,7 @@
           <q-item-section>
             <q-item-label>
               <q-icon name="fas fa-plane-departure"></q-icon>
-              Takeoff speed
+              {{ $t('takeoff_info.takeoff_speed') }}
             </q-item-label>
 
             {{ TakeoffSpeed(aircraft.TakeOffWeight).toFixed(0) }} KTS
@@ -45,10 +45,10 @@
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label
-              >Takeoff Index (max thrust)
+              >{{ $t('takeoff_info.takeoff_index') }}
               <q-icon class="q-ms-md" name="help">
                 <q-tooltip>
-                  TakeOff Index is displayed in case you want to read charts.
+                  {{ $t('takeoff_info.takeoff_index_help') }}
                 </q-tooltip></q-icon
               >
             </q-item-label>
@@ -58,7 +58,9 @@
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <q-item-label>Takeoff Weight</q-item-label>
+            <q-item-label>
+              {{ $t('takeoff_info.takeoff_weight') }}</q-item-label
+            >
 
             {{ aircraft.TakeOffWeight.toFixed(0) }} Lbs
           </q-item-section>
@@ -66,11 +68,10 @@
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
             <q-item-label
-              >Taxi Fuel (100 lbs/10 min)
+              >{{ $t('takeoff_info.taxi_fuel') }}
               <q-icon class="q-ms-md" name="help">
                 <q-tooltip>
-                  (300 pounds/30 minutes) and a worst case fuel consumption of
-                  200 pounds for takeoff and acceleration to climb speed.
+                  {{ $t('takeoff_info.taxi_fuel_help') }}
                 </q-tooltip></q-icon
               ></q-item-label
             >
@@ -102,13 +103,15 @@
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <q-item-label>Ground run</q-item-label>
+            <q-item-label>{{ $t('takeoff_info.ground_run') }}</q-item-label>
             {{ ground.toFixed(0) }} ft
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <q-item-label>50 feet obstacle clearance distance</q-item-label>
+            <q-item-label>{{
+              $t('takeoff_info.fifty_feet_clearance')
+            }}</q-item-label>
 
             {{ obstacleDistanceClearance(ground, airport.Temp).toFixed(0) }}
             ft
@@ -116,7 +119,9 @@
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <q-item-label>Critical field Length</q-item-label>
+            <q-item-label>{{
+              $t('takeoff_info.critical_field_length')
+            }}</q-item-label>
             {{ CriticalField.toFixed(0) }} ft
           </q-item-section>
         </q-item>
@@ -125,7 +130,7 @@
   </q-card>
   <q-card>
     <q-card-section>
-      <p class="text-h5">Runway</p>
+      <p class="text-h5">{{ $t('runway') }}</p>
       <RunwayViewer
         :groundRun="ground"
         :critical="CriticalField"

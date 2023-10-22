@@ -26,7 +26,7 @@ export class FlightPhaseFactory {
         cruisePhase.Recalc();
         return cruisePhase;
 
-      case PhaseType.COMBAT:
+      case PhaseType.HI_COMBAT:
         const combatPhase = new CombatPhase(previous);
         combatPhase.Recalc();
         return combatPhase;

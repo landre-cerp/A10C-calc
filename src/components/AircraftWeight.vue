@@ -8,7 +8,7 @@
       :style="{ width: Math.ceil(percentZeroFW) + '%', color: 'white' }"
       class="progress-bar progress-bar-zfw q-py-md"
     >
-      <span>Empty Weight {{ emptyWeight }} lbs</span>
+      <span>{{ $t('empty_weight') }} {{ emptyWeight }} lbs</span>
     </div>
     <div
       id="weaponsWeight"

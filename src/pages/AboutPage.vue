@@ -66,7 +66,6 @@
             remaining )
           </li>
           <li>Flaps 0 configuration</li>
-          <li>Translations (at least french + english to start somewhere)</li>
           <li>Some converters</li>
           <li>DCS Web editor plugin ?</li>
         </ul>

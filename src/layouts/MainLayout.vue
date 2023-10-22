@@ -6,20 +6,21 @@
           <q-avatar square>
             <img src="~assets/Logo_Hog.png" />
           </q-avatar>
-          A10C Perf calculator (for DCS) - by Cerppo
+          {{ $t('app_title') }}
           <span style="float: right">{{ appVersion }}</span>
         </q-toolbar-title>
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/Load" label="Loadout" />
-        <q-route-tab to="/TakeOff" label="TakeOff" />
-        <q-route-tab to="/Flight" label="Flight" />
-        <q-route-tab to="/Landing" label="Landing" />
-        <q-route-tab to="/Brief" label="Brief" />
+        <q-route-tab to="/Load" :label="$t('loadout')" />
+        <q-route-tab to="/TakeOff" :label="$t('takeoff')" />
+        <q-route-tab to="/Flight" :label="$t('flight')" />
+        <q-route-tab to="/Landing" :label="$t('landing')" />
+        <q-route-tab to="/Brief" :label="$t('brief')" />
 
-        <q-route-tab to="/About" label="About" />
+        <q-route-tab to="/About" :label="$t('about')" />
       </q-tabs>
+      <q-tabs align="right"> <language-changer /> </q-tabs>
     </q-header>
 
     <q-page-container>
@@ -30,5 +31,7 @@
 
 <script setup lang="ts">
 import { version } from '../../package.json';
+import LanguageChanger from 'src/components/languageChanger.vue';
+
 const appVersion = version;
 </script>

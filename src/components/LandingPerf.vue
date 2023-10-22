@@ -10,9 +10,9 @@
     @updated-qfu="landingConfig.runwayCourse = airport.runwayQFU"
   >
     <q-item>
-      <q-btn color="primary" @click="copyTakeOffParams"
-        >Copy Take Off params</q-btn
-      >
+      <q-btn color="primary" @click="copyTakeOffParams">{{
+        $t('landing_info.copy_takeoff_params')
+      }}</q-btn>
     </q-item>
   </AirportParams>
 
@@ -25,18 +25,18 @@
           filled
           dense
           debounce="500"
-          label="Gross weight"
+          :label="$t('landing_info.gross_weight')"
           :rules="[
             (val) =>
               (val > a10C.EmptyWeight && val <= a10C.MaxLandingWeight) ||
-              'Weight must be higher than empty weight and lower than max landing weight',
+              $t('landing_info.gross_weight_validator'),
           ]"
         >
         </q-input>
       </q-item>
       <q-item tag="label" v-ripple>
         <q-item-section>
-          <q-item-label>Single Engine</q-item-label>
+          <q-item-label>{{ $t('landing_info.single_engine') }}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle color="blue" v-model="landingConfig.singleEngine" />
@@ -44,7 +44,7 @@
       </q-item>
       <q-item tag="label" v-ripple>
         <q-item-section>
-          <q-item-label>Speed brakes</q-item-label>
+          <q-item-label>{{ $t('landing_info.speed_brakes') }}</q-item-label>
         </q-item-section>
         <q-item-section avatar>
           <q-toggle color="blue" v-model="landingConfig.speedbrakes" />
@@ -53,9 +53,10 @@
       <q-item tag="label" v-ripple>
         <q-item-section>
           <q-item-label
-            >Minimum run<q-icon class="q-ms-md" name="help">
+            >{{ $t('landing_info.minimum_run')
+            }}<q-icon class="q-ms-md" name="help">
               <q-tooltip>
-                Speed to achieve minimum runway length.
+                {{ $t('landing_info.minimum_run_help') }}
               </q-tooltip></q-icon
             >
           </q-item-label>
@@ -67,14 +68,16 @@
 
       <q-item>
         <q-item-section>
-          <q-item-label>Final Approach Speed</q-item-label>
+          <q-item-label>{{
+            $t('landing_info.final_approach_speed')
+          }}</q-item-label>
 
           {{ Math.ceil(ApproachSpeed(landingConfig as ILandingConfiguration)) }}
         </q-item-section>
       </q-item>
       <q-item>
         <q-item-section>
-          <q-item-label>Touch down</q-item-label>
+          <q-item-label>{{ $t('landing_info.touch_down_speed') }}</q-item-label>
 
           {{
             Math.ceil(TouchdownSpeed(landingConfig as ILandingConfiguration))
@@ -83,7 +86,7 @@
       </q-item>
       <q-item>
         <q-item-section>
-          <q-item-label>Ground roll</q-item-label>
+          <q-item-label>{{ $t('landing_info.ground_roll') }}</q-item-label>
 
           {{
             Math.ceil(LandingGroundRoll(landingConfig as ILandingConfiguration))
@@ -98,11 +101,10 @@
       <q-item>
         <q-item-section>
           <q-item-label
-            >Landing Index
+            >{{ $t('landing_info.landing_index') }}
             <q-icon class="q-ms-md" name="help">
               <q-tooltip>
-                Landing index is displayed in case you want to compare it with
-                the charts
+                {{ $t('landing_info.landing_index_help') }}
               </q-tooltip></q-icon
             ></q-item-label
           >
@@ -112,7 +114,7 @@
       </q-item>
     </q-card-section>
     <q-card-section>
-      <p class="text-h5">Runway</p>
+      <p class="text-h5">{{ $t('runway') }}</p>
       <RunwayViewer
         :groundRun="LandingGroundRoll(landingConfig as ILandingConfiguration)"
         :lda="airport.runwayLength"

@@ -1,24 +1,21 @@
 <template>
   <q-input
-    label="wind direction"
+    :label="$t('flight_phase.wind_direction')"
     v-model="windDirection"
     @update:model-value="ChangeWind"
-    :rules="[
-      (val) =>
-        (val >= 0 && val <= 360) || 'Wind direction must be between 0 and 360',
-    ]"
+    :rules="[(val) => (val >= 0 && val <= 360) || $t('wind_direction_0_360')]"
   ></q-input>
   <q-input
-    label="wind speed"
+    :label="$t('flight_phase.wind_speed')"
     v-model="windSpeed"
     @update:model-value="ChangeWind"
   ></q-input>
   <q-input
-    label="Leg course"
+    :label="$t('flight_phase.leg_course')"
     v-model="course"
     @update:model-value="ChangeCourse"
     :rules="[
-      (val) => (val >= 0 && val <= 360) || 'Course must be between 0 and 360',
+      (val) => (val >= 0 && val <= 360) || $t('flight_phase.course_valid'),
     ]"
   ></q-input>
 </template>

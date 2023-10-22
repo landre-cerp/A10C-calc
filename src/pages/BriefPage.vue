@@ -1,7 +1,7 @@
 <template>
-  <q-btn class="q-mt-md" color="primary" @click="exportToPng"
-    >Export kneeboard</q-btn
-  >
+  <q-btn class="q-mt-md" color="primary" @click="exportToPng">{{
+    $t('export_kneeboard')
+  }}</q-btn>
   <q-page id="kneeboard" class="q-pa-sm" style="max-width: 900px">
     <div
       style="display: flex; flex-direction: row; justify-content: space-between"
@@ -35,18 +35,23 @@
     </div>
 
     <div class="txt-block">
-      <p>Fuel: {{ aircraft.fuelQty }}% / {{ aircraft.FuelWeight }} Lbs</p>
       <p>
-        Ammo: {{ aircraft.gunAmmoPercent }}% / {{ aircraft.AmmoWeight }} Lbs
+        {{ $t('brief_page.fuel') }}: {{ aircraft.fuelQty }}% /
+        {{ aircraft.FuelWeight }} Lbs
       </p>
       <p>
-        Takeoff weight: {{ aircraft.TakeOffWeight.toFixed(0) }} /
+        {{ $t('brief_page.ammo') }}: {{ aircraft.gunAmmoPercent }}% /
+        {{ aircraft.AmmoWeight }} Lbs
+      </p>
+      <p>
+        {{ $t('takeoff_info.takeoff_weight') }}:
+        {{ aircraft.TakeOffWeight.toFixed(0) }} /
         {{ aircraft.MaxTakeOffWeight }} Lbs
       </p>
     </div>
     <div style="display: flex; flex-direction: row">
       <div style="display: flex; flex-direction: column">
-        <p class="text-h6">Take Off</p>
+        <p class="text-h6">{{ $t('takeoff') }}</p>
 
         <div style="display: flex; flex-direction: row">
           <div class="txt-block text-right">
@@ -54,43 +59,49 @@
               QNH : {{ takeOff.Qnh.value }} {{ QNH_Unit[takeOff.Qnh.unit] }}
             </p>
             <p>
-              Wind : {{ takeOff.Winds.front }} KTS
-              {{ WindDirections[takeOff.Winds.longitudinalDirection] }}
+              {{ $t('wind.label') }}: {{ takeOff.Winds.front }} KTS
+              {{
+                $t(
+                  'wind.' + WindDirections[takeOff.Winds.longitudinalDirection]
+                )
+              }}
             </p>
             <p>
               {{ takeOff.Winds.cross }} KTS
-              {{ WindDirections[takeOff.Winds.lateralDirection] }}
+              {{ $t('wind.' + WindDirections[takeOff.Winds.lateralDirection]) }}
             </p>
           </div>
           <div class="txt-block text-right">
             <p>
-              Take Off information
-              <q-badge>FLAPS {{ aircraft.flaps }} </q-badge>
+              {{ $t('takeoff_info.info') }}
+              <q-badge
+                >{{ $t('takeoff_info.flaps') }} {{ aircraft.flaps }}
+              </q-badge>
             </p>
 
             <p>
-              Rotate :
+              {{ $t('takeoff_info.rotate_speed') }} :
               {{ (TakeoffSpeed(aircraft.TakeOffWeight) - 10).toFixed(0) }} KTS
             </p>
             <p>
-              TO speed :
+              {{ $t('takeoff_info.takeoff_speed') }} :
               {{ TakeoffSpeed(aircraft.TakeOffWeight).toFixed(0) }} KTS
             </p>
           </div>
         </div>
       </div>
       <div style="display: flex; flex-direction: column">
-        <p class="text-h6">Landing</p>
+        <p class="text-h6">{{ $t('landing') }}</p>
         <div class="txt-block text-right">
           <p>
-            Final Approach Speed :
+            {{ $t('landing_info.final_approach_speed') }} (kias) :
 
             {{
               Math.ceil(ApproachSpeed(landingConfig as ILandingConfiguration))
             }}
           </p>
           <p>
-            Touch down
+            {{ $t('landing_info.touch_down_speed') }} :
 
             {{
               Math.ceil(TouchdownSpeed(landingConfig as ILandingConfiguration))
@@ -98,7 +109,7 @@
           </p>
 
           <p>
-            Ground roll
+            {{ $t('landing_info.ground_roll') }} (ft) :
 
             {{
               Math.ceil(
@@ -110,48 +121,56 @@
       </div>
     </div>
 
-    <p class="text-h6">Flight Plan</p>
+    <p class="text-h6">{{ $t('flight') }}</p>
     <q-card-section class="row txt-block">
       <ShowItem
-        label="Cruise Alt."
+        :label="$t('flight_phase.cruise_alt')"
         :value="flight.CruiseAltitude.toFixed(0)"
         unit="ft"
       />
 
       <ShowItem
-        label="Distance"
+        :label="$t('flight_phase.distance')"
         :value="flight.TotalDistance.toFixed(0)"
         unit="NM"
       />
 
       <ShowItem
-        label="Duration"
+        :label="$t('flight_phase.duration')"
         :value="flight.TotalDuration.toFixed(0)"
         unit="Min"
       />
       <ShowItem
-        label="Fuel Used"
+        :label="$t('flight_phase.fuel_used')"
         :value="flight.TotalFuelUsed.toFixed(0)"
         unit="lbs"
       />
-      <ShowItem label="STD Day T° Dev" :value="takeOff.DeltaTemp" unit="°C" />
-      <ShowItem label="Bingo" :value="flight.Bingo" unit="lbs" />
+      <ShowItem
+        :label="$t('flight_phase.std_day_temp_dev')"
+        :value="takeOff.DeltaTemp"
+        unit="°C"
+      />
+      <ShowItem
+        :label="$t('flight_phase.bingo')"
+        :value="flight.Bingo"
+        unit="lbs"
+      />
     </q-card-section>
 
     <q-markup-table style="margin: 5px" class="text-right">
       <thead>
-        <th class="q-pa-sm">Phase</th>
-        <th>SW (lbs)</th>
-        <th>EFOB (lbs)</th>
-        <th>S.Altitude (ft)</th>
-        <th>E. Altitude (ft)</th>
-        <th>Fuel (lbs)</th>
-        <th>Duration (min)</th>
-        <th>Distance (NM)</th>
+        <th class="q-pa-sm">{{ $t('flight_phase.phase') }}</th>
+        <th>{{ $t('flight_phase.starting_weight') }}<br />(lbs)</th>
+        <th>{{ $t('flight_phase.efob') }}<br />(lbs)</th>
+        <th>{{ $t('flight_phase.starting_altitude') }}<br />(ft)</th>
+        <th>{{ $t('flight_phase.ending_altitude') }}<br />(ft)</th>
+        <th>{{ $t('flight_phase.fuel_used') }}<br />(lbs)</th>
+        <th>{{ $t('flight_phase.duration') }}<br />(min)</th>
+        <th>{{ $t('flight_phase.distance') }}<br />(NM)</th>
       </thead>
       <tbody>
         <tr v-for="(phase, index) in flight.phases" :key="index">
-          <td>{{ PhaseType[phase.type] }}</td>
+          <td>{{ $t('flight_phase.' + PhaseType[phase.type]) }}</td>
           <td>
             {{ phase.getStartingWeight().toFixed(0) }}
           </td>
