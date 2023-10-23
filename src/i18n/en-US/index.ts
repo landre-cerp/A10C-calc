@@ -24,6 +24,8 @@ export default {
     CrossRight: 'Cross Right',
   },
 
+  validator_between_0_360: 'Must be between 0 and 360',
+
 
   drag: 'Drag',
   weapons: 'Weapons',
