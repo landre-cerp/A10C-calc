@@ -92,7 +92,7 @@
           class="q-mr-md"
           v-model.number="runwayQFU"
           :rules="[
-            (val) => (val >= 0 && val <= 360) || 'Must be between 0 and 360',
+            (val) => (val >= 0 && val <= 360) || $t('validator_between_0_360'),
           ]"
           :label="$t('airport.runway_qfu')"
           @update:model-value="emit('updated-qfu')"
@@ -108,7 +108,7 @@
           class="q-mr-md"
           v-model.number="WindDirection"
           :rules="[
-            (val) => (val >= 0 && val <= 360) || 'Must be between 0 and 360',
+            (val) => (val >= 0 && val <= 360) || $t('validator_between_0_360'),
           ]"
           :label="$t('airport.wind_direction')"
           :hint="$t('airport.wind_direction_help')"

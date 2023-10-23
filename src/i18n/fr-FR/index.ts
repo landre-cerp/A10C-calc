@@ -25,6 +25,7 @@ export default {
     CrossLeft: 'Croisé Gauche',
     CrossRight: 'Croisé Droite',
   },
+  validator_between_0_360: 'la valeur doit être comprise entre 0 et 360',
 
 
   drag: 'Traînée',
