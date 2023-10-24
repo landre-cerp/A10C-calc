@@ -21,7 +21,7 @@ function createUseStore<Id extends string>(id: Id) {
         Qnh: { value: 1013, unit: QNH_Unit.hPa } as QNH,
         runwayLength: 0 as number,
         runwayQFU: 0 as number,
-        rcr: RCR.DRY as number,
+        rcr: RCR.WET as number,
         // Dirty : TODO rework this
         grossWeight: 0 as number,
       }),

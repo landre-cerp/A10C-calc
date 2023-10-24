@@ -98,7 +98,7 @@
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <RCRSelector :rcr="airport.rcr" :update-rcr="updateRcr" />
+            <RCRSelector :rcr="airport.rcr" @update-rcr="updateRcr" />
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
@@ -132,7 +132,7 @@
     <q-card-section>
       <p class="text-h5">{{ $t('runway') }}</p>
       <RunwayViewer
-        :groundRun="ground"
+        :ground-run="ground"
         :critical="CriticalField"
         :toda="airport.runwayLength"
         :tora="airport.runwayLength"
@@ -177,7 +177,7 @@ const ground = computed(() => {
   let temp = GroundRun(
     TakeoffIndex(airport.Temp, airport.AirportPressureAltitude),
     aircraft.TakeOffWeight,
-    airport.RelativeHeadwind
+    airport.RelativeHeadwind,
   );
   if (typeof temp == 'undefined') temp = 0;
   return temp;
@@ -185,7 +185,7 @@ const ground = computed(() => {
 
 const airportWinds = computed(() => {
   return new Wind(airport.WindDirection, airport.WindSpeed).Winds(
-    airport.runwayQFU
+    airport.runwayQFU,
   );
 });
 
@@ -198,8 +198,8 @@ const CriticalField = computed(() =>
     TakeoffIndex(Temp.value, airport.AirportPressureAltitude),
     aircraft.TakeOffWeight,
     airport.rcr,
-    airport.RelativeHeadwind
-  )
+    airport.RelativeHeadwind,
+  ),
 );
 
 const updateRcr = (rcr: RCR) => {
