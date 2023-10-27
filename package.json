@@ -21,7 +21,7 @@
     "font-awesome": "^4.7.0",
     "html-to-image": "^1.11.11",
     "metar-js": "^0.0.5",
-    "pinia": "^2.0.11",
+    "pinia": "^2.1.7",
     "quasar": "^2.13.0",
     "quasar-extras-svg-icons": "^1.33.1",
     "vue": "^3.2.47",

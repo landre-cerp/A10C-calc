@@ -24,7 +24,7 @@
             v-model.number="gunAmmoPercent"
             :rules="[(val) => val >= 0 && val <= 100]"
           >
-            <template v-slot:append>
+            <template #append>
               {{ aircraft.AmmoWeight.toFixed(0) }} lbs
             </template>
           </q-input>

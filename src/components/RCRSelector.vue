@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { RCR } from 'src/modules/a10c/Rcr';
-import { ref } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps<{
   rcr: RCR;
@@ -29,5 +29,5 @@ const updateRcr = (rcr: RCR) => {
   props.updateRcr(rcr);
 };
 
-const runwayCondition = ref(props.rcr);
+let runwayCondition = computed(() => props.rcr);
 </script>

@@ -1,13 +1,11 @@
 <template>
   <AirportParams
     :airport="airport"
-    @updated-qnh="landingConfig.altitude = airport.AirportPressureAltitude"
-    @updated-elevation="
-      landingConfig.altitude = airport.AirportPressureAltitude
-    "
-    @updated-temp="landingConfig.temperature = airport.Temp"
+    @updated-qnh="updatedPressureAltitude"
+    @updated-elevation="updatedPressureAltitude"
+    @updated-temp="updateTemp"
     @updated-wind="updateWind"
-    @updated-qfu="landingConfig.runwayCourse = airport.runwayQFU"
+    @updated-qfu="updateQfu"
   >
     <q-item>
       <q-btn color="primary" @click="copyTakeOffParams">{{
@@ -116,7 +114,7 @@
     <q-card-section>
       <p class="text-h5">{{ $t('runway') }}</p>
       <RunwayViewer
-        :groundRun="LandingGroundRoll(landingConfig as ILandingConfiguration)"
+        :ground-run="LandingGroundRoll(landingConfig as ILandingConfiguration)"
         :lda="airport.runwayLength"
         :takeoff="false"
         :wind="landingConfig.wind.Winds(landingConfig.runwayCourse)"
@@ -126,7 +124,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import {
   LandingGroundRoll,
@@ -138,7 +136,6 @@ import {
 import { Wind } from 'src/service/Wind';
 
 import RunwayViewer from './RunwayViewer.vue';
-import RCRSelector from './RCRSelector.vue';
 
 import { useLandingStore, useTakeOffStore } from 'src/stores/Airport';
 import { useFlightStore } from 'src/stores/flight';
@@ -146,6 +143,7 @@ import { PhaseType } from './models';
 import AirportParams from './AirportParams.vue';
 import { useA10CStore } from 'src/stores/a10c';
 import { RCR } from 'src/modules/a10c/Rcr';
+import RCRSelector from './RCRSelector.vue';
 
 const airport = useLandingStore();
 const takeOffAirport = useTakeOffStore();
@@ -164,27 +162,61 @@ const landingConfig = ref({
   wind: new Wind(airport.WindDirection, airport.WindSpeed),
 
   runwayCourse: airport.runwayQFU,
-  rcr: airport.rcr | RCR.DRY,
+  rcr: airport.rcr,
 } as ILandingConfiguration);
-
-watchEffect(() => {
-  landingConfig.value.weight = airport.grossWeight;
-});
 
 onMounted(() => {
   // Init landing weight from Landing phase if plan exists
   const landing = flight.phases.find((p) => p.type === PhaseType.LANDING);
+
   if (landing) {
     airport.grossWeight = landing.getStartingWeight();
+    landingConfig.value = {
+      ...landingConfig.value,
+      weight: landing.getStartingWeight(),
+    };
+  } else {
+    airport.grossWeight = a10C.EmptyWeight + 1500;
+    landingConfig.value = {
+      ...landingConfig.value,
+      weight: airport.grossWeight,
+    };
   }
 });
 
 const updateRcr = (rcr: RCR) => {
-  landingConfig.value.rcr = rcr;
+  landingConfig.value = {
+    ...landingConfig.value,
+    rcr: rcr,
+  };
 };
 
 const updateWind = () => {
-  landingConfig.value.wind = new Wind(airport.WindDirection, airport.WindSpeed);
+  landingConfig.value = {
+    ...landingConfig.value,
+    wind: new Wind(airport.WindDirection, airport.WindSpeed),
+  };
+};
+
+const updatedPressureAltitude = () => {
+  landingConfig.value = {
+    ...landingConfig.value,
+    altitude: airport.AirportPressureAltitude,
+  };
+};
+
+const updateTemp = () => {
+  landingConfig.value = {
+    ...landingConfig.value,
+    temperature: airport.Temp,
+  };
+};
+
+const updateQfu = () => {
+  landingConfig.value = {
+    ...landingConfig.value,
+    runwayCourse: airport.runwayQFU,
+  };
 };
 
 const copyTakeOffParams = () => {
@@ -196,5 +228,15 @@ const copyTakeOffParams = () => {
   airport.runwayQFU = takeOffAirport.runwayQFU;
   airport.rcr = takeOffAirport.rcr;
   airport.runwayLength = takeOffAirport.runwayLength;
+
+  landingConfig.value = {
+    ...landingConfig.value,
+    rcr: airport.rcr,
+    runwayCourse: airport.runwayQFU,
+    altitude: airport.AirportElevation,
+    temperature: airport.Temp,
+  };
+
+  updateWind();
 };
 </script>

@@ -26,7 +26,11 @@ import { emptyLoad } from '../data/A10C';
 const emit = defineEmits(['item-selected', 'item-cleared']);
 
 const props = defineProps({
-  pylon: { required: true, default: { ...emptyLoad } as IAircraftStore },
+  pylon: {
+    required: true,
+    type: Object as PropType<IAircraftStore>,
+    default: { ...emptyLoad } as IAircraftStore,
+  },
   availableStores: {
     required: true,
     type: Array as PropType<IAircraftStore[]>,
@@ -53,7 +57,7 @@ function filterFn(val: string, update: updateFn): void {
     const needle = val.toLowerCase();
 
     options.value = props.availableStores.filter((w) =>
-      w.label.toLocaleLowerCase().includes(needle)
+      w.label.toLocaleLowerCase().includes(needle),
     );
   });
 }

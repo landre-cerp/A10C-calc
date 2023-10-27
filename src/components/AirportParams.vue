@@ -32,7 +32,7 @@
           :label="$t('airport.temperature') + ' °C'"
           @update:model-value="emit('updated-temp')"
         >
-          <template v-slot:append>
+          <template #append>
             <q-icon name="help">
               <q-tooltip>
                 {{ $t('airport.temperature_help') }}
@@ -52,13 +52,10 @@
           :rules="[(val) => val >= 0]"
           @update:model-value="emit('updated-qnh')"
         >
-          <template v-slot:append
-            ><q-btn
-              color="primary"
-              no-caps
-              v-on:click="airport.switchQnhUnit()"
-              >{{ QNH_Unit[Qnh.unit] }}</q-btn
-            ></template
+          <template #append
+            ><q-btn color="primary" no-caps @click="airport.switchQnhUnit()">{{
+              QNH_Unit[Qnh.unit]
+            }}</q-btn></template
           >
         </q-input>
       </q-item>
@@ -75,7 +72,7 @@
           @update:model-value="emit('updated-elevation')"
           :rules="[(val) => val >= 0]"
         >
-          <template v-slot:append>
+          <template #append>
             {{ airport.AirportPressureAltitude }}
             <q-icon name="help">
               <q-tooltip>{{ $t('airport.pressure_altitude') }}</q-tooltip>

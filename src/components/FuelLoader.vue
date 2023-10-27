@@ -7,9 +7,7 @@
     :rules="[(val) => val >= 0 && val <= 100]"
     :label="$t('fuel_qty') + ' %'"
   >
-    <template v-slot:append>
-      {{ aircraft.FuelWeight.toFixed(0) }} Lbs
-    </template>
+    <template #append> {{ aircraft.FuelWeight.toFixed(0) }} Lbs </template>
   </q-input>
 </template>
 
