@@ -3,7 +3,7 @@
 
 export default {
   and: 'et',
-  app_title: 'Calculateur de Perf A10C (pour DCS) - par Cerppo',
+  app_title: 'DCS A10C Calc. de Perf.',
   failed: 'La commande a échoué',
   success: 'La commande a réussi',
   wind_direction_0_360: 'La direction du vent doit être comprise entre 0 et 360',

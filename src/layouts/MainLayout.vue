@@ -6,8 +6,10 @@
           <q-avatar square>
             <img src="~assets/Logo_Hog.png" />
           </q-avatar>
-          {{ $t('app_title') }}
-          <span style="float: right">{{ appVersion }}</span>
+          {{ $t('app_title') }} ({{ appVersion }} )
+          <span style="float: right">
+            <language-changer />
+          </span>
         </q-toolbar-title>
       </q-toolbar>
 
@@ -20,7 +22,6 @@
 
         <q-route-tab to="/About" :label="$t('about')" />
       </q-tabs>
-      <q-tabs align="right"> <language-changer /> </q-tabs>
     </q-header>
 
     <q-page-container>
