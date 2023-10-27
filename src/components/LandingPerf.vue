@@ -93,7 +93,7 @@
       </q-item>
       <q-item class="col-6 col-sm-4 col-md-3">
         <q-item-section>
-          <RCRSelector :rcr="airport.rcr" @update-rcr="updateRcr" />
+          <RCRSelector :rcr="landingConfig.rcr" :update-rcr="updateRcr" />
         </q-item-section>
       </q-item>
       <q-item>
@@ -136,7 +136,6 @@ import {
 import { Wind } from 'src/service/Wind';
 
 import RunwayViewer from './RunwayViewer.vue';
-import RCRSelector from './RCRSelector.vue';
 
 import { useLandingStore, useTakeOffStore } from 'src/stores/Airport';
 import { useFlightStore } from 'src/stores/flight';
@@ -144,6 +143,7 @@ import { PhaseType } from './models';
 import AirportParams from './AirportParams.vue';
 import { useA10CStore } from 'src/stores/a10c';
 import { RCR } from 'src/modules/a10c/Rcr';
+import RCRSelector from './RCRSelector.vue';
 
 const airport = useLandingStore();
 const takeOffAirport = useTakeOffStore();

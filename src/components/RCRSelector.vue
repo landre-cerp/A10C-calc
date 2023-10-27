@@ -12,18 +12,22 @@
       { label: $t('runway_condition.icy'), value: RCR.ICY },
     ]"
     inline
-    @update:model-value="(r) => emit('update-rcr', r)"
+    @update:model-value="updateRcr"
   />
 </template>
 
 <script setup lang="ts">
 import { RCR } from 'src/modules/a10c/Rcr';
-import { ref } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps<{
   rcr: RCR;
+  updateRcr: (rcr: RCR) => void;
 }>();
 
-const emit = defineEmits(['update-rcr']);
-let runwayCondition = ref(props.rcr);
+const updateRcr = (rcr: RCR) => {
+  props.updateRcr(rcr);
+};
+
+let runwayCondition = computed(() => props.rcr);
 </script>

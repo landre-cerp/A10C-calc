@@ -98,7 +98,7 @@
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
           <q-item-section>
-            <RCRSelector :rcr="airport.rcr" @update-rcr="updateRcr" />
+            <RCRSelector :rcr="airport.rcr" :update-rcr="updateRcr" />
           </q-item-section>
         </q-item>
         <q-item class="col-6 col-sm-4 col-md-3">
