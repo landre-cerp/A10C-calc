@@ -2,7 +2,7 @@
 // so you can safely delete all default props below
 
 export default {
-  app_title: 'A10C Perf calculator(for DCS) - by Cerppo',
+  app_title: 'DCS A10C Perf Calc',
   failed: 'Action failed',
   success: 'Action was successful',
   wind_direction_0_360: 'Wind direction must be between 0 and 360',
