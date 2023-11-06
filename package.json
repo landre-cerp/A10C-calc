@@ -53,7 +53,7 @@
     "semantic-release": "^22.0.5",
     "typescript": "^5.2.2",
     "workbox-build": "^6.5.4",
-    "workbox-cacheable-response": "^6.5.4",
+    "workbox-cacheable-response": "^7.0.0",
     "workbox-core": "^6.5.4",
     "workbox-expiration": "^7.0.0",
     "workbox-precaching": "^7.0.0",
