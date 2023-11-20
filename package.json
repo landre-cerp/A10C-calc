@@ -25,7 +25,7 @@
     "quasar": "^2.13.0",
     "quasar-extras-svg-icons": "^1.33.1",
     "vue": "^3.3.8",
-    "vue-i18n": "^9.2.2",
+    "vue-i18n": "^9.7.0",
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
