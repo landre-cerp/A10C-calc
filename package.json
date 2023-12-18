@@ -51,7 +51,7 @@
     "git-cz": "^4.9.0",
     "prettier": "^3.1.1",
     "semantic-release": "^22.0.12",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "workbox-build": "^7.0.0",
     "workbox-cacheable-response": "^7.0.0",
     "workbox-core": "^7.0.0",
