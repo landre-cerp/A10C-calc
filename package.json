@@ -24,7 +24,7 @@
     "pinia": "^2.1.7",
     "quasar": "^2.14.2",
     "quasar-extras-svg-icons": "^1.36.0",
-    "vue": "^3.3.13",
+    "vue": "^3.4.3",
     "vue-i18n": "^9.7.0",
     "vue-router": "^4.0.0"
   },
