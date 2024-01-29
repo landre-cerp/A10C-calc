@@ -4,7 +4,8 @@ run-name: Build Front docker image
 on:
   push:
     tags:
-      - v?1.*
+      - 1.*
+      - v1.*
 
 jobs:
   quasar-build:
