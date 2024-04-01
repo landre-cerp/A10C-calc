@@ -15,7 +15,7 @@
     "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
   },
   "dependencies": {
-    "@quasar/extras": "^1.16.9",
+    "@quasar/extras": "^1.16.11",
     "axios": "^1.6.5",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
