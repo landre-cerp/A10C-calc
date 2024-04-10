@@ -36,7 +36,7 @@
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^6.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.12.5",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
     "autoprefixer": "^10.4.19",
