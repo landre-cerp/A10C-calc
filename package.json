@@ -44,7 +44,7 @@
     "commitizen": "^4.3.0",
     "cypress": "^13.9.0",
     "cz-conventional-changelog": "^3.3.0",
-    "electron": "^30.0.2",
+    "electron": "^30.0.8",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-cypress": "^2.12.1",
