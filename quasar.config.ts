@@ -8,19 +8,12 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
-const { configure } = require('quasar/wrappers');
-const path = require('path');
+import { configure } from 'quasar/wrappers';
+import path from 'path';
+
 
 module.exports = configure(function (/* ctx */) {
   return {
-    eslint: {
-      // fix: true,
-      // include = [],
-      // exclude = [],
-      // rawOptions = {},
-      warnings: true,
-      errors: true,
-    },
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
@@ -84,6 +77,15 @@ module.exports = configure(function (/* ctx */) {
             include: path.resolve(__dirname, './src/i18n/**'),
           },
         ],
+        // [
+        //   'vite-plugin-checker', {
+        //     vueTsc: {
+        //       tsconfigPath: 'tsconfig.vue-tsc.json'
+        //     },
+        //     eslint: {
+        //       lintCommand: 'eslint "./**/*.{js,ts,mjs,cjs,vue}"'
+        //     }
+        //   }, { server: false }]
       ],
     },
 
