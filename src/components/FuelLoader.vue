@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useA10CStore } from 'src/stores/a10c';
+
 const aircraft = useA10CStore();
 const { fuelQty } = storeToRefs(aircraft);
 </script>

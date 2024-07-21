@@ -17,6 +17,7 @@ export default {
   change_language: 'change to ',
   runway: 'Piste',
   export_kneeboard: 'Exporter la kneeboard',
+  dcs: 'DCS',
 
   wind: {
     label: 'Vent',

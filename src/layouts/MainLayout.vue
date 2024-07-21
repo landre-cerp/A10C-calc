@@ -19,6 +19,7 @@
         <q-route-tab to="/Flight" :label="$t('flight')" />
         <q-route-tab to="/Landing" :label="$t('landing')" />
         <q-route-tab to="/Brief" :label="$t('brief')" />
+        <q-route-tab to="/DCS" :label="$t('dcs')" />
 
         <q-route-tab to="/About" :label="$t('about')" />
       </q-tabs>
