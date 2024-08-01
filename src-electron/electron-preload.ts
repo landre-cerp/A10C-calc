@@ -27,22 +27,19 @@
  *   }
  * }
  */
+
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-// Définir les types pour les événements IPC
+// Définir les types pour les événements IPCAdd commentMore actions
 interface ElectronAPI {
   onTcpData: (callback: (event: IpcRendererEvent, data: string) => void) => void;
   onTcpStatus: (callback: (event: IpcRendererEvent, data: string) => void) => void;
   sendTcpData: (data: string) => void;
 }
 
-// Exposer les API sécurisées au processus de rendu
+// Exposer les API sécurisées au processus de renduAdd commentMore actions
 contextBridge.exposeInMainWorld('electron', {
   onTcpData: (callback: (event: IpcRendererEvent, data: string) => void) => ipcRenderer.on('tcp-data', callback),
   onTcpStatus: (callback: (event: IpcRendererEvent, data: string) => void) => ipcRenderer.on('tcp-status', callback),
   sendTcpData: (data: string) => ipcRenderer.send('send-tcp-data', data)
 } as ElectronAPI);
-
-
-
-

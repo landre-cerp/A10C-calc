@@ -23,6 +23,7 @@ const handleTcpStatus = (event: Event, status: string) => {
 // Vérifier que `window.electron` est défini et utiliser ses méthodes
 onMounted(() => {
   if (window.electron) {
+
     window.electron.onTcpData(handleTcpData);
     window.electron.onTcpStatus(handleTcpStatus);
   } else {
