@@ -10,6 +10,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 const message = ref<string>('');
 const status_message = ref<string>('');
+const isElectron = typeof window !== 'undefined' && !!window.electron;
 
 // Fonction pour gérer les données TCP
 const handleTcpData = (event: Event, data: string) => {
@@ -20,19 +21,18 @@ const handleTcpStatus = (event: Event, status: string) => {
   status_message.value = status;
 };
 
-// Vérifier que `window.electron` est défini et utiliser ses méthodes
 onMounted(() => {
-  if (window.electron) {
-
+  if (isElectron) {
     window.electron.onTcpData(handleTcpData);
     window.electron.onTcpStatus(handleTcpStatus);
   } else {
-    console.error('window.electron is not defined');
+    status_message.value = 'Electron features are not available in the web version.';
+    message.value = 'Connect to DCS is only available in the desktop (Electron) app.';
   }
 });
 
 onUnmounted(() => {
-  if (window.electron) {
+  if (isElectron) {
     // Nettoyer les écouteurs d'événements
     window.electron.onTcpData(() => {}); // Passer une fonction vide pour retirer les écouteurs
     window.electron.onTcpStatus(() => {});

@@ -42,7 +42,6 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@electron/packager": "^18.3.3",
-    "@intlify/vite-plugin-vue-i18n": "^7.0.0",
     "@quasar/app-vite": "^2.3.0",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^6.2.1",
     "@semantic-release/changelog": "^6.0.3",
