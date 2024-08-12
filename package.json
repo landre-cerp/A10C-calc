@@ -22,7 +22,7 @@
     "font-awesome": "^4.7.0",
     "html-to-image": "^1.11.11",
     "metar-js": "^0.0.5",
-    "pinia": "^2.2.0",
+    "pinia": "^2.2.1",
     "quasar": "^2.16.6",
     "quasar-extras-svg-icons": "^1.37.0",
     "vue": "^3.4.33",
