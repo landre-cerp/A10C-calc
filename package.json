@@ -33,7 +33,7 @@
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
-    "@quasar/app-vite": "^1.9.3",
+    "@quasar/app-vite": "^1.9.5",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^6.1.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
