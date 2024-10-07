@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.0",
-    "@commitlint/config-conventional": "^19.4.1",
+    "@commitlint/config-conventional": "^19.5.0",
     "@intlify/vite-plugin-vue-i18n": "^7.0.0",
     "@quasar/app-vite": "^1.10.0",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^6.1.0",
