@@ -47,7 +47,7 @@
     "electron": "^32.1.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-vue": "^9.28.0",
+    "eslint-plugin-vue": "^9.29.0",
     "git-cz": "^4.9.0",
     "prettier": "^3.3.3",
     "semantic-release": "^24.1.1",
