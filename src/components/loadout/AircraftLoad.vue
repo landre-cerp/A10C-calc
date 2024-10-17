@@ -52,7 +52,7 @@
     <div class="row q-mx-lg q-pa-sm" style="justify-content: end">
       <q-checkbox
         class="q-mr-md"
-        v-model:modelValue="symetrical"
+        v-model:model-value="symetrical"
         :label="$t('sym_load')"
       />
       <q-input :label="$t('config_name')" v-model="configName" filled dense />
