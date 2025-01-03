@@ -14,16 +14,19 @@
     "test:component": "cross-env NODE_ENV=test cypress open --component",
     "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
   },
+  "resolutions": {
+    "typescript": "5.5.0"
+  },
   "dependencies": {
     "@quasar/cli": "^2.4.1",
-    "@quasar/extras": "^1.16.13",
+    "@quasar/extras": "^1.16.15",
     "axios": "^1.7.7",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
     "html-to-image": "^1.11.11",
     "metar-js": "^0.0.6",
     "pinia": "^2.3.0",
-    "quasar": "^2.17.1",
+    "quasar": "^2.17.5",
     "quasar-extras-svg-icons": "^1.37.0",
     "vue": "^3.5.13",
     "vue-i18n": "^10.0.4",
@@ -52,7 +55,7 @@
     "git-cz": "^4.9.0",
     "prettier": "^3.4.1",
     "semantic-release": "^24.2.0",
-    "typescript": "^5.7.2",
+    "typescript": "^5.5.0",
     "workbox-cacheable-response": "^7.1.0",
     "workbox-core": "^7.0.0",
     "workbox-expiration": "^7.1.0",
