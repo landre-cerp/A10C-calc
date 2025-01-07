@@ -54,7 +54,7 @@
     "eslint-plugin-vue": "^9.32.0",
     "git-cz": "^4.9.0",
     "prettier": "^3.4.1",
-    "semantic-release": "^24.2.0",
+    "semantic-release": "^24.2.1",
     "typescript": "^5.5.0",
     "workbox-cacheable-response": "^7.1.0",
     "workbox-core": "^7.0.0",
