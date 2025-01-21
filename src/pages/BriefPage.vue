@@ -62,7 +62,7 @@
               {{ $t('wind.label') }}: {{ takeOff.Winds.front }} KTS
               {{
                 $t(
-                  'wind.' + WindDirections[takeOff.Winds.longitudinalDirection]
+                  'wind.' + WindDirections[takeOff.Winds.longitudinalDirection],
                 )
               }}
             </p>
@@ -113,7 +113,7 @@
 
             {{
               Math.ceil(
-                LandingGroundRoll(landingConfig as ILandingConfiguration)
+                LandingGroundRoll(landingConfig as ILandingConfiguration),
               )
             }}
           </p>
@@ -159,14 +159,16 @@
 
     <q-markup-table style="margin: 5px" class="text-right">
       <thead>
-        <th class="q-pa-sm">{{ $t('flight_phase.phase') }}</th>
-        <th>{{ $t('flight_phase.starting_weight') }}<br />(lbs)</th>
-        <th>{{ $t('flight_phase.efob') }}<br />(lbs)</th>
-        <th>{{ $t('flight_phase.starting_altitude') }}<br />(ft)</th>
-        <th>{{ $t('flight_phase.ending_altitude') }}<br />(ft)</th>
-        <th>{{ $t('flight_phase.fuel_used') }}<br />(lbs)</th>
-        <th>{{ $t('flight_phase.duration') }}<br />(min)</th>
-        <th>{{ $t('flight_phase.distance') }}<br />(NM)</th>
+        <tr>
+          <th class="q-pa-sm">{{ $t('flight_phase.phase') }}</th>
+          <th>{{ $t('flight_phase.starting_weight') }}<br />(lbs)</th>
+          <th>{{ $t('flight_phase.efob') }}<br />(lbs)</th>
+          <th>{{ $t('flight_phase.starting_altitude') }}<br />(ft)</th>
+          <th>{{ $t('flight_phase.ending_altitude') }}<br />(ft)</th>
+          <th>{{ $t('flight_phase.fuel_used') }}<br />(lbs)</th>
+          <th>{{ $t('flight_phase.duration') }}<br />(min)</th>
+          <th>{{ $t('flight_phase.distance') }}<br />(NM)</th>
+        </tr>
       </thead>
       <tbody>
         <tr v-for="(phase, index) in flight.phases" :key="index">
