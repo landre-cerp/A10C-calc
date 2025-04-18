@@ -15,7 +15,7 @@
             >framework Quasar.dev
           </a>
           et aider à planifier les missions
-          <a href="https://discord.gg/jgENU4e7eS" target="_blank"
+          <a href="https://discord.gg/bzDJvQrnTQ" target="_blank"
             >à la 06MHR A10C's</a
           >
           d'une façon plus réaliste
