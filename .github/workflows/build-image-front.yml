@@ -18,8 +18,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download all workflow run artifacts
+      - name: Download dist-spa artifact
         uses: actions/download-artifact@v4
+        with:
+          name: dist-spa
+          path: ./dist-spa
+
+      - name: Download Dockerfile artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Dockerfile
+          path: . # ou ./docker si tu veux
+
+      - name: Download Nginx config artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Nginx-conf
+          path: ./nginx
 
       - name: Set Tag to Env
         env:
