@@ -6,6 +6,10 @@ on:
       working-dir:
         required: true
         type: string
+      docker-build:
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   quasar-build:
@@ -39,18 +43,23 @@ jobs:
           quasar build
 
       - name: Archive production artifacts
+        if: inputs.docker-build == true
         uses: actions/upload-artifact@v4
         with:
           name: dist-spa
           path: |
             ${{inputs.working-dir}}/dist/spa
             !${{inputs.working-dir}}/dist/spa/**/.*md
+
       - name: Archive Dockerfile artifacts
+        if: inputs.docker-build == true
         uses: actions/upload-artifact@v4
         with:
           name: Dockerfile
           path: ${{inputs.working-dir}}/Dockerfile
+
       - name: Archive Nginx conf artifacts
+        if: inputs.docker-build == true
         uses: actions/upload-artifact@v4
         with:
           name: Nginx-conf

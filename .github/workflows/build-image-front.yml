@@ -12,6 +12,7 @@ jobs:
     uses: ./.github/workflows/build-front.yml
     with:
       working-dir: .
+      docker-build: true
 
   quasar-build-image:
     needs: quasar-build
