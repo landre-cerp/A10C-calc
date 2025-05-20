@@ -43,7 +43,7 @@ jobs:
         run: echo "GITHUB_TAG=$(echo $EVENT_CONTEXT | cut -d '/' -f 3 | cut -d '"' -f 1)" >> $GITHUB_ENV
 
       - name: Build docker
-        run: docker build -f Dockerfile/Dockerfile  -t ${{ secrets.SCW_REGISTRY}}/a10cfront:${{env.GITHUB_TAG}} .
+        run: docker build -f ./Dockerfile  -t ${{ secrets.SCW_REGISTRY}}/a10cfront:${{env.GITHUB_TAG}} .
 
       - name: Docker push
         run: |
