@@ -45,8 +45,13 @@ jobs:
           path: |
             ${{inputs.working-dir}}/dist/spa
             !${{inputs.working-dir}}/dist/spa/**/.*md
-      - name: Archive production artifacts
+      - name: Archive Dockerfile artifacts
         uses: actions/upload-artifact@v4
         with:
           name: Dockerfile
           path: ${{inputs.working-dir}}/Dockerfile
+      - name: Archive Nginx conf artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nginx-conf
+          path: ${{inputs.working-dir}}/nginx/default.conf
