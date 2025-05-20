@@ -6,6 +6,7 @@ on:
     tags:
       - '1.*'
       - 'v1.*'
+      - 'dev-*'
 
 jobs:
   quasar-build:
