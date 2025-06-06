@@ -50,15 +50,3 @@ jobs:
         run: |
           docker login ${{ secrets.SCW_REGISTRY}} -u nologin --password-stdin <<< ${{ secrets.SCW_SECRET_KEY}}
           docker push ${{ secrets.SCW_REGISTRY}}/a10cfront:${{env.GITHUB_TAG}}
-
-  semantic-release:
-    needs: quasar-build-image
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-      - run: npm ci
-      - run: npx semantic-release
