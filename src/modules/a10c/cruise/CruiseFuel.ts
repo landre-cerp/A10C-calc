@@ -1,7 +1,7 @@
 export const CruiseNMperLbsUsed = (
   cruisePressureAlt: number,
   cruiseWeight: number,
-  drag: number
+  drag: number,
 ): number => {
   // Enter chart with Cruise GrossWeigth , pressure Altitude , Drag Index
   const [vDrag, vnextDrag] = selectLbsVectorsForDrag(drag);
@@ -10,14 +10,14 @@ export const CruiseNMperLbsUsed = (
   let nauticalMilesPerLbs = CalcNauticalPerLbsFuel(
     vDrag,
     cruisePressureAlt,
-    cruiseWeight
+    cruiseWeight,
   );
 
   if (vnextDrag != vDrag) {
     const nextNauticalMilesPerLbs = CalcNauticalPerLbsFuel(
       vnextDrag,
       cruisePressureAlt,
-      cruiseWeight
+      cruiseWeight,
     );
     const increment = (nextNauticalMilesPerLbs - nauticalMilesPerLbs) / 4; // delta drag from table is 4
 
@@ -30,7 +30,7 @@ export const CruiseNMperLbsUsed = (
 const CalcNauticalPerLbsFuel = (
   vDrag: Map<number, number[]>,
   cruisePressureAlt: number,
-  cruiseWeight: number
+  cruiseWeight: number,
 ): number => {
   let fuelUsed = 0;
   const step = 5000;
@@ -44,7 +44,7 @@ const CalcNauticalPerLbsFuel = (
         cruisePressureAlt,
         cruiseWeight,
         step,
-        AltRangeStart
+        AltRangeStart,
       );
     }
   }
@@ -55,7 +55,8 @@ const CalcNauticalPerLbsFuel = (
 /* Cruise tools */
 
 const selectLbsVectorsForDrag = (drag: number) => {
-  if (drag >= 8) return [vectors_Cruise_LbsNm_Drag8, vectors_Cruise_LbsNm_Drag8];
+  if (drag >= 8)
+    return [vectors_Cruise_LbsNm_Drag8, vectors_Cruise_LbsNm_Drag8];
   if (drag >= 4 && drag < 8) {
     return [vectors_Cruise_LbsNm_Drag4, vectors_Cruise_LbsNm_Drag8];
   }
@@ -103,7 +104,7 @@ const NMPerLbsFor = (
   cruisePressureAlt: number,
   cruiseWeight: number,
   step: number,
-  AltRangeStart: number
+  AltRangeStart: number,
 ) => {
   const lowValue = NMperLbs(vDrag.get(AltRangeStart), cruiseWeight);
   const highValue = NMperLbs(vDrag.get(AltRangeStart + step), cruiseWeight);

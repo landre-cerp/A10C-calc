@@ -11,7 +11,6 @@ let availableConfigurations = [] as StoresConfiguration[];
 const localConfigs = LocalStorage.getItem('storesConfig');
 
 const defaultState = {
-
   configuration: { ...basicConf },
 
   fuelQty: 75 as number,
@@ -34,12 +33,14 @@ export const useA10CStore = defineStore('a10c', {
 
       return this.configuration.pylonsLoad.reduce(
         (total, current) => total + current.drag,
-        0
+        0,
       );
     },
 
     AvailableConfigurations() {
-      availableConfigurations = JSON.parse(localConfigs) as StoresConfiguration[];
+      availableConfigurations = JSON.parse(
+        localConfigs,
+      ) as StoresConfiguration[];
 
       if (!availableConfigurations || availableConfigurations.length == 0) {
         availableConfigurations = [emptyConf, basicConf];
@@ -52,7 +53,7 @@ export const useA10CStore = defineStore('a10c', {
       if (!this.configuration.pylonsLoad) return 0;
       const weigth = this.configuration.pylonsLoad.reduce(
         (total, current) => total + current.weight,
-        0
+        0,
       );
 
       return weigth;
@@ -76,10 +77,7 @@ export const useA10CStore = defineStore('a10c', {
 
     TotalWeight(): number {
       return (
-        this.EmptyWeight +
-        this.WeaponWeight +
-        this.FuelWeight +
-        this.AmmoWeight
+        this.EmptyWeight + this.WeaponWeight + this.FuelWeight + this.AmmoWeight
       );
     },
 
@@ -106,7 +104,6 @@ export const useA10CStore = defineStore('a10c', {
 
   actions: {
     setPylon(pylon: number, store: IAircraftStore) {
-
       if (pylon >= 0 && pylon <= 10) {
         this.configuration.pylonsLoad[pylon] = store;
       }
@@ -120,38 +117,33 @@ export const useA10CStore = defineStore('a10c', {
       this.configuration.name = config.name;
     },
 
-
     ResetPylon(pylon: number) {
-      const pylonConf = [] as unknown as StoresConfiguration['pylonsLoad'];
-      for (
-        let index = 0;
-        index < this.configuration.pylonsLoad.length;
-        index++
-      ) {
-        if (index == pylon) {
-          pylonConf.push({ ...emptyLoad });
-        } else {
-          pylonConf.push({ ...this.configuration.pylonsLoad[index] });
-        }
+      if (pylon >= 0 && pylon < this.configuration.pylonsLoad.length) {
+        this.configuration.pylonsLoad[pylon] = { ...emptyLoad };
       }
-      this.configuration.pylonsLoad = [...pylonConf];
     },
 
-
     SaveConfiguration(name: string) {
-
-      const configToSave = { 'name': name, 'pylonsLoad': this.configuration.pylonsLoad };
+      const configToSave = {
+        name,
+        pylonsLoad: this.configuration.pylonsLoad,
+      };
       this.DeleteConfiguration(name);
       availableConfigurations.push(configToSave);
       LocalStorage.set('storesConfig', JSON.stringify(availableConfigurations));
     },
 
     DeleteConfiguration(name: string) {
-      const index = availableConfigurations.findIndex((conf) => conf.name === name);
+      const index = availableConfigurations.findIndex(
+        (conf) => conf.name === name,
+      );
       if (index >= 0) {
         availableConfigurations.splice(index, 1);
-        LocalStorage.set('storesConfig', JSON.stringify(availableConfigurations));
+        LocalStorage.set(
+          'storesConfig',
+          JSON.stringify(availableConfigurations),
+        );
       }
-    }
-  }
+    },
+  },
 });

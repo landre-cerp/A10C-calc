@@ -1,11 +1,7 @@
-
 import { PhaseType } from 'src/components/models';
 import { FlightPhase } from '../FlightPhase';
 
-
 export class LandingPhase extends FlightPhase {
-
-
   constructor(previous: FlightPhase) {
     super('Landing', 'Landing to Airport', PhaseType.LANDING, previous);
 
@@ -16,14 +12,11 @@ export class LandingPhase extends FlightPhase {
     this.fuelFlow = 0;
   }
 
-
   private FuelUsed(): number {
-
     return this.fuelUsed;
   }
 
   private Duration(): number {
-
     return this.duration;
   }
 
@@ -41,6 +34,4 @@ export class LandingPhase extends FlightPhase {
     this.distance = distance;
     this.Recalc();
   }
-
-
 }

@@ -29,13 +29,13 @@ export interface ICorrectionTable {
    * const result = lowVal + (highVal - lowVal) * delta;
    */
   getInterval: (
-    value: number
+    value: number,
   ) => [
-      lowVector: CorrectionVector,
-      highVector: CorrectionVector,
-      step: number,
-      LowRangeValue: number
-    ];
+    lowVector: CorrectionVector,
+    highVector: CorrectionVector,
+    step: number,
+    LowRangeValue: number,
+  ];
 
   /**
    *
@@ -54,7 +54,7 @@ export class CorrectionTable implements ICorrectionTable {
 
   constructor(
     name: string,
-    private correctionTables: Map<number, CorrectionVector>
+    private correctionTables: Map<number, CorrectionVector>,
   ) {
     this.name = name;
     // instantiate the ranges from the table values.
@@ -66,7 +66,7 @@ export class CorrectionTable implements ICorrectionTable {
    * @returns The correction tables for the drag value (low and high)
    */
   public getInterval(
-    value: number
+    value: number,
   ): [CorrectionVector, CorrectionVector, number, number] {
     // find low and high index in ranges given the value
     let lowIndex = this.ranges.length - 1;
@@ -119,7 +119,7 @@ interface IVector {
 }
 
 export class CorrectionVector implements IVector {
-  constructor(private vector: number[]) { }
+  constructor(private vector: number[]) {}
 
   public calc(x: number): number {
     let result = 0;
@@ -137,14 +137,14 @@ export class PosNegCorrectionTable {
   constructor(
     name: string,
     private positive: ICorrectionTable,
-    private negative: ICorrectionTable
+    private negative: ICorrectionTable,
   ) {
     this.name = name;
   }
 
   getInterval(
     intervalValue: number,
-    value: number
+    value: number,
   ): [CorrectionVector, CorrectionVector, number, number] {
     const mapToUse = value > 0 ? this.positive : this.negative;
 
@@ -154,7 +154,7 @@ export class PosNegCorrectionTable {
   GetLinear(intervalValue: number, value: number) {
     const [lowVector, highVector, step, lowRangeStart] = this.getInterval(
       intervalValue,
-      value
+      value,
     );
     const returnValue = lowVector.calc(value);
 
@@ -173,7 +173,10 @@ export class DragCorrectionTable {
   name: string;
   private ranges: number[] = [];
 
-  constructor(name: string, private dragTable: Map<number, ICorrectionTable>) {
+  constructor(
+    name: string,
+    private dragTable: Map<number, ICorrectionTable>,
+  ) {
     this.name = name;
     this.ranges = Array.from(this.dragTable.keys()).sort((a, b) => a - b);
   }
@@ -186,7 +189,7 @@ export class DragCorrectionTable {
    
    */
   getInterval(
-    drag: number
+    drag: number,
   ): [ICorrectionTable, ICorrectionTable, number, number] {
     // find low and high index in ranges given the value
     let lowIndex = this.ranges.length - 1;
@@ -217,7 +220,6 @@ export class DragCorrectionTable {
     ];
   }
 
-
   getLinear(drag: number, intervalValue: number, knownValue: number) {
     const [v, vnext, step, startDrag] = this.getInterval(drag);
 
@@ -225,12 +227,10 @@ export class DragCorrectionTable {
     if (step != 0) {
       const nexWantedValue = vnext.GetLinear(intervalValue, knownValue);
       const increment = (nexWantedValue - wantedValue) / step;
-      wantedValue = wantedValue + (increment > 0 ? increment * (drag - startDrag) : 0);
-
+      wantedValue =
+        wantedValue + (increment > 0 ? increment * (drag - startDrag) : 0);
     }
 
     return wantedValue;
-
-
   }
 }

@@ -2,7 +2,6 @@
 
 import { Wind } from 'src/service/Wind';
 
-
 export interface IAircraftStore {
   short: string;
   label: string;
@@ -26,8 +25,7 @@ export enum LoadType {
 
 export interface StoresConfiguration {
   name: string;
-  pylonsLoad:
-  | [
+  pylonsLoad: [
     IAircraftStore,
     IAircraftStore,
     IAircraftStore,
@@ -38,7 +36,7 @@ export interface StoresConfiguration {
     IAircraftStore,
     IAircraftStore,
     IAircraftStore,
-    IAircraftStore
+    IAircraftStore,
   ];
 }
 
@@ -77,7 +75,6 @@ export interface IFlightPhase {
   altitude: number;
   course: number;
 
-
   Recalc(): void;
 
   isLastPhase(): boolean;
@@ -94,7 +91,6 @@ export interface IFlightPhase {
   setFuelOnBoard(fuel: number): void;
   setStartingAltitude(altitude: number): void;
 
-
   RelativeHeadwind(): number;
   ChangeAltitude(altitude: number): void;
   ChangeDistance(distance: number): void;
@@ -108,7 +104,4 @@ export interface IFlightPhase {
   ChangeWind(direction: number, speed: number): void;
 
   setNextPhase(phase: IFlightPhase | null): void;
-
-
 }
-

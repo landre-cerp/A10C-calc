@@ -7,11 +7,12 @@ import {
 const CruiseMachSpeed = (
   cruisePressureAlt: number,
   cruiseWeight: number,
-  drag: number
+  drag: number,
 ): number => {
-
-  return Math.max(0, MachSpeedDragCorrection.getLinear(drag, cruisePressureAlt, cruiseWeight));
-
+  return Math.max(
+    0,
+    MachSpeedDragCorrection.getLinear(drag, cruisePressureAlt, cruiseWeight),
+  );
 };
 
 const vector_MachSpeed_Drag0 = new CorrectionTable(
@@ -25,7 +26,7 @@ const vector_MachSpeed_Drag0 = new CorrectionTable(
     [25000, new CorrectionVector([0.299, 5.56e-6, -1.43e-11])],
     [30000, new CorrectionVector([0.224, 1.12e-5, -8e-11])],
     [35000, new CorrectionVector([0.34, 6e-6, 2e-28])],
-  ])
+  ]),
 );
 
 const vector_MachSpeed_Drag4 = new CorrectionTable(
@@ -39,7 +40,7 @@ const vector_MachSpeed_Drag4 = new CorrectionTable(
     [25000, new CorrectionVector([0.222, 8.49e-6, -5e-11])],
     [30000, new CorrectionVector([0.16, 1.34e-5, -1.04e-10])],
     [35000, new CorrectionVector([0.22, 1.25e-5, -1e-10])],
-  ])
+  ]),
 );
 
 const vector_MachSpeed_Drag8 = new CorrectionTable(
@@ -53,7 +54,7 @@ const vector_MachSpeed_Drag8 = new CorrectionTable(
     [25000, new CorrectionVector([0.226, 7.48e-6, -3.57e-11])],
     [30000, new CorrectionVector([0.204, 1.06e-5, -7.14e-11])],
     [35000, new CorrectionVector([0.31, 6e-6, 1.11e-24])],
-  ])
+  ]),
 );
 
 const MachSpeedDragCorrection = new DragCorrectionTable(
@@ -62,7 +63,7 @@ const MachSpeedDragCorrection = new DragCorrectionTable(
     [0, vector_MachSpeed_Drag0],
     [4, vector_MachSpeed_Drag4],
     [8, vector_MachSpeed_Drag8],
-  ])
+  ]),
 );
 
 const TrueAirspeed = (mach: number, outsideAirTemp: number): number => {
@@ -79,7 +80,7 @@ const Mach2TAStable = new CorrectionTable(
     [0.55, new CorrectionVector([350, 0.6])],
     [0.6, new CorrectionVector([380, 0.8])],
     [0.65, new CorrectionVector([408, 0.85])],
-  ])
+  ]),
 );
 
 export { TrueAirspeed, CruiseMachSpeed };

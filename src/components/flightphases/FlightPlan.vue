@@ -221,7 +221,7 @@ const optimum_cruise_altitude = computed(() => {
     return OptimumCruiseAltitude(
       aircraft.Drag,
       aircraft.TakeOffWeight,
-      missionRange.value
+      missionRange.value,
     );
   }
 });

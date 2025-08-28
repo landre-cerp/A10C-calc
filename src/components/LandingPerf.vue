@@ -70,25 +70,21 @@
             $t('landing_info.final_approach_speed')
           }}</q-item-label>
 
-          {{ Math.ceil(ApproachSpeed(landingConfig as ILandingConfiguration)) }}
+          {{ Math.ceil(ApproachSpeed(landingConfig)) }}
         </q-item-section>
       </q-item>
       <q-item>
         <q-item-section>
           <q-item-label>{{ $t('landing_info.touch_down_speed') }}</q-item-label>
 
-          {{
-            Math.ceil(TouchdownSpeed(landingConfig as ILandingConfiguration))
-          }}
+          {{ Math.ceil(TouchdownSpeed(landingConfig)) }}
         </q-item-section>
       </q-item>
       <q-item>
         <q-item-section>
           <q-item-label>{{ $t('landing_info.ground_roll') }}</q-item-label>
 
-          {{
-            Math.ceil(LandingGroundRoll(landingConfig as ILandingConfiguration))
-          }}
+          {{ Math.ceil(LandingGroundRoll(landingConfig)) }}
         </q-item-section>
       </q-item>
       <q-item class="col-6 col-sm-4 col-md-3">
@@ -107,14 +103,14 @@
             ></q-item-label
           >
 
-          {{ LandingIndex(landingConfig as ILandingConfiguration).toFixed(1) }}
+          {{ LandingIndex(landingConfig).toFixed(1) }}
         </q-item-section>
       </q-item>
     </q-card-section>
     <q-card-section>
       <p class="text-h5">{{ $t('runway') }}</p>
       <RunwayViewer
-        :ground-run="LandingGroundRoll(landingConfig as ILandingConfiguration)"
+        :ground-run="LandingGroundRoll(landingConfig)"
         :lda="airport.runwayLength"
         :takeoff="false"
         :wind="landingConfig.wind.Winds(landingConfig.runwayCourse)"
@@ -150,7 +146,7 @@ const takeOffAirport = useTakeOffStore();
 const flight = useFlightStore();
 const a10C = useA10CStore();
 
-const landingConfig = ref({
+const landingConfig = ref<ILandingConfiguration>({
   weight: 0,
   flaps: 20,
   minspeed: false,
@@ -163,7 +159,7 @@ const landingConfig = ref({
 
   runwayCourse: airport.runwayQFU,
   rcr: airport.rcr,
-} as ILandingConfiguration);
+});
 
 onMounted(() => {
   // Init landing weight from Landing phase if plan exists
@@ -171,52 +167,47 @@ onMounted(() => {
 
   if (landing) {
     airport.grossWeight = landing.getStartingWeight();
-    landingConfig.value = {
-      ...landingConfig.value,
-      weight: landing.getStartingWeight(),
-    };
+    updateLandingConfig({ weight: landing.getStartingWeight() });
   } else {
     airport.grossWeight = a10C.EmptyWeight + 1500;
-    landingConfig.value = {
-      ...landingConfig.value,
-      weight: airport.grossWeight,
-    };
+    updateLandingConfig({ weight: airport.grossWeight });
   }
 });
 
-const updateRcr = (rcr: RCR) => {
+// Utility function to update landing configuration
+const updateLandingConfig = (updates: Partial<ILandingConfiguration>) => {
   landingConfig.value = {
     ...landingConfig.value,
-    rcr: rcr,
+    ...updates,
   };
+};
+
+const updateRcr = (rcr: RCR) => {
+  updateLandingConfig({ rcr });
 };
 
 const updateWind = () => {
-  landingConfig.value = {
-    ...landingConfig.value,
+  updateLandingConfig({
     wind: new Wind(airport.WindDirection, airport.WindSpeed),
-  };
+  });
 };
 
 const updatedPressureAltitude = () => {
-  landingConfig.value = {
-    ...landingConfig.value,
+  updateLandingConfig({
     altitude: airport.AirportPressureAltitude,
-  };
+  });
 };
 
 const updateTemp = () => {
-  landingConfig.value = {
-    ...landingConfig.value,
+  updateLandingConfig({
     temperature: airport.Temp,
-  };
+  });
 };
 
 const updateQfu = () => {
-  landingConfig.value = {
-    ...landingConfig.value,
+  updateLandingConfig({
     runwayCourse: airport.runwayQFU,
-  };
+  });
 };
 
 const copyTakeOffParams = () => {
@@ -229,13 +220,12 @@ const copyTakeOffParams = () => {
   airport.rcr = takeOffAirport.rcr;
   airport.runwayLength = takeOffAirport.runwayLength;
 
-  landingConfig.value = {
-    ...landingConfig.value,
+  updateLandingConfig({
     rcr: airport.rcr,
     runwayCourse: airport.runwayQFU,
     altitude: airport.AirportElevation,
     temperature: airport.Temp,
-  };
+  });
 
   updateWind();
 };

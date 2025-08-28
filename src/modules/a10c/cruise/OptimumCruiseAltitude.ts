@@ -7,10 +7,13 @@ import {
 export const OptimumCruiseAltitude = (
   drag: number,
   weight: number,
-  distance: number
+  distance: number,
 ): number => {
-
-  const optimumCruiseAlt = optimmumCruiseDragTable.getLinear(drag, distance, weight)
+  const optimumCruiseAlt = optimmumCruiseDragTable.getLinear(
+    drag,
+    distance,
+    weight,
+  );
   return Math.ceil(optimumCruiseAlt / 10) * 10;
 };
 
@@ -23,7 +26,7 @@ const optimumCruiseAltDrag0 = new CorrectionTable(
     [125, new CorrectionVector([38300, -0.516])],
     [150, new CorrectionVector([42250, -0.56])],
     [200, new CorrectionVector([47700, -0.6])],
-  ])
+  ]),
 );
 
 const optimumCruiseAltDrag2 = new CorrectionTable(
@@ -35,7 +38,7 @@ const optimumCruiseAltDrag2 = new CorrectionTable(
     [125, new CorrectionVector([39860, -0.536])],
     [150, new CorrectionVector([43780, -0.568])],
     [200, new CorrectionVector([49000, -0.6])],
-  ])
+  ]),
 );
 
 const optimumCruiseAltDrag4 = new CorrectionTable(
@@ -47,7 +50,7 @@ const optimumCruiseAltDrag4 = new CorrectionTable(
     [125, new CorrectionVector([40200, -0.526])],
     [150, new CorrectionVector([44880, -0.568])],
     [200, new CorrectionVector([46850, -0.53])],
-  ])
+  ]),
 );
 
 const optimumCruiseAltDrag6 = new CorrectionTable(
@@ -59,7 +62,7 @@ const optimumCruiseAltDrag6 = new CorrectionTable(
     [125, new CorrectionVector([41000, -0.534])],
     [150, new CorrectionVector([46610, -0.582])],
     [200, new CorrectionVector([52700, -0.63])],
-  ])
+  ]),
 );
 
 const optimumCruiseAltDrag8 = new CorrectionTable(
@@ -70,7 +73,7 @@ const optimumCruiseAltDrag8 = new CorrectionTable(
     [100, new CorrectionVector([34500, -0.478])],
     [125, new CorrectionVector([41380, -0.542])],
     [150, new CorrectionVector([48820, -0.602])],
-  ])
+  ]),
 );
 
 const optimmumCruiseDragTable = new DragCorrectionTable(
@@ -81,5 +84,5 @@ const optimmumCruiseDragTable = new DragCorrectionTable(
     [4, optimumCruiseAltDrag4],
     [6, optimumCruiseAltDrag6],
     [8, optimumCruiseAltDrag8],
-  ])
+  ]),
 );

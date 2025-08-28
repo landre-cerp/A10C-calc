@@ -10,11 +10,18 @@ export const ClimbTimeNeeded = (
   tartgetAlt: number,
   startingWeight: number,
   deltaTemp: number,
-  drag: number
+  drag: number,
 ): number => {
-
-  const target_timeNeeded = climbTimeDragTable.getLinear(drag, startingWeight, tartgetAlt);
-  const start_timeNeeded = climbTimeDragTable.getLinear(drag, startingWeight, startingAlt);
+  const target_timeNeeded = climbTimeDragTable.getLinear(
+    drag,
+    startingWeight,
+    tartgetAlt,
+  );
+  const start_timeNeeded = climbTimeDragTable.getLinear(
+    drag,
+    startingWeight,
+    startingAlt,
+  );
   let timeNeeded = target_timeNeeded - start_timeNeeded;
 
   if (deltaTemp != 0) {
@@ -52,7 +59,7 @@ const v_climb_time_drag0 = new CorrectionTable(
       50000,
       new CorrectionVector([0.00397, 3.44e-4, 1.49e-8, -1.16e-12, 4.67e-17]),
     ],
-  ])
+  ]),
 );
 
 const v_climb_time_drag4 = new CorrectionTable(
@@ -82,7 +89,7 @@ const v_climb_time_drag4 = new CorrectionTable(
       50000,
       new CorrectionVector([7.05e-18, 3.7e-4, 8.67e-9, -8e-13, 5.33e-17]),
     ],
-  ])
+  ]),
 );
 
 const v_climb_time_drag8 = new CorrectionTable(
@@ -115,7 +122,7 @@ const v_climb_time_drag8 = new CorrectionTable(
       50000,
       new CorrectionVector([0.0278, -5.7e-5, 1.48e-7, -1.28e-11, 3.67e-16]),
     ],
-  ])
+  ]),
 );
 
 const climbTimeDragTable = new DragCorrectionTable(
@@ -124,7 +131,7 @@ const climbTimeDragTable = new DragCorrectionTable(
     [0, v_climb_time_drag0],
     [4, v_climb_time_drag4],
     [8, v_climb_time_drag8],
-  ])
+  ]),
 );
 
 const posNegCorrectionTable = new PosNegCorrectionTable(
@@ -140,7 +147,7 @@ const posNegCorrectionTable = new PosNegCorrectionTable(
       [25, new CorrectionVector([25, 0.65])],
       [30, new CorrectionVector([30, 0.85])],
       [35, new CorrectionVector([35, 1.1])],
-    ])
+    ]),
   ),
   new CorrectionTable(
     'climb time positive correction',
@@ -153,6 +160,6 @@ const posNegCorrectionTable = new PosNegCorrectionTable(
       [25, new CorrectionVector([25, 8, 0.25])],
       [30, new CorrectionVector([30, 8, 0.36])],
       [35, new CorrectionVector([35, 8, 0.45])],
-    ])
-  )
+    ]),
+  ),
 );

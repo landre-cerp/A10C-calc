@@ -25,7 +25,7 @@ export class ClimbPhase extends FlightPhase {
       this.altitude,
       this.getStartingWeight(),
       airport.DeltaTemp,
-      this.drag
+      this.drag,
     );
 
     this.fuelFlow = (this.fuelUsed / this.Duration()) * 60;
@@ -38,7 +38,7 @@ export class ClimbPhase extends FlightPhase {
       this.altitude,
       this.getStartingWeight(),
       airport.DeltaTemp,
-      this.drag
+      this.drag,
     );
     return this.duration;
   }
@@ -49,7 +49,7 @@ export class ClimbPhase extends FlightPhase {
       this.altitude,
       this.getStartingWeight(),
       airport.DeltaTemp,
-      this.drag
+      this.drag,
     );
     return this.distance;
   }

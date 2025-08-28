@@ -15,7 +15,6 @@
 
 import './commands';
 
-
 // Quasar styles
 import 'quasar/src/css/index.sass'; // Or 'quasar/dist/quasar.prod.css' if no CSS preprocessor is installed
 // Change this if you have a different entrypoint for the main scss.
