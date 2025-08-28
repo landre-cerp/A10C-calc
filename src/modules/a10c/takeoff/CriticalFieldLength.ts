@@ -8,23 +8,23 @@ export const CriticalFieldLength = (
   takeoffindex: number,
   weight: number,
   rcr: number,
-  wind: number
+  wind: number,
 ): number => {
   let criticalFieldLength = vectors_CriticalFieldLength.GetLinear(
     weight,
-    takeoffindex
+    takeoffindex,
   );
 
   if (wind != 0) {
     criticalFieldLength = vectors_CriticalFieldLength_wind.GetLinear(
       criticalFieldLength,
-      wind
+      wind,
     );
   }
 
   criticalFieldLength = rcr_correction_table.GetLinear(
     criticalFieldLength,
-    rcr
+    rcr,
   );
   return criticalFieldLength;
 };
@@ -37,7 +37,7 @@ const vectors_CriticalFieldLength = new CorrectionTable(
     [40000, new CorrectionVector([19434, -1599, 7.14])],
     [45000, new CorrectionVector([35446, -3947, 92.5])],
     [50000, new CorrectionVector([63300, -8150, 250])],
-  ])
+  ]),
 );
 
 const vectors_CriticalFieldLength_wind = new PosNegCorrectionTable(
@@ -58,7 +58,7 @@ const vectors_CriticalFieldLength_wind = new PosNegCorrectionTable(
       [10000, new CorrectionVector([9999, -115, 0.393])],
       [11000, new CorrectionVector([10993, -119, 0.214])],
       [12000, new CorrectionVector([11974, -139, 0.571])],
-    ])
+    ]),
   ),
 
   new CorrectionTable(
@@ -76,8 +76,8 @@ const vectors_CriticalFieldLength_wind = new PosNegCorrectionTable(
       [9000, new CorrectionVector([9000, -115])],
       [10000, new CorrectionVector([10000, -120])],
       [11000, new CorrectionVector([11000, -125])],
-    ])
-  )
+    ]),
+  ),
 );
 
 const rcr_correction_table = new CorrectionTable(
@@ -93,5 +93,5 @@ const rcr_correction_table = new CorrectionTable(
     [8000, new CorrectionVector([14482, -369, 3.79])],
     [9000, new CorrectionVector([17364, -538, 7.58])],
     [10000, new CorrectionVector([16900, -300, 0])],
-  ])
+  ]),
 );

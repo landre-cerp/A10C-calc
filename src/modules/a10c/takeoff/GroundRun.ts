@@ -3,18 +3,18 @@ import { CorrectionTable, CorrectionVector } from '../CorrectionTable';
 export const GroundRun = (
   takeoffIndex: number,
   weight: number,
-  headWind: number
+  headWind: number,
 ): number => {
   // calculate ground run distance
   const groundRunDist = GroundRuncCorrectionTable.GetLinear(
     weight,
-    takeoffIndex
+    takeoffIndex,
   );
 
   // then correct for head wind
   return (
     Math.ceil(
-      GroundRuncCorrectionTable_wind.GetLinear(groundRunDist, headWind) / 100
+      GroundRuncCorrectionTable_wind.GetLinear(groundRunDist, headWind) / 100,
     ) * 100
   );
 };
@@ -28,7 +28,7 @@ const GroundRuncCorrectionTable = new CorrectionTable(
     [40000, new CorrectionVector([15521, -1492, 20.5])],
     [45000, new CorrectionVector([23743, -2592, 56])],
     [50000, new CorrectionVector([36320, -4180, 100])],
-  ])
+  ]),
 );
 
 const GroundRuncCorrectionTable_wind = new CorrectionTable(
@@ -48,5 +48,5 @@ const GroundRuncCorrectionTable_wind = new CorrectionTable(
     [12000, new CorrectionVector([11850, -120])],
     [13000, new CorrectionVector([13050, -136])],
     [14000, new CorrectionVector([13700, -132])],
-  ])
+  ]),
 );

@@ -47,17 +47,17 @@ const props = defineProps({
 });
 
 const totalWeight = computed(
-  () => props.emptyWeight + props.weaponsWeight + props.fuelWeight
+  () => props.emptyWeight + props.weaponsWeight + props.fuelWeight,
 );
 
 const percentZeroFW = computed(
-  () => (100 * props.emptyWeight) / props.maxTakeOffWeight
+  () => (100 * props.emptyWeight) / props.maxTakeOffWeight,
 );
 const percentWeapons = computed(
-  () => (100 * props.weaponsWeight) / props.maxTakeOffWeight
+  () => (100 * props.weaponsWeight) / props.maxTakeOffWeight,
 );
 const percentFuel = computed(
-  () => (100 * props.fuelWeight) / props.maxTakeOffWeight
+  () => (100 * props.fuelWeight) / props.maxTakeOffWeight,
 );
 </script>
 

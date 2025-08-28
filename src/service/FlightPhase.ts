@@ -5,7 +5,6 @@ import {
   StoresConfiguration,
   QNH,
   QNH_Unit,
-
 } from '../components/models';
 import { IFlightPhase } from 'src/components/models';
 
@@ -77,7 +76,7 @@ export abstract class FlightPhase implements IFlightPhase {
     label: string,
     comment: string,
     type: PhaseType,
-    previous: FlightPhase | null = null
+    previous: FlightPhase | null = null,
   ) {
     this.label = label;
     this.comment = comment;
@@ -88,10 +87,9 @@ export abstract class FlightPhase implements IFlightPhase {
       this.altitude = previous.getStartingAltitude();
       this.storesConfiguration = previous.storesConfiguration;
       this.drag = previous.getEndingDrag();
-      this.wind = new Wind(previous.wind.direction, previous.wind.speed,);
+      this.wind = new Wind(previous.wind.direction, previous.wind.speed);
     }
   }
-
 
   abstract Recalc(): void;
 
@@ -112,7 +110,6 @@ export abstract class FlightPhase implements IFlightPhase {
       : this.startWeight;
     return Math.ceil(weight);
   }
-
 
   setStartingWeight(weight: number) {
     this.startWeight = weight;
@@ -135,11 +132,7 @@ export abstract class FlightPhase implements IFlightPhase {
   }
 
   getEndingWeight(): number {
-    return (
-      this.getStartingWeight() -
-      this.fuelUsed
-
-    );
+    return this.getStartingWeight() - this.fuelUsed;
   }
 
   getStartingAltitude() {
@@ -163,10 +156,7 @@ export abstract class FlightPhase implements IFlightPhase {
   }
 
   getEndingDrag() {
-    return (
-      this.drag
-
-    );
+    return this.drag;
   }
 
   setStartWeight(weight: number): void {
@@ -211,6 +201,4 @@ export abstract class FlightPhase implements IFlightPhase {
     this.wind.direction = direction;
     this.wind.speed = speed;
   }
-
-
 }

@@ -1,4 +1,3 @@
-
 import { IFlightPhase, PhaseType, QNH } from './../components/models';
 import { defineStore } from 'pinia';
 
@@ -33,7 +32,6 @@ export const useFlightStore = defineStore('flight', {
     ] as boolean[],
   }),
 
-
   getters: {
     NextPhases(): PhaseType[] {
       if (this.phases.length == 0) {
@@ -43,7 +41,7 @@ export const useFlightStore = defineStore('flight', {
       } else {
         const nextphases =
           FlightGraph.find(
-            (p) => p.start == this.phases[this.phases.length - 1].type
+            (p) => p.start == this.phases[this.phases.length - 1].type,
           )?.next || [];
 
         return nextphases;
@@ -55,20 +53,24 @@ export const useFlightStore = defineStore('flight', {
 
       if (this.phases.length != 0) {
         // find existence of a landing phase
-        const landingPhase = this.phases.find(p => p.type == PhaseType.LANDING);
+        const landingPhase = this.phases.find(
+          (p) => p.type == PhaseType.LANDING,
+        );
 
         if (landingPhase) {
           const descentPhase = landingPhase.previousPhase;
           const rtb = descentPhase?.previousPhase;
           if (rtb && descentPhase) {
-            bingo = this.fuelReserve + rtb.fuelUsed + descentPhase.fuelUsed + landingPhase.fuelUsed;
-          }
-          else {
+            bingo =
+              this.fuelReserve +
+              rtb.fuelUsed +
+              descentPhase.fuelUsed +
+              landingPhase.fuelUsed;
+          } else {
             bingo = 0;
           }
         }
       }
-
 
       return bingo;
     },
@@ -79,7 +81,6 @@ export const useFlightStore = defineStore('flight', {
 
     FlightPhases(): IFlightPhase[] {
       return this.phases;
-
     },
 
     TotalDistance(): number {
@@ -106,7 +107,9 @@ export const useFlightStore = defineStore('flight', {
     },
 
     CruiseAltitude(): number {
-      const cruisePhases = this.phases.filter((p) => p.type == PhaseType.CRUISE);
+      const cruisePhases = this.phases.filter(
+        (p) => p.type == PhaseType.CRUISE,
+      );
       let cruiseAltitude = 0;
       cruisePhases.forEach((phase) => {
         if (phase.altitude > cruiseAltitude) {
@@ -115,7 +118,6 @@ export const useFlightStore = defineStore('flight', {
       });
 
       return cruiseAltitude;
-
     },
   },
 
@@ -126,13 +128,11 @@ export const useFlightStore = defineStore('flight', {
       } else {
         const newPhase = FlightPhaseFactory.createPhase(
           phaseType,
-          this.phases[this.phases.length - 1] as FlightPhase
+          this.phases[this.phases.length - 1] as FlightPhase,
         );
         if (newPhase) {
-
           this.phases.push(newPhase);
         }
-
       }
     },
     RemovePhase() {

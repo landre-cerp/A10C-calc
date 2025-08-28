@@ -26,7 +26,6 @@ export default {
 
   validator_between_0_360: 'Must be between 0 and 360',
 
-
   drag: 'Drag',
   weapons: 'Weapons',
   gun_ammo: 'Gun ammo',
@@ -45,7 +44,8 @@ export default {
     wind_speed: 'Wind speed',
     wind_speed_help: 'Enter wind speed in knots',
     temperature: 'Temperature',
-    temperature_help: 'DCS Temperature in brief is for sea level. Remove 2°C every 1000 feets.',
+    temperature_help:
+      'DCS Temperature in brief is for sea level. Remove 2°C every 1000 feets.',
     pressure: 'Pressure',
     pressure_altitude: 'Pressure altitude',
     pressure_qnh: 'QNH',
@@ -55,19 +55,21 @@ export default {
   takeoff_info: {
     info: 'Takeoff information',
     flaps: 'Flaps',
-    ptfs_help: 'Fan speed should be checked after approximately 1,000 feet on takeoff roll.',
+    ptfs_help:
+      'Fan speed should be checked after approximately 1,000 feet on takeoff roll.',
     takeoff_weight: 'Takeoff weight',
     rotate_speed: 'Rotate speed',
     takeoff_speed: 'Takeoff speed',
     takeoff_index: 'Takeoff index (max thrust)',
-    takeoff_index_help: 'TakeOff Index is displayed in case you want to read charts.',
+    takeoff_index_help:
+      'TakeOff Index is displayed in case you want to read charts.',
     taxi_fuel: 'Taxi fuel (100 lbs/10 min)',
-    taxi_fuel_help: '(300 pounds/30 minutes) and a worst case fuel consumption of 200 pounds for takeoff and acceleration to climb speed.',
+    taxi_fuel_help:
+      '(300 pounds/30 minutes) and a worst case fuel consumption of 200 pounds for takeoff and acceleration to climb speed.',
     ground_run: 'Ground run',
     fifty_feet_clearance: '50 feet obstacle clearance',
     critical_field_length: 'Critical field length',
     enter_runway_length: 'Enter runway length',
-
   },
   runway_condition: {
     label: 'Runway condition',
@@ -92,7 +94,7 @@ export default {
     TAKEOFF: 'Taxi & Take Off',
     CLIMB: 'Climb',
     CRUISE: 'Cruise',
-    'HI_COMBAT': 'Hi Combat',
+    HI_COMBAT: 'Hi Combat',
     REFUEL: 'Refuel',
     DESCENT: 'Descent',
     LANDING: 'Landing',
@@ -115,39 +117,38 @@ export default {
     greater_than_zero: 'must be greater than 0 .Or check fuel',
 
     optimum: {
-      climb_speed: 'Speed (x1000ft : IAS) : [SL: 200, 5: 195, 10: 190, 15: 185, 20: 180]',
+      climb_speed:
+        'Speed (x1000ft : IAS) : [SL: 200, 5: 195, 10: 190, 15: 185, 20: 180]',
       combat_ff: 'Combat FF at 250 KIAS',
       std_day_temp_dev: 'STD Day dev is',
       speed_max_range: 'Speed for max range is {speed} KIAS ( Idle, SB closed)',
-      speed_max_range_help: 'Fuel, time and distance for Penetration descent: 80 % core RPM, 200 KIAS, SB opened 40% ',
+      speed_max_range_help:
+        'Fuel, time and distance for Penetration descent: 80 % core RPM, 200 KIAS, SB opened 40% ',
     },
     alt_must_be_lower: 'Altitude must be lower than original to descent',
     alt_must_be_higher: 'Altitude must be higher than original to climb',
-
   },
   landing_info: {
     copy_takeoff_params: 'Copy takeoff params',
     gross_weight: 'Gross weight',
-    gross_weight_validator: 'Gross weight must be greater than empty weight and lower than max landing weight',
+    gross_weight_validator:
+      'Gross weight must be greater than empty weight and lower than max landing weight',
     single_engine: 'Single engine',
     speed_brakes: 'Speed brakes',
     minimum_run: 'Minimum run',
-    minimum_run_help: 'Check to see minimum distance and speed to achieve minimum runway length.',
+    minimum_run_help:
+      'Check to see minimum distance and speed to achieve minimum runway length.',
     final_approach_speed: 'Final approach speed',
     touch_down_speed: 'Touch down speed',
     ground_roll: 'Ground roll',
     landing_index: 'Landing index',
-    landing_index_help: 'Landing Index is displayed in case you want to read charts.',
+    landing_index_help:
+      'Landing Index is displayed in case you want to read charts.',
   },
 
   brief_page: {
     fuel: 'Fuel',
     ammo: 'Ammo',
     takeoff_weight: 'Poids au décollage',
-
-
-  }
-
-
-
+  },
 };

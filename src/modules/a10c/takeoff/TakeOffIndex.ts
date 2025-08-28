@@ -12,8 +12,8 @@ export class TakeoffIndexCalculator extends PerfCalculator {
           [2000, new CorrectionVector([9.95, -0.0321, -4.18e-4])],
           [4000, new CorrectionVector([9.54, -0.0398, -5.24e-4])],
           [6000, new CorrectionVector([8.97, -0.0475, -6.12e-4])],
-        ])
-      )
+        ]),
+      ),
     );
   }
 

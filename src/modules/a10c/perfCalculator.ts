@@ -7,7 +7,7 @@ export type Altitude = number;
 export abstract class PerfCalculator {
   constructor(
     private name: string,
-    protected correctionTable: ICorrectionTable
+    protected correctionTable: ICorrectionTable,
   ) {}
 
   public getName(): string {

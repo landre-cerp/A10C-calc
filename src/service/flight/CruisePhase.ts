@@ -2,7 +2,10 @@ import { CruiseNMperLbsUsed } from '../../modules/a10c/cruise/CruiseFuel';
 import { PhaseType } from 'src/components/models';
 import { useTakeOffStore } from 'src/stores/Airport';
 
-import { CruiseMachSpeed, TrueAirspeed } from '../../modules/a10c/cruise/CruiseMachSpeed';
+import {
+  CruiseMachSpeed,
+  TrueAirspeed,
+} from '../../modules/a10c/cruise/CruiseMachSpeed';
 import { getStdTemp } from '../conversionTool';
 
 import { FlightPhase } from '../FlightPhase';
@@ -27,7 +30,7 @@ export class CruisePhase extends FlightPhase {
     this.machSpeed = CruiseMachSpeed(
       this.altitude,
       this.getStartingWeight(),
-      this.drag
+      this.drag,
     );
     return this.machSpeed;
   }
@@ -46,15 +49,15 @@ export class CruisePhase extends FlightPhase {
   private Duration(): number {
     this.trueAirSpeed = TrueAirspeed(
       this.machSpeed,
-      getStdTemp(this.altitude) + airport.DeltaTemp
+      getStdTemp(this.altitude) + airport.DeltaTemp,
     );
 
-    const groundSpeed = this.trueAirSpeed - this.wind.RelativeHeadwind(this.course);
+    const groundSpeed =
+      this.trueAirSpeed - this.wind.RelativeHeadwind(this.course);
     const duration = this.distance / (groundSpeed / 60);
     this.duration = duration;
     return duration;
   }
-
 
   Recalc() {
     this.FuelUsed();
@@ -71,12 +74,12 @@ export class CruisePhase extends FlightPhase {
     const cruiseMach = CruiseMachSpeed(
       this.altitude,
       this.getStartingWeight(),
-      this.drag
+      this.drag,
     );
 
     const Ktas = TrueAirspeed(
       cruiseMach,
-      getStdTemp(this.altitude) + airport.DeltaTemp
+      getStdTemp(this.altitude) + airport.DeltaTemp,
     );
 
     const groundSpeed = Ktas - this.wind.RelativeHeadwind(this.course);

@@ -7,7 +7,10 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: '/', component: () => import('pages/LoadPage.vue') },
       { path: '/Load', component: () => import('pages/LoadPage.vue') },
-      { path: '/TakeOff', component: () => import('src/pages/TakeOffPage.vue') },
+      {
+        path: '/TakeOff',
+        component: () => import('src/pages/TakeOffPage.vue'),
+      },
       { path: '/Flight', component: () => import('src/pages/FlightPage.vue') },
       {
         path: '/Landing',

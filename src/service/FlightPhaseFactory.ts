@@ -13,39 +13,49 @@ export class FlightPhaseFactory {
     const phase = new TakeOffPhase();
     return phase;
   }
-  static createPhase(type: PhaseType, previous: FlightPhase) {
-    switch (type) {
-      case PhaseType.CLIMB:
-        const climbPhase = new ClimbPhase(previous);
 
+  static createPhase(
+    type: PhaseType,
+    previous: FlightPhase,
+  ): FlightPhase | undefined {
+    switch (type) {
+      case PhaseType.CLIMB: {
+        const climbPhase = new ClimbPhase(previous);
         climbPhase.Recalc();
         return climbPhase;
+      }
 
-      case PhaseType.CRUISE:
+      case PhaseType.CRUISE: {
         const cruisePhase = new CruisePhase(previous);
         cruisePhase.Recalc();
         return cruisePhase;
+      }
 
-      case PhaseType.HI_COMBAT:
+      case PhaseType.HI_COMBAT: {
         const combatPhase = new CombatPhase(previous);
         combatPhase.Recalc();
         return combatPhase;
+      }
 
-      case PhaseType.DESCENT:
+      case PhaseType.DESCENT: {
         const descentPhase = new DescentPhase(previous);
         descentPhase.Recalc();
-
         return descentPhase;
+      }
 
-      case PhaseType.LANDING:
+      case PhaseType.LANDING: {
         const landingPhase = new LandingPhase(previous);
         landingPhase.Recalc();
         return landingPhase;
+      }
 
-      case PhaseType.REFUEL:
+      case PhaseType.REFUEL: {
         const refuelPhase = new RefuelPhase(previous);
         return refuelPhase;
-        break;
+      }
+
+      default:
+        return undefined;
     }
   }
 }

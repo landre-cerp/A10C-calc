@@ -10,11 +10,16 @@ export const ClimbDistanceNeeded = (
   tartgetAlt: number,
   startingWeight: number,
   deltaTemp: number,
-  drag: number
+  drag: number,
 ): number => {
-
-  const target_distanceNeeded = Math.max(0, climbDistanceDragTable.getLinear(drag, startingWeight, tartgetAlt));
-  const start_distanceNeeded = Math.max(0, climbDistanceDragTable.getLinear(drag, startingWeight, startingAlt));
+  const target_distanceNeeded = Math.max(
+    0,
+    climbDistanceDragTable.getLinear(drag, startingWeight, tartgetAlt),
+  );
+  const start_distanceNeeded = Math.max(
+    0,
+    climbDistanceDragTable.getLinear(drag, startingWeight, startingAlt),
+  );
 
   let distanceNeeded = target_distanceNeeded - start_distanceNeeded;
 
@@ -52,7 +57,7 @@ const climbDistGrab0 = new CorrectionTable(
       new CorrectionVector([16.7, -4.8e-3, 7.54e-7, -3.91e-11, 7.67e-16]),
     ],
     [50000, new CorrectionVector([17.5, -5.13e-3, 8.18e-7, -4.3e-11, 9e-16])],
-  ])
+  ]),
 );
 
 const climbDistGrab4 = new CorrectionTable(
@@ -83,7 +88,7 @@ const climbDistGrab4 = new CorrectionTable(
       50000,
       new CorrectionVector([0.0972, 7.7e-4, 1.91e-7, -1.64e-11, 5.5e-16]),
     ],
-  ])
+  ]),
 );
 
 const climbDistGrab8 = new CorrectionTable(
@@ -111,7 +116,7 @@ const climbDistGrab8 = new CorrectionTable(
       50000,
       new CorrectionVector([-2.22e-32, 1.79e-3, -9.92e-8, 8.33e-12, -3.33e-17]),
     ],
-  ])
+  ]),
 );
 
 const climbDistanceDragTable = new DragCorrectionTable(
@@ -120,7 +125,7 @@ const climbDistanceDragTable = new DragCorrectionTable(
     [0, climbDistGrab0],
     [4, climbDistGrab4],
     [8, climbDistGrab8],
-  ])
+  ]),
 );
 
 const posNegCorrectionTable = new PosNegCorrectionTable(
@@ -134,7 +139,7 @@ const posNegCorrectionTable = new PosNegCorrectionTable(
       [75, new CorrectionVector([75, 2.0])],
       [100, new CorrectionVector([100, 3.6])],
       [125, new CorrectionVector([125, 5.5])],
-    ])
+    ]),
   ),
 
   new CorrectionTable(
@@ -146,6 +151,6 @@ const posNegCorrectionTable = new PosNegCorrectionTable(
       [75, new CorrectionVector([75, 0.875])],
       [100, new CorrectionVector([100, 1.38])],
       [125, new CorrectionVector([125, 2.25])],
-    ])
-  )
+    ]),
+  ),
 );

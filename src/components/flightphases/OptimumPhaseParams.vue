@@ -17,7 +17,7 @@
       $t('flight_phase.optimum.speed_max_range', {
         speed: SpeedForMaxRangeDescent(
           phase.getStartingWeight(),
-          phase.drag
+          phase.drag,
         ).toFixed(0),
       })
     }}

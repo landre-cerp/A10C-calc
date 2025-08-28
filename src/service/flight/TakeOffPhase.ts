@@ -1,4 +1,3 @@
-
 import { FlightPhase } from '../FlightPhase';
 
 import { useTakeOffStore } from 'src/stores/Airport';
@@ -8,7 +7,6 @@ import { PhaseType } from 'src/components/models';
 
 const aircraft = useA10CStore();
 const airport = useTakeOffStore();
-
 
 export class TakeOffPhase extends FlightPhase {
   constructor() {
@@ -27,8 +25,7 @@ export class TakeOffPhase extends FlightPhase {
     this.fuelUsed = aircraft.taxiFuel + 200;
     this.drag = aircraft.Drag;
     this.course = airport.runwayQFU;
-    this.wind = new Wind(airport.WindDirection, airport.WindSpeed)
+    this.wind = new Wind(airport.WindDirection, airport.WindSpeed);
     this.storesConfiguration = aircraft.configuration;
-
   }
 }

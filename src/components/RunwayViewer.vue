@@ -50,10 +50,10 @@ const props = defineProps({
 });
 
 const percentRun = computed(
-  () => (100 * props.groundRun) / (props.takeoff ? props.toda : props.lda)
+  () => (100 * props.groundRun) / (props.takeoff ? props.toda : props.lda),
 );
 const percentCritical = computed(() =>
-  props.toda ? (100 * (props.critical - props.groundRun)) / props.toda : 0
+  props.toda ? (100 * (props.critical - props.groundRun)) / props.toda : 0,
 );
 </script>
 

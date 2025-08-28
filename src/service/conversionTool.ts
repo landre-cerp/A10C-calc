@@ -1,4 +1,3 @@
-
 import { QNH, QNH_Unit } from './../components/models';
 
 const convertAltitudeUnits = (qnh: QNH) => {
