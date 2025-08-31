@@ -8,7 +8,7 @@
       :style="{ width: Math.ceil(percentZeroFW) + '%', color: 'white' }"
       class="progress-bar progress-bar-zfw q-py-md"
     >
-      <span>{{ $t('empty_weight') }} {{ emptyWeight }} lbs</span>
+      <span>{{ t('empty_weight') }} {{ emptyWeight }} lbs</span>
     </div>
     <div
       id="weaponsWeight"
@@ -38,6 +38,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const props = defineProps({
   maxTakeOffWeight: { type: Number, required: true, default: 0 },

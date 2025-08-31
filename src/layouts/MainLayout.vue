@@ -6,7 +6,7 @@
           <q-avatar square>
             <img src="~assets/Logo_Hog.png" />
           </q-avatar>
-          {{ $t('app_title') }} ({{ appVersion }} )
+          {{ t('app_title') }} ({{ appVersion }} )
           <span style="float: right">
             <language-changer />
           </span>
@@ -14,14 +14,14 @@
       </q-toolbar>
 
       <q-tabs align="left">
-        <q-route-tab to="/Load" :label="$t('loadout')" />
-        <q-route-tab to="/TakeOff" :label="$t('takeoff')" />
-        <q-route-tab to="/Flight" :label="$t('flight')" />
-        <q-route-tab to="/Landing" :label="$t('landing')" />
-        <q-route-tab to="/Brief" :label="$t('brief')" />
-        <q-route-tab v-if="isElectron" to="/DCS" :label="$t('dcs')" />
+        <q-route-tab to="/Load" :label="t('loadout')" />
+        <q-route-tab to="/TakeOff" :label="t('takeoff')" />
+        <q-route-tab to="/Flight" :label="t('flight')" />
+        <q-route-tab to="/Landing" :label="t('landing')" />
+        <q-route-tab to="/Brief" :label="t('brief')" />
+        <q-route-tab v-if="isElectron" to="/DCS" :label="t('dcs')" />
 
-        <q-route-tab to="/About" :label="$t('about')" />
+        <q-route-tab to="/About" :label="t('about')" />
       </q-tabs>
     </q-header>
 
@@ -34,7 +34,9 @@
 <script setup lang="ts">
 import { version } from '../../package.json';
 import LanguageChanger from 'src/components/languageChanger.vue';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const appVersion = version;
 const isElectron = typeof window !== 'undefined' && !!window.electron;
 </script>

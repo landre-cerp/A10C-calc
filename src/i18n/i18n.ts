@@ -3,6 +3,6 @@ import en from './en-US/index'
 import fr from './fr-FR/index'
 
 export default createI18n({
-  locale: 'en',
-  messages: { en, fr }
+  locale: 'en-US',
+  messages: { 'en-US': en, 'fr-FR': fr }
 })

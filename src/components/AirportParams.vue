@@ -2,7 +2,7 @@
   <q-card class="my-card">
     <q-card-section>
       <q-item-label class="text-h5">{{
-        $t('airport.information')
+        t('airport.information')
       }}</q-item-label>
     </q-card-section>
     <slot></slot>
@@ -16,7 +16,7 @@
           debounce="500"
           class="q-mr-md"
           v-model.number="runwayLength"
-          :label="$t('airport.runway_length')"
+          :label="t('airport.runway_length')"
         />
       </q-item>
 
@@ -29,13 +29,13 @@
           debounce="500"
           class="q-mr-md"
           v-model.number="Temp"
-          :label="$t('airport.temperature') + ' °C'"
+          :label="t('airport.temperature') + ' °C'"
           @update:model-value="emit('updated-temp')"
         >
           <template #append>
             <q-icon name="help">
               <q-tooltip>
-                {{ $t('airport.temperature_help') }}
+                {{ t('airport.temperature_help') }}
               </q-tooltip>
             </q-icon>
           </template>
@@ -68,14 +68,14 @@
           debounce="500"
           class="q-mr-md"
           v-model.number="AirportElevation"
-          :label="$t('airport.elevation')"
+          :label="t('airport.elevation')"
           @update:model-value="emit('updated-elevation')"
           :rules="[(val) => val >= 0]"
         >
           <template #append>
             {{ airport.AirportPressureAltitude }}
             <q-icon name="help">
-              <q-tooltip>{{ $t('airport.pressure_altitude') }}</q-tooltip>
+              <q-tooltip>{{ t('airport.pressure_altitude') }}</q-tooltip>
             </q-icon>
           </template>
         </q-input>
@@ -89,9 +89,9 @@
           class="q-mr-md"
           v-model.number="runwayQFU"
           :rules="[
-            (val) => (val >= 0 && val <= 360) || $t('validator_between_0_360'),
+            (val) => (val >= 0 && val <= 360) || t('validator_between_0_360'),
           ]"
-          :label="$t('airport.runway_qfu')"
+          :label="t('airport.runway_qfu')"
           @update:model-value="emit('updated-qfu')"
         />
       </q-item>
@@ -105,10 +105,10 @@
           class="q-mr-md"
           v-model.number="WindDirection"
           :rules="[
-            (val) => (val >= 0 && val <= 360) || $t('validator_between_0_360'),
+            (val) => (val >= 0 && val <= 360) || t('validator_between_0_360'),
           ]"
-          :label="$t('airport.wind_direction')"
-          :hint="$t('airport.wind_direction_help')"
+          :label="t('airport.wind_direction')"
+          :hint="t('airport.wind_direction_help')"
           @update:model-value="emit('updated-wind')"
         />
         <q-input
@@ -118,8 +118,8 @@
           debounce="500"
           class="q-mr-md"
           v-model.number="WindSpeed"
-          :label="$t('airport.wind_speed')"
-          :hint="$t('airport.wind_speed_help')"
+          :label="t('airport.wind_speed')"
+          :hint="t('airport.wind_speed_help')"
           @update:model-value="emit('updated-wind')"
         />
       </q-item>
@@ -130,8 +130,11 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useTakeOffStore, useLandingStore } from 'src/stores/Airport';
+import { useI18n } from 'vue-i18n';
 
 import { QNH_Unit } from './models';
+
+const { t } = useI18n();
 
 const emit = defineEmits([
   'updated-qnh',
