@@ -14,54 +14,53 @@ local lfs = require('lfs')
 LUA_PATH = "?;?.lua;"..lfs.currentdir().."/Scripts/?.lua"
 require 'Vector'
 -- See the Scripts\Vector.lua file for Vector class details, please.
---]] local default_output_file = nil
+--]] package.path = package.path .. ";" .. lfs.currentdir() ..
+                        "/LuaSocket/?.lua"
+package.cpath = package.cpath .. ";" .. lfs.currentdir() .. "/LuaSocket/?.dll"
 
-function LuaExportStart()
+package.path = lfs.writedir() .. "?.lua;" .. package.path
 
-    -- Works once just before mission start.
-    -- Make initializations of your files or connections here.
+local M = {}
+local A10CCalcConfig = require("Scripts.a10c-calc.a10c-calc-config")
+local socket = require("socket") --[[@as Socket]]
+local c = nil
 
-    package.path = package.path .. ";" .. lfs.currentdir() .. "/LuaSocket/?.lua"
-    package.cpath = package.cpath .. ";" .. lfs.currentdir() ..
-                        "/LuaSocket/?.dll"
-    socket = require("socket")
-    host = "127.0.0.1"
-    port = 31090
-    c = socket.try(socket.connect(host, port)) -- connect to the listener socket
-    c:setoption("tcp-nodelay", true) -- set immediate transmission mode
-
+-- Inline logger
+local log_file_path = lfs.writedir() .. "Logs/a10c-calc.log"
+local function log(msg, level)
+    local f = io.open(log_file_path, "a")
+    if f then
+        f:write(os.date("[%Y-%m-%d %H:%M:%S] ") .. (level or "INFO") .. ": " ..
+                    tostring(msg) .. "\n")
+        f:close()
+    end
 end
 
-function LuaExportBeforeNextFrame()
-    -- Works just before every simulation frame.
+function M.init()
+    log("A10C Calc: init", "INFO")
 
-    -- Call Lo*() functions to set data to Lock On here
-    -- For example:
-    --	LoSetCommand(3, 0.25) -- rudder 0.25 right
-    --	LoSetCommand(64) -- increase thrust
-
+    c = socket.try(socket.connect(A10CCalcConfig.tcp_config.address,
+                                  A10CCalcConfig.tcp_config.port))
+    if c then
+        c:setoption("tcp-nodelay", true)
+        log("A10C Calc: TCP connection established", "INFO")
+    else
+        log("A10C Calc: TCP connection failed", "ERROR")
+    end
 end
 
-function LuaExportAfterNextFrame()
-    -- Works just after every simulation frame.
-
-    -- Call Lo*() functions to get data from Lock On here.
-    -- For example:
+function M.update()
+    -- Called every frame
     local t = LoGetModelTime()
     local engine = LoGetEngineInfo()
-
     local weapons = LoGetPayloadInfo()
     local message = ""
     if weapons then
         message = message ..
                       string.format("Rounds = %d \n", weapons.Cannon.shells)
-
         for i_st, st in pairs(weapons.Stations) do
-
             message = message .. string.format("station %d : ", i_st)
-
             if (st.count ~= 0) then
-
                 local name = LoGetNameByType(st.weapon.level1, st.weapon.level2,
                                              st.weapon.level3, st.weapon.level4)
                 if name then
@@ -80,22 +79,30 @@ function LuaExportAfterNextFrame()
             end
         end
     end
-
     message = message .. string.format(
                   "RPM Left=%.1f Right=%.1f\nFuel internal=%.2f \nFuel external=%.2f \n",
                   engine.RPM.left, engine.RPM.right, engine.fuel_internal,
                   engine.fuel_external)
 
-    socket.try(c:send(message))
-
+    if c then local ok, err = socket.try(c:send(message)) end
 end
 
-function LuaExportStop()
-    -- Works once just after mission stop.
-    -- Close files and/or connections here.
-
-    socket.try(c:send("quit")) -- to close the listener socket
-    c:close()
+function M.stop()
+    -- Cleanup code here
+    log("A10C Calc: stop", "INFO")
+    if c then
+        socket.try(c:send("quit"))
+        c:close()
+        log("A10C Calc: TCP connection closed", "INFO")
+        c = nil
+    end
 end
 
-function LuaExportActivityNextEvent(t) local tNext = t end
+-- Hook DCS export events directly in this module
+function LuaExportStart() M.init() end
+
+function LuaExportAfterNextFrame() M.update() end
+
+function LuaExportStop() M.stop() end
+
+return M
