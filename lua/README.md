@@ -1,6 +1,9 @@
 # DCS export.lua
 
-Put this file into DCS Saved Games\DCS\Scripts folder. It will be executed by DCS on mission start.
-If you already have a file with this name, you can merge the contents.
+Add this line to your export.lua
+```lua
+dofile(lfs.writedir() .. [[Scripts\a10c-calc\a10c-calc.lua]])
+```
 
-TODO : Change this to mods/Service
+TODO: Use DCSBios A10c events to get info from the Aircraft instead of doing custom Lua export
+
