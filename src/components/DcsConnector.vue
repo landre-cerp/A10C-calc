@@ -7,17 +7,18 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import type { IpcRendererEvent } from 'electron';
 
 const message = ref<string>('');
 const status_message = ref<string>('');
 const isElectron = typeof window !== 'undefined' && !!window.electron;
 
 // Fonction pour gérer les données TCP
-const handleTcpData = (event: Event, data: string) => {
+const handleTcpData = (event: IpcRendererEvent, data: string) => {
   message.value = data;
 };
 
-const handleTcpStatus = (event: Event, status: string) => {
+const handleTcpStatus = (event: IpcRendererEvent, status: string) => {
   status_message.value = status;
 };
 
