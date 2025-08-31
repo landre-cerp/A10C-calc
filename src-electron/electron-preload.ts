@@ -32,14 +32,14 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 // Définir les types pour les événements IPCAdd commentMore actions
 interface ElectronAPI {
-  onTcpData: (callback: (event: IpcRendererEvent, data: string) => void) => void;
-  onTcpStatus: (callback: (event: IpcRendererEvent, data: string) => void) => void;
-  sendTcpData: (data: string) => void;
+  onDcsbiosStatus: (callback: (event: IpcRendererEvent, status: string) => void) => void;
+  onDcsbiosData: (callback: (event: IpcRendererEvent, data: any) => void) => void;
+  onDcsbiosError: (callback: (event: IpcRendererEvent, error: string) => void) => void;
 }
 
 // Exposer les API sécurisées au processus de renduAdd commentMore actions
 contextBridge.exposeInMainWorld('electron', {
-  onTcpData: (callback: (event: IpcRendererEvent, data: string) => void) => ipcRenderer.on('tcp-data', callback),
-  onTcpStatus: (callback: (event: IpcRendererEvent, data: string) => void) => ipcRenderer.on('tcp-status', callback),
-  sendTcpData: (data: string) => ipcRenderer.send('send-tcp-data', data)
+  onDcsbiosStatus: (callback: (event: IpcRendererEvent, status: string) => void) => ipcRenderer.on('dcsbios-status', callback),
+  onDcsbiosData: (callback: (event: IpcRendererEvent, data: any) => void) => ipcRenderer.on('dcsbios-data', callback),
+  onDcsbiosError: (callback: (event: IpcRendererEvent, error: string) => void) => ipcRenderer.on('dcsbios-error', callback)
 } as ElectronAPI);
