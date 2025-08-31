@@ -99,11 +99,10 @@ function detectUpdate(message: Buffer): boolean {
 }
 
 function decodeValue(buffer: Buffer, startAddress: number, mask: number, shift: number): number {
-  const index = startAddress;
-  if (index < 0 || index + 2 > buffer.length) {
-    throw new RangeError(`Index ${index} is out of range. Buffer length: ${buffer.length}`);
+  if (startAddress < 0 || startAddress + 2 > buffer.length) {
+    throw new RangeError(`Index ${startAddress} is out of range. Buffer length: ${buffer.length}`);
   }
-  const value = buffer.readUInt16LE(index);
+  const value = buffer.readUInt16LE(startAddress);
   const decodedValue = (value & mask) >> shift;
   return decodedValue;
 }
