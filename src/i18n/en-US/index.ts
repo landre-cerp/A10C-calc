@@ -15,6 +15,7 @@ export default {
   change_language: 'passer en ',
   runway: 'Runway',
   export_kneeboard: 'Export kneeboard',
+  dcs: 'DCS',
   wind: {
     label: 'Wind',
     Neutral: 'Neutral',

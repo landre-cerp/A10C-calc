@@ -8,12 +8,13 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
-    "start": "quasar dev",
+    "start": "quasar dev -m electron",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "test:e2e": "cross-env NODE_ENV=test start-test \"quasar dev\" http-get://localhost:9000 \"cypress open --e2e\"",
     "test:e2e:ci": "cross-env NODE_ENV=test start-test \"quasar dev\" http-get://localhost:9000 \"cypress run --e2e\"",
     "test:component": "cross-env NODE_ENV=test cypress open --component",
-    "test:component:ci": "cross-env NODE_ENV=test cypress run --component"
+    "test:component:ci": "cross-env NODE_ENV=test cypress run --component",
+    "build": "quasar build -m electron"
   },
   "resolutions": {
     "typescript": "5.5.0"
@@ -21,7 +22,9 @@
   "dependencies": {
     "@quasar/cli": "^2.5.0",
     "@quasar/extras": "^1.17.0",
-    "axios": "^1.11.0",
+    "@types/ws": "^8.5.11",
+    "axios": "^1.9.0",
+    "esbuild": "^0.23.0",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
     "html-to-image": "^1.11.13",
@@ -30,14 +33,15 @@
     "quasar": "^2.18.2",
     "quasar-extras-svg-icons": "^2.2.0",
     "vue": "^3.5.13",
-    "vue-i18n": "^11.1.11",
-    "vue-router": "^4.5.1",
-    "workbox-build": "^7.0.0"
+    "vue-i18n": "^11.1.5",
+    "vue-router": "^4.4.5",
+    "workbox-build": "^7.0.0",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@intlify/vite-plugin-vue-i18n": "^7.0.0",
+    "@electron/packager": "^18.3.3",
     "@quasar/app-vite": "^2.3.0",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^6.2.1",
     "@semantic-release/changelog": "^6.0.3",
