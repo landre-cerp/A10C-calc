@@ -8,6 +8,23 @@ let dcsbiosData: Buffer = Buffer.alloc(65536);
 
 const client = dgram.createSocket({ type: 'udp4', reuseAddr: true });
 
+// CDU line addresses and max length
+const CDU_LINES = [
+  { name: 'CDU_LINE0', address: 0x11c0, length: 24 },
+  { name: 'CDU_LINE1', address: 0x11d8, length: 24 },
+  { name: 'CDU_LINE2', address: 0x11f0, length: 24 },
+  { name: 'CDU_LINE3', address: 0x1208, length: 24 },
+  { name: 'CDU_LINE4', address: 0x1220, length: 24 },
+  { name: 'CDU_LINE5', address: 0x1238, length: 24 },
+  { name: 'CDU_LINE6', address: 0x1250, length: 24 },
+  { name: 'CDU_LINE7', address: 0x1268, length: 24 },
+  { name: 'CDU_LINE8', address: 0x1280, length: 24 },
+  { name: 'CDU_LINE9', address: 0x1298, length: 24 },
+];
+
+// CDU screen buffer: always holds latest state for all lines
+let cduScreenBuffer: string[] = Array(CDU_LINES.length).fill('');
+
 client.on('listening', () => {
   const address = client.address();
   console.log(`UDP Client listening on ${address.address}:${address.port}`);
@@ -20,6 +37,7 @@ client.on('listening', () => {
 client.on('message', (message, remote) => {
   if (detectUpdate(message)) {
     let offset = 4;
+
     while (message.length - offset > 0) {
       let startAddress = message.readUInt16LE(offset);
       offset += 2;
@@ -35,21 +53,31 @@ client.on('message', (message, remote) => {
           win.webContents.send('dcsbios-data', { type: 'AntiSkid', value: antiSkid });
         });
       }
-      // Example: send CL_B1 value
-      if (startAddress === 0x10d4) {
-        const clb1 = decodeValue(dcsbiosData, 0x10d4, 0x0010, 4);
-        BrowserWindow.getAllWindows().forEach(win => {
-          win.webContents.send('dcsbios-data', { type: 'CL_B1', value: clb1 });
-        });
-      }
-      // Example: send CDU lines
-      if ([0x11d8, 0x11f0, 0x1208].includes(startAddress)) {
-        const cduLine = decodeString(dcsbiosData, startAddress, 24);
-        BrowserWindow.getAllWindows().forEach(win => {
-          win.webContents.send('dcsbios-data', { type: 'CDU', address: startAddress, value: cduLine });
-        });
-      }
+
+      // CDU line management: update buffer and send full screen
+      CDU_LINES.forEach((line, idx) => {
+        if (startAddress === line.address) {
+          const cduLineValue = decodeString(dcsbiosData, line.address, line.length);
+          cduScreenBuffer[idx] = cduLineValue;
+          BrowserWindow.getAllWindows().forEach(win => {
+            win.webContents.send('dcsbios-data', {
+              type: 'CDU_SCREEN',
+              lines: cduScreenBuffer.map((value, i) => ({
+                line: i + 1,
+                name: CDU_LINES[i].name,
+                address: CDU_LINES[i].address,
+                value
+              }))
+            });
+          });
+        }
+      });
     }
+    // Always send CL_B1 value after processing the message
+    const clb1 = decodeValue(dcsbiosData, 0x10d4, 0x0010, 4);
+    BrowserWindow.getAllWindows().forEach(win => {
+      win.webContents.send('dcsbios-data', { type: 'CL_B1', value: clb1 });
+    });
   } else {
     console.log(`Received invalid message: ${bytesToHex(message)}`);
     BrowserWindow.getAllWindows().forEach(win => {
@@ -81,8 +109,9 @@ function bytesToHex(byteArray: Uint8Array): string {
 
 function decodeString(buffer: Buffer, address: number, length: number): string {
   return buffer
-    .toString('ascii', address, address + length)
+    .toString('latin1', address, address + length) // preserves all bytes
     .replace(/\x00/g, '')
+    .replace(/\xB6/g, 'π') // map CDU pi symbol
     .trimEnd();
 }
 
