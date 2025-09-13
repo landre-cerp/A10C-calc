@@ -1,11 +1,14 @@
 import { IFlightPhase, PhaseType, QNH } from './../components/models';
 import { defineStore } from 'pinia';
+import { FlightPhaseData } from 'src/service/flight-context';
+import { ImprovedFlightPhaseFactory } from 'src/service/improved-flight-phase-factory';
+import { FlightContextFactory } from 'src/service/flight-context-factory';
+import { PressureAltitude } from 'src/service/conversionTool';
+import { ValidationService } from 'src/service/validation.service';
 
+// Legacy imports for backward compatibility
 import { FlightPhase } from 'src/service/FlightPhase';
 import { FlightPhaseFactory } from 'src/service/FlightPhaseFactory';
-import { PressureAltitude } from 'src/service/conversionTool';
-
-import { FlightGraph } from 'src/service/FlightPhase';
 
 export const useFlightStore = defineStore('flight', {
   state: () => ({
@@ -15,7 +18,11 @@ export const useFlightStore = defineStore('flight', {
     missionRange: 0 as number,
     cruiseHeadwind: 0 as number,
 
+    // Legacy support - keeping existing phases
     phases: [] as FlightPhase[],
+    
+    // New improved phases array
+    improvedPhases: [] as FlightPhaseData[],
 
     releasedStore: [
       false,
@@ -35,16 +42,22 @@ export const useFlightStore = defineStore('flight', {
   getters: {
     NextPhases(): PhaseType[] {
       if (this.phases.length == 0) {
-        return (
-          FlightGraph.find((p) => p.start == PhaseType.TAKEOFF)?.next || []
-        );
+        return [PhaseType.TAKEOFF];
       } else {
-        const nextphases =
-          FlightGraph.find(
-            (p) => p.start == this.phases[this.phases.length - 1].type,
-          )?.next || [];
+        const lastPhase = this.phases[this.phases.length - 1];
+        return ImprovedFlightPhaseFactory.getValidNextPhases(lastPhase.type);
+      }
+    },
 
-        return nextphases;
+    /**
+     * Get next available phases using improved architecture
+     */
+    NextImprovedPhases(): PhaseType[] {
+      if (this.improvedPhases.length === 0) {
+        return [PhaseType.TAKEOFF];
+      } else {
+        const lastPhase = this.improvedPhases[this.improvedPhases.length - 1];
+        return ImprovedFlightPhaseFactory.getValidNextPhases(lastPhase.type);
       }
     },
 
@@ -122,6 +135,7 @@ export const useFlightStore = defineStore('flight', {
   },
 
   actions: {
+    // Legacy method - keeping for backward compatibility
     AddPhase(phaseType: PhaseType) {
       if (phaseType == PhaseType.TAKEOFF) {
         this.phases.push(FlightPhaseFactory.createTakoffPhase());
@@ -135,9 +149,70 @@ export const useFlightStore = defineStore('flight', {
         }
       }
     },
+
+    // Legacy method - keeping for backward compatibility
     RemovePhase() {
       const removed = this.phases.pop() as FlightPhase;
-      removed.previousPhase?.setNextPhase(null);
+      removed?.previousPhase?.setNextPhase(null);
+    },
+
+    /**
+     * Add a new phase using improved architecture
+     * @param phaseType - Type of phase to add
+     */
+    addImprovedPhase(phaseType: PhaseType): void {
+      try {
+        const context = FlightContextFactory.createTakeoffContext();
+        const previousPhase = this.improvedPhases.length > 0 
+          ? this.improvedPhases[this.improvedPhases.length - 1] 
+          : undefined;
+
+        const newPhase = ImprovedFlightPhaseFactory.createPhase(
+          phaseType,
+          context,
+          previousPhase
+        );
+
+        this.improvedPhases.push(newPhase);
+      } catch (error) {
+        console.error('Failed to add flight phase:', error);
+        throw error;
+      }
+    },
+
+    /**
+     * Remove the last phase using improved architecture
+     */
+    removeImprovedPhase(): void {
+      if (this.improvedPhases.length > 0) {
+        this.improvedPhases.pop();
+      }
+    },
+
+    /**
+     * Clear all phases
+     */
+    clearPhases(): void {
+      this.phases.length = 0;
+      this.improvedPhases.length = 0;
+    },
+
+    /**
+     * Set flight level with validation
+     * @param flightLevel - Flight level in hundreds of feet
+     */
+    setFlightLevel(flightLevel: number): void {
+      const sanitized = ValidationService.sanitizeNumber(flightLevel, this.FlightLevel, 10, 600);
+      this.FlightLevel = sanitized;
+    },
+
+    /**
+     * Set fuel reserve with validation
+     * @param reserve - Fuel reserve in pounds
+     */
+    setFuelReserve(reserve: number): void {
+      const sanitized = ValidationService.sanitizeNumber(reserve, this.fuelReserve, 0);
+      this.fuelReserve = sanitized;
     },
   },
 });
