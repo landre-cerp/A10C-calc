@@ -1,12 +1,12 @@
 import { FlightPhase } from '../FlightPhase';
 
-import { useTakeOffStore } from 'src/stores/Airport';
+import { useTakeoffStore } from 'src/stores/takeoff';
 import { useA10CStore } from '../../stores/a10c';
 import { Wind } from '../Wind';
 import { PhaseType } from 'src/components/models';
 
 const aircraft = useA10CStore();
-const airport = useTakeOffStore();
+const airport = useTakeoffStore();
 
 export class TakeOffPhase extends FlightPhase {
   constructor() {

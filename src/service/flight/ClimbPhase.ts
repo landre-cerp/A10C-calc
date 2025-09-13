@@ -1,12 +1,12 @@
 import { PhaseType } from 'src/components/models';
-import { useTakeOffStore } from 'src/stores/Airport';
+import { useTakeoffStore } from 'src/stores/takeoff';
 
 import { ClimbDistanceNeeded } from '../../modules/a10c/climb/ClimbDistance';
 import { ClimbFuelUsed } from '../../modules/a10c/climb/ClimbFuel';
 import { ClimbTimeNeeded } from '../../modules/a10c/climb/ClimbTime';
 import { FlightPhase } from '../FlightPhase';
 
-const airport = useTakeOffStore();
+const airport = useTakeoffStore();
 
 export class ClimbPhase extends FlightPhase {
   constructor(previous: FlightPhase) {

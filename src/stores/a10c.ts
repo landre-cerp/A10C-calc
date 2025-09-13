@@ -1,18 +1,12 @@
-import { BasicConfiguration, EmptyConfiguration } from './../data/StoresConfig';
-import { emptyLoad } from './../data/A10C';
 import { IAircraftStore, StoresConfiguration } from './../components/models';
-import { LocalStorage } from 'quasar';
 import { defineStore } from 'pinia';
-
-const basicConf = { ...BasicConfiguration };
-const emptyConf = { ...EmptyConfiguration, name: 'Empty' };
-
-let availableConfigurations = [] as StoresConfiguration[];
-const localConfigs = LocalStorage.getItem('storesConfig');
+import { AircraftConfigurationService } from 'src/service/aircraft-configuration.service';
+import { WeightCalculationService } from 'src/service/weight-calculation.service';
+import { ValidationService } from 'src/service/validation.service';
+import { BasicConfiguration } from './../data/StoresConfig';
 
 const defaultState = {
-  configuration: { ...basicConf },
-
+  configuration: { ...BasicConfiguration },
   fuelQty: 75 as number,
   gunAmmoPercent: 100 as number,
   flaps: 7 as number,
@@ -27,123 +21,137 @@ export const useA10CStore = defineStore('a10c', {
       return this.configuration.pylonsLoad;
     },
 
-    // Drag coeff for the Load
+    // Drag coefficient for the Load
     Drag(): number {
-      if (!this.configuration.pylonsLoad) return 0;
-
-      return this.configuration.pylonsLoad.reduce(
-        (total, current) => total + current.drag,
-        0,
+      return AircraftConfigurationService.calculateDragCoefficient(
+        this.configuration.pylonsLoad
       );
     },
 
-    AvailableConfigurations() {
-      availableConfigurations = JSON.parse(
-        localConfigs,
-      ) as StoresConfiguration[];
-
-      if (!availableConfigurations || availableConfigurations.length == 0) {
-        availableConfigurations = [emptyConf, basicConf];
-      }
-      return availableConfigurations;
+    AvailableConfigurations(): StoresConfiguration[] {
+      return AircraftConfigurationService.getAvailableConfigurations();
     },
 
-    // Weigth Section
+    // Weight Section
     WeaponWeight(): number {
-      if (!this.configuration.pylonsLoad) return 0;
-      const weigth = this.configuration.pylonsLoad.reduce(
-        (total, current) => total + current.weight,
-        0,
+      return AircraftConfigurationService.calculateWeaponWeight(
+        this.configuration.pylonsLoad
       );
-
-      return weigth;
     },
-    // Weigth Section
 
     FuelWeight(): number {
-      if (this.fuelQty <= 100) {
-        return this.fuelQty * 110.87;
-      } else {
-        return 11087;
-      }
+      return WeightCalculationService.calculateFuelWeight(this.fuelQty);
     },
+
     AmmoWeight(): number {
-      if (this.gunAmmoPercent <= 100) {
-        return this.gunAmmoPercent * 17.75;
-      } else {
-        return 1775;
-      }
+      return WeightCalculationService.calculateAmmoWeight(this.gunAmmoPercent);
     },
 
     TotalWeight(): number {
-      return (
-        this.EmptyWeight + this.WeaponWeight + this.FuelWeight + this.AmmoWeight
+      return WeightCalculationService.calculateTotalWeight(
+        this.WeaponWeight,
+        this.FuelWeight,
+        this.AmmoWeight
       );
     },
 
     TakeOffWeight(): number {
-      return this.TotalWeight - this.taxiFuel;
+      return WeightCalculationService.calculateTakeoffWeight(
+        this.TotalWeight,
+        this.taxiFuel
+      );
     },
 
     EmptyWeight(): number {
-      return 25629;
+      return WeightCalculationService.EMPTY_WEIGHT;
     },
 
     MaxTakeOffWeight(): number {
-      return 46476;
+      return WeightCalculationService.MAX_TAKEOFF_WEIGHT;
     },
 
     MaxLandingWeight(): number {
-      return 46476;
+      return WeightCalculationService.MAX_LANDING_WEIGHT;
     },
 
     OverWeight(): boolean {
-      return this.TotalWeight > this.MaxTakeOffWeight;
+      return WeightCalculationService.isOverweight(this.TotalWeight);
     },
   },
 
   actions: {
-    setPylon(pylon: number, store: IAircraftStore) {
-      if (pylon >= 0 && pylon <= 10) {
-        this.configuration.pylonsLoad[pylon] = store;
+    setPylon(pylonIndex: number, store: IAircraftStore): void {
+      if (AircraftConfigurationService.isValidPylonIndex(pylonIndex)) {
+        this.configuration.pylonsLoad[pylonIndex] = store;
       }
     },
 
-    loadConfiguration(config: StoresConfiguration) {
-      const pylonConf = [] as unknown as StoresConfiguration['pylonsLoad'];
-
-      pylonConf.push(...config.pylonsLoad);
-      this.configuration.pylonsLoad = [...pylonConf];
-      this.configuration.name = config.name;
+    loadConfiguration(config: StoresConfiguration): void {
+      this.configuration = AircraftConfigurationService.cloneConfiguration(config);
     },
 
-    ResetPylon(pylon: number) {
-      if (pylon >= 0 && pylon < this.configuration.pylonsLoad.length) {
-        this.configuration.pylonsLoad[pylon] = { ...emptyLoad };
+    resetPylon(pylonIndex: number): void {
+      if (AircraftConfigurationService.isValidPylonIndex(pylonIndex)) {
+        this.configuration.pylonsLoad[pylonIndex] = 
+          AircraftConfigurationService.createEmptyPylon();
       }
     },
 
-    SaveConfiguration(name: string) {
-      const configToSave = {
-        name,
-        pylonsLoad: this.configuration.pylonsLoad,
-      };
-      this.DeleteConfiguration(name);
-      availableConfigurations.push(configToSave);
-      LocalStorage.set('storesConfig', JSON.stringify(availableConfigurations));
-    },
-
-    DeleteConfiguration(name: string) {
-      const index = availableConfigurations.findIndex(
-        (conf) => conf.name === name,
-      );
-      if (index >= 0) {
-        availableConfigurations.splice(index, 1);
-        LocalStorage.set(
-          'storesConfig',
-          JSON.stringify(availableConfigurations),
+    saveConfiguration(name: string): void {
+      try {
+        AircraftConfigurationService.saveConfiguration(
+          name,
+          this.configuration.pylonsLoad
         );
+      } catch (error) {
+        console.error('Failed to save configuration:', error);
+        throw error;
       }
+    },
+
+    deleteConfiguration(name: string): void {
+      try {
+        AircraftConfigurationService.deleteConfiguration(name);
+      } catch (error) {
+        console.error('Failed to delete configuration:', error);
+        throw error;
+      }
+    },
+
+    /**
+     * Validate and set fuel quantity
+     * @param fuelQty - Fuel quantity percentage
+     */
+    setFuelQuantity(fuelQty: number): void {
+      const sanitized = ValidationService.sanitizeNumber(fuelQty, this.fuelQty, 0);
+      this.fuelQty = sanitized;
+    },
+
+    /**
+     * Validate and set ammo percentage
+     * @param ammoPercent - Ammunition percentage
+     */
+    setAmmoPercentage(ammoPercent: number): void {
+      const sanitized = ValidationService.sanitizeNumber(ammoPercent, this.gunAmmoPercent, 0);
+      this.gunAmmoPercent = sanitized;
+    },
+
+    /**
+     * Validate and set flaps setting
+     * @param flaps - Flaps setting
+     */
+    setFlaps(flaps: number): void {
+      const sanitized = ValidationService.sanitizeNumber(flaps, this.flaps, 0, 20);
+      this.flaps = sanitized;
+    },
+
+    /**
+     * Validate and set taxi fuel
+     * @param taxiFuel - Taxi fuel consumption in pounds
+     */
+    setTaxiFuel(taxiFuel: number): void {
+      const sanitized = ValidationService.sanitizeNumber(taxiFuel, this.taxiFuel, 0);
+      this.taxiFuel = sanitized;
     },
   },
 });

@@ -147,7 +147,7 @@
 <script setup lang="ts">
 //Stores
 import { useA10CStore } from 'src/stores/a10c';
-import { useTakeOffStore } from 'src/stores/Airport';
+import { useTakeoffStore } from 'src/stores/takeoff';
 
 import { storeToRefs } from 'pinia';
 
@@ -169,7 +169,7 @@ import { Wind } from 'src/service/Wind';
 import { RCR } from 'src/modules/a10c/Rcr';
 
 const aircraft = useA10CStore();
-const airport = useTakeOffStore();
+const airport = useTakeoffStore();
 
 const { Temp } = storeToRefs(airport);
 

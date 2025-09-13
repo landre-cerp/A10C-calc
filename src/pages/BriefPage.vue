@@ -201,7 +201,8 @@
 <script setup lang="ts">
 import { useA10CStore } from 'src/stores/a10c';
 import { useFlightStore } from 'src/stores/flight';
-import { useTakeOffStore, useLandingStore } from 'src/stores/Airport';
+import { useTakeoffStore } from 'src/stores/takeoff';
+import { useLandingStore } from 'src/stores/landing';
 import { TakeoffSpeed } from 'src/modules/a10c/takeoff/takeOffSpeed';
 import { PhaseType, QNH_Unit } from 'src/components/models';
 
@@ -221,7 +222,7 @@ import { saveAs } from 'file-saver';
 
 const aircraft = useA10CStore();
 const flight = useFlightStore();
-const takeOff = useTakeOffStore();
+const takeOff = useTakeoffStore();
 const landing = useLandingStore();
 
 const landingConfig = ref({

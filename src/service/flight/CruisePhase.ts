@@ -1,6 +1,6 @@
 import { CruiseNMperLbsUsed } from '../../modules/a10c/cruise/CruiseFuel';
 import { PhaseType } from 'src/components/models';
-import { useTakeOffStore } from 'src/stores/Airport';
+import { useTakeoffStore } from 'src/stores/takeoff';
 
 import {
   CruiseMachSpeed,
@@ -10,7 +10,7 @@ import { getStdTemp } from '../conversionTool';
 
 import { FlightPhase } from '../FlightPhase';
 
-const airport = useTakeOffStore();
+const airport = useTakeoffStore();
 
 export class CruisePhase extends FlightPhase {
   private averageWeight = 0;
