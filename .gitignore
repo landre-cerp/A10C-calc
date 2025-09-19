@@ -42,3 +42,4 @@ yarn-error.log*
 .npmrc
 
 /quasar.config.*.temporary.compiled*
+src/mcp/build/
