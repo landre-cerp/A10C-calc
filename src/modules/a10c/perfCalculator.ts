@@ -1,4 +1,4 @@
-import { ICorrectionTable } from './CorrectionTable';
+import { ICorrectionTable } from './CorrectionTable.js';
 
 export type Drag = number;
 export type DeltaT = number;
@@ -8,7 +8,7 @@ export abstract class PerfCalculator {
   constructor(
     private name: string,
     protected correctionTable: ICorrectionTable,
-  ) {}
+  ) { }
 
   public getName(): string {
     return this.name;
