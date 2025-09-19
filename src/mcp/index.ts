@@ -1,7 +1,9 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { TakeoffIndexCalculator } from "../modules/a10c/takeoff/TakeOffIndex.js";
+import { TakeoffSpeed } from "../modules/a10c/takeoff/takeOffSpeed.js";
+
 
 
 // Create server instance
@@ -15,7 +17,7 @@ const server = new McpServer({
 });
 
 server.tool(
-  "getTakeoffIndex",
+  "a10c_takeoffIndex",
   "Get the takeoff index for the A10C, highest index is best",
   {
     altitude: z.number().describe("Pressure altitude in feet"),
@@ -38,7 +40,7 @@ server.tool(
 );
 
 server.tool(
-  "getTakeoffIndexRange",
+  "a10c_takeoffIndexRange",
   "Get the takeoff index for the A10C for range of altitudes and temperatures, highest index is best, use 100ft default steps, 10C default steps, returns a json [alt][temp]=index",
   {
     altitudemin: z.number().describe("Pressure altitude in feet"),
@@ -80,7 +82,22 @@ server.tool(
 
 );
 
-
+server.tool(
+  "a10c_takeoffSpeed",
+  "Calculate the takeoff speed for the A10C in knots", {
+  weight: z.number().describe("Weight of the aircraft in pounds"),
+},
+  async ({ weight }) => {
+    return {
+      content: [
+        {
+          type: "text",
+          text: TakeoffSpeed(weight).toFixed(2),
+        },
+      ],
+    };
+  }
+);
 
 async function main() {
   const transport = new StdioServerTransport();
