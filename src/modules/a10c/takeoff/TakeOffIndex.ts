@@ -1,5 +1,5 @@
-import { CorrectionTable, CorrectionVector } from '../CorrectionTable';
-import { PerfCalculator, Altitude } from '../perfCalculator';
+import { CorrectionTable, CorrectionVector } from '../CorrectionTable.js';
+import { PerfCalculator, Altitude } from '../perfCalculator.js';
 
 export class TakeoffIndexCalculator extends PerfCalculator {
   constructor() {
