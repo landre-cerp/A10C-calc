@@ -2,9 +2,8 @@ import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import os from 'os';
 
-import './tcp-server'
-import { fileURLToPath } from 'url'
-
+import './tcp-server';
+import { fileURLToPath } from 'url';
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform();
@@ -27,7 +26,10 @@ async function createWindow() {
       // More info: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/electron-preload-script
       preload: path.resolve(
         currentDir,
-        path.join(process.env.QUASAR_ELECTRON_PRELOAD_FOLDER, 'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION)
+        path.join(
+          process.env.QUASAR_ELECTRON_PRELOAD_FOLDER,
+          'electron-preload' + process.env.QUASAR_ELECTRON_PRELOAD_EXTENSION,
+        ),
       ),
     },
   });

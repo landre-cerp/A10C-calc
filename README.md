@@ -17,12 +17,14 @@ A10CCalc is a desktop application that provides realistic performance calculatio
 ## ✨ Features
 
 ### Aircraft Configuration
+
 - **Weight & Balance**: Real-time aircraft weight calculations including empty weight, fuel, weapons, and ammunition
 - **Loadout Management**: Visual pylon loader with drag coefficient calculations
 - **Fuel Planning**: Percentage-based fuel loading with weight conversions
 - **Stores Configuration**: Comprehensive weapons and external stores management
 
 ### Performance Calculations
+
 - **Takeoff Performance**:
   - Ground roll distance calculations
   - Rotation and takeoff speeds
@@ -39,6 +41,7 @@ A10CCalc is a desktop application that provides realistic performance calculatio
   - Speedbrake and flap configuration effects
 
 ### Environmental Factors
+
 - **Weather Integration**:
   - METAR data support
   - Wind component calculations (headwind/crosswind)
@@ -52,6 +55,7 @@ A10CCalc is a desktop application that provides realistic performance calculatio
   - Multiple runway condition types (dry, wet, icy)
 
 ### Flight Planning
+
 - **Multi-Phase Flight Planning**:
   - Takeoff phase with taxi fuel
   - Climb calculations (time, fuel, distance)
@@ -63,6 +67,7 @@ A10CCalc is a desktop application that provides realistic performance calculatio
 - **Fuel Consumption**: Phase-by-phase fuel burn calculations
 
 ### Additional Features
+
 - **DCS Integration**: TCP server for DCS World connectivity
 - **Briefing Cards**: Mission briefing export with kneeboard-style formatting
 - **Multi-Language Support**: English and French interfaces
@@ -83,18 +88,21 @@ A10CCalc is a desktop application that provides realistic performance calculatio
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v20, v21, or v22)
 - npm (>= 6.13.4) or yarn (>= 1.21.1)
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/Cerppo/A10C-calc.git
 cd A10C-calc
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
@@ -102,6 +110,7 @@ npm install
 ### Development
 
 Start the development server:
+
 ```bash
 npm run start
 # or
@@ -109,6 +118,7 @@ quasar dev -m electron
 ```
 
 For web development mode:
+
 ```bash
 quasar dev
 ```
@@ -116,6 +126,7 @@ quasar dev
 ### Building
 
 Build for production:
+
 ```bash
 npm run build
 # or
@@ -125,11 +136,13 @@ quasar build -m electron
 ### Code Quality
 
 Lint the code:
+
 ```bash
 npm run lint
 ```
 
 Format the code:
+
 ```bash
 npm run format
 ```
@@ -137,11 +150,13 @@ npm run format
 ### Testing
 
 Run E2E tests:
+
 ```bash
 npm run test:e2e
 ```
 
 Run component tests:
+
 ```bash
 npm run test:component
 ```
@@ -170,6 +185,7 @@ The application uses several configuration files:
 ## 📊 Performance Data
 
 Calculations are based on:
+
 - Historical A-10A performance charts
 - DCS community-validated performance data
 - Real-world flight manual procedures adapted for DCS
