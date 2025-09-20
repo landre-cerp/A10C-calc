@@ -15,7 +15,7 @@
     "test:component": "cross-env NODE_ENV=test cypress open --component",
     "test:component:ci": "cross-env NODE_ENV=test cypress run --component",
     "build": "quasar build -m electron",
-    "buildmcp": "tsc -p src-mcp/tsconfig.json"
+    "buildmcp": "tsc -p src/mcp/tsconfig.json"
   },
   "resolutions": {
     "typescript": "5.5.0"
