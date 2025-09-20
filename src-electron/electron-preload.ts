@@ -30,16 +30,25 @@
 
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
+// Import the DCS-BIOS data types
+type DcsBiosData =
+  | { type: 'AntiSkid'; value: string }
+  | { type: 'CL_B1'; value: number }
+  | { type: 'CDU_SCREEN'; lines: Array<{ line: number; name: string; address: number; value: string }> }
+  | { type: string; value: string | number | unknown }
+  | string
+  | unknown;
+
 // Définir les types pour les événements IPCAdd commentMore actions
 interface ElectronAPI {
   onDcsbiosStatus: (callback: (event: IpcRendererEvent, status: string) => void) => void;
-  onDcsbiosData: (callback: (event: IpcRendererEvent, data: any) => void) => void;
+  onDcsbiosData: (callback: (event: IpcRendererEvent, data: DcsBiosData) => void) => void;
   onDcsbiosError: (callback: (event: IpcRendererEvent, error: string) => void) => void;
 }
 
 // Exposer les API sécurisées au processus de renduAdd commentMore actions
 contextBridge.exposeInMainWorld('electron', {
   onDcsbiosStatus: (callback: (event: IpcRendererEvent, status: string) => void) => ipcRenderer.on('dcsbios-status', callback),
-  onDcsbiosData: (callback: (event: IpcRendererEvent, data: any) => void) => ipcRenderer.on('dcsbios-data', callback),
+  onDcsbiosData: (callback: (event: IpcRendererEvent, data: DcsBiosData) => void) => ipcRenderer.on('dcsbios-data', callback),
   onDcsbiosError: (callback: (event: IpcRendererEvent, error: string) => void) => ipcRenderer.on('dcsbios-error', callback)
 } as ElectronAPI);

@@ -19,7 +19,6 @@ export default [
   js.configs.recommended,
   ...vue.configs['flat/essential'],
   ...vue.configs['flat/strongly-recommended'],
-  prettierConfig,
   {
     files: ['**/*.{js,ts,vue}'],
     languageOptions: {
@@ -27,7 +26,7 @@ export default [
       parserOptions: {
         parser: typescriptParser,
         extraFileExtensions: ['.vue'],
-        ecmaVersion: 2021,
+        ecmaVersion: 2022,
         sourceType: 'module',
       },
       globals: {
@@ -44,6 +43,11 @@ export default [
         console: 'readonly',
         window: 'readonly',
         document: 'readonly',
+        structuredClone: 'readonly',
+        Buffer: 'readonly',
+        URL: 'readonly',
+        location: 'readonly',
+        ServiceWorkerGlobalScope: 'readonly',
       },
     },
     plugins: {
@@ -65,6 +69,7 @@ export default [
       'no-case-declarations': 'error',
     },
   },
+  prettierConfig,
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
@@ -72,7 +77,7 @@ export default [
     },
   },
   {
-    files: ['**/*.cjs'],
+    files: ['**/*.cjs', '**/.eslintrc.js'],
     languageOptions: {
       sourceType: 'commonjs',
       globals: {
