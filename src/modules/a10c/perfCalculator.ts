@@ -8,7 +8,7 @@ export abstract class PerfCalculator {
   constructor(
     private name: string,
     protected correctionTable: ICorrectionTable,
-  ) { }
+  ) {}
 
   public getName(): string {
     return this.name;

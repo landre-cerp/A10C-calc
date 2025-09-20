@@ -10,7 +10,6 @@
 
 import { defineConfig } from '#q-app/wrappers';
 
-
 export default defineConfig((ctx) => {
   console.log(ctx.build);
   return {
@@ -74,8 +73,7 @@ export default defineConfig((ctx) => {
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
 
-      vitePlugins: [
-      ],
+      vitePlugins: [],
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
