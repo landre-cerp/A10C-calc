@@ -34,7 +34,7 @@ client.on('listening', () => {
   client.addMembership(MULTICAST_ADDR, '0.0.0.0');
 });
 
-client.on('message', (message, remote) => {
+client.on('message', (message, _remote) => {
   if (detectUpdate(message)) {
     let offset = 4;
 
@@ -110,7 +110,8 @@ function bytesToHex(byteArray: Uint8Array): string {
 function decodeString(buffer: Buffer, address: number, length: number): string {
   return buffer
     .toString('latin1', address, address + length) // preserves all bytes
-    .replace(/\x00/g, '')
+    // eslint-disable-next-line no-control-regex
+    .replace(/\x00/g, '') // Remove null bytes from DCS-BIOS data
     .replace(/\xB6/g, 'π') // map CDU pi symbol
     .trimEnd();
 }
