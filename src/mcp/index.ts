@@ -2,8 +2,8 @@ import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mc
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { TakeoffIndexCalculator } from "../modules/a10c/takeoff/TakeOffIndex.js";
-import { TakeoffSpeed } from "../modules/a10c/takeoff/takeOffSpeed.js";
-import { GroundRun } from "../modules/a10c/takeoff/groundRun.js";
+import { TakeoffSpeed } from "../modules/a10c/takeoff/TakeOffSpeed.js";
+import { GroundRun } from "../modules/a10c/takeoff/GroundRun.js";
 
 
 
@@ -63,7 +63,7 @@ server.tool(
     let result: { [altitude: number]: { [temperature: number]: string } } = {};
 
     for (let alt = altitudemin; alt <= altitudemax; alt += altitudestep) {
-      result[alt] = {}; // Initialise l'objet pour cette altitude
+      result[alt] = {}; // Initialize the object for this altitude
 
       for (let temp = temperaturemin; temp <= temperaturemax; temp += temperaturestep) {
         const takeoffIndex = calculator.Calc(alt, temp);
