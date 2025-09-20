@@ -1,0 +1,149 @@
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
+import { TakeoffIndexCalculator } from "../modules/a10c/takeoff/TakeOffIndex.js";
+import { TakeoffSpeed } from "../modules/a10c/takeoff/TakeOffSpeed.js";
+import { GroundRun } from "../modules/a10c/takeoff/GroundRun.js";
+
+
+
+// Create server instance
+const server = new McpServer({
+  name: "a10c-calc",
+  version: "1.0.0",
+  capabilities: {
+    resources: {},
+    tools: {},
+  },
+});
+
+server.tool(
+  "a10c_takeoffIndex",
+  "Get the takeoff index for the A10C, highest index is best",
+  {
+    altitude: z.number().describe("Pressure altitude in feet"),
+    temperature: z.number().describe("Temperature in Celsius"),
+  },
+  async ({ altitude, temperature }) => {
+    const calculator = new TakeoffIndexCalculator();
+    const takeoffIndex = calculator.Calc(altitude, temperature);
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: takeoffIndex.toFixed(0),
+        },
+      ],
+    };
+  }
+
+);
+
+server.tool(
+  "a10c_takeoffIndexRange",
+  "Get the takeoff index for the A10C for range of altitudes and temperatures, highest index is best, use 100ft default steps, 10C default steps, returns a json [alt][temp]=index",
+  {
+    altitudemin: z.number().describe("Pressure altitude in feet"),
+    altitudemax: z.number().describe("Pressure altitude in feet"),
+    altitudestep: z.number().describe("Step between min and max altitude in feet"),
+    temperaturemin: z.number().describe("Temperature in Celsius"),
+    temperaturemax: z.number().describe("Temperature in Celsius"),
+    temperaturestep: z.number().describe("Step between min and max temperature in Celsius"),
+  },
+  async ({ altitudemin,
+    altitudemax,
+    altitudestep,
+    temperaturemin,
+    temperaturemax,
+    temperaturestep }) => {
+
+    const calculator = new TakeoffIndexCalculator();
+
+    let result: { [altitude: number]: { [temperature: number]: string } } = {};
+
+    for (let alt = altitudemin; alt <= altitudemax; alt += altitudestep) {
+      result[alt] = {}; // Initialize the object for this altitude
+
+      for (let temp = temperaturemin; temp <= temperaturemax; temp += temperaturestep) {
+        const takeoffIndex = calculator.Calc(alt, temp);
+        result[alt][temp] = takeoffIndex.toFixed(2);
+      }
+    }
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(result, null, 2),
+        },
+      ],
+    };
+  }
+
+);
+
+server.tool(
+  "a10c_takeoffSpeed",
+  "Calculate the takeoff speed for the A10C in knots", {
+  weight: z.number().describe("Weight of the aircraft in pounds"),
+},
+  async ({ weight }) => {
+    return {
+      content: [
+        {
+          type: "text",
+          text: TakeoffSpeed(weight).toFixed(0),
+        },
+      ],
+    };
+  }
+);
+
+server.tool(
+  "a10c_rotationSpeed",
+  "Calculate the rotation speed for the A10C in knots, use takeoff speed as input, substract 10", {
+  takeoffSpeed: z.number().describe("Takeoff speed in knots"),
+},
+  async ({ takeoffSpeed }) => {
+    return {
+      content: [
+        {
+          type: "text",
+          text: (takeoffSpeed - 10).toFixed(0),
+        },
+      ],
+    };
+  }
+);
+
+server.tool(
+  "a10c_groundRun",
+  "Calculate the ground run distance for the A10C in feet", {
+  takeoffIndex: z.number().describe("Takeoff index, use a10c_takeoffIndex tool"),
+  weight: z.number().describe("Weight of the aircraft in pounds"),
+  headWind: z.number().describe("Head wind in knots (positive value)"),
+},
+  async ({ takeoffIndex, weight, headWind }) => {
+    const distance = GroundRun(takeoffIndex, weight, headWind);
+    return {
+      content: [
+        {
+          type: "text",
+          text: distance.toFixed(2),
+        },
+      ],
+    };
+  }
+);
+
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error("A10C  MCP Server running on stdio");
+}
+
+main().catch((error) => {
+  console.error("Fatal error in main():", error);
+  process.exit(1);
+});
