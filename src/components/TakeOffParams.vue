@@ -154,19 +154,19 @@ import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 
 /// Calculators
-import { TakeoffIndexCalculator } from '../modules/a10c/takeoff/TakeOffIndex';
-import { GroundRun } from '../modules/a10c/takeoff/GroundRun.js';
-import { TakeoffSpeed } from '../modules/a10c/takeoff/takeOffSpeed';
-import { PTFS } from '../modules/a10c/takeoff/PTFS';
+import { TakeoffIndexCalculator } from 'a10c-perf-calculator';
+import { GroundRun } from 'a10c-perf-calculator';
+import { TakeoffSpeed } from 'a10c-perf-calculator';
+import { PTFS } from 'a10c-perf-calculator';
 import RunwayViewer from './RunwayViewer.vue';
-import { obstacleDistanceClearance } from 'src/modules/a10c/takeoff/ObstacleClearance';
+import { obstacleDistanceClearance } from 'a10c-perf-calculator';
 
-import { CriticalFieldLength } from '../modules/a10c/takeoff/CriticalFieldLength';
+import { CriticalFieldLength } from 'a10c-perf-calculator';
 
 import RCRSelector from './RCRSelector.vue';
 import AirportParams from './AirportParams.vue';
 import { Wind } from 'src/service/Wind';
-import { RCR } from 'src/modules/a10c/Rcr';
+import { RCR } from 'a10c-perf-calculator';
 
 const aircraft = useA10CStore();
 const airport = useTakeOffStore();

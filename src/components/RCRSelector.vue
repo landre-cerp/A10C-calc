@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { RCR } from 'src/modules/a10c/Rcr';
+import { RCR } from 'a10c-perf-calculator';
 import { computed } from 'vue';
 
 const props = defineProps<{

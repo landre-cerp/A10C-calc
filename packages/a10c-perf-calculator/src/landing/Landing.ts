@@ -58,10 +58,10 @@ export const LandingIndex = (landingConfig: ILandingConfiguration) => {
   return (
     Math.ceil(
       10 *
-      vector_landingIndex.GetLinear(
-        landingConfig.altitude,
-        landingConfig.temperature,
-      ),
+        vector_landingIndex.GetLinear(
+          landingConfig.altitude,
+          landingConfig.temperature,
+        ),
     ) / 10
   );
 };

@@ -4,7 +4,7 @@ import {
   DistancePenetrationDescent,
   FuelPenetrationDescent,
   TimePenetrationDescent,
-} from '../../modules/a10c/descent/PenetrationDescent';
+} from 'a10c-perf-calculator';
 
 export class DescentPhase extends FlightPhase {
   constructor(previous: FlightPhase) {

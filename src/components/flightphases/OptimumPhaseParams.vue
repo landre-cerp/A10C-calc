@@ -30,8 +30,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { IFlightPhase, PhaseType } from '../models';
-import { combatFuelFlow } from '../../modules/a10c/combat/CombatFuelFlow';
-import { SpeedForMaxRangeDescent } from '../../modules/a10c/descent/MaximumRange';
+import { combatFuelFlow } from 'a10c-perf-calculator';
+import { SpeedForMaxRangeDescent } from 'a10c-perf-calculator';
 import { useTakeOffStore } from 'src/stores/Airport';
 
 const airport = useTakeOffStore();

@@ -128,7 +128,7 @@ import {
   ILandingConfiguration,
   ApproachSpeed,
   LandingIndex,
-} from '../modules/a10c/landing/Landing';
+} from 'a10c-perf-calculator';
 import { Wind } from 'src/service/Wind';
 
 import RunwayViewer from './RunwayViewer.vue';
@@ -138,7 +138,7 @@ import { useFlightStore } from 'src/stores/flight';
 import { PhaseType } from './models';
 import AirportParams from './AirportParams.vue';
 import { useA10CStore } from 'src/stores/a10c';
-import { RCR } from 'src/modules/a10c/Rcr';
+import { RCR } from 'a10c-perf-calculator';
 import RCRSelector from './RCRSelector.vue';
 
 const airport = useLandingStore();

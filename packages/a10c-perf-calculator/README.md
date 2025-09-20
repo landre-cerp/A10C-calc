@@ -11,7 +11,11 @@ npm install a10c-perf-calculator
 ## Usage
 
 ```typescript
-import { TakeoffIndexCalculator, TakeoffSpeed, GroundRun } from 'a10c-perf-calculator';
+import {
+  TakeoffIndexCalculator,
+  TakeoffSpeed,
+  GroundRun,
+} from 'a10c-perf-calculator';
 
 // Example usage
 const calculator = new TakeoffIndexCalculator(/* parameters */);

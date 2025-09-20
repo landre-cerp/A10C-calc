@@ -1,9 +1,9 @@
 import { PhaseType } from 'src/components/models';
 import { useTakeOffStore } from 'src/stores/Airport';
 
-import { ClimbDistanceNeeded } from '../../modules/a10c/climb/ClimbDistance';
-import { ClimbFuelUsed } from '../../modules/a10c/climb/ClimbFuel';
-import { ClimbTimeNeeded } from '../../modules/a10c/climb/ClimbTime';
+import { ClimbDistanceNeeded } from 'a10c-perf-calculator';
+import { ClimbFuelUsed } from 'a10c-perf-calculator';
+import { ClimbTimeNeeded } from 'a10c-perf-calculator';
 import { FlightPhase } from '../FlightPhase';
 
 const airport = useTakeOffStore();

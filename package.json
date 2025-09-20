@@ -25,6 +25,7 @@
     "@quasar/cli": "^2.5.0",
     "@quasar/extras": "^1.17.0",
     "@types/ws": "^8.5.11",
+    "a10c-perf-calculator": "file:./packages/a10c-perf-calculator",
     "axios": "^1.12.0",
     "esbuild": "^0.25.9",
     "file-saver": "^2.0.5",

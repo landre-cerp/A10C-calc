@@ -32,6 +32,11 @@ jobs:
           cd ${{inputs.working-dir}}
           npm ci
 
+      - name: Build a10c-perf-calculator
+        run: |
+          cd ${{inputs.working-dir}}/packages/a10c-perf-calculator
+          npm run build
+
       - name: Quasar install
         run: |
           cd ${{inputs.working-dir}}
