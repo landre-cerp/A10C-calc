@@ -1,4 +1,4 @@
-import { CorrectionTable, CorrectionVector } from '../CorrectionTable';
+import { CorrectionTable, CorrectionVector } from '../CorrectionTable.js';
 
 export const GroundRun = (
   takeoffIndex: number,

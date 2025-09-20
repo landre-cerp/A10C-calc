@@ -155,7 +155,7 @@ import { computed } from 'vue';
 
 /// Calculators
 import { TakeoffIndexCalculator } from '../modules/a10c/takeoff/TakeOffIndex';
-import { GroundRun } from '../modules/a10c/takeoff/GroundRun';
+import { GroundRun } from '../modules/a10c/takeoff/groundRun.js';
 import { TakeoffSpeed } from '../modules/a10c/takeoff/takeOffSpeed';
 import { PTFS } from '../modules/a10c/takeoff/PTFS';
 import RunwayViewer from './RunwayViewer.vue';

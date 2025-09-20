@@ -3,6 +3,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { TakeoffIndexCalculator } from "../modules/a10c/takeoff/TakeOffIndex.js";
 import { TakeoffSpeed } from "../modules/a10c/takeoff/takeOffSpeed.js";
+import { GroundRun } from "../modules/a10c/takeoff/groundRun.js";
 
 
 
@@ -31,7 +32,7 @@ server.tool(
       content: [
         {
           type: "text",
-          text: takeoffIndex.toFixed(2),
+          text: takeoffIndex.toFixed(0),
         },
       ],
     };
@@ -92,7 +93,44 @@ server.tool(
       content: [
         {
           type: "text",
-          text: TakeoffSpeed(weight).toFixed(2),
+          text: TakeoffSpeed(weight).toFixed(0),
+        },
+      ],
+    };
+  }
+);
+
+server.tool(
+  "a10c_rotationSpeed",
+  "Calculate the rotation speed for the A10C in knots, use takeoff speed as input, substract 10", {
+  takeoffSpeed: z.number().describe("Takeoff speed in knots"),
+},
+  async ({ takeoffSpeed }) => {
+    return {
+      content: [
+        {
+          type: "text",
+          text: (takeoffSpeed - 10).toFixed(0),
+        },
+      ],
+    };
+  }
+);
+
+server.tool(
+  "a10c_groundRun",
+  "Calculate the ground run distance for the A10C in feet", {
+  takeoffIndex: z.number().describe("Takeoff index, use a10c_takeoffIndex tool"),
+  weight: z.number().describe("Weight of the aircraft in pounds"),
+  headWind: z.number().describe("Head wind in knots (positive value)"),
+},
+  async ({ takeoffIndex, weight, headWind }) => {
+    const distance = GroundRun(takeoffIndex, weight, headWind);
+    return {
+      content: [
+        {
+          type: "text",
+          text: distance.toFixed(2),
         },
       ],
     };
