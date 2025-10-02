@@ -196,7 +196,7 @@ Web version does not connect to DCS, I'm working on connecting the Electron vers
 Select the loadout , ammo, fuel . 
 <img width="1558" height="1246" alt="image" src="https://github.com/user-attachments/assets/e863caf2-0ca0-4080-bdaf-a786e308933d" />
 
-Calc the perf 
+Calculate the performance 
 <img width="1789" height="1351" alt="image" src="https://github.com/user-attachments/assets/ce566164-7a02-4a0d-a441-54bc7df49633" />
 
 Rough estimate of phase, and fuel consumption
