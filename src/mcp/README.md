@@ -2,7 +2,7 @@
 
 https://modelcontextprotocol.io/docs/develop/build-server
 
-This was a quick test to add Mcp server to Claude Desktop and have fun with the Lib
+This was a quick test to add MCP server to Claude Desktop and have fun with the Lib
 
 To do things like 
 <img width="2001" height="1248" alt="image" src="https://github.com/user-attachments/assets/83368fe5-b90d-4405-b8ca-1021bc7c42b1" />
