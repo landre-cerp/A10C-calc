@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-private-red.svg)](LICENSE)
 [![Quasar](https://img.shields.io/badge/Quasar-Framework-1976D2.svg)](https://quasar.dev/)
 
-A comprehensive performance calculator for the DCS A-10C II aircraft, built with Vue.js and Quasar Framework.
+A performance calculator for the DCS A-10C II aircraft, built with Vue.js and Quasar Framework.
 
 ## 🚨 Important Notice
 
@@ -12,7 +12,7 @@ A comprehensive performance calculator for the DCS A-10C II aircraft, built with
 
 ## 📖 Overview
 
-A10CCalc is a desktop application that provides realistic performance calculations for the DCS A-10C II aircraft. It helps pilots plan missions with accurate weight and balance, takeoff and landing performance, and flight planning calculations based on real A-10 performance charts and DCS-specific data.
+A10CCalc is a desktop application that provides performance calculations for the DCS A-10C II aircraft. It helps pilots plan missions with 'accurate' weight and balance, takeoff and landing performance, and flight planning calculations based on real A-10 performance charts and DCS-specific data.
 
 ## ✨ Features
 
@@ -23,27 +23,10 @@ A10CCalc is a desktop application that provides realistic performance calculatio
 - **Fuel Planning**: Percentage-based fuel loading with weight conversions
 - **Stores Configuration**: Comprehensive weapons and external stores management
 
-### Performance Calculations
-
-- **Takeoff Performance**:
-  - Ground roll distance calculations
-  - Rotation and takeoff speeds
-  - Obstacle clearance distances (50ft)
-  - Critical field length analysis
-  - Takeoff index calculations
-  - PTFS (Power Turbine Fan Speed) recommendations
-
-- **Landing Performance**:
-  - Approach speeds (normal, minimum, single-engine)
-  - Touchdown speeds
-  - Ground roll distances
-  - Landing index calculations
-  - Speedbrake and flap configuration effects
 
 ### Environmental Factors
 
 - **Weather Integration**:
-  - METAR data support
   - Wind component calculations (headwind/crosswind)
   - Temperature and pressure altitude effects
   - Runway Condition Rating (RCR) support
