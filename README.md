@@ -188,3 +188,19 @@ This project is private and proprietary.
 - [Quasar Framework Documentation](https://quasar.dev/)
 - [06MHR Discord Community](https://discord.gg/jgENU4e7eS)
 - [DCS World](https://www.digitalcombatsimulator.com/)
+
+# screenshots 
+Running on https://cerpposerverlessys48b7m8-pre-a10c-cal.functions.fnc.fr-par.scw.cloud/#/
+Web version does not connect to DCS , i'm working on connecting the electron version to DCS to get some info from the sim.
+
+Select the loadout , ammo, fuel . 
+<img width="1558" height="1246" alt="image" src="https://github.com/user-attachments/assets/e863caf2-0ca0-4080-bdaf-a786e308933d" />
+
+Calc the perf 
+<img width="1789" height="1351" alt="image" src="https://github.com/user-attachments/assets/ce566164-7a02-4a0d-a441-54bc7df49633" />
+
+Rough estimate of phase, and fuel consumption
+<img width="1789" height="1351" alt="image" src="https://github.com/user-attachments/assets/e46beadf-8e84-4d46-a0a7-d6ea740ead6b" />
+
+Landing params
+<img width="1789" height="1351" alt="image" src="https://github.com/user-attachments/assets/70eeb1b2-f1a5-4092-aa54-fb61cdc103cb" />
