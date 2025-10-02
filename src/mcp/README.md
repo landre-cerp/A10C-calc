@@ -10,7 +10,7 @@ To do things like
 ## Configure 
 
 build the mcp server 
-edit claude desktop config_json
+edit claude desktop config.json
 
 {
   "mcpServers": {
