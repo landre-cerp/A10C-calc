@@ -200,16 +200,6 @@ This project was created as a learning exercise with the Quasar framework and to
 
 This project is private and proprietary.
 
-## 👨‍💻 Author
-
-**Cerpogaming** - [cerpo.gaming@gmail.com](mailto:cerpo.gaming@gmail.com)
-
-## 🙏 Acknowledgments
-
-- 06MHR A-10C community for testing and feedback
-- DCS World community for performance data validation
-- Quasar Framework team for the excellent development framework
-
 ## 🔗 Related Links
 
 - [Quasar Framework Documentation](https://quasar.dev/)
