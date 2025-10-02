@@ -189,7 +189,7 @@ This project is private and proprietary.
 - [06MHR Discord Community](https://discord.gg/jgENU4e7eS)
 - [DCS World](https://www.digitalcombatsimulator.com/)
 
-# screenshots 
+# Screenshots 
 Running on https://cerpposerverlessys48b7m8-pre-a10c-cal.functions.fnc.fr-par.scw.cloud/#/
 Web version does not connect to DCS , i'm working on connecting the electron version to DCS to get some info from the sim.
 
