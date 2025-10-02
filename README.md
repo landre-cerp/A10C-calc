@@ -191,7 +191,7 @@ This project is private and proprietary.
 
 # Screenshots 
 Running on https://cerpposerverlessys48b7m8-pre-a10c-cal.functions.fnc.fr-par.scw.cloud/#/
-Web version does not connect to DCS , i'm working on connecting the electron version to DCS to get some info from the sim.
+Web version does not connect to DCS, I'm working on connecting the Electron version to DCS to get some info from the sim.
 
 Select the loadout , ammo, fuel . 
 <img width="1558" height="1246" alt="image" src="https://github.com/user-attachments/assets/e863caf2-0ca0-4080-bdaf-a786e308933d" />
