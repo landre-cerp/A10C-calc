@@ -50,7 +50,7 @@ It helps pilots plan their missions with relatively accurate weight and balance,
 
 ### Additional Features
 
-- **DCS Integration**: TCP server for DCS World connectivity ( electron version - WIP ) 
+- **DCS Integration**: TCP server for DCS World connectivity (electron version - WIP) 
 - **Briefing Cards**: Mission briefing export with kneeboard-style formatting
 - **Multi-Language Support**: English and French interfaces
 - **Data Export**: Save briefing cards as images
