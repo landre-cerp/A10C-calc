@@ -12,7 +12,7 @@ A performance calculator for the DCS A-10C II aircraft, built with Vue.js and Qu
 
 ## 📖 Overview
 
-A10CCalc is a desktop application (electron build) or Web application that provides performance calculations for the DCS A-10C II aircraft. 
+A10CCalc is a desktop application (electron build) or web application that provides performance calculations for the DCS A-10C II aircraft. 
 It helps pilots plan their missions with relatively accurate weight and balance, takeoff and landing performance, and flight planning calculations based on real A-10 performance charts and DCS-specific data.
 
 ## ✨ Features
