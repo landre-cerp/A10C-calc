@@ -12,7 +12,8 @@ A performance calculator for the DCS A-10C II aircraft, built with Vue.js and Qu
 
 ## 📖 Overview
 
-A10CCalc is a desktop application that provides performance calculations for the DCS A-10C II aircraft. It helps pilots plan missions with 'accurate' weight and balance, takeoff and landing performance, and flight planning calculations based on real A-10 performance charts and DCS-specific data.
+A10CCalc is a desktop application (electron build) or Web application that provides performance calculations for the DCS A-10C II aircraft. 
+It helps pilots plan their missions with relatively accurate weight and balance, takeoff and landing performance, and flight planning calculations based on real A-10 performance charts and DCS-specific data.
 
 ## ✨ Features
 
@@ -21,8 +22,6 @@ A10CCalc is a desktop application that provides performance calculations for the
 - **Weight & Balance**: Real-time aircraft weight calculations including empty weight, fuel, weapons, and ammunition
 - **Loadout Management**: Visual pylon loader with drag coefficient calculations
 - **Fuel Planning**: Percentage-based fuel loading with weight conversions
-- **Stores Configuration**: Comprehensive weapons and external stores management
-
 
 ### Environmental Factors
 
@@ -51,7 +50,7 @@ A10CCalc is a desktop application that provides performance calculations for the
 
 ### Additional Features
 
-- **DCS Integration**: TCP server for DCS World connectivity
+- **DCS Integration**: TCP server for DCS World connectivity ( electron version - WIP ) 
 - **Briefing Cards**: Mission briefing export with kneeboard-style formatting
 - **Multi-Language Support**: English and French interfaces
 - **Data Export**: Save briefing cards as images
