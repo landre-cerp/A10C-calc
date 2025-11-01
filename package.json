@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/config-conventional": "^20.0.0",
     "@electron/packager": "^19.0.1",
     "@quasar/app-vite": "^2.4.0",
     "@quasar/quasar-app-extension-testing-e2e-cypress": "^6.2.1",
