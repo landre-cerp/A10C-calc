@@ -36,7 +36,7 @@
     "quasar-extras-svg-icons": "^2.2.0",
     "to": "^0.2.9",
     "update": "^0.7.4",
-    "vue": "^3.5.20",
+    "vue": "^3.5.27",
     "vue-i18n": "^11.2.2",
     "vue-router": "^4.6.3",
     "workbox-build": "^7.0.0",
