@@ -34,7 +34,7 @@
     "quasar-extras-svg-icons": "^2.2.0",
     "vue": "^3.5.29",
     "vue-i18n": "^11.2.8",
-    "vue-router": "^4.6.3",
+    "vue-router": "^5.0.4",
     "ws": "^8.18.0",
     "zod": "^3.25.76"
   },
