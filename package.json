@@ -21,7 +21,7 @@
     "typescript": "5.5.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "@quasar/extras": "^1.17.0",
     "@types/ws": "^8.5.11",
     "axios": "^1.13.5",
