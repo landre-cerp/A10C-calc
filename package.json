@@ -1,6 +1,6 @@
 {
   "name": "a10calc",
-  "version": "1.3.22",
+  "version": "1.3.23",
   "description": "Performance Calculator for DCS A10C",
   "productName": "A10CCalc",
   "author": "cerpogaming <cerpo.gaming@gmail.com>",
@@ -27,7 +27,7 @@
     "@modelcontextprotocol/sdk": "^1.29.0",
     "@quasar/extras": "^1.17.0",
     "@types/ws": "^8.5.11",
-"file-saver": "^2.0.5",
+    "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
     "html-to-image": "^1.11.13",
     "metar-js": "^0.0.6",
