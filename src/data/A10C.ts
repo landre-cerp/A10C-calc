@@ -1,5 +1,9 @@
 import { IAircraftStore, LoadType } from './../components/models';
 
+export const A10C_EMPTY_WEIGHT = 25629; // lbs, basic operating weight
+export const A10C_MAX_TAKEOFF_WEIGHT = 46476; // lbs
+export const A10C_MAX_LANDING_WEIGHT = 46476; // lbs
+
 export const emptyLoad = {
   short: '',
   label: '',
