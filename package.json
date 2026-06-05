@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^20.5.3",
+    "@commitlint/config-conventional": "^21.0.2",
     "@electron/packager": "^20.0.0",
     "@quasar/app-vite": "^2.6.0",
     "@quasar/cli": "^3.0.0",
