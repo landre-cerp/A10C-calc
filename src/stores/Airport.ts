@@ -20,7 +20,8 @@ function createUseStore<Id extends string>(id: Id) {
       runwayLength: 0 as number,
       runwayQFU: 0 as number,
       rcr: RCR.DRY as number,
-      // Dirty : TODO rework this
+      // User-editable gross weight for landing performance calculation.
+      // Defaults to aircraft weight at landing phase start; may differ from takeoff weight due to fuel burn.
       grossWeight: 0 as number,
     }),
 

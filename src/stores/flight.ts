@@ -16,20 +16,6 @@ export const useFlightStore = defineStore('flight', {
     cruiseHeadwind: 0 as number,
 
     phases: [] as FlightPhase[],
-
-    releasedStore: [
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,
-    ] as boolean[],
   }),
 
   getters: {
