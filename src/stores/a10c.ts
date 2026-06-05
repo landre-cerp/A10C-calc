@@ -4,8 +4,8 @@ import { IAircraftStore, StoresConfiguration } from './../components/models';
 import { LocalStorage } from 'quasar';
 import { defineStore } from 'pinia';
 
-const basicConf = { ...BasicConfiguration };
-const emptyConf = { ...EmptyConfiguration, name: 'Empty' };
+const basicConf = structuredClone(BasicConfiguration);
+const emptyConf = { ...structuredClone(EmptyConfiguration), name: 'Empty' };
 
 function loadStoredConfigurations(): StoresConfiguration[] {
   const stored = LocalStorage.getItem('storesConfig');
@@ -18,7 +18,7 @@ function loadStoredConfigurations(): StoresConfiguration[] {
 
 export const useA10CStore = defineStore('a10c', {
   state: () => ({
-    configuration: { ...basicConf },
+    configuration: structuredClone(basicConf),
     availableConfigurations: loadStoredConfigurations(),
     fuelQty: 75 as number,
     gunAmmoPercent: 100 as number,
