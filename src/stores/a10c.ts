@@ -7,20 +7,24 @@ import { defineStore } from 'pinia';
 const basicConf = { ...BasicConfiguration };
 const emptyConf = { ...EmptyConfiguration, name: 'Empty' };
 
-let availableConfigurations = [] as StoresConfiguration[];
-const localConfigs = LocalStorage.getItem('storesConfig');
-
-const defaultState = {
-  configuration: { ...basicConf },
-
-  fuelQty: 75 as number,
-  gunAmmoPercent: 100 as number,
-  flaps: 7 as number,
-  taxiFuel: 100 as number,
-};
+function loadStoredConfigurations(): StoresConfiguration[] {
+  const stored = LocalStorage.getItem('storesConfig');
+  if (typeof stored === 'string') {
+    const parsed = JSON.parse(stored) as StoresConfiguration[];
+    if (parsed && parsed.length > 0) return parsed;
+  }
+  return [emptyConf, basicConf];
+}
 
 export const useA10CStore = defineStore('a10c', {
-  state: () => ({ ...defaultState }),
+  state: () => ({
+    configuration: { ...basicConf },
+    availableConfigurations: loadStoredConfigurations(),
+    fuelQty: 75 as number,
+    gunAmmoPercent: 100 as number,
+    flaps: 7 as number,
+    taxiFuel: 100 as number,
+  }),
   getters: {
     // Load
     Pylons(): StoresConfiguration['pylonsLoad'] {
@@ -37,15 +41,8 @@ export const useA10CStore = defineStore('a10c', {
       );
     },
 
-    AvailableConfigurations() {
-      availableConfigurations = JSON.parse(
-        localConfigs,
-      ) as StoresConfiguration[];
-
-      if (!availableConfigurations || availableConfigurations.length == 0) {
-        availableConfigurations = [emptyConf, basicConf];
-      }
-      return availableConfigurations;
+    AvailableConfigurations(): StoresConfiguration[] {
+      return this.availableConfigurations;
     },
 
     // Weigth Section
@@ -129,19 +126,19 @@ export const useA10CStore = defineStore('a10c', {
         pylonsLoad: this.configuration.pylonsLoad,
       };
       this.DeleteConfiguration(name);
-      availableConfigurations.push(configToSave);
-      LocalStorage.set('storesConfig', JSON.stringify(availableConfigurations));
+      this.availableConfigurations.push(configToSave);
+      LocalStorage.set('storesConfig', JSON.stringify(this.availableConfigurations));
     },
 
     DeleteConfiguration(name: string) {
-      const index = availableConfigurations.findIndex(
+      const index = this.availableConfigurations.findIndex(
         (conf) => conf.name === name,
       );
       if (index >= 0) {
-        availableConfigurations.splice(index, 1);
+        this.availableConfigurations.splice(index, 1);
         LocalStorage.set(
           'storesConfig',
-          JSON.stringify(availableConfigurations),
+          JSON.stringify(this.availableConfigurations),
         );
       }
     },
