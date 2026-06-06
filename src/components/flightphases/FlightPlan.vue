@@ -109,8 +109,6 @@
             dense
             color="negative"
             icon="delete"
-            size="sm"
-            :label="$t('flight_phase.remove_last')"
             @click="flight.RemovePhase()"
           />
         </div>
