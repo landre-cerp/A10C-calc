@@ -14,6 +14,7 @@ export class CombatPhase extends FlightPhase {
   }
 
   doRecalc() {
+    this.altitude = this.getStartingAltitude();
     this.FuelUsed();
   }
 
