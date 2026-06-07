@@ -76,7 +76,7 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAirportDatabaseStore } from 'src/stores/airportDatabase';
-import { rwyName, reciprocalQfu } from 'src/service/AirportDatabase';
+import { rwyName, reciprocalQfu, reciprocalDesignator } from 'src/service/AirportDatabase';
 
 const { t } = useI18n();
 const db = useAirportDatabaseStore();
@@ -151,8 +151,10 @@ const selectedAirportData = computed(() =>
 const runwayDirections = computed(() => {
   const dirs: { rwy: (typeof selectedAirportData.value)['runways'][0]; qfu: number; name: string }[] = [];
   for (const rwy of selectedAirportData.value?.runways ?? []) {
-    dirs.push({ rwy, qfu: rwy.qfu, name: rwyName(rwy.qfu) });
-    dirs.push({ rwy, qfu: reciprocalQfu(rwy.qfu), name: rwyName(reciprocalQfu(rwy.qfu)) });
+    const primary = rwy.designator?.trim() || rwyName(rwy.qfu);
+    const recip = reciprocalDesignator(primary);
+    dirs.push({ rwy, qfu: rwy.qfu, name: primary });
+    dirs.push({ rwy, qfu: reciprocalQfu(rwy.qfu), name: recip });
   }
   return dirs;
 });

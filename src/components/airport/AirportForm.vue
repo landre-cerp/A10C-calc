@@ -48,12 +48,14 @@
             <q-markup-table flat bordered dense>
               <thead>
                 <tr class="bg-grey-2 text-grey-9">
+                  <th class="text-left">{{ t('airports.runway_name') }}</th>
                   <th class="text-center">
                     {{ t('airports.qfu') }}
                     <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
                       <q-tooltip>{{ t('airports.qfu_help') }}</q-tooltip>
                     </q-icon>
-                  </th>                  <th class="text-right">
+                  </th>
+                  <th class="text-right">
                     {{ t('airports.tora') }}<br><span class="text-caption">(ft)</span>
                     <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
                       <q-tooltip>{{ t('airports.tora_help') }}</q-tooltip>
@@ -77,24 +79,32 @@
                       <q-tooltip>{{ t('airports.asda_help') }}</q-tooltip>
                     </q-icon>
                   </th>
-                  <th class="text-left">{{ t('airports.runway_name') }}</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(rwy, i) in local.runways" :key="i">
+                  <td>
+                    <q-input
+                      borderless dense
+                      v-model="rwy.designator"
+                      :placeholder="rwyName(rwy.qfu)"
+                      style="width:70px"
+                      maxlength="4"
+                      hint=""
+                    />
+                  </td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.qfu" style="width:60px" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.tora" style="width:75px" @update:model-value="onToraChange(rwy)" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.toda" style="width:75px" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.lda" style="width:75px" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.asda" style="width:75px" /></td>
-                  <td class="text-center text-caption text-grey-7 text-no-wrap">RWY {{ rwyName(rwy.qfu) }} / {{ rwyName(reciprocalQfu(rwy.qfu)) }}</td>
                   <td class="text-center">
                     <q-btn flat round dense icon="delete" color="negative" size="xs" @click="removeRunway(i)" />
                   </td>
                 </tr>
                 <tr v-if="local.runways.length === 0">
-                  <td colspan="6" class="text-center text-grey q-pa-sm">{{ t('airports.empty_runways') }}</td>
+                  <td colspan="7" class="text-center text-grey q-pa-sm">{{ t('airports.empty_runways') }}</td>
                 </tr>
               </tbody>
             </q-markup-table>
@@ -118,7 +128,6 @@ import {
   emptyRunway,
   emptyAirport,
   rwyName,
-  reciprocalQfu,
 } from 'src/service/AirportDatabase';
 
 const { t } = useI18n();
