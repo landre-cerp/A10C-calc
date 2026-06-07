@@ -1,5 +1,5 @@
 <template>
-  <AirportParams :airport="airport" />
+  <AirportParams :airport="airport" mode="takeoff" />
 
   <q-card class="my-card">
     <q-card-section>

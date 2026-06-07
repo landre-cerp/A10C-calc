@@ -1,0 +1,779 @@
+[
+  {
+    "name": "Abu al-Duhur",
+    "icao": "OS57",
+    "elevation": 820,
+    "runways": [
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 9496,
+        "toda": 9496,
+        "lda": 9496,
+        "asda": 9496
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 9496,
+        "toda": 9496,
+        "lda": 9496,
+        "asda": 9496
+      }
+    ]
+  },
+  {
+    "name": "Adana Sakirpasa",
+    "icao": "LTAF",
+    "elevation": 55,
+    "runways": [
+      {
+        "qfu": 50,
+        "designator": "05",
+        "tora": 9071,
+        "toda": 9071,
+        "lda": 9071,
+        "asda": 9071
+      },
+      {
+        "qfu": 230,
+        "designator": "23",
+        "tora": 9071,
+        "toda": 9071,
+        "lda": 9071,
+        "asda": 9071
+      }
+    ]
+  },
+  {
+    "name": "Al Qusayr",
+    "icao": "OS70",
+    "elevation": 1729,
+    "runways": [
+      {
+        "qfu": 100,
+        "designator": "10",
+        "tora": 9600,
+        "toda": 9600,
+        "lda": 9600,
+        "asda": 9600
+      },
+      {
+        "qfu": 280,
+        "designator": "28",
+        "tora": 9600,
+        "toda": 9600,
+        "lda": 9600,
+        "asda": 9600
+      }
+    ]
+  },
+  {
+    "name": "Al-Dumayr",
+    "icao": "OS61",
+    "elevation": 2066,
+    "runways": [
+      {
+        "qfu": 60,
+        "designator": "06",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 240,
+        "designator": "24",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
+    ]
+  },
+  {
+    "name": "Aleppo International",
+    "icao": "OSAP",
+    "elevation": 1253,
+    "runways": [
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 9496,
+        "toda": 9496,
+        "lda": 9496,
+        "asda": 9496
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 9496,
+        "toda": 9496,
+        "lda": 9496,
+        "asda": 9496
+      }
+    ]
+  },
+  {
+    "name": "An Nasiriyah",
+    "icao": "OS64",
+    "elevation": 2746,
+    "runways": [
+      {
+        "qfu": 40,
+        "designator": "04",
+        "tora": 8318,
+        "toda": 8318,
+        "lda": 8318,
+        "asda": 8318
+      },
+      {
+        "qfu": 220,
+        "designator": "22",
+        "tora": 8318,
+        "toda": 8318,
+        "lda": 8318,
+        "asda": 8318
+      }
+    ]
+  },
+  {
+    "name": "Bassel Al-Assad",
+    "icao": "OSLK",
+    "elevation": 157,
+    "runways": [
+      {
+        "qfu": 174,
+        "designator": "17L",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      },
+      {
+        "qfu": 174,
+        "designator": "17R",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 354,
+        "designator": "35R",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      },
+      {
+        "qfu": 354,
+        "designator": "35L",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
+    ]
+  },
+  {
+    "name": "Beirut-Rafic Hariri International",
+    "icao": "OLBA",
+    "elevation": 39,
+    "runways": [
+      {
+        "qfu": 170,
+        "designator": "17",
+        "tora": 10566,
+        "toda": 10566,
+        "lda": 10566,
+        "asda": 10566
+      },
+      {
+        "qfu": 350,
+        "designator": "35",
+        "tora": 10566,
+        "toda": 10566,
+        "lda": 10566,
+        "asda": 10566
+      },
+      {
+        "qfu": 160,
+        "designator": "16",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 340,
+        "designator": "34",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
+    ]
+  },
+  {
+    "name": "Damascus International",
+    "icao": "OSDI",
+    "elevation": 2020,
+    "runways": [
+      {
+        "qfu": 50,
+        "designator": "05L",
+        "tora": 11483,
+        "toda": 11483,
+        "lda": 11483,
+        "asda": 11483
+      },
+      {
+        "qfu": 230,
+        "designator": "23R",
+        "tora": 11483,
+        "toda": 11483,
+        "lda": 11483,
+        "asda": 11483
+      },
+      {
+        "qfu": 50,
+        "designator": "05R",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 230,
+        "designator": "23L",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
+    ]
+  },
+  {
+    "name": "Deir ez-Zor",
+    "icao": "OSDZ",
+    "elevation": 700,
+    "runways": [
+      {
+        "qfu": 50,
+        "designator": "05",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      },
+      {
+        "qfu": 230,
+        "designator": "23",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      }
+    ]
+  },
+  {
+    "name": "Hama",
+    "icao": "OS58",
+    "elevation": 1014,
+    "runways": [
+      {
+        "qfu": 110,
+        "designator": "11",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      },
+      {
+        "qfu": 290,
+        "designator": "29",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      }
+    ]
+  },
+  {
+    "name": "Incirlik",
+    "icao": "LTAG",
+    "elevation": 154,
+    "runways": [
+      {
+        "qfu": 49,
+        "designator": "05",
+        "tora": 9662,
+        "toda": 9662,
+        "lda": 9662,
+        "asda": 9662
+      },
+      {
+        "qfu": 229,
+        "designator": "23",
+        "tora": 9662,
+        "toda": 9662,
+        "lda": 9662,
+        "asda": 9662
+      }
+    ]
+  },
+  {
+    "name": "Jirah",
+    "icao": "OS62",
+    "elevation": 1181,
+    "runways": [
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      }
+    ]
+  },
+  {
+    "name": "Khalkhalah",
+    "icao": "OS69",
+    "elevation": 2310,
+    "runways": [
+      {
+        "qfu": 10,
+        "designator": "01",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 190,
+        "designator": "19",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 10,
+        "designator": "01R",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      },
+      {
+        "qfu": 190,
+        "designator": "19L",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      }
+    ]
+  },
+  {
+    "name": "Kuweires",
+    "icao": "OS66",
+    "elevation": 1181,
+    "runways": [
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      }
+    ]
+  },
+  {
+    "name": "Marj Ruhayyil",
+    "icao": "OS63",
+    "elevation": 2231,
+    "runways": [
+      {
+        "qfu": 40,
+        "designator": "04",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      },
+      {
+        "qfu": 220,
+        "designator": "22",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      }
+    ]
+  },
+  {
+    "name": "Marj as-Sultan North",
+    "icao": "AG4485",
+    "elevation": 2231,
+    "runways": [
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 1640,
+        "toda": 1640,
+        "lda": 1640,
+        "asda": 1640
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 1640,
+        "toda": 1640,
+        "lda": 1640,
+        "asda": 1640
+      }
+    ]
+  },
+  {
+    "name": "Marj as-Sultan South",
+    "icao": "AG4486",
+    "elevation": 2231,
+    "runways": [
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 1640,
+        "toda": 1640,
+        "lda": 1640,
+        "asda": 1640
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 1640,
+        "toda": 1640,
+        "lda": 1640,
+        "asda": 1640
+      }
+    ]
+  },
+  {
+    "name": "Mezzeh",
+    "icao": "OS67",
+    "elevation": 2407,
+    "runways": [
+      {
+        "qfu": 50,
+        "designator": "05",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      },
+      {
+        "qfu": 230,
+        "designator": "23",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      }
+    ]
+  },
+  {
+    "name": "Palmyra",
+    "icao": "OSPR",
+    "elevation": 1322,
+    "runways": [
+      {
+        "qfu": 80,
+        "designator": "08",
+        "tora": 9449,
+        "toda": 9449,
+        "lda": 9449,
+        "asda": 9449
+      },
+      {
+        "qfu": 260,
+        "designator": "26",
+        "tora": 9449,
+        "toda": 9449,
+        "lda": 9449,
+        "asda": 9449
+      }
+    ]
+  },
+  {
+    "name": "Qabr as-Sitt",
+    "icao": "AG4487",
+    "elevation": 2297,
+    "runways": [
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 1640,
+        "toda": 1640,
+        "lda": 1640,
+        "asda": 1640
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 1640,
+        "toda": 1640,
+        "lda": 1640,
+        "asda": 1640
+      }
+    ]
+  },
+  {
+    "name": "Ramat David",
+    "icao": "LLRD",
+    "elevation": 185,
+    "runways": [
+      {
+        "qfu": 100,
+        "designator": "10",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 280,
+        "designator": "28",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
+    ]
+  },
+  {
+    "name": "Rene Mouawad",
+    "icao": "OLKA",
+    "elevation": 22,
+    "runways": [
+      {
+        "qfu": 170,
+        "designator": "17",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 350,
+        "designator": "35",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
+    ]
+  },
+  {
+    "name": "Rosh Pina",
+    "icao": "LLIB",
+    "elevation": 889,
+    "runways": [
+      {
+        "qfu": 20,
+        "designator": "02",
+        "tora": 3609,
+        "toda": 3609,
+        "lda": 3609,
+        "asda": 3609
+      },
+      {
+        "qfu": 200,
+        "designator": "20",
+        "tora": 3609,
+        "toda": 3609,
+        "lda": 3609,
+        "asda": 3609
+      }
+    ]
+  },
+  {
+    "name": "Sanliurfa",
+    "icao": "LTBF",
+    "elevation": 2440,
+    "runways": [
+      {
+        "qfu": 40,
+        "designator": "04",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      },
+      {
+        "qfu": 220,
+        "designator": "22",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      }
+    ]
+  },
+  {
+    "name": "Sayqal",
+    "icao": "OS68",
+    "elevation": 2385,
+    "runways": [
+      {
+        "qfu": 50,
+        "designator": "05",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      },
+      {
+        "qfu": 230,
+        "designator": "23",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      }
+    ]
+  },
+  {
+    "name": "Shayrat",
+    "icao": "OS65",
+    "elevation": 1634,
+    "runways": [
+      {
+        "qfu": 180,
+        "designator": "18",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 360,
+        "designator": "36",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
+    ]
+  },
+  {
+    "name": "Tabqa",
+    "icao": "OS59",
+    "elevation": 1017,
+    "runways": [
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      }
+    ]
+  },
+  {
+    "name": "Taftanaz",
+    "icao": "AG3611",
+    "elevation": 984,
+    "runways": [
+      {
+        "qfu": 10,
+        "designator": "01",
+        "tora": 3281,
+        "toda": 3281,
+        "lda": 3281,
+        "asda": 3281
+      },
+      {
+        "qfu": 190,
+        "designator": "19",
+        "tora": 3281,
+        "toda": 3281,
+        "lda": 3281,
+        "asda": 3281
+      }
+    ]
+  },
+  {
+    "name": "Tha'lah",
+    "icao": "OS71",
+    "elevation": 2657,
+    "runways": [
+      {
+        "qfu": 20,
+        "designator": "02",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      },
+      {
+        "qfu": 200,
+        "designator": "20",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      }
+    ]
+  },
+  {
+    "name": "Tiyas (T-4)",
+    "icao": "OS72",
+    "elevation": 1969,
+    "runways": [
+      {
+        "qfu": 50,
+        "designator": "05",
+        "tora": 11483,
+        "toda": 11483,
+        "lda": 11483,
+        "asda": 11483
+      },
+      {
+        "qfu": 230,
+        "designator": "23",
+        "tora": 11483,
+        "toda": 11483,
+        "lda": 11483,
+        "asda": 11483
+      }
+    ]
+  }
+]

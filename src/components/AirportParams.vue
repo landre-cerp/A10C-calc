@@ -5,6 +5,9 @@
         <q-item-label class="text-h5 col">{{
           t('airport.information')
         }}</q-item-label>
+        <q-chip v-if="airportLabel" icon="flight" color="primary" text-color="white" dense class="q-mr-sm">
+          {{ airportLabel }}
+        </q-chip>
         <q-btn
           outline size="sm" icon="flight_land" color="primary"
           :label="t('airports.load_airport')"
@@ -174,6 +177,7 @@ const {
   Qnh,
   runwayLength,
   runwayQFU,
+  airportLabel,
 } = storeToRefs(props.airport);
 
 const showSelector = ref(false);
@@ -182,10 +186,14 @@ function onAirportLoaded(payload: {
   elevation: number;
   runwayQfu: number;
   runwayLength: number;
+  airportName: string;
+  icao: string;
+  runwayName: string;
 }) {
   AirportElevation.value = payload.elevation;
   runwayQFU.value = payload.runwayQfu;
   runwayLength.value = payload.runwayLength;
+  airportLabel.value = `${payload.icao} – ${payload.airportName} · RWY ${payload.runwayName}`;
   emit('updated-elevation');
   emit('updated-qfu');
 }

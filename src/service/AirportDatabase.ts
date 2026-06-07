@@ -8,7 +8,6 @@ export interface Runway {
 }
 
 export interface SavedAirport {
-  id: string;
   name: string;
   icao: string;
   elevation: number; // ft
@@ -44,7 +43,6 @@ export function emptyRunway(): Runway {
 
 export function emptyAirport(): SavedAirport {
   return {
-    id: crypto.randomUUID(),
     name: '',
     icao: '',
     elevation: 0,

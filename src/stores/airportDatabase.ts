@@ -31,15 +31,15 @@ export const useAirportDatabaseStore = defineStore('airportDatabase', {
     },
 
     updateAirport(airport: SavedAirport) {
-      const idx = this.airports.findIndex((a) => a.id === airport.id);
+      const idx = this.airports.findIndex((a) => a.icao === airport.icao);
       if (idx !== -1) {
         this.airports[idx] = { ...airport };
         this._persist();
       }
     },
 
-    deleteAirport(id: string) {
-      this.airports = this.airports.filter((a) => a.id !== id);
+    deleteAirport(icao: string) {
+      this.airports = this.airports.filter((a) => a.icao !== icao);
       this._persist();
     },
 
@@ -50,17 +50,20 @@ export const useAirportDatabaseStore = defineStore('airportDatabase', {
       saveAs(blob, 'dcs-airports.json');
     },
 
-    /** Merge imported airports (skips duplicates by id). Returns count added. */
+    /** Import airports, replacing existing entries by ICAO code. Returns count imported. */
     importFromJson(data: SavedAirport[]): number {
-      let added = 0;
       for (const airport of data) {
-        if (!this.airports.find((a) => a.id === airport.id)) {
+        const idx = this.airports.findIndex(
+          (a) => a.icao && airport.icao && a.icao.toUpperCase() === airport.icao.toUpperCase(),
+        );
+        if (idx !== -1) {
+          this.airports[idx] = { ...airport };
+        } else {
           this.airports.push(airport);
-          added++;
         }
       }
       this._persist();
-      return added;
+      return data.length;
     },
   },
 });

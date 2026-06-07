@@ -53,8 +53,7 @@
         <p>Some day</p>
         <ul>
           <li>
-            DCS airport database with runway informations (things like TORA,
-            TODA, QFU, etc.) and METAR decoder.
+              METAR decoder.
           </li>
           <li>Takeoff continuation speed , refusal</li>
           <li>

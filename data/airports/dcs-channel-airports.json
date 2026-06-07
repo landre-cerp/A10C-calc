@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Abbeville Drucat",
+    "icao": "LFOI",
+    "elevation": 220,
+    "runways": [
+      { "qfu": 20,  "designator": "02", "tora": 4921, "toda": 4921, "lda": 4921, "asda": 4921 },
+      { "qfu": 200, "designator": "20", "tora": 4921, "toda": 4921, "lda": 4921, "asda": 4921 }
+    ]
+  },
+  {
+    "name": "Detling",
+    "icao": "EGMD",
+    "elevation": 581,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 270, "designator": "27", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Dunkirk Mardyck",
+    "icao": "LFAK",
+    "elevation": 16,
+    "runways": [
+      { "qfu": 120, "designator": "12", "tora": 4265, "toda": 4265, "lda": 4265, "asda": 4265 },
+      { "qfu": 300, "designator": "30", "tora": 4265, "toda": 4265, "lda": 4265, "asda": 4265 }
+    ]
+  },
+  {
+    "name": "Hawkinge",
+    "icao": "EGMH",
+    "elevation": 581,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3281, "toda": 3281, "lda": 3281, "asda": 3281 },
+      { "qfu": 260, "designator": "26", "tora": 3281, "toda": 3281, "lda": 3281, "asda": 3281 }
+    ]
+  },
+  {
+    "name": "High Halden (ALG)",
+    "icao": "EGKH",
+    "elevation": 180,
+    "runways": [
+      { "qfu": 100, "designator": "10", "tora": 3937, "toda": 3937, "lda": 3937, "asda": 3937 },
+      { "qfu": 280, "designator": "28", "tora": 3937, "toda": 3937, "lda": 3937, "asda": 3937 }
+    ]
+  },
+  {
+    "name": "Lympne",
+    "icao": "EGMK",
+    "elevation": 351,
+    "runways": [
+      { "qfu": 120, "designator": "12", "tora": 3281, "toda": 3281, "lda": 3281, "asda": 3281 },
+      { "qfu": 300, "designator": "30", "tora": 3281, "toda": 3281, "lda": 3281, "asda": 3281 }
+    ]
+  },
+  {
+    "name": "Manston",
+    "icao": "EGMH",
+    "elevation": 178,
+    "runways": [
+      { "qfu": 100, "designator": "10", "tora": 9003, "toda": 9003, "lda": 9003, "asda": 9003 },
+      { "qfu": 280, "designator": "28", "tora": 9003, "toda": 9003, "lda": 9003, "asda": 9003 }
+    ]
+  },
+  {
+    "name": "Merville Calonne",
+    "icao": "LFQT",
+    "elevation": 49,
+    "runways": [
+      { "qfu": 60,  "designator": "06", "tora": 5906, "toda": 5906, "lda": 5906, "asda": 5906 },
+      { "qfu": 240, "designator": "24", "tora": 5906, "toda": 5906, "lda": 5906, "asda": 5906 }
+    ]
+  },
+  {
+    "name": "Saint Omer Longuenesse",
+    "icao": "LFQT",
+    "elevation": 213,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 4593, "toda": 4593, "lda": 4593, "asda": 4593 },
+      { "qfu": 260, "designator": "26", "tora": 4593, "toda": 4593, "lda": 4593, "asda": 4593 }
+    ]
+  }
+]

@@ -76,7 +76,7 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAirportDatabaseStore } from 'src/stores/airportDatabase';
-import { rwyName, reciprocalQfu, reciprocalDesignator } from 'src/service/AirportDatabase';
+import { rwyName } from 'src/service/AirportDatabase';
 
 const { t } = useI18n();
 const db = useAirportDatabaseStore();
@@ -91,7 +91,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'update:modelValue': [value: boolean];
-  load: [payload: { elevation: number; runwayQfu: number; runwayLength: number }];
+  load: [payload: { elevation: number; runwayQfu: number; runwayLength: number; airportName: string; icao: string; runwayName: string }];
 }>();
 
 const show = computed({
@@ -119,7 +119,7 @@ watch(
 const airportOptions = computed(() =>
   db.airports.map((a) => ({
     label: `${a.icao ? a.icao + ' – ' : ''}${a.name} (${a.elevation} ft)`,
-    value: a.id,
+    value: a.icao,
   })),
 );
 
@@ -133,7 +133,7 @@ function filterAirports(val: string, update: (fn: () => void) => void) {
   update(() => {
     const needle = val.toLowerCase();
     filteredOptions.value = airportOptions.value.filter((opt) => {
-      const airport = db.airports.find((a) => a.id === opt.value);
+      const airport = db.airports.find((a) => a.icao === opt.value);
       if (!airport) return false;
       return (
         airport.name.toLowerCase().includes(needle) ||
@@ -144,20 +144,17 @@ function filterAirports(val: string, update: (fn: () => void) => void) {
 }
 
 const selectedAirportData = computed(() =>
-  db.airports.find((a) => a.id === selectedAirport.value) ?? null,
+  db.airports.find((a) => a.icao === selectedAirport.value) ?? null,
 );
 
-/** Each physical runway expanded into two selectable directions */
-const runwayDirections = computed(() => {
-  const dirs: { rwy: (typeof selectedAirportData.value)['runways'][0]; qfu: number; name: string }[] = [];
-  for (const rwy of selectedAirportData.value?.runways ?? []) {
-    const primary = rwy.designator?.trim() || rwyName(rwy.qfu);
-    const recip = reciprocalDesignator(primary);
-    dirs.push({ rwy, qfu: rwy.qfu, name: primary });
-    dirs.push({ rwy, qfu: reciprocalQfu(rwy.qfu), name: recip });
-  }
-  return dirs;
-});
+/** One selectable entry per stored runway direction */
+const runwayDirections = computed(() =>
+  (selectedAirportData.value?.runways ?? []).map((rwy) => ({
+    rwy,
+    qfu: rwy.qfu,
+    name: rwy.designator?.trim() || rwyName(rwy.qfu),
+  })),
+);
 
 function onLoad() {
   if (selectedDirIndex.value === null || !selectedAirportData.value) return;
@@ -169,6 +166,9 @@ function onLoad() {
     elevation: airport.elevation,
     runwayQfu: dir.qfu,
     runwayLength,
+    airportName: airport.name,
+    icao: airport.icao,
+    runwayName: dir.name,
   });
   emit('update:modelValue', false);
 }

@@ -1,0 +1,191 @@
+[
+  {
+    "name": "Argentan",
+    "icao": "LFQI",
+    "elevation": 587,
+    "runways": [
+      { "qfu": 110, "designator": "11", "tora": 2756, "toda": 2756, "lda": 2756, "asda": 2756 },
+      { "qfu": 290, "designator": "29", "tora": 2756, "toda": 2756, "lda": 2756, "asda": 2756 }
+    ]
+  },
+  {
+    "name": "Bazenville",
+    "icao": "A14",
+    "elevation": 351,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Beny-sur-Mer",
+    "icao": "B2",
+    "elevation": 197,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Caen-Carpiquet",
+    "icao": "LFRK",
+    "elevation": 256,
+    "runways": [
+      { "qfu": 130, "designator": "13", "tora": 5906, "toda": 5906, "lda": 5906, "asda": 5906 },
+      { "qfu": 310, "designator": "31", "tora": 5906, "toda": 5906, "lda": 5906, "asda": 5906 }
+    ]
+  },
+  {
+    "name": "Cherbourg-Maupertus",
+    "icao": "LFRC",
+    "elevation": 459,
+    "runways": [
+      { "qfu": 100, "designator": "10", "tora": 8005, "toda": 8005, "lda": 8005, "asda": 8005 },
+      { "qfu": 280, "designator": "28", "tora": 8005, "toda": 8005, "lda": 8005, "asda": 8005 }
+    ]
+  },
+  {
+    "name": "Cricqueville-en-Bessin",
+    "icao": "A1",
+    "elevation": 164,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Deux Jumeaux",
+    "icao": "A4",
+    "elevation": 148,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Evreux-Fauville",
+    "icao": "LFOE",
+    "elevation": 465,
+    "runways": [
+      { "qfu": 40,  "designator": "04", "tora": 7874, "toda": 7874, "lda": 7874, "asda": 7874 },
+      { "qfu": 220, "designator": "22", "tora": 7874, "toda": 7874, "lda": 7874, "asda": 7874 }
+    ]
+  },
+  {
+    "name": "Flers",
+    "icao": "LFOG",
+    "elevation": 705,
+    "runways": [
+      { "qfu": 100, "designator": "10", "tora": 3281, "toda": 3281, "lda": 3281, "asda": 3281 },
+      { "qfu": 280, "designator": "28", "tora": 3281, "toda": 3281, "lda": 3281, "asda": 3281 }
+    ]
+  },
+  {
+    "name": "Goulet",
+    "icao": "A5",
+    "elevation": 541,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Lignerolles",
+    "icao": "A7",
+    "elevation": 623,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Lyme Regis",
+    "icao": "EGDL",
+    "elevation": 492,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 3937, "toda": 3937, "lda": 3937, "asda": 3937 },
+      { "qfu": 270, "designator": "27", "tora": 3937, "toda": 3937, "lda": 3937, "asda": 3937 }
+    ]
+  },
+  {
+    "name": "Needs Oar Point",
+    "icao": "A9",
+    "elevation": 13,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Picauville",
+    "icao": "A8",
+    "elevation": 88,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Rennes-Saint-Jacques",
+    "icao": "LFRN",
+    "elevation": 124,
+    "runways": [
+      { "qfu": 100, "designator": "10", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 },
+      { "qfu": 280, "designator": "28", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 }
+    ]
+  },
+  {
+    "name": "Rouen-Boos",
+    "icao": "LFOP",
+    "elevation": 509,
+    "runways": [
+      { "qfu": 40,  "designator": "04", "tora": 6562, "toda": 6562, "lda": 6562, "asda": 6562 },
+      { "qfu": 220, "designator": "22", "tora": 6562, "toda": 6562, "lda": 6562, "asda": 6562 }
+    ]
+  },
+  {
+    "name": "Saint Pierre du Mont",
+    "icao": "A16",
+    "elevation": 131,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Sainte-Croix-sur-Mer",
+    "icao": "B3",
+    "elevation": 230,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Sommervieu",
+    "icao": "B8",
+    "elevation": 246,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  },
+  {
+    "name": "Tangmere",
+    "icao": "EGHR",
+    "elevation": 57,
+    "runways": [
+      { "qfu": 100, "designator": "10", "tora": 5906, "toda": 5906, "lda": 5906, "asda": 5906 },
+      { "qfu": 280, "designator": "28", "tora": 5906, "toda": 5906, "lda": 5906, "asda": 5906 }
+    ]
+  },
+  {
+    "name": "Vrigny",
+    "icao": "A6",
+    "elevation": 787,
+    "runways": [
+      { "qfu": 80,  "designator": "08", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 },
+      { "qfu": 260, "designator": "26", "tora": 3609, "toda": 3609, "lda": 3609, "asda": 3609 }
+    ]
+  }
+]

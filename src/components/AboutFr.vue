@@ -62,8 +62,7 @@
 
         <ul>
           <li>
-            Base de données des aéroports DCS avec les informations de piste (
-            TORA, TODA, QFU, etc.) et décodeur METAR.
+              décodeur METAR.
           </li>
           <li>Autres indicateurs de performance pour le décollage</li>
           <li>

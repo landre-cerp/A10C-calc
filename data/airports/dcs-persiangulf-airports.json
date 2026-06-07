@@ -1,0 +1,273 @@
+[
+  {
+    "name": "Abu Dhabi International",
+    "icao": "OMAA",
+    "elevation": 88,
+    "runways": [
+      { "qfu": 130, "designator": "13L", "tora": 13944, "toda": 13944, "lda": 13944, "asda": 13944 },
+      { "qfu": 310, "designator": "31R", "tora": 13944, "toda": 13944, "lda": 13944, "asda": 13944 },
+      { "qfu": 130, "designator": "13R", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 },
+      { "qfu": 310, "designator": "31L", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 }
+    ]
+  },
+  {
+    "name": "Abu Musa Island",
+    "icao": "OIBA",
+    "elevation": 23,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 7546, "toda": 7546, "lda": 7546, "asda": 7546 },
+      { "qfu": 270, "designator": "27", "tora": 7546, "toda": 7546, "lda": 7546, "asda": 7546 }
+    ]
+  },
+  {
+    "name": "Al Ain International",
+    "icao": "OMAL",
+    "elevation": 869,
+    "runways": [
+      { "qfu": 10,  "designator": "01", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 },
+      { "qfu": 190, "designator": "19", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 }
+    ]
+  },
+  {
+    "name": "Al Bateen",
+    "icao": "OMAD",
+    "elevation": 16,
+    "runways": [
+      { "qfu": 130, "designator": "13", "tora": 9186, "toda": 9186, "lda": 9186, "asda": 9186 },
+      { "qfu": 310, "designator": "31", "tora": 9186, "toda": 9186, "lda": 9186, "asda": 9186 }
+    ]
+  },
+  {
+    "name": "Al Dhafra AFB",
+    "icao": "OMAM",
+    "elevation": 75,
+    "runways": [
+      { "qfu": 130, "designator": "13L", "tora": 12008, "toda": 12008, "lda": 12008, "asda": 12008 },
+      { "qfu": 310, "designator": "31R", "tora": 12008, "toda": 12008, "lda": 12008, "asda": 12008 },
+      { "qfu": 130, "designator": "13R", "tora": 12008, "toda": 12008, "lda": 12008, "asda": 12008 },
+      { "qfu": 310, "designator": "31L", "tora": 12008, "toda": 12008, "lda": 12008, "asda": 12008 }
+    ]
+  },
+  {
+    "name": "Al Maktoum International",
+    "icao": "OMDW",
+    "elevation": 114,
+    "runways": [
+      { "qfu": 120, "designator": "12", "tora": 14763, "toda": 14763, "lda": 14763, "asda": 14763 },
+      { "qfu": 300, "designator": "30", "tora": 14763, "toda": 14763, "lda": 14763, "asda": 14763 }
+    ]
+  },
+  {
+    "name": "Al Minhad AFB",
+    "icao": "OMDM",
+    "elevation": 171,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 12008, "toda": 12008, "lda": 12008, "asda": 12008 },
+      { "qfu": 270, "designator": "27", "tora": 12008, "toda": 12008, "lda": 12008, "asda": 12008 }
+    ]
+  },
+  {
+    "name": "Bandar Abbas International",
+    "icao": "OIKB",
+    "elevation": 22,
+    "runways": [
+      { "qfu": 210, "designator": "21L", "tora": 11483, "toda": 11483, "lda": 11483, "asda": 11483 },
+      { "qfu": 30,  "designator": "03R", "tora": 11483, "toda": 11483, "lda": 11483, "asda": 11483 },
+      { "qfu": 210, "designator": "21R", "tora": 9843,  "toda": 9843,  "lda": 9843,  "asda": 9843  },
+      { "qfu": 30,  "designator": "03L", "tora": 9843,  "toda": 9843,  "lda": 9843,  "asda": 9843  }
+    ]
+  },
+  {
+    "name": "Bandar Lengeh",
+    "icao": "OIBL",
+    "elevation": 67,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 8858, "toda": 8858, "lda": 8858, "asda": 8858 },
+      { "qfu": 270, "designator": "27", "tora": 8858, "toda": 8858, "lda": 8858, "asda": 8858 }
+    ]
+  },
+  {
+    "name": "Bandar-e-Jask",
+    "icao": "OIZJ",
+    "elevation": 19,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 7546, "toda": 7546, "lda": 7546, "asda": 7546 },
+      { "qfu": 270, "designator": "27", "tora": 7546, "toda": 7546, "lda": 7546, "asda": 7546 }
+    ]
+  },
+  {
+    "name": "Dubai International",
+    "icao": "OMDB",
+    "elevation": 34,
+    "runways": [
+      { "qfu": 120, "designator": "12L", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 },
+      { "qfu": 300, "designator": "30R", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 },
+      { "qfu": 120, "designator": "12R", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 },
+      { "qfu": 300, "designator": "30L", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 }
+    ]
+  },
+  {
+    "name": "Fujairah International",
+    "icao": "OMFJ",
+    "elevation": 152,
+    "runways": [
+      { "qfu": 290, "designator": "29", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 },
+      { "qfu": 110, "designator": "11", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 }
+    ]
+  },
+  {
+    "name": "Havadarya",
+    "icao": "OIKP",
+    "elevation": 19,
+    "runways": [
+      { "qfu": 210, "designator": "21", "tora": 7218, "toda": 7218, "lda": 7218, "asda": 7218 },
+      { "qfu": 30,  "designator": "03", "tora": 7218, "toda": 7218, "lda": 7218, "asda": 7218 }
+    ]
+  },
+  {
+    "name": "Kerman",
+    "icao": "OIKK",
+    "elevation": 5741,
+    "runways": [
+      { "qfu": 140, "designator": "14", "tora": 11155, "toda": 11155, "lda": 11155, "asda": 11155 },
+      { "qfu": 320, "designator": "32", "tora": 11155, "toda": 11155, "lda": 11155, "asda": 11155 }
+    ]
+  },
+  {
+    "name": "Khasab",
+    "icao": "OOKB",
+    "elevation": 100,
+    "runways": [
+      { "qfu": 190, "designator": "19", "tora": 8005, "toda": 8005, "lda": 8005, "asda": 8005 },
+      { "qfu": 10,  "designator": "01", "tora": 8005, "toda": 8005, "lda": 8005, "asda": 8005 }
+    ]
+  },
+  {
+    "name": "Kish International",
+    "icao": "OIBK",
+    "elevation": 101,
+    "runways": [
+      { "qfu": 270, "designator": "27", "tora": 11483, "toda": 11483, "lda": 11483, "asda": 11483 },
+      { "qfu": 90,  "designator": "09", "tora": 11483, "toda": 11483, "lda": 11483, "asda": 11483 }
+    ]
+  },
+  {
+    "name": "Lar",
+    "icao": "OISL",
+    "elevation": 2641,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 10663, "toda": 10663, "lda": 10663, "asda": 10663 },
+      { "qfu": 270, "designator": "27", "tora": 10663, "toda": 10663, "lda": 10663, "asda": 10663 }
+    ]
+  },
+  {
+    "name": "Lavan Island",
+    "icao": "OIBV",
+    "elevation": 76,
+    "runways": [
+      { "qfu": 270, "designator": "27", "tora": 7218, "toda": 7218, "lda": 7218, "asda": 7218 },
+      { "qfu": 90,  "designator": "09", "tora": 7218, "toda": 7218, "lda": 7218, "asda": 7218 }
+    ]
+  },
+  {
+    "name": "Liwa AFB",
+    "icao": "OMRI",
+    "elevation": 531,
+    "runways": [
+      { "qfu": 130, "designator": "13", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 },
+      { "qfu": 310, "designator": "31", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 }
+    ]
+  },
+  {
+    "name": "Qeshm Island",
+    "icao": "OIKQ",
+    "elevation": 45,
+    "runways": [
+      { "qfu": 260, "designator": "26", "tora": 11155, "toda": 11155, "lda": 11155, "asda": 11155 },
+      { "qfu": 80,  "designator": "08", "tora": 11155, "toda": 11155, "lda": 11155, "asda": 11155 }
+    ]
+  },
+  {
+    "name": "Ras Al Khaimah International",
+    "icao": "OMRK",
+    "elevation": 102,
+    "runways": [
+      { "qfu": 170, "designator": "17", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 },
+      { "qfu": 350, "designator": "35", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 }
+    ]
+  },
+  {
+    "name": "Sas Al Nakheel",
+    "icao": "OMSA",
+    "elevation": 16,
+    "runways": [
+      { "qfu": 130, "designator": "13", "tora": 7874, "toda": 7874, "lda": 7874, "asda": 7874 },
+      { "qfu": 310, "designator": "31", "tora": 7874, "toda": 7874, "lda": 7874, "asda": 7874 }
+    ]
+  },
+  {
+    "name": "Sharjah International",
+    "icao": "OMSJ",
+    "elevation": 111,
+    "runways": [
+      { "qfu": 120, "designator": "12", "tora": 13287, "toda": 13287, "lda": 13287, "asda": 13287 },
+      { "qfu": 300, "designator": "30", "tora": 13287, "toda": 13287, "lda": 13287, "asda": 13287 }
+    ]
+  },
+  {
+    "name": "Shiraz International",
+    "icao": "OISS",
+    "elevation": 4920,
+    "runways": [
+      { "qfu": 280, "designator": "28L", "tora": 14435, "toda": 14435, "lda": 14435, "asda": 14435 },
+      { "qfu": 100, "designator": "10R", "tora": 14435, "toda": 14435, "lda": 14435, "asda": 14435 },
+      { "qfu": 280, "designator": "28R", "tora": 11483, "toda": 11483, "lda": 11483, "asda": 11483 },
+      { "qfu": 100, "designator": "10L", "tora": 11483, "toda": 11483, "lda": 11483, "asda": 11483 }
+    ]
+  },
+  {
+    "name": "Sir Abu Nuayr",
+    "icao": "OMSA",
+    "elevation": 25,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 5905, "toda": 5905, "lda": 5905, "asda": 5905 },
+      { "qfu": 270, "designator": "27", "tora": 5905, "toda": 5905, "lda": 5905, "asda": 5905 }
+    ]
+  },
+  {
+    "name": "Sirri Island",
+    "icao": "OIBS",
+    "elevation": 43,
+    "runways": [
+      { "qfu": 270, "designator": "27", "tora": 9514, "toda": 9514, "lda": 9514, "asda": 9514 },
+      { "qfu": 90,  "designator": "09", "tora": 9514, "toda": 9514, "lda": 9514, "asda": 9514 }
+    ]
+  },
+  {
+    "name": "Tunb Island AFB",
+    "icao": "OITU",
+    "elevation": 23,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 6562, "toda": 6562, "lda": 6562, "asda": 6562 },
+      { "qfu": 270, "designator": "27", "tora": 6562, "toda": 6562, "lda": 6562, "asda": 6562 }
+    ]
+  },
+  {
+    "name": "Tunb Kochak",
+    "icao": "OITK",
+    "elevation": 20,
+    "runways": [
+      { "qfu": 90,  "designator": "09", "tora": 4921, "toda": 4921, "lda": 4921, "asda": 4921 },
+      { "qfu": 270, "designator": "27", "tora": 4921, "toda": 4921, "lda": 4921, "asda": 4921 }
+    ]
+  },
+  {
+    "name": "Jiroft",
+    "icao": "OIKJ",
+    "elevation": 2781,
+    "runways": [
+      { "qfu": 130, "designator": "13", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 },
+      { "qfu": 310, "designator": "31", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 }
+    ]
+  }
+]

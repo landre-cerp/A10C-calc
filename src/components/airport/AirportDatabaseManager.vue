@@ -15,7 +15,9 @@
       flat bordered dense
       :rows="db.airports"
       :columns="columns"
-      row-key="id"
+      row-key="icao"
+      :rows-per-page-options="[10, 15, 20, 25, 50, 0]"
+      :pagination="{ rowsPerPage: 10 }"
       :no-data-label="t('airports.no_airports')"
     >
       <template #body-cell-runways="props">
@@ -73,7 +75,7 @@ const columns = [
   { name: 'icao', label: t('airports.icao'), field: 'icao', align: 'left' as const, sortable: true },
   { name: 'elevation', label: t('airports.elevation'), field: 'elevation', align: 'right' as const, sortable: true },
   { name: 'runways', label: t('airports.runways'), field: 'runways', align: 'center' as const },
-  { name: 'actions', label: '', field: 'id', align: 'center' as const },
+  { name: 'actions', label: '', field: 'icao', align: 'center' as const },
 ];
 
 function openAdd() {
@@ -101,7 +103,7 @@ function confirmDelete(airport: SavedAirport) {
 
 function doDelete() {
   if (deleteTarget.value) {
-    db.deleteAirport(deleteTarget.value.id);
+    db.deleteAirport(deleteTarget.value.icao);
     deleteTarget.value = null;
   }
 }

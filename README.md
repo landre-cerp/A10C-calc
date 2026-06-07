@@ -35,6 +35,7 @@ It helps pilots plan their missions with relatively accurate weight and balance,
   - QNH/altimeter settings
   - Runway direction (QFU) configuration
   - Multiple runway condition types (dry, wet, icy)
+  - **Airport Database**: Save, edit, import and export custom airport data (JSON)
 
 ### Flight Planning
 
@@ -155,7 +156,44 @@ The application is organized into several main sections:
 6. **DCS Connect** (`/Dcs`): DCS World integration setup
 7. **About** (`/About`): Application information and credits
 
-## 🔧 Configuration
+## 🗺️ Airport Database
+
+The **Airports** page lets you manage a personal airport database stored locally in the app.
+Each entry holds the ICAO code, elevation, and one runway entry per direction (QFU, TORA, TODA, LDA, ASDA).
+
+### Import / Export
+
+Airports can be imported and exported as `.json` files via the **Import / Export** buttons in the Airports page.
+On import, existing airports are matched by ICAO code — duplicates are **replaced**, new entries are **added**.
+
+### Community airport files
+
+Ready-to-import airport files for common DCS theatres are available in the [`data/airports/`](data/airports/) folder of this repository.
+
+> ⚠️ **Data disclaimer** — these files were bootstrapped with AI assistance and have not been individually verified against official charts or DCS source data.
+> Runway lengths, elevations, and headings may contain errors.
+> **Always cross-check critical values before using them for mission planning.**
+> Contributions and corrections are welcome via pull request.
+
+### File format
+
+```json
+[
+  {
+    "name": "Incirlik",
+    "icao": "LTAG",
+    "elevation": 154,
+    "runways": [
+      { "qfu": 49,  "designator": "05", "tora": 9662, "toda": 9662, "lda": 9662, "asda": 9662 },
+      { "qfu": 229, "designator": "23", "tora": 9662, "toda": 9662, "lda": 9662, "asda": 9662 }
+    ]
+  }
+]
+```
+
+Each runway direction is stored as a **separate entry**. The ICAO code is the unique key.
+
+
 
 The application uses several configuration files:
 
