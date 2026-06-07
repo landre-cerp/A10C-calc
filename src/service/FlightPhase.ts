@@ -91,7 +91,12 @@ export abstract class FlightPhase implements IFlightPhase {
     }
   }
 
-  abstract Recalc(): void;
+  protected abstract doRecalc(): void;
+
+  Recalc(): void {
+    this.doRecalc();
+    this.nextPhase?.Recalc();
+  }
 
   isLastPhase(): boolean {
     return this.nextPhase === null;

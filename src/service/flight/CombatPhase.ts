@@ -13,7 +13,7 @@ export class CombatPhase extends FlightPhase {
     return this.fuelUsed;
   }
 
-  Recalc() {
+  doRecalc() {
     this.FuelUsed();
   }
 

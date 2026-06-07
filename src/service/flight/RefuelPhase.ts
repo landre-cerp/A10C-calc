@@ -8,7 +8,7 @@ export class RefuelPhase extends FlightPhase {
     this.altitude = this.getStartingAltitude();
   }
 
-  Recalc() {
+  doRecalc() {
     // this.FuelUsed();
   }
 }

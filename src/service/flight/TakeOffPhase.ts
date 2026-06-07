@@ -11,7 +11,7 @@ export class TakeOffPhase extends FlightPhase {
     this.Recalc();
   }
 
-  Recalc() {
+  doRecalc() {
     this.setStartWeight(this.context.takeOffWeight);
     this.setFuelOnBoard(this.context.fuelWeight);
     this.setStartingAltitude(this.context.airportPressureAltitude);
