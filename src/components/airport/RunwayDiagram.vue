@@ -98,27 +98,30 @@
 
     <!-- TORA -->
     <g :transform="`translate(0, ${RY + RH + 28})`">
+      <line :x1="LEFT" y1="2" :x2="LEFT" y2="12" stroke="#333" stroke-width="1.5" />
       <line :x1="LEFT" y1="7" :x2="xTora" y2="7"
         stroke="#333" stroke-width="1.5"
-        marker-start="url(#arr-l)" marker-end="url(#arr-r)" />
+        marker-end="url(#arr-r)" />
       <text :x="LEFT + (xTora - LEFT) / 2" y="5"
         text-anchor="middle" font-size="12" font-weight="bold" fill="#222">TORA</text>
     </g>
 
     <!-- ASDA -->
     <g v-if="xAsda > xTora + 2" :transform="`translate(0, ${RY + RH + 46})`">
+      <line :x1="LEFT" y1="2" :x2="LEFT" y2="12" stroke="#333" stroke-width="1.5" />
       <line :x1="LEFT" y1="7" :x2="xAsda" y2="7"
         stroke="#333" stroke-width="1.5"
-        marker-start="url(#arr-l)" marker-end="url(#arr-r)" />
+        marker-end="url(#arr-r)" />
       <text :x="LEFT + (xAsda - LEFT) / 2" y="5"
         text-anchor="middle" font-size="12" font-weight="bold" fill="#222">ASDA</text>
     </g>
 
     <!-- TODA -->
     <g v-if="xToda > xTora + 2" :transform="`translate(0, ${RY + RH + 64})`">
+      <line :x1="LEFT" y1="2" :x2="LEFT" y2="12" stroke="#333" stroke-width="1.5" />
       <line :x1="LEFT" y1="7" :x2="xToda" y2="7"
         stroke="#333" stroke-width="1.5"
-        marker-start="url(#arr-l)" marker-end="url(#arr-r)" />
+        marker-end="url(#arr-r)" />
       <text :x="LEFT + (xToda - LEFT) / 2" y="5"
         text-anchor="middle" font-size="12" font-weight="bold" fill="#222">TODA</text>
     </g>
