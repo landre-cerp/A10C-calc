@@ -62,11 +62,6 @@
 
         <ul>
           <li>
-            Phases de vol avec différents profils de mission (LO-LO-LO,
-            HI-LO-HI)
-          </li>
-
-          <li>
             Base de données des aéroports DCS avec les informations de piste (
             TORA, TODA, QFU, etc.) et décodeur METAR.
           </li>
