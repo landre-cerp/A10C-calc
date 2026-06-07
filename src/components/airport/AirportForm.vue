@@ -53,8 +53,7 @@
                     <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
                       <q-tooltip>{{ t('airports.qfu_help') }}</q-tooltip>
                     </q-icon>
-                  </th>
-                  <th class="text-right">
+                  </th>                  <th class="text-right">
                     {{ t('airports.tora') }}<br><span class="text-caption">(ft)</span>
                     <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
                       <q-tooltip>{{ t('airports.tora_help') }}</q-tooltip>
@@ -78,7 +77,7 @@
                       <q-tooltip>{{ t('airports.asda_help') }}</q-tooltip>
                     </q-icon>
                   </th>
-                  <th class="text-left">{{ t('airports.surface') }}</th>
+                  <th class="text-left">{{ t('airports.runway_name') }}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -89,13 +88,13 @@
                   <td><q-input borderless dense type="number" v-model.number="rwy.toda" style="width:75px" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.lda" style="width:75px" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.asda" style="width:75px" /></td>
-                  <td><q-input borderless dense v-model="rwy.surface" style="width:90px" /></td>
+                  <td class="text-center text-caption text-grey-7 text-no-wrap">RWY {{ rwyName(rwy.qfu) }} / {{ rwyName(reciprocalQfu(rwy.qfu)) }}</td>
                   <td class="text-center">
                     <q-btn flat round dense icon="delete" color="negative" size="xs" @click="removeRunway(i)" />
                   </td>
                 </tr>
                 <tr v-if="local.runways.length === 0">
-                  <td colspan="7" class="text-center text-grey q-pa-sm">{{ t('airports.empty_runways') }}</td>
+                  <td colspan="6" class="text-center text-grey q-pa-sm">{{ t('airports.empty_runways') }}</td>
                 </tr>
               </tbody>
             </q-markup-table>
@@ -118,6 +117,8 @@ import {
   SavedAirport,
   emptyRunway,
   emptyAirport,
+  rwyName,
+  reciprocalQfu,
 } from 'src/service/AirportDatabase';
 
 const { t } = useI18n();

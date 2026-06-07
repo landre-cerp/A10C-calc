@@ -41,6 +41,7 @@ export default {
     asda: 'ASDA',
     asda_help: 'Accelerate-Stop Distance Available — TORA + zone d\'arrêt éventuelle. Utilisée pour planifier un décollage interrompu.',
     surface: 'Surface',
+    runway_name: 'Piste',
     load_airport: 'Charger aéroport',
     select_airport: 'Sélectionner un aéroport',
     select_runway: 'Sélectionner une piste',

@@ -30,7 +30,10 @@
               @click="selectedRunwayIndex = i"
             >
               <q-item-section>
-                <q-item-label>QFU {{ rwy.qfu }}°<span v-if="rwy.surface" class="q-ml-sm text-caption">{{ rwy.surface }}</span></q-item-label>
+                <q-item-label>
+                  <strong>RWY {{ rwyName(rwy.qfu) }} / RWY {{ rwyName(reciprocalQfu(rwy.qfu)) }}</strong>
+                  <span class="q-ml-sm text-caption">({{ rwy.qfu }}° / {{ reciprocalQfu(rwy.qfu) }}°)</span>
+                </q-item-label>
                 <q-item-label caption>
                   TORA {{ rwy.tora }} ft &nbsp;|&nbsp;
                   TODA {{ rwy.toda }} ft &nbsp;|&nbsp;
@@ -70,6 +73,7 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAirportDatabaseStore } from 'src/stores/airportDatabase';
+import { rwyName, reciprocalQfu } from 'src/service/AirportDatabase';
 
 const { t } = useI18n();
 const db = useAirportDatabaseStore();

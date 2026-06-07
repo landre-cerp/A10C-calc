@@ -39,6 +39,7 @@ export default {
     asda: 'ASDA',
     asda_help: 'Accelerate-Stop Distance Available — TORA plus any stopway. Used to plan an aborted take-off.',
     surface: 'Surface',
+    runway_name: 'RWY',
     load_airport: 'Load airport',
     select_airport: 'Select an airport',
     select_runway: 'Select a runway',
