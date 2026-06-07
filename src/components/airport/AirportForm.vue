@@ -64,25 +64,25 @@
                       <q-tooltip>{{ t('airports.qfu_help') }}</q-tooltip>
                     </q-icon>
                   </th>
-                  <th class="text-center">
+                  <th class="text-right">
                     {{ t('airports.tora') }}<br><span class="text-caption">(ft)</span>
                     <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
                       <q-tooltip>{{ t('airports.tora_help') }}</q-tooltip>
                     </q-icon>
                   </th>
-                  <th class="text-center">
+                  <th class="text-right">
                     {{ t('airports.toda') }}<br><span class="text-caption">(ft)</span>
                     <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
                       <q-tooltip>{{ t('airports.toda_help') }}</q-tooltip>
                     </q-icon>
                   </th>
-                  <th class="text-center">
+                  <th class="text-right">
                     {{ t('airports.lda') }}<br><span class="text-caption">(ft)</span>
                     <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
                       <q-tooltip>{{ t('airports.lda_help') }}</q-tooltip>
                     </q-icon>
                   </th>
-                  <th class="text-center">
+                  <th class="text-right">
                     {{ t('airports.asda') }}<br><span class="text-caption">(ft)</span>
                     <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
                       <q-tooltip>{{ t('airports.asda_help') }}</q-tooltip>
@@ -107,11 +107,11 @@
                       maxlength="4"
                     />
                   </td>
-                  <td><q-input borderless dense type="number" v-model.number="rwy.qfu" style="width:60px" class="text-center" /></td>
-                  <td class="text-center"><q-input borderless dense type="number" v-model.number="rwy.tora" style="width:75px" @update:model-value="onToraChange(rwy)" /></td>
-                  <td class="text-center"><q-input borderless dense type="number" v-model.number="rwy.toda" style="width:75px" /></td>
-                  <td class="text-center"><q-input borderless dense type="number" v-model.number="rwy.lda" style="width:75px" /></td>
-                  <td class="text-center"><q-input borderless dense type="number" v-model.number="rwy.asda" style="width:75px" /></td>
+                  <td><q-input borderless dense type="number" v-model.number="rwy.qfu" style="width:60px" input-class="text-right" /></td>
+                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.tora" style="width:75px" input-class="text-right" @update:model-value="onToraChange(rwy)" /></td>
+                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.toda" style="width:75px" input-class="text-right" /></td>
+                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.lda" style="width:75px" input-class="text-right" /></td>
+                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.asda" style="width:75px" input-class="text-right" /></td>
                   <td class="text-center">
                     <q-btn flat round dense icon="delete" color="negative" size="xs" @click="removeRunway(i)" />
                   </td>

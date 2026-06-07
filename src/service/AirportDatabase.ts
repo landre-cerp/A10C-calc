@@ -39,7 +39,7 @@ export function reciprocalQfu(qfu: number): number {
 }
 
 export function emptyRunway(): Runway {
-  return { qfu: 0, designator: '', tora: 0, toda: 0, lda: 0 };
+  return { qfu: 0, designator: '', tora: 0, toda: 0, lda: 0, asda: 0 };
 }
 
 export function emptyAirport(): SavedAirport {
