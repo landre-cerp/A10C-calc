@@ -8,23 +8,6 @@ import {
 } from '../components/models';
 import { IFlightPhase } from 'src/components/models';
 
-export const FlightGraph = [
-  { start: PhaseType.TAKEOFF, next: [PhaseType.CLIMB] },
-  { start: PhaseType.CLIMB, next: [PhaseType.CRUISE] },
-  {
-    start: PhaseType.CRUISE,
-    next: [
-      PhaseType.CLIMB,
-      PhaseType.CRUISE,
-      PhaseType.HI_COMBAT,
-      PhaseType.REFUEL,
-      PhaseType.DESCENT,
-    ],
-  },
-  { start: PhaseType.HI_COMBAT, next: [PhaseType.CRUISE, PhaseType.CLIMB] },
-  { start: PhaseType.DESCENT, next: [PhaseType.LANDING, PhaseType.CRUISE] },
-  { start: PhaseType.REFUEL, next: [PhaseType.CRUISE] },
-];
 
 export abstract class FlightPhase implements IFlightPhase {
   label: string;
