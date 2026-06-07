@@ -1,9 +1,19 @@
 <template>
   <q-card class="my-card">
     <q-card-section>
-      <q-item-label class="text-h5">{{
-        t('airport.information')
-      }}</q-item-label>
+      <div class="row items-center">
+        <q-item-label class="text-h5 col">{{
+          t('airport.information')
+        }}</q-item-label>
+        <q-chip v-if="airportLabel" icon="flight" color="primary" text-color="white" dense class="q-mr-sm">
+          {{ airportLabel }}
+        </q-chip>
+        <q-btn
+          outline size="sm" icon="flight_land" color="primary"
+          :label="t('airports.load_airport')"
+          @click="showSelector = true"
+        />
+      </div>
     </q-card-section>
     <slot></slot>
 
@@ -124,15 +134,23 @@
         />
       </q-item>
     </q-card-section>
+
+    <AirportSelector
+      v-model="showSelector"
+      :mode="mode"
+      @load="onAirportLoaded"
+    />
   </q-card>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTakeOffStore, useLandingStore } from 'src/stores/Airport';
 import { useI18n } from 'vue-i18n';
 
 import { QNH_Unit } from './models';
+import AirportSelector from './airport/AirportSelector.vue';
 
 const { t } = useI18n();
 
@@ -148,6 +166,7 @@ const props = defineProps<{
   airport:
     | ReturnType<typeof useTakeOffStore>
     | ReturnType<typeof useLandingStore>;
+  mode?: 'takeoff' | 'landing';
 }>();
 
 const {
@@ -158,5 +177,24 @@ const {
   Qnh,
   runwayLength,
   runwayQFU,
+  airportLabel,
 } = storeToRefs(props.airport);
+
+const showSelector = ref(false);
+
+function onAirportLoaded(payload: {
+  elevation: number;
+  runwayQfu: number;
+  runwayLength: number;
+  airportName: string;
+  icao: string;
+  runwayName: string;
+}) {
+  AirportElevation.value = payload.elevation;
+  runwayQFU.value = payload.runwayQfu;
+  runwayLength.value = payload.runwayLength;
+  airportLabel.value = `${payload.icao} – ${payload.airportName} · RWY ${payload.runwayName}`;
+  emit('updated-elevation');
+  emit('updated-qfu');
+}
 </script>
