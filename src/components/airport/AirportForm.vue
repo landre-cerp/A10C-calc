@@ -97,7 +97,7 @@
                     />
                   </td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.qfu" style="width:60px" input-class="text-right" /></td>
-                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.tora" style="width:75px" input-class="text-right" @update:model-value="onToraChange(rwy)" /></td>
+                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.tora" style="width:75px" input-class="text-right" @blur="onToraBlur(rwy)" /></td>
                   <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.toda" style="width:75px" input-class="text-right" /></td>
                   <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.lda" style="width:75px" input-class="text-right" /></td>
                   <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.asda" style="width:75px" input-class="text-right" /></td>
@@ -171,9 +171,10 @@ function addRunway() {
   local.value.runways.push(emptyRunway());
 }
 
-function onToraChange(rwy: ReturnType<typeof emptyRunway>) {
+function onToraBlur(rwy: ReturnType<typeof emptyRunway>) {
   if (!rwy.toda) rwy.toda = rwy.tora;
   if (!rwy.asda) rwy.asda = rwy.tora;
+  if (!rwy.lda)  rwy.lda  = rwy.tora;
 }
 
 function removeRunway(index: number) {
