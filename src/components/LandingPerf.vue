@@ -1,6 +1,7 @@
 <template>
   <AirportParams
     :airport="airport"
+    mode="landing"
     @updated-qnh="updatedPressureAltitude"
     @updated-elevation="updatedPressureAltitude"
     @updated-temp="updateTemp"
