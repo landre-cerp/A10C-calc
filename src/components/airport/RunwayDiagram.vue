@@ -125,40 +125,19 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps<{
-  tora: number;
-  toda: number;
-  lda: number;
-  asda?: number;
-}>();
-
+// Fixed schematic proportions — this is a legend, not live data
 const LEFT = 30;
 const RIGHT = 595;
 const DRAW_W = RIGHT - LEFT;
 const RY = 26;
 const RH = 38;
 
-// Fall back to schematic proportions when no data entered
-const base = computed(() => {
-  const hasData = props.tora > 0 || props.toda > 0;
-  if (hasData) {
-    const toda = Math.max(props.toda, props.tora, props.asda ?? 0) || props.tora;
-    return {
-      toda,
-      tora: props.tora || toda * 0.75,
-      lda: props.lda || props.tora * 0.84,
-      asda: props.asda ?? props.tora,
-    };
-  }
-  return { toda: 1200, tora: 900, lda: 750, asda: 1050 };
-});
+const base = { toda: 1200, tora: 900, lda: 750, asda: 1050 };
 
-const scale = computed(() => DRAW_W / base.value.toda);
-const xTora = computed(() => LEFT + base.value.tora * scale.value);
-const xAsda = computed(() => LEFT + base.value.asda * scale.value);
-const xToda = computed(() => LEFT + base.value.toda * scale.value);
-const xLdaStart = computed(() => LEFT + (base.value.tora - base.value.lda) * scale.value);
-
-/** Arrow length inside the displaced threshold box — capped so they never touch the threshold line */
-const arrowLen = computed(() => Math.min(xLdaStart.value - LEFT - 12, 48));
+const scale = DRAW_W / base.toda;
+const xTora = LEFT + base.tora * scale;
+const xAsda = LEFT + base.asda * scale;
+const xToda = LEFT + base.toda * scale;
+const xLdaStart = LEFT + (base.tora - base.lda) * scale;
+const arrowLen = Math.min(xLdaStart - LEFT - 12, 48);
 </script>
