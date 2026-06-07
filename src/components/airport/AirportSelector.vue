@@ -12,9 +12,12 @@
         <q-select
           filled dense
           v-model="selectedAirport"
-          :options="airportOptions"
+          :options="filteredOptions"
           :label="t('airports.select_airport')"
           emit-value map-options
+          use-input input-debounce="0"
+          @filter="filterAirports"
+          @update:model-value="selectedDirIndex = null"
         />
 
         <!-- Runway direction picker -->
@@ -119,6 +122,26 @@ const airportOptions = computed(() =>
     value: a.id,
   })),
 );
+
+const filteredOptions = ref(airportOptions.value);
+
+watch(airportOptions, (opts) => {
+  filteredOptions.value = opts;
+});
+
+function filterAirports(val: string, update: (fn: () => void) => void) {
+  update(() => {
+    const needle = val.toLowerCase();
+    filteredOptions.value = airportOptions.value.filter((opt) => {
+      const airport = db.airports.find((a) => a.id === opt.value);
+      if (!airport) return false;
+      return (
+        airport.name.toLowerCase().includes(needle) ||
+        airport.icao.toLowerCase().includes(needle)
+      );
+    });
+  });
+}
 
 const selectedAirportData = computed(() =>
   db.airports.find((a) => a.id === selectedAirport.value) ?? null,
