@@ -86,9 +86,12 @@
 
     <!-- LDA -->
     <g :transform="`translate(0, ${RY + RH + 10})`">
+      <!-- vertical tick exactly at threshold, no arrowhead offset -->
+      <line :x1="xLdaStart" y1="2" :x2="xLdaStart" y2="12"
+        stroke="#333" stroke-width="1.5" />
       <line :x1="xLdaStart" y1="7" :x2="xTora" y2="7"
         stroke="#333" stroke-width="1.5"
-        marker-start="url(#arr-l)" marker-end="url(#arr-r)" />
+        marker-end="url(#arr-r)" />
       <text :x="xLdaStart + (xTora - xLdaStart) / 2" y="5"
         text-anchor="middle" font-size="12" font-weight="bold" fill="#222">LDA</text>
     </g>
