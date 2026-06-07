@@ -7,7 +7,7 @@
       <marker id="arr-l" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
         <path d="M7,0 L0,3.5 L7,7 Z" fill="#333" />
       </marker>
-      <marker id="arr-r" markerWidth="7" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <marker id="arr-r" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
         <path d="M0,0 L7,3.5 L0,7 Z" fill="#333" />
       </marker>
     </defs>
