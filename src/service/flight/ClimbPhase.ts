@@ -1,15 +1,16 @@
 import { PhaseType } from 'src/components/models';
-import { useTakeOffStore } from 'src/stores/Airport';
 
 import { ClimbDistanceNeeded } from '../../modules/a10c/climb/ClimbDistance';
 import { ClimbFuelUsed } from '../../modules/a10c/climb/ClimbFuel';
 import { ClimbTimeNeeded } from '../../modules/a10c/climb/ClimbTime';
 import { FlightPhase } from '../FlightPhase';
-
-const airport = useTakeOffStore();
+import { IAirportContext } from './FlightContext';
 
 export class ClimbPhase extends FlightPhase {
-  constructor(previous: FlightPhase) {
+  constructor(
+    previous: FlightPhase,
+    private context: IAirportContext,
+  ) {
     super('Climb', 'Climb to cruise altitude', PhaseType.CLIMB, previous);
 
     this.fuelUsed = this.FuelUsed();
@@ -24,7 +25,7 @@ export class ClimbPhase extends FlightPhase {
       this.getStartingAltitude(),
       this.altitude,
       this.getStartingWeight(),
-      airport.DeltaTemp,
+      this.context.deltaTemp,
       this.drag,
     );
 
@@ -37,7 +38,7 @@ export class ClimbPhase extends FlightPhase {
       this.getStartingAltitude(),
       this.altitude,
       this.getStartingWeight(),
-      airport.DeltaTemp,
+      this.context.deltaTemp,
       this.drag,
     );
     return this.duration;
@@ -48,7 +49,7 @@ export class ClimbPhase extends FlightPhase {
       this.getStartingAltitude(),
       this.altitude,
       this.getStartingWeight(),
-      airport.DeltaTemp,
+      this.context.deltaTemp,
       this.drag,
     );
     return this.distance;

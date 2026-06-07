@@ -1,6 +1,5 @@
 import { CruiseNMperLbsUsed } from '../../modules/a10c/cruise/CruiseFuel';
 import { PhaseType } from 'src/components/models';
-import { useTakeOffStore } from 'src/stores/Airport';
 
 import {
   CruiseMachSpeed,
@@ -9,13 +8,15 @@ import {
 import { getStdTemp } from '../conversionTool';
 
 import { FlightPhase } from '../FlightPhase';
-
-const airport = useTakeOffStore();
+import { IAirportContext } from './FlightContext';
 
 export class CruisePhase extends FlightPhase {
   private averageWeight = 0;
 
-  constructor(previous: FlightPhase) {
+  constructor(
+    previous: FlightPhase,
+    private context: IAirportContext,
+  ) {
     super('Cruise', 'Cruise at same altitude', PhaseType.CRUISE, previous);
 
     this.altitude = this.getStartingAltitude();
@@ -49,7 +50,7 @@ export class CruisePhase extends FlightPhase {
   private Duration(): number {
     this.trueAirSpeed = TrueAirspeed(
       this.machSpeed,
-      getStdTemp(this.altitude) + airport.DeltaTemp,
+      getStdTemp(this.altitude) + this.context.deltaTemp,
     );
 
     const groundSpeed =
@@ -79,7 +80,7 @@ export class CruisePhase extends FlightPhase {
 
     const Ktas = TrueAirspeed(
       cruiseMach,
-      getStdTemp(this.altitude) + airport.DeltaTemp,
+      getStdTemp(this.altitude) + this.context.deltaTemp,
     );
 
     const groundSpeed = Ktas - this.wind.RelativeHeadwind(this.course);
