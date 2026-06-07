@@ -5,7 +5,7 @@ import { FlightPhase } from 'src/service/FlightPhase';
 import { FlightPhaseFactory } from 'src/service/FlightPhaseFactory';
 import { PressureAltitude } from 'src/service/conversionTool';
 
-import { FlightGraph } from 'src/service/FlightPhase';
+import { FlightStateMachine } from 'src/service/FlightStateMachine';
 
 export const useFlightStore = defineStore('flight', {
   state: () => ({
@@ -20,18 +20,12 @@ export const useFlightStore = defineStore('flight', {
 
   getters: {
     NextPhases(): PhaseType[] {
-      if (this.phases.length == 0) {
-        return (
-          FlightGraph.find((p) => p.start == PhaseType.TAKEOFF)?.next || []
-        );
-      } else {
-        const nextphases =
-          FlightGraph.find(
-            (p) => p.start == this.phases[this.phases.length - 1].type,
-          )?.next || [];
-
-        return nextphases;
+      if (this.phases.length === 0) {
+        return [FlightStateMachine.getInitialState()];
       }
+      return FlightStateMachine.getNextStates(
+        this.phases[this.phases.length - 1].type,
+      );
     },
 
     Bingo(): number {
@@ -109,9 +103,12 @@ export const useFlightStore = defineStore('flight', {
 
   actions: {
     AddPhase(phaseType: PhaseType) {
-      if (phaseType == PhaseType.TAKEOFF) {
+      if (this.phases.length === 0) {
+        if (phaseType !== FlightStateMachine.getInitialState()) return;
         this.phases.push(FlightPhaseFactory.createTakoffPhase());
       } else {
+        const currentType = this.phases[this.phases.length - 1].type;
+        if (!FlightStateMachine.canTransitionTo(currentType, phaseType)) return;
         const newPhase = FlightPhaseFactory.createPhase(
           phaseType,
           this.phases[this.phases.length - 1] as FlightPhase,
