@@ -88,7 +88,6 @@
             text-color="black"
             color="warning"
             class="q-mr-sm"
-            @click="phase.Recalc()"
           >
             <div class="row no-wrap q-pa-md">
               <div class="column">
@@ -96,14 +95,6 @@
               </div>
             </div>
           </q-btn-dropdown>
-          <q-btn
-            dense
-            icon="fas fa-calculator"
-            color="accent"
-            size="md"
-            class="q-mr-sm"
-            @click="phase.Recalc()"
-          ></q-btn>
           <q-btn
             v-if="phase.isLastPhase()"
             dense
