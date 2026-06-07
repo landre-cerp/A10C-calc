@@ -102,6 +102,7 @@ export default {
     DESCENT: 'Descente',
     LANDING: 'Atterrissage',
 
+    wind: 'Vent',
     wind_direction: 'Direction du vent',
     wind_speed: 'Vitesse du vent',
     leg_course: 'Cap',

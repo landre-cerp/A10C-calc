@@ -100,6 +100,7 @@ export default {
     DESCENT: 'Descent',
     LANDING: 'Landing',
 
+    wind: 'Wind',
     wind_direction: 'Wind direction',
     wind_speed: 'Wind speed',
     leg_course: 'Leg course',
