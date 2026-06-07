@@ -51,17 +51,17 @@
     />
 
     <!-- ── Direction arrows inside displaced threshold box ── -->
+    <!-- Both arrows equal length, ending before threshold line -->
     <g v-if="xLdaStart > LEFT + 16">
-      <!-- First arrow -->
+      <!-- Arrow length = capped at box width, both end at threshold - margin -->
       <line
-        :x1="LEFT + 4" :y1="RY + RH * 0.35"
-        :x2="xLdaStart - 4" :y2="RY + RH * 0.35"
+        :x1="Math.max(LEFT + 4, xLdaStart - arrowLen - 6)" :y1="RY + RH * 0.33"
+        :x2="xLdaStart - 6" :y2="RY + RH * 0.33"
         stroke="#333" stroke-width="1.5" marker-end="url(#arr-r)"
       />
-      <!-- Second arrow (staggered) -->
       <line
-        :x1="LEFT + 4 + (xLdaStart - LEFT) * 0.3" :y1="RY + RH * 0.65"
-        :x2="xLdaStart - 4" :y2="RY + RH * 0.65"
+        :x1="Math.max(LEFT + 4, xLdaStart - arrowLen - 6)" :y1="RY + RH * 0.67"
+        :x2="xLdaStart - 6" :y2="RY + RH * 0.67"
         stroke="#333" stroke-width="1.5" marker-end="url(#arr-r)"
       />
     </g>
@@ -158,4 +158,7 @@ const xTora = computed(() => LEFT + base.value.tora * scale.value);
 const xAsda = computed(() => LEFT + base.value.asda * scale.value);
 const xToda = computed(() => LEFT + base.value.toda * scale.value);
 const xLdaStart = computed(() => LEFT + (base.value.tora - base.value.lda) * scale.value);
+
+/** Arrow length inside the displaced threshold box — capped so they never touch the threshold line */
+const arrowLen = computed(() => Math.min(xLdaStart.value - LEFT - 12, 48));
 </script>
