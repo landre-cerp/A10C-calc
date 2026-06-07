@@ -44,6 +44,15 @@
             <q-btn size="sm" outline icon="add" :label="t('airports.add_runway')" @click="addRunway" />
           </div>
 
+          <!-- Live diagram for selected/first runway -->
+          <RunwayDiagram
+            :tora="diagramRwy.tora"
+            :toda="diagramRwy.toda"
+            :lda="diagramRwy.lda"
+            :asda="diagramRwy.asda"
+            class="q-mb-sm"
+          />
+
           <div style="overflow-x: auto">
             <q-markup-table flat bordered dense>
               <thead>
@@ -83,7 +92,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(rwy, i) in local.runways" :key="i">
+                <tr
+                  v-for="(rwy, i) in local.runways" :key="i"
+                  class="cursor-pointer"
+                  :class="focusedRow === i ? 'bg-blue-1' : ''"
+                  @click="focusedRow = i"
+                >
                   <td>
                     <q-input
                       borderless dense
@@ -125,10 +139,12 @@ import { ref, computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import {
   SavedAirport,
+  Runway,
   emptyRunway,
   emptyAirport,
   rwyName,
 } from 'src/service/AirportDatabase';
+import RunwayDiagram from './RunwayDiagram.vue';
 
 const { t } = useI18n();
 
@@ -148,6 +164,12 @@ const show = computed({
 });
 
 const isEditing = computed(() => !!props.airport);
+const focusedRow = ref(0);
+
+const diagramRwy = computed<Runway>(() => {
+  const rwy = local.value.runways[focusedRow.value];
+  return rwy ?? { qfu: 0, tora: 0, toda: 0, lda: 0 };
+});
 const local = ref<SavedAirport>(emptyAirport());
 
 watch(
