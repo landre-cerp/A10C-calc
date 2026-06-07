@@ -105,7 +105,6 @@
                       :placeholder="rwyName(rwy.qfu)"
                       style="width:70px"
                       maxlength="4"
-                      hint=""
                     />
                   </td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.qfu" style="width:60px" class="text-center" /></td>
