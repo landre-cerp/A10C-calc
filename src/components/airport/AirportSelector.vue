@@ -17,35 +17,35 @@
           emit-value map-options
         />
 
-        <!-- Runway picker -->
+        <!-- Runway direction picker -->
         <template v-if="selectedAirport">
           <div class="text-subtitle2">{{ t('airports.select_runway') }}</div>
           <q-list bordered separator dense>
             <q-item
-              v-for="(rwy, i) in selectedAirportData?.runways"
+              v-for="(dir, i) in runwayDirections"
               :key="i"
               clickable
-              :active="selectedRunwayIndex === i"
+              :active="selectedDirIndex === i"
               active-class="bg-primary text-white"
-              @click="selectedRunwayIndex = i"
+              @click="selectedDirIndex = i"
             >
               <q-item-section>
                 <q-item-label>
-                  <strong>RWY {{ rwyName(rwy.qfu) }} / RWY {{ rwyName(reciprocalQfu(rwy.qfu)) }}</strong>
-                  <span class="q-ml-sm text-caption">({{ rwy.qfu }}° / {{ reciprocalQfu(rwy.qfu) }}°)</span>
+                  <strong>RWY {{ dir.name }}</strong>
+                  <span class="q-ml-sm text-caption">({{ dir.qfu }}°)</span>
                 </q-item-label>
                 <q-item-label caption>
-                  TORA {{ rwy.tora }} ft &nbsp;|&nbsp;
-                  TODA {{ rwy.toda }} ft &nbsp;|&nbsp;
-                  LDA {{ rwy.lda }} ft
-                  <span v-if="rwy.asda">&nbsp;|&nbsp; ASDA {{ rwy.asda }} ft</span>
+                  TORA {{ dir.rwy.tora }} ft &nbsp;|&nbsp;
+                  TODA {{ dir.rwy.toda }} ft &nbsp;|&nbsp;
+                  LDA {{ dir.rwy.lda }} ft
+                  <span v-if="dir.rwy.asda">&nbsp;|&nbsp; ASDA {{ dir.rwy.asda }} ft</span>
                 </q-item-label>
               </q-item-section>
               <q-item-section side>
                 <q-icon name="chevron_right" />
               </q-item-section>
             </q-item>
-            <q-item v-if="!selectedAirportData?.runways.length">
+            <q-item v-if="!runwayDirections.length">
               <q-item-section class="text-grey text-center">{{ t('airports.empty_runways') }}</q-item-section>
             </q-item>
           </q-list>
@@ -61,7 +61,7 @@
         <q-btn
           color="primary"
           :label="t('airports.load')"
-          :disable="selectedRunwayIndex === null || !selectedAirport"
+          :disable="selectedDirIndex === null || !selectedAirport"
           @click="onLoad"
         />
       </q-card-actions>
@@ -97,10 +97,10 @@ const show = computed({
 });
 
 const selectedAirport = ref<string | null>(null);
-const selectedRunwayIndex = ref<number | null>(null);
+const selectedDirIndex = ref<number | null>(null);
 
 watch(selectedAirport, () => {
-  selectedRunwayIndex.value = null;
+  selectedDirIndex.value = null;
 });
 
 watch(
@@ -108,7 +108,7 @@ watch(
   (val) => {
     if (val) {
       selectedAirport.value = null;
-      selectedRunwayIndex.value = null;
+      selectedDirIndex.value = null;
     }
   },
 );
@@ -124,16 +124,25 @@ const selectedAirportData = computed(() =>
   db.airports.find((a) => a.id === selectedAirport.value) ?? null,
 );
 
+/** Each physical runway expanded into two selectable directions */
+const runwayDirections = computed(() => {
+  const dirs: { rwy: (typeof selectedAirportData.value)['runways'][0]; qfu: number; name: string }[] = [];
+  for (const rwy of selectedAirportData.value?.runways ?? []) {
+    dirs.push({ rwy, qfu: rwy.qfu, name: rwyName(rwy.qfu) });
+    dirs.push({ rwy, qfu: reciprocalQfu(rwy.qfu), name: rwyName(reciprocalQfu(rwy.qfu)) });
+  }
+  return dirs;
+});
+
 function onLoad() {
-  if (selectedRunwayIndex.value === null || !selectedAirportData.value) return;
+  if (selectedDirIndex.value === null || !selectedAirportData.value) return;
   const airport = selectedAirportData.value;
-  const rwy = airport.runways[selectedRunwayIndex.value];
-  const runwayLength =
-    props.mode === 'landing' ? rwy.lda : rwy.toda;
+  const dir = runwayDirections.value[selectedDirIndex.value];
+  const runwayLength = props.mode === 'landing' ? dir.rwy.lda : dir.rwy.toda;
 
   emit('load', {
     elevation: airport.elevation,
-    runwayQfu: rwy.qfu,
+    runwayQfu: dir.qfu,
     runwayLength,
   });
   emit('update:modelValue', false);

@@ -84,7 +84,7 @@
               <tbody>
                 <tr v-for="(rwy, i) in local.runways" :key="i">
                   <td><q-input borderless dense type="number" v-model.number="rwy.qfu" style="width:60px" /></td>
-                  <td><q-input borderless dense type="number" v-model.number="rwy.tora" style="width:75px" /></td>
+                  <td><q-input borderless dense type="number" v-model.number="rwy.tora" style="width:75px" @update:model-value="onToraChange(rwy)" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.toda" style="width:75px" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.lda" style="width:75px" /></td>
                   <td><q-input borderless dense type="number" v-model.number="rwy.asda" style="width:75px" /></td>
@@ -157,6 +157,11 @@ watch(
 
 function addRunway() {
   local.value.runways.push(emptyRunway());
+}
+
+function onToraChange(rwy: ReturnType<typeof emptyRunway>) {
+  if (!rwy.toda) rwy.toda = rwy.tora;
+  if (!rwy.asda) rwy.asda = rwy.tora;
 }
 
 function removeRunway(index: number) {
