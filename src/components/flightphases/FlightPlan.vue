@@ -170,10 +170,23 @@
       </q-card-actions>
     </q-card>
     <q-card v-if="flight.FlightPhases.length == 0">
-      <q-card-section class="row">
+      <q-card-section class="row items-center q-gutter-sm">
         <q-btn outline size="sm" @click="flight.AddPhase(PhaseType.TAKEOFF)">
           {{ $t('flight_phase.' + PhaseType[PhaseType.TAKEOFF]) }}
         </q-btn>
+        <q-btn-dropdown outline size="sm" label="Load preset">
+          <q-list>
+            <q-item
+              v-for="preset in presets"
+              :key="preset.name"
+              clickable
+              v-close-popup
+              @click="flight.LoadProfile(preset)"
+            >
+              <q-item-section>{{ preset.name }}</q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </q-card-section>
     </q-card>
   </div>
@@ -188,6 +201,7 @@ import { storeToRefs } from 'pinia';
 import { PhaseType } from '../models';
 
 import { OptimumCruiseAltitude } from 'src/modules/a10c/cruise/OptimumCruiseAltitude';
+import { MissionPresets } from 'src/service/MissionPresets';
 
 import { computed } from 'vue';
 import PhaseViewer from './PhaseViewer.vue';
@@ -200,6 +214,10 @@ import OptimumPhaseParams from './OptimumPhaseParams.vue';
 const aircraft = useA10CStore();
 const airport = useTakeOffStore();
 const flight = useFlightStore();
+
+flight.Qnh = airport.Qnh;
+
+const presets = MissionPresets;
 
 flight.Qnh = airport.Qnh;
 

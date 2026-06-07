@@ -53,10 +53,6 @@
         <p>Some day</p>
         <ul>
           <li>
-            Flight phases rework with different mission profiles (LO-LO-LO ,
-            HI-LO-HI) ( in progress)
-          </li>
-          <li>
             DCS airport database with runway informations (things like TORA,
             TODA, QFU, etc.) and METAR decoder.
           </li>

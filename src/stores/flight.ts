@@ -6,6 +6,7 @@ import { FlightPhaseFactory } from 'src/service/FlightPhaseFactory';
 import { PressureAltitude } from 'src/service/conversionTool';
 
 import { FlightStateMachine } from 'src/service/FlightStateMachine';
+import { MissionProfile } from 'src/service/MissionProfileBuilder';
 
 export const useFlightStore = defineStore('flight', {
   state: () => ({
@@ -121,6 +122,21 @@ export const useFlightStore = defineStore('flight', {
     RemovePhase() {
       const removed = this.phases.pop() as FlightPhase;
       removed.previousPhase?.setNextPhase(null);
+    },
+
+    LoadProfile(profile: MissionProfile) {
+      this.phases = [];
+      for (const config of profile.phases) {
+        this.AddPhase(config.type);
+        const phase = this.phases[this.phases.length - 1];
+        if (!phase) continue;
+        if (config.altitude !== undefined) phase.ChangeAltitude(config.altitude);
+        if (config.distance !== undefined) phase.ChangeDistance(config.distance);
+        if (config.duration !== undefined) phase.ChangePhaseDuration(config.duration);
+        if (config.fuelFlow !== undefined) phase.ChangeFuelFlow(config.fuelFlow);
+        if (config.refuelTotal !== undefined) phase.Refuel(config.refuelTotal);
+        phase.Recalc();
+      }
     },
   },
 });
