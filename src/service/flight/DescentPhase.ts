@@ -50,7 +50,7 @@ export class DescentPhase extends FlightPhase {
     return this.calculateDescentValue(DistancePenetrationDescent);
   }
 
-  Recalc() {
+  doRecalc() {
     this.fuelUsed = this.FuelUsed();
     this.duration = this.Duration();
     this.distance = this.Distance();

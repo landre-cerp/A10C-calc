@@ -24,7 +24,8 @@ export class LandingPhase extends FlightPhase {
     return this.distance;
   }
 
-  Recalc() {
+  doRecalc() {
+    this.altitude = this.getStartingAltitude();
     this.FuelUsed();
     this.Duration();
     this.Distance();

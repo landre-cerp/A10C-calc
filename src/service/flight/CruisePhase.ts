@@ -60,10 +60,10 @@ export class CruisePhase extends FlightPhase {
     return duration;
   }
 
-  Recalc() {
+  doRecalc() {
+    this.altitude = this.getStartingAltitude();
     this.FuelUsed();
     this.Duration();
-    this.altitude = this.getStartingAltitude();
   }
 
   ChangeDistance(distance: number) {
