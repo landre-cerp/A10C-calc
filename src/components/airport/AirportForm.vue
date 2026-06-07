@@ -48,11 +48,36 @@
             <q-markup-table flat bordered dense>
               <thead>
                 <tr class="bg-grey-2 text-grey-9">
-                  <th class="text-center">{{ t('airports.qfu') }}</th>
-                  <th class="text-right">{{ t('airports.tora') }}<br><span class="text-caption">(ft)</span></th>
-                  <th class="text-right">{{ t('airports.toda') }}<br><span class="text-caption">(ft)</span></th>
-                  <th class="text-right">{{ t('airports.lda') }}<br><span class="text-caption">(ft)</span></th>
-                  <th class="text-right">{{ t('airports.asda') }}<br><span class="text-caption">(ft)</span></th>
+                  <th class="text-center">
+                    {{ t('airports.qfu') }}
+                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                      <q-tooltip>{{ t('airports.qfu_help') }}</q-tooltip>
+                    </q-icon>
+                  </th>
+                  <th class="text-right">
+                    {{ t('airports.tora') }}<br><span class="text-caption">(ft)</span>
+                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                      <q-tooltip>{{ t('airports.tora_help') }}</q-tooltip>
+                    </q-icon>
+                  </th>
+                  <th class="text-right">
+                    {{ t('airports.toda') }}<br><span class="text-caption">(ft)</span>
+                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                      <q-tooltip>{{ t('airports.toda_help') }}</q-tooltip>
+                    </q-icon>
+                  </th>
+                  <th class="text-right">
+                    {{ t('airports.lda') }}<br><span class="text-caption">(ft)</span>
+                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                      <q-tooltip>{{ t('airports.lda_help') }}</q-tooltip>
+                    </q-icon>
+                  </th>
+                  <th class="text-right">
+                    {{ t('airports.asda') }}<br><span class="text-caption">(ft)</span>
+                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                      <q-tooltip>{{ t('airports.asda_help') }}</q-tooltip>
+                    </q-icon>
+                  </th>
                   <th class="text-left">{{ t('airports.surface') }}</th>
                   <th></th>
                 </tr>
