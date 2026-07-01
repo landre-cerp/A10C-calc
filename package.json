@@ -32,7 +32,7 @@
     "html-to-image": "^1.11.13",
     "metar-js": "^0.0.7",
     "pinia": "^3.0.4",
-    "quasar": "^2.19.3",
+    "quasar": "^2.20.2",
     "quasar-extras-svg-icons": "^3.1.0",
     "vue": "^3.5.29",
     "vue-i18n": "^11.4.0",
