@@ -41,7 +41,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
+    "@commitlint/cli": "^21.2.0",
     "@commitlint/config-conventional": "^21.0.2",
     "@electron/packager": "^20.0.0",
     "@quasar/app-vite": "^2.6.2",
