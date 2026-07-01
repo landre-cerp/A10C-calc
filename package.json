@@ -33,7 +33,7 @@
     "metar-js": "^0.0.6",
     "pinia": "^3.0.4",
     "quasar": "^2.19.3",
-    "quasar-extras-svg-icons": "^2.2.0",
+    "quasar-extras-svg-icons": "^3.1.0",
     "vue": "^3.5.29",
     "vue-i18n": "^11.4.0",
     "vue-router": "^5.0.4",
