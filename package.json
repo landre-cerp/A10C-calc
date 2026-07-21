@@ -32,7 +32,7 @@
     "html-to-image": "^1.11.13",
     "metar-js": "^0.0.7",
     "pinia": "^3.0.4",
-    "quasar": "^2.20.2",
+    "quasar": "^2.21.4",
     "quasar-extras-svg-icons": "^3.1.0",
     "vue": "^3.5.29",
     "vue-i18n": "^11.4.0",
@@ -44,18 +44,14 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^21.0.2",
     "@electron/packager": "^20.0.0",
-    "@quasar/app-vite": "^2.6.2",
+    "@quasar/app-vite": "^3.0.1",
     "@quasar/cli": "^3.0.0",
-    "@quasar/quasar-app-extension-testing-e2e-cypress": "^6.3.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@types/node": "^25.6.0",
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.62.1",
     "autoprefixer": "^10.4.22",
-    "commitizen": "^4.3.2",
-    "cypress": "^15.16.0",
-    "cz-conventional-changelog": "^3.3.0",
     "electron": "^39.8.5",
     "esbuild": "^0.28.0",
     "eslint": "^10.2.0",
@@ -82,5 +78,10 @@
     "commitizen": {
       "path": "./node_modules/git-cz"
     }
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.5.1": true,
+    "electron@39.8.5": true,
+    "esbuild@0.28.0": true
   }
 }

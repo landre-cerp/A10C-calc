@@ -8,7 +8,10 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
-import { defineConfig } from '#q-app/wrappers';
+import { defineConfig } from '@quasar/app-vite';
+import { fileURLToPath } from 'node:url';
+
+const srcDir = fileURLToPath(new URL('./src', import.meta.url));
 
 export default defineConfig((ctx) => {
   console.log(ctx.build);
@@ -52,6 +55,18 @@ export default defineConfig((ctx) => {
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16',
+      },
+
+      // @quasar/app-vite v3 no longer auto-aliases these folders (only `@` and
+      // `#q-app` are set by default), so they're restored here since the
+      // codebase imports from them as bare specifiers (e.g. 'layouts/...').
+      alias: {
+        src: srcDir,
+        layouts: `${srcDir}/layouts`,
+        pages: `${srcDir}/pages`,
+        components: `${srcDir}/components`,
+        boot: `${srcDir}/boot`,
+        assets: `${srcDir}/assets`,
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
