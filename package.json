@@ -82,6 +82,6 @@
   "allowScripts": {
     "@parcel/watcher@2.5.1": true,
     "electron@39.8.5": true,
-    "esbuild@0.28.0": true
+    "esbuild@0.28.1": true
   }
 }
