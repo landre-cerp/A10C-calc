@@ -53,7 +53,6 @@ export default {
   change_language: 'passer en ',
   runway: 'Runway',
   export_kneeboard: 'Export kneeboard',
-  dcs: 'DCS',
   wind: {
     label: 'Wind',
     Neutral: 'Neutral',
@@ -90,6 +89,15 @@ export default {
     pressure_qnh: 'QNH',
     pressure_qnh_unit_hpa: 'hPa',
     pressure_qnh_unit_inhg: 'inHg',
+  },
+  dcs_sync: {
+    title: 'Live DCS data',
+    stale: 'No recent data from DCS',
+    apply: 'Apply',
+    wind: 'Wind',
+    altitude: 'Altitude',
+    qnh: 'QNH',
+    help: 'Reads wind, temperature, altitude and QNH from the wctrl-export.lua DCS export script. Sync while parked at the runway so the aircraft altitude matches field elevation.',
   },
   takeoff_info: {
     info: 'Takeoff information',

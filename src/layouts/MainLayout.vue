@@ -20,8 +20,6 @@
         <q-route-tab to="/Landing" :label="t('landing')" />
         <q-route-tab to="/Brief" :label="t('brief')" />
         <q-route-tab to="/Airports" :label="t('airports.tab')" />
-        <q-route-tab v-if="isElectron" to="/DCS" :label="t('dcs')" />
-
         <q-route-tab to="/About" :label="t('about')" />
       </q-tabs>
     </q-header>
@@ -39,5 +37,4 @@ import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 const appVersion = version;
-const isElectron = typeof window !== 'undefined' && !!window.electron;
 </script>

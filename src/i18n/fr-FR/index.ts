@@ -55,7 +55,6 @@ export default {
   change_language: 'change to ',
   runway: 'Piste',
   export_kneeboard: 'Exporter la kneeboard',
-  dcs: 'DCS',
 
   wind: {
     label: 'Vent',
@@ -92,6 +91,15 @@ export default {
     pressure_qnh: 'QNH',
     pressure_qnh_unit_hpa: 'hPa',
     pressure_qnh_unit_inhg: 'inHg',
+  },
+  dcs_sync: {
+    title: 'Données DCS en direct',
+    stale: 'Pas de données DCS récentes',
+    apply: 'Appliquer',
+    wind: 'Vent',
+    altitude: 'Altitude',
+    qnh: 'QNH',
+    help: "Lit le vent, la température, l'altitude et le QNH depuis le script d'export DCS wctrl-export.lua. Synchronisez au parking sur la piste pour que l'altitude de l'appareil corresponde à l'élévation du terrain.",
   },
   takeoff_info: {
     info: 'Informations décollage',
