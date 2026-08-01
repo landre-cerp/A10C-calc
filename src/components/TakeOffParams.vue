@@ -1,4 +1,5 @@
 <template>
+  <DcsLiveDataSync :airport="airport" />
   <AirportParams :airport="airport" mode="takeoff" />
 
   <q-card class="my-card">
@@ -165,6 +166,7 @@ import { CriticalFieldLength } from '../modules/a10c/takeoff/CriticalFieldLength
 
 import RCRSelector from './RCRSelector.vue';
 import AirportParams from './AirportParams.vue';
+import DcsLiveDataSync from './DcsLiveDataSync.vue';
 import { Wind } from 'src/service/Wind';
 import { RCR } from 'src/modules/a10c/Rcr';
 

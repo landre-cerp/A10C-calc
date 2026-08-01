@@ -3,7 +3,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { resolveElectronAssetsPath } from '#q-app/electron/main';
 
-import './tcp-server';
+import './wctrl-export-server';
 
 // needed in case process is undefined under Linux
 const platform = process.platform || os.platform();
