@@ -51,7 +51,7 @@ It helps pilots plan their missions with relatively accurate weight and balance,
 
 ### Additional Features
 
-- **DCS Integration**: TCP server for DCS World connectivity (electron version - WIP) 
+- **DCS Integration**: Live wind/altitude/QNH sync from DCS on the Take-Off page (electron version, A-10C only) — see [`dcs-export/`](dcs-export/)
 - **Briefing Cards**: Mission briefing export with kneeboard-style formatting
 - **Multi-Language Support**: English and French interfaces
 - **Data Export**: Save briefing cards as images
@@ -153,8 +153,7 @@ The application is organized into several main sections:
 3. **Flight Page** (`/Flight`): Multi-phase flight planning and range calculations
 4. **Landing Page** (`/Landing`): Landing performance and approach calculations
 5. **Brief Page** (`/Brief`): Mission briefing summary and export
-6. **DCS Connect** (`/Dcs`): DCS World integration setup
-7. **About** (`/About`): Application information and credits
+6. **About** (`/About`): Application information and credits
 
 ## 🗺️ Airport Database
 
@@ -193,7 +192,11 @@ Ready-to-import airport files for common DCS theatres are available in the [`dat
 
 Each runway direction is stored as a **separate entry**. The ICAO code is the unique key.
 
+## 🎮 DCS Integration
 
+The **Take-Off page** (electron build, A-10C only) can pull wind, altitude and QNH straight
+from a running DCS session instead of typing them in — see [`dcs-export/`](dcs-export/) for
+the DCS-side export script and installation instructions.
 
 The application uses several configuration files:
 
