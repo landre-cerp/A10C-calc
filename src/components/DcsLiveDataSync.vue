@@ -10,10 +10,16 @@
         </div>
         <div v-if="!isStale" class="text-caption">
           <span v-if="windDirection !== undefined"
-            >{{ t('dcs_sync.wind') }}: {{ windDirection }}&deg;/{{ windSpeed }}kts &middot; </span
+            >{{ t('dcs_sync.wind') }}: {{ windDirection }}&deg;/{{
+              windSpeed
+            }}kts &middot;
+          </span>
+          <span v-if="altFt !== undefined"
+            >{{ t('dcs_sync.altitude') }}: {{ altFt }}ft &middot;
+          </span>
+          <span v-if="qnhHpa !== undefined"
+            >{{ t('dcs_sync.qnh') }}: {{ qnhHpa }}hPa</span
           >
-          <span v-if="altFt !== undefined">{{ t('dcs_sync.altitude') }}: {{ altFt }}ft &middot; </span>
-          <span v-if="qnhHpa !== undefined">{{ t('dcs_sync.qnh') }}: {{ qnhHpa }}hPa</span>
         </div>
         <div v-else class="text-caption text-grey">
           {{ t('dcs_sync.stale') }}
@@ -57,7 +63,9 @@ interface WctrlExportData {
 const { t } = useI18n();
 
 const props = defineProps<{
-  airport: ReturnType<typeof useTakeOffStore> | ReturnType<typeof useLandingStore>;
+  airport:
+    | ReturnType<typeof useTakeOffStore>
+    | ReturnType<typeof useLandingStore>;
 }>();
 
 const isElectron = typeof window !== 'undefined' && !!window.electron;
@@ -75,9 +83,13 @@ const isStale = computed(() => now.value - lastReceived.value > STALE_MS);
 
 // The pressure-altitude derivation below only makes sense for the A-10C's own
 // take-off numbers, so the card stays hidden for every other airframe.
-const isA10 = computed(() => latest.value?.aircraft?.startsWith('A-10C') ?? false);
+const isA10 = computed(
+  () => latest.value?.aircraft?.startsWith('A-10C') ?? false,
+);
 
-const windDirection = computed(() => latest.value?.environment?.wind_direction_deg);
+const windDirection = computed(
+  () => latest.value?.environment?.wind_direction_deg,
+);
 const windSpeed = computed(() => latest.value?.environment?.wind_speed_kts);
 const altFt = computed(() => latest.value?.position?.alt_ft);
 
@@ -112,7 +124,8 @@ onUnmounted(() => {
 function apply() {
   if (!latest.value || isStale.value) return;
 
-  if (windDirection.value !== undefined) props.airport.WindDirection = windDirection.value;
+  if (windDirection.value !== undefined)
+    props.airport.WindDirection = windDirection.value;
   if (windSpeed.value !== undefined) props.airport.WindSpeed = windSpeed.value;
   if (latest.value.environment?.temperature_c !== undefined) {
     props.airport.Temp = latest.value.environment.temperature_c;
