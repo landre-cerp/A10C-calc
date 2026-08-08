@@ -8,7 +8,6 @@ import {
 } from '../components/models';
 import { IFlightPhase } from 'src/components/models';
 
-
 export abstract class FlightPhase implements IFlightPhase {
   label: string;
   comment: string;

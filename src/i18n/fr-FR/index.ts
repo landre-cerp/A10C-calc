@@ -18,7 +18,7 @@ export default {
     tab: 'Aéroports',
     database: 'Base de données aéroports',
     add: 'Ajouter un aéroport',
-    edit: 'Modifier l\'aéroport',
+    edit: "Modifier l'aéroport",
     delete: 'Supprimer',
     cancel: 'Annuler',
     save: 'Enregistrer',
@@ -31,15 +31,20 @@ export default {
     runways: 'Pistes',
     add_runway: 'Ajouter une piste',
     qfu: 'QFU',
-    qfu_help: 'Cap magnétique de la piste en degrés (ex : 28 = piste orientée à 280°). Utilisé pour calculer la composante vent de face/travers.',
+    qfu_help:
+      'Cap magnétique de la piste en degrés (ex : 28 = piste orientée à 280°). Utilisé pour calculer la composante vent de face/travers.',
     tora: 'TORA',
-    tora_help: 'Take-Off Run Available — longueur de piste disponible pour le roulage au décollage.',
+    tora_help:
+      'Take-Off Run Available — longueur de piste disponible pour le roulage au décollage.',
     toda: 'TODA',
-    toda_help: 'Take-Off Distance Available — TORA + éventuelle zone dégagée au-delà de la piste. Utilisée pour le franchissement d\'obstacles.',
+    toda_help:
+      "Take-Off Distance Available — TORA + éventuelle zone dégagée au-delà de la piste. Utilisée pour le franchissement d'obstacles.",
     lda: 'LDA',
-    lda_help: 'Landing Distance Available — longueur de piste disponible pour le roulage à l\'atterrissage.',
+    lda_help:
+      "Landing Distance Available — longueur de piste disponible pour le roulage à l'atterrissage.",
     asda: 'ASDA',
-    asda_help: 'Accelerate-Stop Distance Available — TORA + zone d\'arrêt éventuelle. Utilisée pour planifier un décollage interrompu.',
+    asda_help:
+      "Accelerate-Stop Distance Available — TORA + zone d'arrêt éventuelle. Utilisée pour planifier un décollage interrompu.",
     surface: 'Surface',
     runway_name: 'Piste',
     load_airport: 'Charger aéroport',
@@ -49,7 +54,7 @@ export default {
     empty_runways: 'Aucune piste configurée',
     confirm_delete: 'Supprimer cet aéroport ?',
     import_success: 'Aéroport(s) importé(s)',
-    import_error: 'Échec de l\'importation — fichier invalide',
+    import_error: "Échec de l'importation — fichier invalide",
     load: 'Charger',
   },
   change_language: 'change to ',

@@ -29,15 +29,20 @@ export default {
     runways: 'Runways',
     add_runway: 'Add runway',
     qfu: 'QFU',
-    qfu_help: 'Runway magnetic heading in degrees (e.g. 28 = runway pointing 280°). Used to compute headwind/crosswind component.',
+    qfu_help:
+      'Runway magnetic heading in degrees (e.g. 28 = runway pointing 280°). Used to compute headwind/crosswind component.',
     tora: 'TORA',
-    tora_help: 'Take-Off Run Available — length of runway declared available for the ground roll of a departing aircraft.',
+    tora_help:
+      'Take-Off Run Available — length of runway declared available for the ground roll of a departing aircraft.',
     toda: 'TODA',
-    toda_help: 'Take-Off Distance Available — TORA plus any clearway beyond the end of the runway. Used for obstacle clearance planning.',
+    toda_help:
+      'Take-Off Distance Available — TORA plus any clearway beyond the end of the runway. Used for obstacle clearance planning.',
     lda: 'LDA',
-    lda_help: 'Landing Distance Available — length of runway declared available for the ground roll of a landing aircraft.',
+    lda_help:
+      'Landing Distance Available — length of runway declared available for the ground roll of a landing aircraft.',
     asda: 'ASDA',
-    asda_help: 'Accelerate-Stop Distance Available — TORA plus any stopway. Used to plan an aborted take-off.',
+    asda_help:
+      'Accelerate-Stop Distance Available — TORA plus any stopway. Used to plan an aborted take-off.',
     surface: 'Surface',
     runway_name: 'RWY',
     load_airport: 'Load airport',

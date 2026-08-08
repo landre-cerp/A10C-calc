@@ -12,7 +12,7 @@ A performance calculator for the DCS A-10C II aircraft, built with Vue.js and Qu
 
 ## 📖 Overview
 
-A10CCalc is a desktop application (electron build) or web application that provides performance calculations for the DCS A-10C II aircraft. 
+A10CCalc is a desktop application (electron build) or web application that provides performance calculations for the DCS A-10C II aircraft.
 It helps pilots plan their missions with relatively accurate weight and balance, takeoff and landing performance, and flight planning calculations based on real A-10 performance charts and DCS-specific data.
 
 ## ✨ Features
@@ -183,8 +183,22 @@ Ready-to-import airport files for common DCS theatres are available in the [`dat
     "icao": "LTAG",
     "elevation": 154,
     "runways": [
-      { "qfu": 49,  "designator": "05", "tora": 9662, "toda": 9662, "lda": 9662, "asda": 9662 },
-      { "qfu": 229, "designator": "23", "tora": 9662, "toda": 9662, "lda": 9662, "asda": 9662 }
+      {
+        "qfu": 49,
+        "designator": "05",
+        "tora": 9662,
+        "toda": 9662,
+        "lda": 9662,
+        "asda": 9662
+      },
+      {
+        "qfu": 229,
+        "designator": "23",
+        "tora": 9662,
+        "toda": 9662,
+        "lda": 9662,
+        "asda": 9662
+      }
     ]
   }
 ]
@@ -229,14 +243,15 @@ This project is private and proprietary.
 - [06MHR Discord Community](https://discord.gg/jgENU4e7eS)
 - [DCS World](https://www.digitalcombatsimulator.com/)
 
-# Screenshots 
+# Screenshots
+
 Running on https://cerpposerverlessys48b7m8-pre-a10c-cal.functions.fnc.fr-par.scw.cloud/#/
 Web version does not connect to DCS, I'm working on connecting the Electron version to DCS to get some info from the sim.
 
 Select the loadout, ammo, fuel.
 <img width="1558" height="1246" alt="image" src="https://github.com/user-attachments/assets/e863caf2-0ca0-4080-bdaf-a786e308933d" />
 
-Calculate the performance 
+Calculate the performance
 <img width="1789" height="1351" alt="image" src="https://github.com/user-attachments/assets/ce566164-7a02-4a0d-a441-54bc7df49633" />
 
 Rough estimate of phase, and fuel consumption

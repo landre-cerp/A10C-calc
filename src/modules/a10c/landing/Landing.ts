@@ -67,19 +67,11 @@ export const LandingIndex = (landingConfig: ILandingConfiguration) => {
 };
 
 export const LandingGroundRoll = (landingConfig: ILandingConfiguration) => {
-  let groundRoll = 0;
-
-  if (landingConfig.speedbrakes) {
-    groundRoll = vector_landing_distance_flaps20_SB100.GetLinear(
-      landingConfig.weight,
-      LandingIndex(landingConfig),
-    );
-  } else {
-    groundRoll = vector_landing_distance_flaps20_SB0.GetLinear(
-      landingConfig.weight,
-      LandingIndex(landingConfig),
-    );
-  }
+  let groundRoll = (
+    landingConfig.speedbrakes
+      ? vector_landing_distance_flaps20_SB100
+      : vector_landing_distance_flaps20_SB0
+  ).GetLinear(landingConfig.weight, LandingIndex(landingConfig));
   // Adjust for wind
   const wind = landingConfig.wind.RelativeHeadwind(landingConfig.runwayCourse);
 

@@ -32,7 +32,10 @@ function broadcast(channel: string, payload: unknown) {
 
 server.on('listening', () => {
   const address = server.address();
-  broadcast('wctrl-export-status', `Listening on ${address.address}:${address.port}`);
+  broadcast(
+    'wctrl-export-status',
+    `Listening on ${address.address}:${address.port}`,
+  );
 });
 
 server.on('message', (message) => {

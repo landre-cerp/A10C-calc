@@ -17,15 +17,33 @@ export class FlightPhaseFactory {
     const airport = useTakeOffStore();
 
     const context: ITakeOffContext = {
-      get takeOffWeight() { return aircraft.TakeOffWeight; },
-      get fuelWeight() { return aircraft.FuelWeight; },
-      get taxiFuel() { return aircraft.taxiFuel; },
-      get drag() { return aircraft.Drag; },
-      get configuration() { return aircraft.configuration; },
-      get airportPressureAltitude() { return airport.AirportPressureAltitude; },
-      get runwayQFU() { return airport.runwayQFU; },
-      get windDirection() { return airport.WindDirection; },
-      get windSpeed() { return airport.WindSpeed; },
+      get takeOffWeight() {
+        return aircraft.TakeOffWeight;
+      },
+      get fuelWeight() {
+        return aircraft.FuelWeight;
+      },
+      get taxiFuel() {
+        return aircraft.taxiFuel;
+      },
+      get drag() {
+        return aircraft.Drag;
+      },
+      get configuration() {
+        return aircraft.configuration;
+      },
+      get airportPressureAltitude() {
+        return airport.AirportPressureAltitude;
+      },
+      get runwayQFU() {
+        return airport.runwayQFU;
+      },
+      get windDirection() {
+        return airport.WindDirection;
+      },
+      get windSpeed() {
+        return airport.WindSpeed;
+      },
     };
 
     return new TakeOffPhase(context);
@@ -38,7 +56,9 @@ export class FlightPhaseFactory {
     const airport = useTakeOffStore();
 
     const airportContext: IAirportContext = {
-      get deltaTemp() { return airport.DeltaTemp; },
+      get deltaTemp() {
+        return airport.DeltaTemp;
+      },
     };
 
     switch (type) {

@@ -1,10 +1,10 @@
 export interface Runway {
-  qfu: number;         // runway heading in degrees (e.g. 170)
+  qfu: number; // runway heading in degrees (e.g. 170)
   designator?: string; // user-defined name, e.g. "17L", "17R", "05" — falls back to computed
-  tora: number;   // Take-Off Run Available (ft)
-  toda: number;   // Take-Off Distance Available (ft)
-  lda: number;    // Landing Distance Available (ft)
-  asda?: number;  // Accelerate-Stop Distance Available (ft)
+  tora: number; // Take-Off Run Available (ft)
+  toda: number; // Take-Off Distance Available (ft)
+  lda: number; // Landing Distance Available (ft)
+  asda?: number; // Accelerate-Stop Distance Available (ft)
 }
 
 export interface SavedAirport {

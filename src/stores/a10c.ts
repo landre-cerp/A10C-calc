@@ -1,5 +1,10 @@
 import { BasicConfiguration, EmptyConfiguration } from './../data/StoresConfig';
-import { emptyLoad, A10C_EMPTY_WEIGHT, A10C_MAX_TAKEOFF_WEIGHT, A10C_MAX_LANDING_WEIGHT } from './../data/A10C';
+import {
+  emptyLoad,
+  A10C_EMPTY_WEIGHT,
+  A10C_MAX_TAKEOFF_WEIGHT,
+  A10C_MAX_LANDING_WEIGHT,
+} from './../data/A10C';
 import { IAircraftStore, StoresConfiguration } from './../components/models';
 import { LocalStorage } from 'quasar';
 import { defineStore } from 'pinia';
@@ -127,7 +132,10 @@ export const useA10CStore = defineStore('a10c', {
       };
       this.DeleteConfiguration(name);
       this.availableConfigurations.push(configToSave);
-      LocalStorage.set('storesConfig', JSON.stringify(this.availableConfigurations));
+      LocalStorage.set(
+        'storesConfig',
+        JSON.stringify(this.availableConfigurations),
+      );
     },
 
     DeleteConfiguration(name: string) {

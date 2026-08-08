@@ -130,12 +130,7 @@ function itemSelected(pylon: number, value: IAircraftStore) {
   aircraft.setPylon(pylon, { ...value });
 
   if (symetrical.value) {
-    let symPylon = 0;
-    if (pylon < 5) {
-      symPylon = 5 + Math.abs(pylon - 5);
-    } else {
-      symPylon = 5 - Math.abs(pylon - 5);
-    }
+    const symPylon = 10 - pylon;
     if (!locks.value[symPylon]) {
       aircraft.setPylon(symPylon, { ...value });
     }

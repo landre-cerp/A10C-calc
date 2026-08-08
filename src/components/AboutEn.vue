@@ -52,9 +52,7 @@
         </ul>
         <p>Some day</p>
         <ul>
-          <li>
-              METAR decoder.
-          </li>
+          <li>METAR decoder.</li>
           <li>Takeoff continuation speed , refusal</li>
           <li>
             DCS connector to get live data from the game ( weight, weapons

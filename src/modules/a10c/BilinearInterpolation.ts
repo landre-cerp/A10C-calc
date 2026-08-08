@@ -41,7 +41,9 @@ export function bilinearInterpolate(
   ]);
 }
 
-function weightedAverage(points: ReadonlyArray<readonly [number, number]>): number {
+function weightedAverage(
+  points: ReadonlyArray<readonly [number, number]>,
+): number {
   let result = 0;
 
   for (const [value, weight] of points) {

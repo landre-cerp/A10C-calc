@@ -1,7 +1,10 @@
 import { bilinearInterpolate, Table2D } from '../BilinearInterpolation.js';
 import { FLAPS, ThrustSetting } from './TakeoffEnums.js';
 
-const xAxis = [0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000];
+const xAxis = [
+  0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000,
+  13000, 14000,
+];
 const yAxis = [-20, 0, 20, 40];
 
 const FiftyFtClearanceFlapsToMaxThrustTable: Table2D = {
@@ -93,8 +96,14 @@ const FiftyFtClearanceFlapsUp3PercentBelowTable: Table2D = {
 };
 
 const ObstacleClearanceTables: readonly (readonly Table2D[])[] = [
-  [FiftyFtClearanceFlapsUpMaxThrustTable, FiftyFtClearanceFlapsUp3PercentBelowTable],
-  [FiftyFtClearanceFlapsToMaxThrustTable, FiftyFtClearanceFlapsTo3PercentBelowTable],
+  [
+    FiftyFtClearanceFlapsUpMaxThrustTable,
+    FiftyFtClearanceFlapsUp3PercentBelowTable,
+  ],
+  [
+    FiftyFtClearanceFlapsToMaxThrustTable,
+    FiftyFtClearanceFlapsTo3PercentBelowTable,
+  ],
 ];
 
 export const obstacleDistanceClearanceWithOptions = (
