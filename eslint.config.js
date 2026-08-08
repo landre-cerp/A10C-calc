@@ -29,26 +29,6 @@ export default [
         ecmaVersion: 2022,
         sourceType: 'module',
       },
-      globals: {
-        ga: 'readonly',
-        cordova: 'readonly',
-        __statics: 'readonly',
-        __QUASAR_SSR__: 'readonly',
-        __QUASAR_SSR_SERVER__: 'readonly',
-        __QUASAR_SSR_CLIENT__: 'readonly',
-        __QUASAR_SSR_PWA__: 'readonly',
-        process: 'readonly',
-        Capacitor: 'readonly',
-        chrome: 'readonly',
-        console: 'readonly',
-        window: 'readonly',
-        document: 'readonly',
-        structuredClone: 'readonly',
-        Buffer: 'readonly',
-        URL: 'readonly',
-        location: 'readonly',
-        ServiceWorkerGlobalScope: 'readonly',
-      },
     },
     plugins: {
       '@typescript-eslint': typescript,
@@ -80,6 +60,16 @@ export default [
     files: ['**/*.ts', '**/*.tsx', '**/*.vue'],
     rules: {
       'no-undef': 'off',
+    },
+  },
+  {
+    files: ['**/*.js', '**/*.cjs'],
+    languageOptions: {
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+        URL: 'readonly',
+      },
     },
   },
   {
