@@ -52,6 +52,12 @@ export default [
   },
   prettierConfig,
   {
+    files: ['**/*.vue'],
+    rules: {
+      'vue/first-attribute-linebreak': 'off',
+    },
+  },
+  {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
       ...typescript.configs.recommended.rules,
