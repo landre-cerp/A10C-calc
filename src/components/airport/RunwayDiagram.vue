@@ -285,8 +285,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
 // Fixed schematic proportions — this is a legend, not live data
 const LEFT = 30;
 const RIGHT = 595;
