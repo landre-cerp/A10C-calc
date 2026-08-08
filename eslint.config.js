@@ -14,6 +14,7 @@ export default [
       '.quasar/**',
       'node_modules/**',
       'src-ssr/**',
+      'src/mcp/build/**',
     ],
   },
   js.configs.recommended,
