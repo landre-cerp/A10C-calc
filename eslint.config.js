@@ -77,6 +77,12 @@ export default [
     },
   },
   {
+    files: ['**/*.ts', '**/*.tsx', '**/*.vue'],
+    rules: {
+      'no-undef': 'off',
+    },
+  },
+  {
     files: ['**/*.cjs', '**/.eslintrc.js'],
     languageOptions: {
       sourceType: 'commonjs',
