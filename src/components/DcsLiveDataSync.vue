@@ -38,6 +38,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useI18n } from 'vue-i18n';
 import { useTakeOffStore, useLandingStore } from 'src/stores/Airport';
 import { QNH_Unit } from './models';
@@ -67,6 +68,10 @@ const props = defineProps<{
     | ReturnType<typeof useTakeOffStore>
     | ReturnType<typeof useLandingStore>;
 }>();
+
+const { WindDirection, WindSpeed, Temp, AirportElevation, Qnh } = storeToRefs(
+  props.airport,
+);
 
 const isElectron = typeof window !== 'undefined' && !!window.electron;
 
@@ -125,16 +130,17 @@ function apply() {
   if (!latest.value || isStale.value) return;
 
   if (windDirection.value !== undefined)
-    props.airport.WindDirection = windDirection.value;
-  if (windSpeed.value !== undefined) props.airport.WindSpeed = windSpeed.value;
+    WindDirection.value = windDirection.value;
+  if (windSpeed.value !== undefined) WindSpeed.value = windSpeed.value;
   if (latest.value.environment?.temperature_c !== undefined) {
-    props.airport.Temp = latest.value.environment.temperature_c;
+    Temp.value = latest.value.environment.temperature_c;
   }
-  if (altFt.value !== undefined) props.airport.AirportElevation = altFt.value;
+  if (altFt.value !== undefined) AirportElevation.value = altFt.value;
 
   if (qnhHpa.value !== undefined) {
-    props.airport.Qnh.value =
-      props.airport.Qnh.unit === QNH_Unit.inHg
+    const qnh = Qnh.value;
+    qnh.value =
+      qnh.unit === QNH_Unit.inHg
         ? convertAltitudeUnits({ value: qnhHpa.value, unit: QNH_Unit.inHg })
         : qnhHpa.value;
   }
