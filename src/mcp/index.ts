@@ -58,7 +58,8 @@ server.tool(
   }) => {
     const calculator = new TakeoffIndexCalculator();
 
-    const result: { [altitude: number]: { [temperature: number]: string } } = {};
+    const result: { [altitude: number]: { [temperature: number]: string } } =
+      {};
 
     for (let alt = altitudemin; alt <= altitudemax; alt += altitudestep) {
       result[alt] = {};

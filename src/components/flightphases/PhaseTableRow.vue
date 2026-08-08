@@ -15,7 +15,9 @@
       <strong>{{ $t('flight_phase.' + PhaseType[phase.type]) }}</strong>
       <q-btn
         v-if="phase.isLastPhase()"
-        dense flat round
+        dense
+        flat
+        round
         color="negative"
         icon="delete"
         size="xs"
@@ -119,7 +121,9 @@
     <td class="text-center">
       <q-btn-dropdown
         v-if="phase.type !== PhaseType.TAKEOFF"
-        dense flat round
+        dense
+        flat
+        round
         icon="fas fa-wind"
         size="xs"
         color="grey-7"

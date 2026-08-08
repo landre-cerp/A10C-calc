@@ -61,9 +61,7 @@
         <p>Un jour</p>
 
         <ul>
-          <li>
-              décodeur METAR.
-          </li>
+          <li>décodeur METAR.</li>
           <li>Autres indicateurs de performance pour le décollage</li>
           <li>
             Connecteur DCS pour obtenir des données en direct du jeu (poids,

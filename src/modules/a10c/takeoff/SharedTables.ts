@@ -1,7 +1,10 @@
 import { Table2D } from '../BilinearInterpolation.js';
 
 export const GroundWindCorrectionTable: Table2D = {
-  xAxis: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000],
+  xAxis: [
+    1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000,
+    13000, 14000,
+  ],
   yAxis: [-20, -10, 0, 10, 20, 30, 40],
   matrix: [
     [1400, 1200, 1000, 800, 700, 550, 400],
@@ -22,7 +25,9 @@ export const GroundWindCorrectionTable: Table2D = {
 };
 
 export const RcrDistanceCorrectionTable: Table2D = {
-  xAxis: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000],
+  xAxis: [
+    1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000,
+  ],
   yAxis: [5, 10, 15, 20, 23],
   matrix: [
     [1380, 1160, 1030, 1000, 1000],

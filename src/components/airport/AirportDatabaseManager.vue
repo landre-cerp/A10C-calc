@@ -4,15 +4,43 @@
     <div class="row items-center q-mb-md q-gutter-sm">
       <div class="text-h5">{{ t('airports.database') }}</div>
       <q-space />
-      <q-btn outline size="sm" icon="add" :label="t('airports.add')" color="primary" @click="openAdd" />
-      <q-btn outline size="sm" icon="download" :label="t('airports.export')" @click="db.exportToJson()" :disable="db.airports.length === 0" />
-      <q-btn outline size="sm" icon="upload" :label="t('airports.import')" @click="triggerImport" />
-      <input ref="fileInput" type="file" accept=".json" style="display:none" @change="onImport" />
+      <q-btn
+        outline
+        size="sm"
+        icon="add"
+        :label="t('airports.add')"
+        color="primary"
+        @click="openAdd"
+      />
+      <q-btn
+        outline
+        size="sm"
+        icon="download"
+        :label="t('airports.export')"
+        @click="db.exportToJson()"
+        :disable="db.airports.length === 0"
+      />
+      <q-btn
+        outline
+        size="sm"
+        icon="upload"
+        :label="t('airports.import')"
+        @click="triggerImport"
+      />
+      <input
+        ref="fileInput"
+        type="file"
+        accept=".json"
+        style="display: none"
+        @change="onImport"
+      />
     </div>
 
     <!-- Airport table -->
     <q-table
-      flat bordered dense
+      flat
+      bordered
+      dense
       :rows="db.airports"
       :columns="columns"
       row-key="icao"
@@ -27,8 +55,24 @@
       </template>
       <template #body-cell-actions="props">
         <q-td :props="props" class="text-center q-gutter-xs">
-          <q-btn flat round dense icon="edit" size="xs" color="primary" @click="openEdit(props.row)" />
-          <q-btn flat round dense icon="delete" size="xs" color="negative" @click="confirmDelete(props.row)" />
+          <q-btn
+            flat
+            round
+            dense
+            icon="edit"
+            size="xs"
+            color="primary"
+            @click="openEdit(props.row)"
+          />
+          <q-btn
+            flat
+            round
+            dense
+            icon="delete"
+            size="xs"
+            color="negative"
+            @click="confirmDelete(props.row)"
+          />
         </q-td>
       </template>
     </q-table>
@@ -39,11 +83,20 @@
     <!-- Delete confirm dialog -->
     <q-dialog v-model="showDeleteConfirm">
       <q-card style="min-width: 300px">
-        <q-card-section class="text-h6">{{ t('airports.confirm_delete') }}</q-card-section>
-        <q-card-section class="text-body2 q-pt-none">{{ deleteTarget?.name }}</q-card-section>
+        <q-card-section class="text-h6">{{
+          t('airports.confirm_delete')
+        }}</q-card-section>
+        <q-card-section class="text-body2 q-pt-none">{{
+          deleteTarget?.name
+        }}</q-card-section>
         <q-card-actions align="right">
           <q-btn flat :label="t('airports.cancel')" v-close-popup />
-          <q-btn color="negative" :label="t('airports.delete')" @click="doDelete" v-close-popup />
+          <q-btn
+            color="negative"
+            :label="t('airports.delete')"
+            @click="doDelete"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -71,10 +124,33 @@ const deleteTarget = ref<SavedAirport | null>(null);
 const fileInput = ref<HTMLInputElement | null>(null);
 
 const columns = [
-  { name: 'name', label: t('airports.name'), field: 'name', align: 'left' as const, sortable: true },
-  { name: 'icao', label: t('airports.icao'), field: 'icao', align: 'left' as const, sortable: true },
-  { name: 'elevation', label: t('airports.elevation'), field: 'elevation', align: 'right' as const, sortable: true },
-  { name: 'runways', label: t('airports.runways'), field: 'runways', align: 'center' as const },
+  {
+    name: 'name',
+    label: t('airports.name'),
+    field: 'name',
+    align: 'left' as const,
+    sortable: true,
+  },
+  {
+    name: 'icao',
+    label: t('airports.icao'),
+    field: 'icao',
+    align: 'left' as const,
+    sortable: true,
+  },
+  {
+    name: 'elevation',
+    label: t('airports.elevation'),
+    field: 'elevation',
+    align: 'right' as const,
+    sortable: true,
+  },
+  {
+    name: 'runways',
+    label: t('airports.runways'),
+    field: 'runways',
+    align: 'center' as const,
+  },
   { name: 'actions', label: '', field: 'icao', align: 'center' as const },
 ];
 
@@ -123,7 +199,10 @@ function onImport(event: Event) {
       const data = JSON.parse(e.target?.result as string) as SavedAirport[];
       if (!Array.isArray(data)) throw new Error('Invalid format');
       const added = db.importFromJson(data);
-      $q.notify({ type: 'positive', message: `${t('airports.import_success')}: +${added}` });
+      $q.notify({
+        type: 'positive',
+        message: `${t('airports.import_success')}: +${added}`,
+      });
     } catch {
       $q.notify({ type: 'negative', message: t('airports.import_error') });
     }

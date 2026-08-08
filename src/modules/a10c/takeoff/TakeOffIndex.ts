@@ -74,7 +74,9 @@ export const TakeoffIndex = (
 };
 
 export class TakeoffIndexCalculator extends PerfCalculator {
-  constructor(private readonly thrustSetting: ThrustSetting = ThrustSetting.Max) {
+  constructor(
+    private readonly thrustSetting: ThrustSetting = ThrustSetting.Max,
+  ) {
     super(
       'Takeoff Index',
       new BilinearTakeoffIndexTable(

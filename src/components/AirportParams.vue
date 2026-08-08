@@ -5,11 +5,21 @@
         <q-item-label class="text-h5 col">{{
           t('airport.information')
         }}</q-item-label>
-        <q-chip v-if="airportLabel" icon="flight" color="primary" text-color="white" dense class="q-mr-sm">
+        <q-chip
+          v-if="airportLabel"
+          icon="flight"
+          color="primary"
+          text-color="white"
+          dense
+          class="q-mr-sm"
+        >
           {{ airportLabel }}
         </q-chip>
         <q-btn
-          outline size="sm" icon="flight_land" color="primary"
+          outline
+          size="sm"
+          icon="flight_land"
+          color="primary"
           :label="t('airports.load_airport')"
           @click="showSelector = true"
         />

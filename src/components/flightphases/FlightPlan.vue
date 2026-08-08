@@ -1,32 +1,68 @@
 <template>
   <div class="q-pa-sm q-gutter-sm">
-
     <!-- Summary card -->
     <q-card>
       <q-card-section class="text-h6 bg-primary text-white" horizontal>
         <q-card-section class="row items-center">
           <q-item class="q-mr-md">{{ $t('flight_phase.summary') }}</q-item>
           <q-input
-            filled dense debounce="500" dark hide-bottom-space class="q-mr-md"
+            filled
+            dense
+            debounce="500"
+            dark
+            hide-bottom-space
+            class="q-mr-md"
             v-model.number="fuelReserve"
             :label="$t('flight_phase.reserve')"
             :rules="[(val) => val >= 0]"
           />
           <q-input
-            filled dense dark debounce="500" class="q-mr-md"
+            filled
+            dense
+            dark
+            debounce="500"
+            class="q-mr-md"
             v-model.number="missionRange"
             :label="$t('flight_phase.mission_range')"
           />
         </q-card-section>
       </q-card-section>
       <q-card-section class="row q-col-gutter-md">
-        <ShowItem :label="$t('flight_phase.cruise_alt')" :value="flight.CruiseAltitude.toFixed(0)" unit="ft" />
-        <ShowItem :label="$t('flight_phase.optimum_cruise_alt')" :value="optimum_cruise_altitude.toFixed(0)" unit="ft" />
-        <ShowItem :label="$t('flight_phase.distance')" :value="flight.TotalDistance.toFixed(0)" unit="NM" />
-        <ShowItem :label="$t('flight_phase.duration')" :value="flight.TotalDuration.toFixed(0)" unit="Min" />
-        <ShowItem :label="$t('flight_phase.fuel_used')" :value="flight.TotalFuelUsed.toFixed(0)" unit="lbs" />
-        <ShowItem :label="$t('flight_phase.std_day_temp_dev')" :value="airport.DeltaTemp" unit="°C" />
-        <ShowItem :label="$t('flight_phase.bingo')" :value="flight.Bingo" unit="lbs" />
+        <ShowItem
+          :label="$t('flight_phase.cruise_alt')"
+          :value="flight.CruiseAltitude.toFixed(0)"
+          unit="ft"
+        />
+        <ShowItem
+          :label="$t('flight_phase.optimum_cruise_alt')"
+          :value="optimum_cruise_altitude.toFixed(0)"
+          unit="ft"
+        />
+        <ShowItem
+          :label="$t('flight_phase.distance')"
+          :value="flight.TotalDistance.toFixed(0)"
+          unit="NM"
+        />
+        <ShowItem
+          :label="$t('flight_phase.duration')"
+          :value="flight.TotalDuration.toFixed(0)"
+          unit="Min"
+        />
+        <ShowItem
+          :label="$t('flight_phase.fuel_used')"
+          :value="flight.TotalFuelUsed.toFixed(0)"
+          unit="lbs"
+        />
+        <ShowItem
+          :label="$t('flight_phase.std_day_temp_dev')"
+          :value="airport.DeltaTemp"
+          unit="°C"
+        />
+        <ShowItem
+          :label="$t('flight_phase.bingo')"
+          :value="flight.Bingo"
+          unit="lbs"
+        />
       </q-card-section>
     </q-card>
 
@@ -36,14 +72,41 @@
         <thead>
           <tr class="bg-grey-3 text-grey-9">
             <th class="text-left">{{ $t('flight_phase.phase') }}</th>
-            <th class="text-right">{{ $t('flight_phase.starting_weight') }}<br><span class="text-caption">(lbs)</span></th>
-            <th class="text-right">{{ $t('flight_phase.efob') }}<br><span class="text-caption">(lbs)</span></th>
-            <th class="text-right">{{ $t('flight_phase.fuel_used') }}<br><span class="text-caption">(lbs)</span></th>
-            <th class="text-right">{{ $t('flight_phase.starting_altitude') }}</th>
-            <th class="text-right">{{ $t('flight_phase.fuel_flow') }}<br><span class="text-caption">(lbs/h)</span></th>
+            <th class="text-right">
+              {{ $t('flight_phase.starting_weight') }}<br /><span
+                class="text-caption"
+                >(lbs)</span
+              >
+            </th>
+            <th class="text-right">
+              {{ $t('flight_phase.efob') }}<br /><span class="text-caption"
+                >(lbs)</span
+              >
+            </th>
+            <th class="text-right">
+              {{ $t('flight_phase.fuel_used') }}<br /><span class="text-caption"
+                >(lbs)</span
+              >
+            </th>
+            <th class="text-right">
+              {{ $t('flight_phase.starting_altitude') }}
+            </th>
+            <th class="text-right">
+              {{ $t('flight_phase.fuel_flow') }}<br /><span class="text-caption"
+                >(lbs/h)</span
+              >
+            </th>
             <th class="text-right">{{ $t('flight_phase.altitude') }}</th>
-            <th class="text-right">{{ $t('flight_phase.distance') }}<br><span class="text-caption">(NM)</span></th>
-            <th class="text-right">{{ $t('flight_phase.duration') }}<br><span class="text-caption">(min)</span></th>
+            <th class="text-right">
+              {{ $t('flight_phase.distance') }}<br /><span class="text-caption"
+                >(NM)</span
+              >
+            </th>
+            <th class="text-right">
+              {{ $t('flight_phase.duration') }}<br /><span class="text-caption"
+                >(min)</span
+              >
+            </th>
             <th class="text-right gt-xs">{{ $t('flight_phase.drag') }}</th>
             <th class="text-center">{{ $t('flight_phase.wind') }}</th>
           </tr>
@@ -69,8 +132,10 @@
         <q-btn-dropdown outline size="sm" label="Load preset">
           <q-list>
             <q-item
-              v-for="preset in presets" :key="preset.name"
-              clickable v-close-popup
+              v-for="preset in presets"
+              :key="preset.name"
+              clickable
+              v-close-popup
               @click="flight.LoadProfile(preset)"
             >
               <q-item-section>{{ preset.name }}</q-item-section>
@@ -80,13 +145,16 @@
       </template>
       <template v-else-if="flight.NextPhases.length > 0">
         <q-btn
-          v-for="(possible, i) in flight.NextPhases" :key="i"
-          outline size="sm" class="q-mr-xs"
+          v-for="(possible, i) in flight.NextPhases"
+          :key="i"
+          outline
+          size="sm"
+          class="q-mr-xs"
           @click="flight.AddPhase(possible)"
-        >{{ $t('flight_phase.' + PhaseType[possible]) }}</q-btn>
+          >{{ $t('flight_phase.' + PhaseType[possible]) }}</q-btn
+        >
       </template>
     </div>
-
   </div>
 </template>
 
@@ -114,7 +182,10 @@ const presets = MissionPresets;
 const { missionRange, fuelReserve } = storeToRefs(flight);
 
 const optimum_cruise_altitude = computed(() =>
-  OptimumCruiseAltitude(aircraft.Drag, aircraft.TakeOffWeight, missionRange.value),
+  OptimumCruiseAltitude(
+    aircraft.Drag,
+    aircraft.TakeOffWeight,
+    missionRange.value,
+  ),
 );
 </script>
-

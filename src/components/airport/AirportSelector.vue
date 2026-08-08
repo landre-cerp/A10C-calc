@@ -10,12 +10,15 @@
       <q-card-section class="q-gutter-md">
         <!-- Airport picker -->
         <q-select
-          filled dense
+          filled
+          dense
           v-model="selectedAirport"
           :options="filteredOptions"
           :label="t('airports.select_airport')"
-          emit-value map-options
-          use-input input-debounce="0"
+          emit-value
+          map-options
+          use-input
+          input-debounce="0"
           @filter="filterAirports"
           @update:model-value="selectedDirIndex = null"
         />
@@ -38,10 +41,11 @@
                   <span class="q-ml-sm text-caption">({{ dir.qfu }}°)</span>
                 </q-item-label>
                 <q-item-label caption>
-                  TORA {{ dir.rwy.tora }} ft &nbsp;|&nbsp;
-                  TODA {{ dir.rwy.toda }} ft &nbsp;|&nbsp;
-                  LDA {{ dir.rwy.lda }} ft
-                  <span v-if="dir.rwy.asda">&nbsp;|&nbsp; ASDA {{ dir.rwy.asda }} ft</span>
+                  TORA {{ dir.rwy.tora }} ft &nbsp;|&nbsp; TODA
+                  {{ dir.rwy.toda }} ft &nbsp;|&nbsp; LDA {{ dir.rwy.lda }} ft
+                  <span v-if="dir.rwy.asda"
+                    >&nbsp;|&nbsp; ASDA {{ dir.rwy.asda }} ft</span
+                  >
                 </q-item-label>
               </q-item-section>
               <q-item-section side>
@@ -49,7 +53,9 @@
               </q-item-section>
             </q-item>
             <q-item v-if="!runwayDirections.length">
-              <q-item-section class="text-grey text-center">{{ t('airports.empty_runways') }}</q-item-section>
+              <q-item-section class="text-grey text-center">{{
+                t('airports.empty_runways')
+              }}</q-item-section>
             </q-item>
           </q-list>
         </template>
@@ -91,7 +97,16 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'update:modelValue': [value: boolean];
-  load: [payload: { elevation: number; runwayQfu: number; runwayLength: number; airportName: string; icao: string; runwayName: string }];
+  load: [
+    payload: {
+      elevation: number;
+      runwayQfu: number;
+      runwayLength: number;
+      airportName: string;
+      icao: string;
+      runwayName: string;
+    },
+  ];
 }>();
 
 const show = computed({
@@ -143,8 +158,8 @@ function filterAirports(val: string, update: (fn: () => void) => void) {
   });
 }
 
-const selectedAirportData = computed(() =>
-  db.airports.find((a) => a.icao === selectedAirport.value) ?? null,
+const selectedAirportData = computed(
+  () => db.airports.find((a) => a.icao === selectedAirport.value) ?? null,
 );
 
 /** One selectable entry per stored runway direction */

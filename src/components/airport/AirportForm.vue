@@ -2,7 +2,9 @@
   <q-dialog v-model="show" persistent>
     <q-card style="min-width: min(700px, 95vw)">
       <q-card-section class="bg-primary text-white row items-center q-py-sm">
-        <div class="text-h6">{{ isEditing ? t('airports.edit') : t('airports.add') }}</div>
+        <div class="text-h6">
+          {{ isEditing ? t('airports.edit') : t('airports.add') }}
+        </div>
         <q-space />
         <q-btn icon="close" flat round dense v-close-popup />
       </q-card-section>
@@ -11,7 +13,8 @@
         <div class="row q-col-gutter-md">
           <q-input
             class="col-12 col-sm-6"
-            filled dense
+            filled
+            dense
             v-model="local.name"
             :label="t('airports.name')"
             :rules="[(val) => !!val || t('airports.name_required')]"
@@ -19,7 +22,8 @@
           />
           <q-input
             class="col-6 col-sm-3"
-            filled dense
+            filled
+            dense
             v-model="local.icao"
             :label="t('airports.icao')"
             maxlength="5"
@@ -28,7 +32,8 @@
           />
           <q-input
             class="col-6 col-sm-3"
-            filled dense
+            filled
+            dense
             type="number"
             v-model.number="local.elevation"
             :label="t('airports.elevation')"
@@ -39,9 +44,17 @@
         <!-- Runways -->
         <div>
           <div class="row items-center q-mb-sm">
-            <span class="text-subtitle1 text-weight-medium">{{ t('airports.runways') }}</span>
+            <span class="text-subtitle1 text-weight-medium">{{
+              t('airports.runways')
+            }}</span>
             <q-space />
-            <q-btn size="sm" outline icon="add" :label="t('airports.add_runway')" @click="addRunway" />
+            <q-btn
+              size="sm"
+              outline
+              icon="add"
+              :label="t('airports.add_runway')"
+              @click="addRunway"
+            />
           </div>
 
           <!-- Fixed schematic diagram explaining TORA/TODA/LDA/ASDA -->
@@ -54,31 +67,59 @@
                   <th class="text-left">{{ t('airports.runway_name') }}</th>
                   <th class="text-center">
                     {{ t('airports.qfu') }}
-                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                    <q-icon
+                      name="help"
+                      size="xs"
+                      class="q-ml-xs cursor-pointer"
+                    >
                       <q-tooltip>{{ t('airports.qfu_help') }}</q-tooltip>
                     </q-icon>
                   </th>
                   <th class="text-right">
-                    {{ t('airports.tora') }}<br><span class="text-caption">(ft)</span>
-                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                    {{ t('airports.tora') }}<br /><span class="text-caption"
+                      >(ft)</span
+                    >
+                    <q-icon
+                      name="help"
+                      size="xs"
+                      class="q-ml-xs cursor-pointer"
+                    >
                       <q-tooltip>{{ t('airports.tora_help') }}</q-tooltip>
                     </q-icon>
                   </th>
                   <th class="text-right">
-                    {{ t('airports.toda') }}<br><span class="text-caption">(ft)</span>
-                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                    {{ t('airports.toda') }}<br /><span class="text-caption"
+                      >(ft)</span
+                    >
+                    <q-icon
+                      name="help"
+                      size="xs"
+                      class="q-ml-xs cursor-pointer"
+                    >
                       <q-tooltip>{{ t('airports.toda_help') }}</q-tooltip>
                     </q-icon>
                   </th>
                   <th class="text-right">
-                    {{ t('airports.lda') }}<br><span class="text-caption">(ft)</span>
-                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                    {{ t('airports.lda') }}<br /><span class="text-caption"
+                      >(ft)</span
+                    >
+                    <q-icon
+                      name="help"
+                      size="xs"
+                      class="q-ml-xs cursor-pointer"
+                    >
                       <q-tooltip>{{ t('airports.lda_help') }}</q-tooltip>
                     </q-icon>
                   </th>
                   <th class="text-right">
-                    {{ t('airports.asda') }}<br><span class="text-caption">(ft)</span>
-                    <q-icon name="help" size="xs" class="q-ml-xs cursor-pointer">
+                    {{ t('airports.asda') }}<br /><span class="text-caption"
+                      >(ft)</span
+                    >
+                    <q-icon
+                      name="help"
+                      size="xs"
+                      class="q-ml-xs cursor-pointer"
+                    >
                       <q-tooltip>{{ t('airports.asda_help') }}</q-tooltip>
                     </q-icon>
                   </th>
@@ -89,24 +130,81 @@
                 <tr v-for="(rwy, i) in local.runways" :key="i">
                   <td>
                     <q-input
-                      borderless dense
+                      borderless
+                      dense
                       v-model="rwy.designator"
                       :placeholder="rwyName(rwy.qfu)"
-                      style="width:70px"
+                      style="width: 70px"
                       maxlength="4"
                     />
                   </td>
-                  <td><q-input borderless dense type="number" v-model.number="rwy.qfu" style="width:60px" input-class="text-right" /></td>
-                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.tora" style="width:75px" input-class="text-right" @blur="onToraBlur(rwy)" /></td>
-                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.toda" style="width:75px" input-class="text-right" /></td>
-                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.lda" style="width:75px" input-class="text-right" /></td>
-                  <td class="text-right"><q-input borderless dense type="number" v-model.number="rwy.asda" style="width:75px" input-class="text-right" /></td>
+                  <td>
+                    <q-input
+                      borderless
+                      dense
+                      type="number"
+                      v-model.number="rwy.qfu"
+                      style="width: 60px"
+                      input-class="text-right"
+                    />
+                  </td>
+                  <td class="text-right">
+                    <q-input
+                      borderless
+                      dense
+                      type="number"
+                      v-model.number="rwy.tora"
+                      style="width: 75px"
+                      input-class="text-right"
+                      @blur="onToraBlur(rwy)"
+                    />
+                  </td>
+                  <td class="text-right">
+                    <q-input
+                      borderless
+                      dense
+                      type="number"
+                      v-model.number="rwy.toda"
+                      style="width: 75px"
+                      input-class="text-right"
+                    />
+                  </td>
+                  <td class="text-right">
+                    <q-input
+                      borderless
+                      dense
+                      type="number"
+                      v-model.number="rwy.lda"
+                      style="width: 75px"
+                      input-class="text-right"
+                    />
+                  </td>
+                  <td class="text-right">
+                    <q-input
+                      borderless
+                      dense
+                      type="number"
+                      v-model.number="rwy.asda"
+                      style="width: 75px"
+                      input-class="text-right"
+                    />
+                  </td>
                   <td class="text-center">
-                    <q-btn flat round dense icon="delete" color="negative" size="xs" @click="removeRunway(i)" />
+                    <q-btn
+                      flat
+                      round
+                      dense
+                      icon="delete"
+                      color="negative"
+                      size="xs"
+                      @click="removeRunway(i)"
+                    />
                   </td>
                 </tr>
                 <tr v-if="local.runways.length === 0">
-                  <td colspan="7" class="text-center text-grey q-pa-sm">{{ t('airports.empty_runways') }}</td>
+                  <td colspan="7" class="text-center text-grey q-pa-sm">
+                    {{ t('airports.empty_runways') }}
+                  </td>
                 </tr>
               </tbody>
             </q-markup-table>
@@ -174,7 +272,7 @@ function addRunway() {
 function onToraBlur(rwy: ReturnType<typeof emptyRunway>) {
   if (!rwy.toda) rwy.toda = rwy.tora;
   if (!rwy.asda) rwy.asda = rwy.tora;
-  if (!rwy.lda)  rwy.lda  = rwy.tora;
+  if (!rwy.lda) rwy.lda = rwy.tora;
 }
 
 function removeRunway(index: number) {
@@ -183,7 +281,10 @@ function removeRunway(index: number) {
 
 function onSubmit() {
   if (!local.value.name.trim()) return;
-  emit('save', { ...local.value, runways: local.value.runways.map((r) => ({ ...r })) });
+  emit('save', {
+    ...local.value,
+    runways: local.value.runways.map((r) => ({ ...r })),
+  });
   emit('update:modelValue', false);
 }
 </script>

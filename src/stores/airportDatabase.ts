@@ -54,7 +54,10 @@ export const useAirportDatabaseStore = defineStore('airportDatabase', {
     importFromJson(data: SavedAirport[]): number {
       for (const airport of data) {
         const idx = this.airports.findIndex(
-          (a) => a.icao && airport.icao && a.icao.toUpperCase() === airport.icao.toUpperCase(),
+          (a) =>
+            a.icao &&
+            airport.icao &&
+            a.icao.toUpperCase() === airport.icao.toUpperCase(),
         );
         if (idx !== -1) {
           this.airports[idx] = { ...airport };
