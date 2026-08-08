@@ -4,8 +4,22 @@
     "icao": "URKA",
     "elevation": 174,
     "runways": [
-      { "qfu": 50,  "designator": "05",  "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 },
-      { "qfu": 230, "designator": "23",  "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 }
+      {
+        "qfu": 50,
+        "designator": "05",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      },
+      {
+        "qfu": 230,
+        "designator": "23",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      }
     ]
   },
   {
@@ -13,8 +27,22 @@
     "icao": "UGSB",
     "elevation": 37,
     "runways": [
-      { "qfu": 130, "designator": "13", "tora": 7874, "toda": 7874, "lda": 7874, "asda": 7874 },
-      { "qfu": 310, "designator": "31", "tora": 7874, "toda": 7874, "lda": 7874, "asda": 7874 }
+      {
+        "qfu": 130,
+        "designator": "13",
+        "tora": 7874,
+        "toda": 7874,
+        "lda": 7874,
+        "asda": 7874
+      },
+      {
+        "qfu": 310,
+        "designator": "31",
+        "tora": 7874,
+        "toda": 7874,
+        "lda": 7874,
+        "asda": 7874
+      }
     ]
   },
   {
@@ -22,8 +50,22 @@
     "icao": "URMO",
     "elevation": 1719,
     "runways": [
-      { "qfu": 100, "designator": "10", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 },
-      { "qfu": 280, "designator": "28", "tora": 13123, "toda": 13123, "lda": 13123, "asda": 13123 }
+      {
+        "qfu": 100,
+        "designator": "10",
+        "tora": 13123,
+        "toda": 13123,
+        "lda": 13123,
+        "asda": 13123
+      },
+      {
+        "qfu": 280,
+        "designator": "28",
+        "tora": 13123,
+        "toda": 13123,
+        "lda": 13123,
+        "asda": 13123
+      }
     ]
   },
   {
@@ -31,8 +73,22 @@
     "icao": "URKG",
     "elevation": 98,
     "runways": [
-      { "qfu": 150, "designator": "15", "tora": 6562, "toda": 6562, "lda": 6562, "asda": 6562 },
-      { "qfu": 330, "designator": "33", "tora": 6562, "toda": 6562, "lda": 6562, "asda": 6562 }
+      {
+        "qfu": 150,
+        "designator": "15",
+        "tora": 6562,
+        "toda": 6562,
+        "lda": 6562,
+        "asda": 6562
+      },
+      {
+        "qfu": 330,
+        "designator": "33",
+        "tora": 6562,
+        "toda": 6562,
+        "lda": 6562,
+        "asda": 6562
+      }
     ]
   },
   {
@@ -40,8 +96,22 @@
     "icao": "UGKG",
     "elevation": 68,
     "runways": [
-      { "qfu": 150, "designator": "15", "tora": 9514, "toda": 9514, "lda": 9514, "asda": 9514 },
-      { "qfu": 330, "designator": "33", "tora": 9514, "toda": 9514, "lda": 9514, "asda": 9514 }
+      {
+        "qfu": 150,
+        "designator": "15",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      },
+      {
+        "qfu": 330,
+        "designator": "33",
+        "tora": 9514,
+        "toda": 9514,
+        "lda": 9514,
+        "asda": 9514
+      }
     ]
   },
   {
@@ -49,8 +119,22 @@
     "icao": "UGKO",
     "elevation": 59,
     "runways": [
-      { "qfu": 70,  "designator": "07", "tora": 7546, "toda": 7546, "lda": 7546, "asda": 7546 },
-      { "qfu": 250, "designator": "25", "tora": 7546, "toda": 7546, "lda": 7546, "asda": 7546 }
+      {
+        "qfu": 70,
+        "designator": "07",
+        "tora": 7546,
+        "toda": 7546,
+        "lda": 7546,
+        "asda": 7546
+      },
+      {
+        "qfu": 250,
+        "designator": "25",
+        "tora": 7546,
+        "toda": 7546,
+        "lda": 7546,
+        "asda": 7546
+      }
     ]
   },
   {
@@ -58,8 +142,22 @@
     "icao": "URKK",
     "elevation": 98,
     "runways": [
-      { "qfu": 90,  "designator": "09", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 },
-      { "qfu": 270, "designator": "27", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 }
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      }
     ]
   },
   {
@@ -67,8 +165,22 @@
     "icao": "URKK",
     "elevation": 111,
     "runways": [
-      { "qfu": 50,  "designator": "05", "tora": 10171, "toda": 10171, "lda": 10171, "asda": 10171 },
-      { "qfu": 230, "designator": "23", "tora": 10171, "toda": 10171, "lda": 10171, "asda": 10171 }
+      {
+        "qfu": 50,
+        "designator": "05",
+        "tora": 10171,
+        "toda": 10171,
+        "lda": 10171,
+        "asda": 10171
+      },
+      {
+        "qfu": 230,
+        "designator": "23",
+        "tora": 10171,
+        "toda": 10171,
+        "lda": 10171,
+        "asda": 10171
+      }
     ]
   },
   {
@@ -76,8 +188,22 @@
     "icao": "URKW",
     "elevation": 65,
     "runways": [
-      { "qfu": 40,  "designator": "04", "tora": 8366, "toda": 8366, "lda": 8366, "asda": 8366 },
-      { "qfu": 220, "designator": "22", "tora": 8366, "toda": 8366, "lda": 8366, "asda": 8366 }
+      {
+        "qfu": 40,
+        "designator": "04",
+        "tora": 8366,
+        "toda": 8366,
+        "lda": 8366,
+        "asda": 8366
+      },
+      {
+        "qfu": 220,
+        "designator": "22",
+        "tora": 8366,
+        "toda": 8366,
+        "lda": 8366,
+        "asda": 8366
+      }
     ]
   },
   {
@@ -85,8 +211,22 @@
     "icao": "UGKO",
     "elevation": 223,
     "runways": [
-      { "qfu": 80,  "designator": "08", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 },
-      { "qfu": 260, "designator": "26", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 }
+      {
+        "qfu": 80,
+        "designator": "08",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 260,
+        "designator": "26",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
     ]
   },
   {
@@ -94,8 +234,22 @@
     "icao": "URKH",
     "elevation": 591,
     "runways": [
-      { "qfu": 40,  "designator": "04", "tora": 8366, "toda": 8366, "lda": 8366, "asda": 8366 },
-      { "qfu": 220, "designator": "22", "tora": 8366, "toda": 8366, "lda": 8366, "asda": 8366 }
+      {
+        "qfu": 40,
+        "designator": "04",
+        "tora": 8366,
+        "toda": 8366,
+        "lda": 8366,
+        "asda": 8366
+      },
+      {
+        "qfu": 220,
+        "designator": "22",
+        "tora": 8366,
+        "toda": 8366,
+        "lda": 8366,
+        "asda": 8366
+      }
     ]
   },
   {
@@ -103,8 +257,22 @@
     "icao": "URMM",
     "elevation": 1053,
     "runways": [
-      { "qfu": 120, "designator": "12", "tora": 12139, "toda": 12139, "lda": 12139, "asda": 12139 },
-      { "qfu": 300, "designator": "30", "tora": 12139, "toda": 12139, "lda": 12139, "asda": 12139 }
+      {
+        "qfu": 120,
+        "designator": "12",
+        "tora": 12139,
+        "toda": 12139,
+        "lda": 12139,
+        "asda": 12139
+      },
+      {
+        "qfu": 300,
+        "designator": "30",
+        "tora": 12139,
+        "toda": 12139,
+        "lda": 12139,
+        "asda": 12139
+      }
     ]
   },
   {
@@ -112,8 +280,22 @@
     "icao": "URMO",
     "elevation": 507,
     "runways": [
-      { "qfu": 80,  "designator": "08", "tora": 9186, "toda": 9186, "lda": 9186, "asda": 9186 },
-      { "qfu": 260, "designator": "26", "tora": 9186, "toda": 9186, "lda": 9186, "asda": 9186 }
+      {
+        "qfu": 80,
+        "designator": "08",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      },
+      {
+        "qfu": 260,
+        "designator": "26",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      }
     ]
   },
   {
@@ -121,8 +303,22 @@
     "icao": "URMN",
     "elevation": 1411,
     "runways": [
-      { "qfu": 60,  "designator": "06", "tora": 8366, "toda": 8366, "lda": 8366, "asda": 8366 },
-      { "qfu": 240, "designator": "24", "tora": 8366, "toda": 8366, "lda": 8366, "asda": 8366 }
+      {
+        "qfu": 60,
+        "designator": "06",
+        "tora": 8366,
+        "toda": 8366,
+        "lda": 8366,
+        "asda": 8366
+      },
+      {
+        "qfu": 240,
+        "designator": "24",
+        "tora": 8366,
+        "toda": 8366,
+        "lda": 8366,
+        "asda": 8366
+      }
     ]
   },
   {
@@ -130,8 +326,22 @@
     "icao": "URKN",
     "elevation": 131,
     "runways": [
-      { "qfu": 40,  "designator": "04", "tora": 6562, "toda": 6562, "lda": 6562, "asda": 6562 },
-      { "qfu": 220, "designator": "22", "tora": 6562, "toda": 6562, "lda": 6562, "asda": 6562 }
+      {
+        "qfu": 40,
+        "designator": "04",
+        "tora": 6562,
+        "toda": 6562,
+        "lda": 6562,
+        "asda": 6562
+      },
+      {
+        "qfu": 220,
+        "designator": "22",
+        "tora": 6562,
+        "toda": 6562,
+        "lda": 6562,
+        "asda": 6562
+      }
     ]
   },
   {
@@ -139,8 +349,22 @@
     "icao": "UGKS",
     "elevation": 42,
     "runways": [
-      { "qfu": 90,  "designator": "09", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 },
-      { "qfu": 270, "designator": "27", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 }
+      {
+        "qfu": 90,
+        "designator": "09",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      },
+      {
+        "qfu": 270,
+        "designator": "27",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      }
     ]
   },
   {
@@ -148,8 +372,22 @@
     "icao": "URSS",
     "elevation": 98,
     "runways": [
-      { "qfu": 60,  "designator": "06", "tora": 9186, "toda": 9186, "lda": 9186, "asda": 9186 },
-      { "qfu": 240, "designator": "24", "tora": 9186, "toda": 9186, "lda": 9186, "asda": 9186 }
+      {
+        "qfu": 60,
+        "designator": "06",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      },
+      {
+        "qfu": 240,
+        "designator": "24",
+        "tora": 9186,
+        "toda": 9186,
+        "lda": 9186,
+        "asda": 9186
+      }
     ]
   },
   {
@@ -157,8 +395,22 @@
     "icao": "UGSS",
     "elevation": 1519,
     "runways": [
-      { "qfu": 130, "designator": "13", "tora": 5905, "toda": 5905, "lda": 5905, "asda": 5905 },
-      { "qfu": 310, "designator": "31", "tora": 5905, "toda": 5905, "lda": 5905, "asda": 5905 }
+      {
+        "qfu": 130,
+        "designator": "13",
+        "tora": 5905,
+        "toda": 5905,
+        "lda": 5905,
+        "asda": 5905
+      },
+      {
+        "qfu": 310,
+        "designator": "31",
+        "tora": 5905,
+        "toda": 5905,
+        "lda": 5905,
+        "asda": 5905
+      }
     ]
   },
   {
@@ -166,8 +418,22 @@
     "icao": "UGSS",
     "elevation": 65,
     "runways": [
-      { "qfu": 130, "designator": "13", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 },
-      { "qfu": 310, "designator": "31", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 }
+      {
+        "qfu": 130,
+        "designator": "13",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 310,
+        "designator": "31",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      }
     ]
   },
   {
@@ -175,10 +441,38 @@
     "icao": "UGTB",
     "elevation": 1555,
     "runways": [
-      { "qfu": 130, "designator": "13R", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 },
-      { "qfu": 310, "designator": "31L", "tora": 9843, "toda": 9843, "lda": 9843, "asda": 9843 },
-      { "qfu": 130, "designator": "13L", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 },
-      { "qfu": 310, "designator": "31R", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 }
+      {
+        "qfu": 130,
+        "designator": "13R",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 310,
+        "designator": "31L",
+        "tora": 9843,
+        "toda": 9843,
+        "lda": 9843,
+        "asda": 9843
+      },
+      {
+        "qfu": 130,
+        "designator": "13L",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      },
+      {
+        "qfu": 310,
+        "designator": "31R",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      }
     ]
   },
   {
@@ -186,8 +480,22 @@
     "icao": "UGVZ",
     "elevation": 1523,
     "runways": [
-      { "qfu": 130, "designator": "13", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 },
-      { "qfu": 310, "designator": "31", "tora": 8202, "toda": 8202, "lda": 8202, "asda": 8202 }
+      {
+        "qfu": 130,
+        "designator": "13",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      },
+      {
+        "qfu": 310,
+        "designator": "31",
+        "tora": 8202,
+        "toda": 8202,
+        "lda": 8202,
+        "asda": 8202
+      }
     ]
   }
 ]
