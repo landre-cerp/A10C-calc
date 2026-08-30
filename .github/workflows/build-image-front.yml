@@ -50,3 +50,19 @@ jobs:
         run: |
           docker login ${{ secrets.SCW_REGISTRY}} -u nologin --password-stdin <<< ${{ secrets.SCW_SECRET_KEY}}
           docker push ${{ secrets.SCW_REGISTRY}}/a10cfront:${{env.GITHUB_TAG}}
+
+      # Redéploiement du conteneur serverless existant sur l'image fraîchement
+      # poussée. Changer l'image déclenche à lui seul le redéploiement.
+      # ID du conteneur, région, projet et org viennent des secrets SCW_*.
+      - name: Install Scaleway CLI
+        run: curl -fsSL https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
+
+      - name: Deploy to Serverless Container
+        env:
+          SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
+          SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
+          SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
+          SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+          SCW_DEFAULT_REGION: ${{ secrets.SCW_DEFAULT_REGION }}
+        run: |
+          scw container container update "${{ secrets.SCW_CONTAINER_ID }}" image="${{ secrets.SCW_REGISTRY }}/a10cfront:${{ env.GITHUB_TAG }}"
