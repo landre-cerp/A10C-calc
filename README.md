@@ -72,7 +72,7 @@ It helps pilots plan their missions with relatively accurate weight and balance,
 
 ### Prerequisites
 
-- Node.js (v20, v21, or v22)
+- Node.js (v22.22+, v24, or v26)
 - npm (>= 6.13.4) or yarn (>= 1.21.1)
 
 ### Installation
