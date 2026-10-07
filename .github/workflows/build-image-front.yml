@@ -55,7 +55,13 @@ jobs:
       # poussée. Changer l'image déclenche à lui seul le redéploiement.
       # ID du conteneur, région, projet et org viennent des secrets SCW_*.
       - name: Install Scaleway CLI
-        run: curl -fsSL https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
+        env:
+          SCW_CLI_VERSION: 2.64.0
+        run: |
+          sudo curl -fsSL -o /usr/local/bin/scw \
+            "https://github.com/scaleway/scaleway-cli/releases/download/v${SCW_CLI_VERSION}/scaleway-cli_${SCW_CLI_VERSION}_linux_amd64"
+          sudo chmod +x /usr/local/bin/scw
+          scw version
 
       - name: Deploy to Serverless Container
         env:
