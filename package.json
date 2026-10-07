@@ -47,7 +47,7 @@
     "@electron/packager": "^20.0.0",
     "@eslint/js": "^10.0.1",
     "@quasar/app-vite": "^3.10.1",
-    "@quasar/cli": "^3.0.0",
+    "@quasar/cli": "^5.0.9",
     "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/git": "^11.0.1",
     "@types/node": "^25.6.0",
