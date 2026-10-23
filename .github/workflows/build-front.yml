@@ -25,7 +25,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: '**/package-lock.json'
           always-auth: true
-          node-version: '22.x'
+          node-version: '22.23.4'
 
       - name: Install dependencies
         run: |
