@@ -54,7 +54,7 @@
     "autoprefixer": "^10.4.22",
     "electron": "^43.8.1",
     "esbuild": "^0.28.0",
-    "eslint": "^10.2.0",
+    "eslint": "^10.13.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.8.0",
     "git-cz": "^4.9.0",
