@@ -50,7 +50,7 @@
     "@quasar/cli": "^5.0.9",
     "@types/node": "^25.6.0",
     "@typescript-eslint/eslint-plugin": "^8.58.2",
-    "@typescript-eslint/parser": "^8.68.0",
+    "@typescript-eslint/parser": "^8.72.1",
     "autoprefixer": "^10.4.22",
     "electron": "^43.8.1",
     "esbuild": "^0.28.0",
